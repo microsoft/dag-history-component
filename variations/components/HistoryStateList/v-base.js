@@ -9,17 +9,17 @@ module.exports = {
         "isContinuationSelected": true
       },
       {
-        "label": "Added Search Criteria",
+        "label": "Added Time Filter",
         "branchType": "current",
         "numContinuations": 2
       },
       {
-        "label": "Added Search Criteria",
+        "label": "Set Probox to 2",
         "branchType": "legacy",
         "numContinuations": 12
       },
       {
-        "label": "Added Search Criteria",
+        "label": "Enable Hydrospanner",
         "branchType": "legacy",
         "numContinuations": 12
       }
