@@ -2,7 +2,7 @@ module.exports = {
   "name": "Current Branch - Active",
   "props": {
     "label": "Added Search Criteria",
-    "type": "current",
+    "branchType": "current",
     "active": true,
     "numContinuations": null,
     "isContinuationSelected": true

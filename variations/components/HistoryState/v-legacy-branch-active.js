@@ -2,7 +2,7 @@ module.exports = {
   "name": "Legacy Branch - Active",
   "props": {
     "label": "Added Search Criteria",
-    "type": "legacy",
+    "branchType": "legacy",
     "active": true,
     "numContinuations": 1,
     "isContinuationSelected": true

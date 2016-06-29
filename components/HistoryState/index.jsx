@@ -15,12 +15,12 @@ const coloring = {
 };
 const HistoryState = ({
   label,
-  type,
+  branchType,
   active,
   numContinuations,
   isContinuationSelected,
 }) => {
-  const backgroundColor = coloring[type][active ? 'active' : 'nonactive'];
+  const backgroundColor = coloring[branchType][active ? 'active' : 'nonactive'];
   return (
     <div className="history-state" style={{ backgroundColor }}>
       <Continuation numContinuations={numContinuations} isSelected={isContinuationSelected} />
@@ -31,7 +31,7 @@ const HistoryState = ({
 
 HistoryState.propTypes = {
   label: PropTypes.string.required,
-  type: PropTypes.oneOf(['current', 'legacy']).required,
+  branchType: PropTypes.oneOf(['current', 'legacy']).required,
   active: PropTypes.bool,
   numContinuations: PropTypes.number,
   isContinuationSelected: PropTypes.bool,
