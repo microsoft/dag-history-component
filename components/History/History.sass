@@ -1,0 +1,57 @@
+.history-view
+  flex: 1
+  display: flex
+  flex-direction: column
+
+.history-item-container
+  flex: 1
+  display: flex
+  flex-direction: column
+  align-items: stretch
+  margin-left: 1px
+
+.history-item
+  border-top: 1px solid #D6DBDF
+  cursor: pointer
+  padding: 5px
+
+.history-item-past
+  @extend .history-item
+  background-color: #5D6D7E
+  color: #D0D3D4
+
+.history-item-present
+  @extend .history-item
+  background-color: #F9E79F
+  color: black
+
+.history-item-future
+  @extend .history-item
+  background-color: #E6B0AA
+  color: black
+
+.history-view-controls
+  display: flex
+  flex-direction: row
+  justify-content: space-around
+
+.history-select-branch
+  font-weight: bold
+  -webkit-appearance: none
+  -moz-appearance: none
+  border: none
+  padding: 3 !important
+  background: none !important
+  margin-left: 3
+  border: none !important
+
+.history-view-branch-label
+  font-weight: 400
+
+.add-branch-icon
+  height: 24
+  width: 24
+
+.new-branch-input
+  padding: 3 !important
+  width: 100%
