@@ -1,7 +1,9 @@
 import History from './History';
-import HistoryState from './HistoryState';
+import State from './State';
+import StateList from './StateList';
 
 module.exports = {
   History,
-  HistoryState,
+  State,
+  StateList,
 };

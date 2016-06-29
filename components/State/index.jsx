@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Continuation from '../Continuation';
 
-require('./HistoryState.sass');
+require('./State.sass');
 
 const coloring = {
   current: {
@@ -13,7 +13,7 @@ const coloring = {
     nonactive: '#E3E3E3',
   },
 };
-const HistoryState = ({
+const State = ({
   label,
   branchType,
   active,
@@ -29,7 +29,7 @@ const HistoryState = ({
   );
 };
 
-HistoryState.propTypes = {
+State.propTypes = {
   label: PropTypes.string.required,
   branchType: PropTypes.oneOf(['current', 'legacy']).required,
   active: PropTypes.bool,
@@ -37,4 +37,4 @@ HistoryState.propTypes = {
   isContinuationSelected: PropTypes.bool,
 };
 
-export default HistoryState;
+export default State;
