@@ -4,19 +4,13 @@
   align-items: center
   cursor: pointer
   border-top: 1px solid #ffffff
+  &:not(:hover)
+    border-right: 3px solid transparent
+  &:hover
+    border-right: 3px solid #ff9933
 
 .history-state-label
   font-family: sans-serif
   margin-left: 5px
   padding-left: 3px
   padding-right: 3px
-
-.history-state-continuations
-  font-size: 8pt
-  font-weight: bold
-  text-align: center
-  border: 2px solid grey
-  padding: 1px
-  height: 14px
-  width: 14px
-  border-radius: 10px
