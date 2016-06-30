@@ -10,10 +10,17 @@ const Branch = ({
   startsAt,
   endsAt,
   maxDepth,
+  activeStateIndex,
 }) => (
   <div className="history-branch">
     <div className="history-branch-profile-container">
-      <BranchProfile start={startsAt} end={endsAt} max={maxDepth} type={branchType} />
+      <BranchProfile
+        start={startsAt}
+        end={endsAt}
+        max={maxDepth}
+        type={branchType}
+        activeStateIndex={activeStateIndex}
+      />
     </div>
     <div className="branch-details">
       <ItemInfo continuation={continuation} label={label} />
@@ -23,6 +30,7 @@ const Branch = ({
 
 Branch.propTypes = {
   label: PropTypes.string.isRequired,
+  activeStateIndex: PropTypes.number,
   continuation: PropTypes.shape({
     numContinuations: PropTypes.number.isRequired,
     isSelected: PropTypes.bool.isRequired,

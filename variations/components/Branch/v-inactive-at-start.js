@@ -3,8 +3,8 @@ module.exports = {
   "props": {
     "label": "My Branch",
     "continuation": {
-      "numContinuations": 3,
-      "isSelected": false,      
+      "numContinuations": 2,
+      "isSelected": true
     },
     "startsAt": 10,
     "endsAt": 20,

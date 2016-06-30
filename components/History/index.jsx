@@ -1,3 +1,5 @@
+// TODO: This file is legacy. Think about what to do with it.
+
 require('debug').enable('*');
 const log = require('debug')('HistoryVisual:components:History');
 import * as React from 'react';
