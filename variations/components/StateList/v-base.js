@@ -3,25 +3,37 @@ module.exports = {
   "props": {
     "states": [
       {
+        "id": "0",
         "label": "Added Search Criteria",
         "branchType": "current",
         "active": true,
-        "isContinuationSelected": true
+        continuation: {
+          "isSelected": true,
+        }
       },
       {
+        "id": "1",
         "label": "Added Time Filter",
         "branchType": "current",
-        "numContinuations": 2
+        continuation: {
+          "numContinuations": 2
+        }
       },
       {
+        "id": "2",
         "label": "Set Probox to 2",
         "branchType": "legacy",
-        "numContinuations": 12
+        continuation: {
+          "numContinuations": 12
+        }
       },
       {
+        "id": "3",
         "label": "Enable Hydrospanner",
         "branchType": "legacy",
-        "numContinuations": 12
+        continuation: {
+          "numContinuations": 12
+        }
       }
     ]
   }

@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
-import Continuation from '../Continuation';
-
+import ItemInfo from '../ItemInfo';
 require('./State.sass');
 
 const coloring = {
@@ -17,24 +16,24 @@ const State = ({
   label,
   branchType,
   active,
-  numContinuations,
-  isContinuationSelected,
+  continuation,
 }) => {
   const backgroundColor = coloring[branchType][active ? 'active' : 'nonactive'];
   return (
     <div className="history-state" style={{ backgroundColor }}>
-      <Continuation numContinuations={numContinuations} isSelected={isContinuationSelected} />
-      <span className="history-state-label">{label}</span>
+      <ItemInfo label={label} continuation={continuation} />
     </div>
   );
 };
 
 State.propTypes = {
-  label: PropTypes.string.required,
-  branchType: PropTypes.oneOf(['current', 'legacy']).required,
+  label: PropTypes.string.isRequired,
   active: PropTypes.bool,
-  numContinuations: PropTypes.number,
-  isContinuationSelected: PropTypes.bool,
+  branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
+  continuation: PropTypes.shape({
+    numContinuations: PropTypes.number,
+    isSelected: PropTypes.bool,
+  }).isRequired,
 };
 
 export default State;

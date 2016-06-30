@@ -4,7 +4,7 @@ module.exports = {
     "start": 0,
     "endsAt": 10,
     "maxLength": 20,
-    "branchType": "legacy",
+    "type": "legacy",
     "end": 10
   }
 };

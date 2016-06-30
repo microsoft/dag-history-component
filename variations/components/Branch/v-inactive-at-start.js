@@ -2,10 +2,12 @@ module.exports = {
   "name": "Inactive at Start",
   "props": {
     "label": "My Branch",
-    "numContinuations": 3,
-    "isContinuationSelected": false,
-    "startsAt": 0,
-    "endsAt": 10,
+    "continuation": {
+      "numContinuations": 3,
+      "isSelected": false,      
+    },
+    "startsAt": 10,
+    "endsAt": 20,
     "maxDepth": 30,
     "branchType": "legacy"
   }

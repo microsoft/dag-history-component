@@ -4,7 +4,9 @@ module.exports = {
     "label": "Added Search Criteria",
     "branchType": "current",
     "active": true,
-    "numContinuations": null,
-    "isContinuationSelected": true
+    "continuation": {
+      "isSelected": true,
+      "numContinuations": 4
+    }
   }
 };

@@ -4,6 +4,6 @@ module.exports = {
     "start": 3,
     "end": 7,
     "maxLength": 12,
-    "branchType": "legacy"
+    "type": "legacy"
   }
 };
