@@ -4,12 +4,13 @@ require('./StateList.sass');
 
 const StateList = ({
   states,
+  activeStateId,
 }) => {
   const stateViews = states.map(s => (
     <State
       key={`state:${s.id}`}
       label={s.label}
-      active={s.active}
+      active={s.id === activeStateId}
       branchType={s.branchType}
       continuation={s.continuation}
     />
@@ -22,10 +23,10 @@ const StateList = ({
 };
 
 StateList.propTypes = {
+  activeStateId: PropTypes.string.isRequired,
   states: PropTypes.arrayOf(React.PropTypes.shape({
     label: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    active: PropTypes.bool,
     branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
     continuation: PropTypes.shape({
       numContinuations: PropTypes.number,

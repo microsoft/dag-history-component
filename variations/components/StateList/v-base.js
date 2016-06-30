@@ -1,12 +1,12 @@
 module.exports = {
   "name": "Base",
   "props": {
+    "activeStateId": "0",
     "states": [
       {
         "id": "0",
         "label": "Added Search Criteria",
         "branchType": "current",
-        "active": true,
         continuation: {
           "isSelected": true,
         }

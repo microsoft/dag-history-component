@@ -1,10 +1,11 @@
 module.exports = {
-  "name": "Basic",
+  "name": "2/3 Selected",
   "props": {
     "start": 0,
     "endsAt": 10,
-    "maxLength": 10,
+    "max": 2,
     "type": "current",
-    "end": 10
+    "end": 2,
+    "activeStateIndex": 1
   }
 };

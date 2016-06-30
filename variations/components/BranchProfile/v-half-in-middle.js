@@ -3,7 +3,8 @@ module.exports = {
   "props": {
     "start": 3,
     "end": 7,
-    "maxLength": 12,
-    "type": "legacy"
+    "max": 12,
+    "type": "legacy",
+    "activeStateIndex": 4
   }
 };

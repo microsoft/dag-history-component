@@ -1,10 +1,11 @@
 module.exports = {
-  "name": "Half Length",
+  "name": "First Half",
   "props": {
     "start": 0,
     "endsAt": 10,
-    "maxLength": 20,
+    "max": 20,
     "type": "legacy",
-    "end": 10
+    "end": 10,
+    "activeStateIndex": 10
   }
 };

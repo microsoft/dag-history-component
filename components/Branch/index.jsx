@@ -13,7 +13,7 @@ const Branch = ({
 }) => (
   <div className="history-branch">
     <div className="history-branch-profile-container">
-      <BranchProfile start={startsAt} end={endsAt} maxLength={maxDepth} type={branchType} />
+      <BranchProfile start={startsAt} end={endsAt} max={maxDepth} type={branchType} />
     </div>
     <div className="branch-details">
       <ItemInfo continuation={continuation} label={label} />
