@@ -12,16 +12,24 @@ const coloring = {
     nonactive: '#E3E3E3',
   },
 };
+const DO_NOTHING = () => ({});
+
 const State = ({
   label,
   branchType,
   active,
   continuation,
+  onClick,
+  onContinuationClick,
 }) => {
   const backgroundColor = coloring[branchType][active ? 'active' : 'nonactive'];
   return (
-    <div className="history-state" style={{ backgroundColor }}>
-      <ItemInfo label={label} continuation={continuation} />
+    <div className="history-state" style={{ backgroundColor }} onClick={onClick || DO_NOTHING}>
+      <ItemInfo
+        label={label}
+        continuation={continuation}
+        onContinuationClick={onContinuationClick || DO_NOTHING}
+      />
     </div>
   );
 };
@@ -34,6 +42,8 @@ State.propTypes = {
     numContinuations: PropTypes.number,
     isSelected: PropTypes.bool,
   }).isRequired,
+  onClick: PropTypes.func,
+  onContinuationClick: PropTypes.func,
 };
 
 export default State;

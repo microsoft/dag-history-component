@@ -10,6 +10,6 @@ module.exports = {
     "endsAt": 10,
     "maxDepth": 12,
     "branchType": "current",
-    "activeStateIndex": "7"
+    "activeStateIndex": 7
   }
 };

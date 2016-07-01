@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import BranchProfile from '../BranchProfile';
 import ItemInfo from '../ItemInfo';
 require('./Branch.sass');
+const DO_NOTHING = () => ({});
 
 const Branch = ({
   label,
@@ -11,8 +12,10 @@ const Branch = ({
   endsAt,
   maxDepth,
   activeStateIndex,
+  onClick,
+  onContinuationClick,
 }) => (
-  <div className="history-branch">
+  <div className="history-branch" onClick={onClick || DO_NOTHING}>
     <div className="history-branch-profile-container">
       <BranchProfile
         start={startsAt}
@@ -23,7 +26,11 @@ const Branch = ({
       />
     </div>
     <div className="branch-details">
-      <ItemInfo continuation={continuation} label={label} />
+      <ItemInfo
+        continuation={continuation}
+        label={label}
+        onContinuationClick={onContinuationClick || DO_NOTHING}
+      />
     </div>
   </div>
 );
@@ -39,6 +46,8 @@ Branch.propTypes = {
   endsAt: PropTypes.number.isRequired,
   maxDepth: PropTypes.number.isRequired,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
+  onClick: PropTypes.func,
+  onContinuationClick: PropTypes.func,
 };
 
 export default Branch;

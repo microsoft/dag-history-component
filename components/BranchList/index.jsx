@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react';
 import Branch from '../Branch';
+const DO_NOTHING = () => ({});
 
 const BranchList = ({
   branches,
+  onBranchClick,
+  onBranchContinuationClick,
 }) => {
   const branchViews = branches.map(s => (
     <Branch
@@ -14,6 +17,8 @@ const BranchList = ({
       endsAt={s.endsAt}
       maxDepth={s.maxDepth}
       branchType={s.branchType}
+      onClick={(onBranchClick || DO_NOTHING)(s.id)}
+      onContinuationClick={(onBranchContinuationClick || DO_NOTHING)(s.id)}
     />
   ));
   return (
@@ -25,7 +30,10 @@ const BranchList = ({
 
 BranchList.propTypes = {
   activeBranch: PropTypes.string.isRequired,
+  onBranchClick: PropTypes.func,
+  onBranchContinuationClick: PropTypes.func,
   branches: PropTypes.arrayOf(React.PropTypes.shape({
+    id: PropTypes.number.isRequired,
     label: PropTypes.string.isRequired,
     activeStateIndex: PropTypes.number,
     continuation: PropTypes.shape({
