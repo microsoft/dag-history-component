@@ -8,7 +8,7 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client',
     'webpack/hot/only-dev-server',
-    path.join(__dirname, './components/index.js'),
+    path.join(__dirname, './src/index.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist/'),
@@ -25,7 +25,7 @@ module.exports = {
       glob: 'scripts/**/*.s(a|c)ss',
     }),
     new CarteBlanche({
-      componentRoot: './components',
+      componentRoot: './src',
     }),
   ],
   module: {
