@@ -16,8 +16,8 @@ const StateList = ({
       active={s.id === activeStateId}
       branchType={s.branchType}
       continuation={s.continuation}
-      onClick={(onStateClick || DO_NOTHING)(s.id)}
-      onContinuationClick={(onStateContinuationClick || DO_NOTHING)(s.id)}
+      onClick={() => (onStateClick || DO_NOTHING)(s.id)}
+      onContinuationClick={() => (onStateContinuationClick || DO_NOTHING)(s.id)}
     />
   ));
   return (

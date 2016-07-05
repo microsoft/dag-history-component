@@ -1,10 +1,15 @@
+$white: #fff
+$highlight: #f93
+
 .history-state
-  padding: 4px
-  display: flex
   align-items: center
+  border-top: 1px solid $white
   cursor: pointer
-  border-top: 1px solid #ffffff
+  display: flex
+  padding: 4px
+
   &:not(:hover)
     border-right: 3px solid transparent
+
   &:hover
-    border-right: 3px solid #ff9933
+    border-right: 3px solid $highlight

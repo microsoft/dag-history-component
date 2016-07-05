@@ -8,7 +8,7 @@ const DO_NOTHING = () => ({});
 function getContinuationText(numContinuations) {
   const saneNumContinuations = Math.abs(numContinuations);
   let result;
-  if (saneNumContinuations === 0) {
+  if (saneNumContinuations <= 1) {
     result = '';
   } else if (saneNumContinuations < 99) {
     result = `${saneNumContinuations}`;
