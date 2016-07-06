@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Branch from '../Branch';
 const DO_NOTHING = () => ({});
+require('./BranchList.sass');
 
 const BranchList = ({
   branches,
@@ -9,7 +10,7 @@ const BranchList = ({
 }) => {
   const branchViews = branches.map(s => (
     <Branch
-      key={`branch:${s.label}`}
+      key={`branch:${s.id}`}
       label={s.label}
       activeStateIndex={s.activeStateIndex}
       continuation={s.continuation}
@@ -29,7 +30,7 @@ const BranchList = ({
 };
 
 BranchList.propTypes = {
-  activeBranch: PropTypes.string.isRequired,
+  activeBranch: PropTypes.number.isRequired,
   onBranchClick: PropTypes.func,
   onBranchContinuationClick: PropTypes.func,
   branches: PropTypes.arrayOf(React.PropTypes.shape({
@@ -44,7 +45,7 @@ BranchList.propTypes = {
     endsAt: PropTypes.number.isRequired,
     maxDepth: PropTypes.number.isRequired,
     branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
-  })),
+  })).isRequired,
 };
 
 export default BranchList;

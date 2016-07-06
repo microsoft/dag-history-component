@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "babel-node server",
-    "test": "gulp"
+    "test": "gulp",
+    "watch": "gulp watch",
+    "develop": "npm-run-all --parallel start watch"
   },
   "author": "Chris Trevino <chris.trevino@atsid.com>",
   "license": "ISC",
@@ -36,6 +38,7 @@
     "gulp-sass-lint": "^1.2.0",
     "gulp-util": "^3.0.7",
     "node-sass": "^3.8.0",
+    "npm-run-all": "^2.3.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-hot-loader": "^1.3.0",

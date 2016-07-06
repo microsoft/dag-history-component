@@ -1,3 +1,5 @@
+const log = require('debug')('dag-history-component:components:Branch');
+
 import React, { PropTypes } from 'react';
 import BranchProfile from '../BranchProfile';
 import ItemInfo from '../ItemInfo';
@@ -14,26 +16,29 @@ const Branch = ({
   activeStateIndex,
   onClick,
   onContinuationClick,
-}) => (
-  <div className="history-branch" onClick={onClick || DO_NOTHING}>
-    <div className="history-branch-profile-container">
-      <BranchProfile
-        start={startsAt}
-        end={endsAt}
-        max={maxDepth}
-        type={branchType}
-        activeStateIndex={activeStateIndex}
-      />
+}) => {
+  log('render branch %s', label);
+  return (
+    <div className="history-branch" onClick={onClick || DO_NOTHING}>
+      <div className="history-branch-profile-container">
+        <BranchProfile
+          start={startsAt}
+          end={endsAt}
+          max={maxDepth}
+          type={branchType}
+          activeStateIndex={activeStateIndex}
+        />
+      </div>
+      <div className="branch-details">
+        <ItemInfo
+          continuation={continuation}
+          label={label}
+          onContinuationClick={onContinuationClick || DO_NOTHING}
+        />
+      </div>
     </div>
-    <div className="branch-details">
-      <ItemInfo
-        continuation={continuation}
-        label={label}
-        onContinuationClick={onContinuationClick || DO_NOTHING}
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 Branch.propTypes = {
   label: PropTypes.string.isRequired,

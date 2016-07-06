@@ -28,10 +28,10 @@ const StateList = ({
 };
 
 StateList.propTypes = {
-  activeStateId: PropTypes.string.isRequired,
+  activeStateId: PropTypes.number.isRequired,
   states: PropTypes.arrayOf(React.PropTypes.shape({
     label: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
     continuation: PropTypes.shape({
       numContinuations: PropTypes.number,
