@@ -7,3 +7,4 @@ gulpfile.babel.js
 .babelrc
 server.js
 .npmignore
+*~
