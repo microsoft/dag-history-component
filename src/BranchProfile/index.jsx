@@ -21,18 +21,22 @@ function activeInfoSpans(start, end, type, activeStateIndex) {
   const spanLength = end - start + 1;
 
   if (!activeStateIndex && activeStateIndex !== 0) {
+    // Case 1 No activeStateIndex
     result = [infoSpanStyle(branchColor(type), spanLength)];
   } else if (activeStateIndex === start) {
+    // Case 2: activeStateIndex is at beginning
     result = [
       infoSpanStyle(activeBranchColor(type), 1),
-      infoSpanStyle(branchColor(type), spanLength - 1),
+      infoSpanStyle(branchColor('legacy'), spanLength - 1),
     ];
   } else if (activeStateIndex === end) {
+    // Case 3: activeStateIndex is at end
     result = [
       infoSpanStyle(branchColor(type), spanLength - 1),
       infoSpanStyle(activeBranchColor(type), 1),
     ];
   } else {
+    // Case 4: activeStateIndex is in the middle
     result = [
       infoSpanStyle(branchColor(type), activeStateIndex - start),
       infoSpanStyle(activeBranchColor(type), 1),

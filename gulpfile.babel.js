@@ -25,6 +25,8 @@ gulp.task('lint:sass', () => (
     .pipe(sassLint.failOnError())
 ));
 
+gulp.task('copy:sass', () => gulp.src(paths.sass).pipe(gulp.dest(DEST)));
+
 gulp.task('sass', () => (
   gulp.src(paths.sassRoot)
       .pipe(sass())
@@ -41,11 +43,12 @@ gulp.task('babel', () => (
 
 gulp.task('watch', ['default'], () => {
   gulp.watch(paths.js, ['lint:js', 'babel']).on('error', gutil.log);
-  gulp.watch(paths.sass, ['lint:sass', 'sass']).on('error', gutil.log);
+  gulp.watch(paths.sass, ['lint:sass', 'sass', 'copy:sass']).on('error', gutil.log);
 });
 
 gulp.task('default', [
   'babel',
   'lint',
+  'copy:sass',
   'sass',
 ]);

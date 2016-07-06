@@ -21,9 +21,11 @@ const History = ({
   const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
   const commitPath = historyGraph.commitPath(latestCommitOnBranch);
 
-  const stateList = commitPath.reverse().map(id => {
+  const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
+
+  const stateList = commitPath.map((id, index) => {
     const label = historyGraph.stateName(id);
-    const branchType = 'current';  // TODO: figure out how to distinguish between current/legacy,
+    const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
     return {
       id,
       label,
@@ -33,13 +35,13 @@ const History = ({
         isSelected: false,
       },
     };
-  });
+  }).reverse();
 
   const branchList = branches.map(branch => {
     const activeStateIndex = historyGraph.depthIndexOf(branch, currentStateId);
     const startsAt = historyGraph.branchStartDepth(branch);
     const endsAt = historyGraph.branchEndDepth(branch);
-    const branchType = 'current';  // TODO: figure out how to distinguish between current/legacy,
+    const branchType = currentBranch === branch ? 'current' : 'legacy';
     const label = historyGraph.getBranchName(branch);
     return {
       id: branch,
