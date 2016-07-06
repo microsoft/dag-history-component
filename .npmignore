@@ -1,0 +1,9 @@
+node_modules/
+src/
+variations/
+webpack.conf.js
+gulpfile.babel.js
+.eslintrc
+.babelrc
+server.js
+.npmignore
