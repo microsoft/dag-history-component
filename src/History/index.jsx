@@ -61,14 +61,6 @@ const History = ({
   const onStateContinuationClick = (id) => log('state continuation clicked!', id);
   const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
 
-  log('render history',
-    currentBranch,
-    currentStateId,
-    stateList,
-    branchList,
-    history
-  );
-
   return (
     <div className="history-container">
       <div className="state-list-container">
