@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 import Continuation from '../Continuation';
-require('./ItemInfo.sass');
-
 const DO_NOTHING = () => ({});
 
 const ItemInfo = ({

@@ -5,8 +5,6 @@ import React, { PropTypes } from 'react';
 import StateList from '../StateList';
 import BranchList from '../BranchList';
 
-require('./History.sass');
-
 const History = ({
   history,
   onBranchSelect,

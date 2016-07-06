@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
-require('./State.sass');
 
 const coloring = {
   current: {

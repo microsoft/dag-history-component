@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import State from '../State';
-require('./StateList.sass');
 const DO_NOTHING = () => ({});
 
 const StateList = ({

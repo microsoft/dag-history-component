@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-require('./BranchProfile.sass');
-
 const NA_COLOR = 'transparent';
 const branchColor = (type) => type === 'current' ? '#B3E4F5' : '#E3E3E3'; // eslint-disable-line
 const activeBranchColor = (type) => type === 'current' ? '#4DD2FF' : '#BFBFBF'; // eslint-disable-line

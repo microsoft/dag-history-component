@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-require('./Continuation.sass');
-
 const SELECTED_COLOR = '#5DFA48';
 const NOT_SELECTED_COLOR = 'white';
 const DO_NOTHING = () => ({});
