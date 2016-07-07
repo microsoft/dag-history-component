@@ -1,4 +1,3 @@
-// TODO: This file is legacy. Think about what to do with it.
 const log = require('debug')('dag-history-component:components:History');
 import DagGraph from 'redux-dag-history/lib/DagGraph';
 import React, { PropTypes } from 'react';
@@ -20,8 +19,18 @@ const History = ({
   } = historyGraph;
   const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
   const commitPath = historyGraph.commitPath(latestCommitOnBranch);
-
   const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
+
+  // Determine what branches are on the commit path
+  const branchPaths = {};
+  const branchPath = commitPath.map(commit => historyGraph.branchOf(commit));
+  branchPath.forEach((branch, index) => {
+    if (branchPaths[branch]) {
+      branchPaths[branch].end = index;
+    } else {
+      branchPaths[branch] = { start: index, end: index };
+    }
+  });
 
   const stateList = commitPath.map((id, index) => {
     const label = historyGraph.stateName(id);
@@ -32,7 +41,7 @@ const History = ({
       branchType,
       continuation: {
         numContinuations: historyGraph.childrenOf(id).length,
-        isSelected: false,
+        isSelected: currentStateId === id,
       },
     };
   }).reverse();
@@ -43,18 +52,25 @@ const History = ({
     const endsAt = historyGraph.branchEndDepth(branch);
     const branchType = currentBranch === branch ? 'current' : 'legacy';
     const label = historyGraph.getBranchName(branch);
+
+    // Figure out where this branch intersects the commit path
+    const myBranchPath = branchPaths[branch];
+    const currentBranchStart = myBranchPath ? myBranchPath.start : null;
+    const currentBranchEnd = myBranchPath ? myBranchPath.end : null;
     return {
       id: branch,
       label,
       activeStateIndex,
       continuation: {
         numContinuations: 0, // TODO
-        isSelected: false,
+        isSelected: currentBranch === branch,
       },
       startsAt,
       endsAt,
       maxDepth,
       branchType,
+      currentBranchStart,
+      currentBranchEnd,
     };
   }).reverse();
 

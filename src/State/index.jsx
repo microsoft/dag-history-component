@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
-
+import { colors } from '../palette';
 const coloring = {
   current: {
-    active: '#4DD2FF',
-    nonactive: '#B3E4F5',
+    active: colors.CURRENT_ACTIVE,
+    nonactive: colors.CURRENT,
   },
   legacy: {
-    active: '#BFBFBF',
-    nonactive: '#E3E3E3',
+    active: colors.LEGACY_ACTIVE,
+    nonactive: colors.ANCESTOR,
   },
 };
 const DO_NOTHING = () => ({});

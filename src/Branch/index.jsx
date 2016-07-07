@@ -11,6 +11,8 @@ const Branch = ({
   branchType,
   startsAt,
   endsAt,
+  currentBranchStart,
+  currentBranchEnd,
   maxDepth,
   activeStateIndex,
   onClick,
@@ -24,6 +26,8 @@ const Branch = ({
           start={startsAt}
           end={endsAt}
           max={maxDepth}
+          currentBranchStart={currentBranchStart}
+          currentBranchEnd={currentBranchEnd}
           type={branchType}
           activeStateIndex={activeStateIndex}
         />
@@ -49,6 +53,8 @@ Branch.propTypes = {
   startsAt: PropTypes.number.isRequired,
   endsAt: PropTypes.number.isRequired,
   maxDepth: PropTypes.number.isRequired,
+  currentBranchStart: PropTypes.number.isRequired,
+  currentBranchEnd: PropTypes.number.isRequired,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
