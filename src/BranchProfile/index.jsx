@@ -30,15 +30,25 @@ function infoSpanStyle(backgroundColor, flex) {
 
 function activeInfoSpans(start, end, currentBranchStart, currentBranchEnd, type, activeStateIndex) {
   let result;
-  if (!activeStateIndex && activeStateIndex !== 0) {
+  const isActiveStatePresent = !activeStateIndex && activeStateIndex !== 0;
+
+  if (isActiveStatePresent) {
     // Case 1 No activeStateIndex
-    const ancestorLength = (currentBranchEnd || end) - (currentBranchStart || start) + 1;
     const totalLength = end - start + 1;
-    const unrelatedLength = totalLength - ancestorLength;
-    result = [
-      infoSpanStyle(branchColor(type, 'pre'), ancestorLength),
-      infoSpanStyle(branchColor(type, 'post'), unrelatedLength),
-    ];
+    const isCurrentBranchInProfile = currentBranchEnd !== null && currentBranchEnd !== undefined;
+
+    // 1.1 - Split the track into ancestral/unrelated blocks
+    if (isCurrentBranchInProfile) {
+      const ancestorLength = (currentBranchEnd || end) - (currentBranchStart || start) + 1;
+      const unrelatedLength = totalLength - ancestorLength;
+      result = [
+        infoSpanStyle(branchColor(type, 'pre'), ancestorLength),
+        infoSpanStyle(branchColor(type, 'post'), unrelatedLength),
+      ];
+    } else {
+      // 1.2 - Entire block is unrelated
+      result = [infoSpanStyle(branchColor(type, 'post'), totalLength)];
+    }
   } else {
     const afterActiveLength = end - activeStateIndex;
     const unrelatedLength = end - (currentBranchEnd || activeStateIndex);
