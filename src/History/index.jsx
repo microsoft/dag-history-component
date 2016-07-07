@@ -56,7 +56,7 @@ const History = ({
       maxDepth,
       branchType,
     };
-  });
+  }).reverse();
 
   const onStateContinuationClick = (id) => log('state continuation clicked!', id);
   const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
