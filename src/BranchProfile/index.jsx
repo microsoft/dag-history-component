@@ -1,4 +1,3 @@
-const log = require('debug')('dag-history-component:components:BranchProfile');
 import React, { PropTypes } from 'react';
 import { colors } from '../palette';
 
