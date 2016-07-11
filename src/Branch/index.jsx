@@ -18,7 +18,6 @@ const Branch = ({
   onClick,
   onContinuationClick,
 }) => {
-  log('render branch %s', label);
   return (
     <div className="history-branch" onClick={onClick || DO_NOTHING}>
       <div className="history-branch-profile-container">
@@ -53,8 +52,8 @@ Branch.propTypes = {
   startsAt: PropTypes.number.isRequired,
   endsAt: PropTypes.number.isRequired,
   maxDepth: PropTypes.number.isRequired,
-  currentBranchStart: PropTypes.number.isRequired,
-  currentBranchEnd: PropTypes.number.isRequired,
+  currentBranchStart: PropTypes.number,
+  currentBranchEnd: PropTypes.number,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,

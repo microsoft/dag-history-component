@@ -94,8 +94,8 @@ const BranchProfile = ({
 BranchProfile.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
-  currentBranchStart: PropTypes.number.isRequired,
-  currentBranchEnd: PropTypes.number.isRequired,
+  currentBranchStart: PropTypes.number,
+  currentBranchEnd: PropTypes.number,
   max: PropTypes.number.isRequired,
   activeStateIndex: PropTypes.number,
   type: PropTypes.oneOf(['current', 'legacy']).isRequired,

@@ -17,7 +17,7 @@ const BranchList = ({
       endsAt={s.endsAt}
       maxDepth={s.maxDepth}
       branchType={s.branchType}
-      currentBranchStart={s.currentBanchStart}
+      currentBranchStart={s.currentBranchStart}
       currentBranchEnd={s.currentBranchEnd}
       onClick={() => (onBranchClick || DO_NOTHING)(s.id)}
       onContinuationClick={() => (onBranchContinuationClick || DO_NOTHING)(s.id)}
