@@ -4,14 +4,6 @@ import Continuation from '../Continuation';
 
 const DO_NOTHING = () => ({});
 
-function itemLabelClasses(active) {
-  const result = ['label'];
-  if (active) {
-    result.push('active');
-  }
-  return result;
-}
-
 const ItemInfo = ({
   continuation,
   label,

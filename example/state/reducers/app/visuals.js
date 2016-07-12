@@ -4,7 +4,7 @@ import * as _ from "lodash";
 
 const INITIAL_STATE = {
   value: 0,
-  color: "#FF",
+  color: "#FF0000",
 };
 
 export default function reduce(state = INITIAL_STATE, action) {

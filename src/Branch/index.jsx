@@ -1,5 +1,3 @@
-const log = require('debug')('dag-history-component:components:Branch');
-
 import React, { PropTypes } from 'react';
 import BranchProfile from '../BranchProfile';
 import ItemInfo from '../ItemInfo';
