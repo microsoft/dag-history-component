@@ -6,11 +6,11 @@ import BranchList from '../BranchList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const DO_NOTHING = () => ({});
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
 const {
     jumpToState,
     jumpToBranch,
+    load,
 } = DagHistoryActions;
 
 function getStateList(historyGraph, commitPath) {
@@ -82,8 +82,8 @@ function getBranchList(historyGraph, commitPath) {
 
 const ControlBar = ({ onSaveClick, onLoadClick }) => (
   <div className="history-control-bar">
-    <button onClick={onSaveClick || DO_NOTHING}>Save</button>
-    <button onClick={onLoadClick || DO_NOTHING}>Load</button>
+    <button onClick={onSaveClick}>Save</button>
+    <button onClick={onLoadClick}>Load</button>
   </div>
 );
 ControlBar.propTypes = {
@@ -95,25 +95,58 @@ const History = ({
   history,
   onBranchSelect,
   onStateSelect,
-  onSaveClick,
-  onLoadClick,
+  onLoad,
+  onSaveHistory,
+  onLoadHistory,
   showControlBar,
 }) => {
   const historyGraph = new DagGraph(history.graph);
-
-  const {
-    currentBranch,
-    currentStateId,
-  } = historyGraph;
+  const { currentBranch, currentStateId } = historyGraph;
   const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
   const commitPath = historyGraph.commitPath(latestCommitOnBranch);
 
   const onStateContinuationClick = (id) => log('state continuation clicked!', id);
   const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
 
+  const onSave = () => {
+    const {
+      current,
+      lastBranchId,
+      lastStateId,
+      graph,
+    } = history;
+    // Pass the plain history up to the client
+    onSaveHistory({
+      current,
+      lastBranchId,
+      lastStateId, graph: graph.toJS(),
+    });
+  };
+
+  const onLoadClicked = () => {
+    log('loading history');
+    if (!onLoadHistory) {
+      throw new Error("Cannot load history, 'onLoadHistory' must be defined");
+    }
+    Promise.resolve(onLoadHistory()).then(state => {
+      if (!state) {
+        throw new Error("'onLoadHistory' must return either a state graph object or a promise that resolves to a state graph object"); // eslint-disable-line
+      }
+      onLoad(state);
+    });
+    onLoadHistory();
+  };
+
   return (
     <div className="history-container">
-      {showControlBar ? <ControlBar onSaveClick={onSaveClick} onLoadClick={onLoadClick} /> : null}
+      {
+        showControlBar ?
+          <ControlBar
+            onSaveClick={onSave}
+            onLoadClick={onLoadClicked}
+          /> :
+          null
+      }
       <div className="state-list-container">
         <StateList
           activeStateId={currentStateId}
@@ -141,19 +174,21 @@ History.propTypes = {
   history: PropTypes.object.isRequired,
 
   /**
-   * User Interaction Handlers
+   * User Interaction Handlers - loaded by redux
    */
   onBranchSelect: PropTypes.func,
   onStateSelect: PropTypes.func,
+  onLoad: PropTypes.func,
 
   showControlBar: PropTypes.bool,
-  onSaveClick: PropTypes.func,
-  onLoadClick: PropTypes.func,
+  onSaveHistory: PropTypes.func,
+  onLoadHistory: PropTypes.func,
 };
 export default connect(
   () => ({}),
   dispatch => bindActionCreators({
     onStateSelect: jumpToState,
     onBranchSelect: jumpToBranch,
+    onLoad: load,
   }, dispatch)
 )(History);

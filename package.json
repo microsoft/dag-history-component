@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot --inline --history-api-fallback --publicPath /example",
     "babel": "babel src --out-dir lib",
-    "lint": "esw src example --color",
+    "lint": "esw 'src/**/*.{js,jsx}' 'example/**/*.{js,jsx}' --color",
     "sass": "node-sass src/daghistory.sass --output lib",
     "copysass": "cpx 'src/**/*.{sass,scss}' lib",
     "test": "npm-run-all lint --parallel babel sass copysass",
