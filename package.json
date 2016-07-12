@@ -30,6 +30,7 @@
     "carte-blanche": "^0.2.3",
     "carte-blanche-react-plugin": "^0.2.2",
     "carte-blanche-source-plugin": "^0.1.0",
+    "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",

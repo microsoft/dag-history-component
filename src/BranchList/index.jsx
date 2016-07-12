@@ -3,6 +3,7 @@ import Branch from '../Branch';
 const DO_NOTHING = () => ({});
 
 const BranchList = ({
+  activeBranch,
   branches,
   onBranchClick,
   onBranchContinuationClick,
@@ -21,6 +22,7 @@ const BranchList = ({
       currentBranchEnd={s.currentBranchEnd}
       onClick={() => (onBranchClick || DO_NOTHING)(s.id)}
       onContinuationClick={() => (onBranchContinuationClick || DO_NOTHING)(s.id)}
+      active={activeBranch === s.id}
     />
   ));
   return (

@@ -1,12 +1,23 @@
 import React, { PropTypes } from 'react';
+const classnames = require('classnames');
 import Continuation from '../Continuation';
+
 const DO_NOTHING = () => ({});
+
+function itemLabelClasses(active) {
+  const result = ['label'];
+  if (active) {
+    result.push('active');
+  }
+  return result;
+}
 
 const ItemInfo = ({
   continuation,
   label,
   onClick,
   onContinuationClick,
+  active,
 }) => (
   <div className="history-item-info" onClick={onClick || DO_NOTHING}>
     <Continuation
@@ -14,7 +25,7 @@ const ItemInfo = ({
       isSelected={continuation.isSelected}
       onClick={onContinuationClick || DO_NOTHING}
     />
-    <span className="label">{label}</span>
+    <span className={classnames('label', { active })}>{label}</span>
   </div>
 );
 
@@ -26,6 +37,7 @@ ItemInfo.propTypes = {
   }).isRequired,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
+  active: PropTypes.bool,
 };
 
 export default ItemInfo;

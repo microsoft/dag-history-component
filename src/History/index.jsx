@@ -46,7 +46,7 @@ const History = ({
     };
   }).reverse();
 
-  const branchList = branches.map(branch => {
+  const branchList = branches.sort((a, b) => a - b).reverse().map(branch => {
     const activeStateIndex = historyGraph.depthIndexOf(branch, currentStateId);
     const startsAt = historyGraph.branchStartDepth(branch);
     const endsAt = historyGraph.branchEndDepth(branch);
@@ -72,7 +72,7 @@ const History = ({
       currentBranchStart,
       currentBranchEnd,
     };
-  }).reverse();
+  });
 
   const onStateContinuationClick = (id) => log('state continuation clicked!', id);
   const onBranchContinuationClick = (id) => log('branch continuation clicked', id);

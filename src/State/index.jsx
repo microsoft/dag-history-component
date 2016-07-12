@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
 import { colors } from '../palette';
+
 const coloring = {
   current: {
     active: colors.CURRENT_ACTIVE,
@@ -28,6 +29,7 @@ const State = ({
         label={label}
         continuation={continuation}
         onContinuationClick={onContinuationClick || DO_NOTHING}
+        active={active}
       />
     </div>
   );

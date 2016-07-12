@@ -17,30 +17,30 @@ const Branch = ({
   activeStateIndex,
   onClick,
   onContinuationClick,
-}) => {
-  return (
-    <div className="history-branch" onClick={onClick || DO_NOTHING}>
-      <div className="history-branch-profile-container">
-        <BranchProfile
-          start={startsAt}
-          end={endsAt}
-          max={maxDepth}
-          currentBranchStart={currentBranchStart}
-          currentBranchEnd={currentBranchEnd}
-          type={branchType}
-          activeStateIndex={activeStateIndex}
-        />
-      </div>
-      <div className="branch-details">
-        <ItemInfo
-          continuation={continuation}
-          label={label}
-          onContinuationClick={onContinuationClick || DO_NOTHING}
-        />
-      </div>
+  active,
+}) => (
+  <div className="history-branch" onClick={onClick || DO_NOTHING}>
+    <div className="history-branch-profile-container">
+      <BranchProfile
+        start={startsAt}
+        end={endsAt}
+        max={maxDepth}
+        currentBranchStart={currentBranchStart}
+        currentBranchEnd={currentBranchEnd}
+        type={branchType}
+        activeStateIndex={activeStateIndex}
+      />
     </div>
-  );
-};
+    <div className="branch-details">
+      <ItemInfo
+        continuation={continuation}
+        label={label}
+        onContinuationClick={onContinuationClick || DO_NOTHING}
+        active={active}
+      />
+    </div>
+  </div>
+);
 
 Branch.propTypes = {
   label: PropTypes.string.isRequired,
@@ -57,6 +57,7 @@ Branch.propTypes = {
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
+  active: PropTypes.bool,
 };
 
 export default Branch;
