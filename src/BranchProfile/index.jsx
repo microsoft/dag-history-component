@@ -74,7 +74,7 @@ const BranchProfile = ({
 }) => {
   const infoSpans = [
     // state depths that occur before this branch was created
-    infoSpanStyle(colors.NONE, start),
+    infoSpanStyle(colors.UNRELATED, start),
 
     // the colored spans for this branch
     ...activeInfoSpans(start, end, currentBranchStart, currentBranchEnd, type, activeStateIndex),
