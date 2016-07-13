@@ -11,6 +11,7 @@ const {
     jumpToState,
     jumpToBranch,
     load,
+    clear,
 } = DagHistoryActions;
 
 function getStateList(historyGraph, commitPath) {
@@ -80,15 +81,21 @@ function getBranchList(historyGraph, commitPath) {
   });
 }
 
-const ControlBar = ({ onSaveClick, onLoadClick }) => (
+const ControlBar = ({
+  onSaveClick,
+  onLoadClick,
+  onClearClick,
+}) => (
   <div className="history-control-bar">
     <button onClick={onSaveClick}>Save</button>
     <button onClick={onLoadClick}>Load</button>
+    <button onClick={onClearClick}>Clear</button>
   </div>
 );
 ControlBar.propTypes = {
   onSaveClick: PropTypes.func.isRequired,
   onLoadClick: PropTypes.func.isRequired,
+  onClearClick: PropTypes.func.isRequired,
 };
 
 const History = ({
@@ -98,6 +105,8 @@ const History = ({
   onLoad,
   onSaveHistory,
   onLoadHistory,
+  onClear,
+  onConfirmClear,
   showControlBar,
 }) => {
   const historyGraph = new DagGraph(history.graph);
@@ -108,7 +117,7 @@ const History = ({
   const onStateContinuationClick = (id) => log('state continuation clicked!', id);
   const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
 
-  const onSave = () => {
+  const onSaveClicked = () => {
     const {
       current,
       lastBranchId,
@@ -137,13 +146,25 @@ const History = ({
     onLoadHistory();
   };
 
+  const onClearClicked = () => {
+    log('clearing history');
+    const doConfirm = onConfirmClear || (() => true);
+    return Promise.resolve(doConfirm())
+    .then(clearConfirmed => {
+      if (clearConfirmed) {
+        onClear();
+      }
+    });
+  };
+
   return (
     <div className="history-container">
       {
         showControlBar ?
           <ControlBar
-            onSaveClick={onSave}
+            onSaveClick={onSaveClicked}
             onLoadClick={onLoadClicked}
+            onClearClick={onClearClicked}
           /> :
           null
       }
@@ -179,16 +200,19 @@ History.propTypes = {
   onBranchSelect: PropTypes.func,
   onStateSelect: PropTypes.func,
   onLoad: PropTypes.func,
+  onClear: PropTypes.func,
 
   showControlBar: PropTypes.bool,
   onSaveHistory: PropTypes.func,
   onLoadHistory: PropTypes.func,
+  onConfirmClear: PropTypes.func,
 };
 export default connect(
   () => ({}),
   dispatch => bindActionCreators({
     onStateSelect: jumpToState,
     onBranchSelect: jumpToBranch,
+    onClear: clear,
     onLoad: load,
   }, dispatch)
 )(History);
