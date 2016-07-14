@@ -8,7 +8,7 @@ export const EXCLUDED_ACTION_NAMES = [
 ];
 
 const rootReducer = dagHistory(app, {
-  debug: false,
+  debug: true,
   actionName: state => state.metadata.name,
   actionFilter: actionType => EXCLUDED_ACTION_NAMES.indexOf(actionType) === -1,
 });

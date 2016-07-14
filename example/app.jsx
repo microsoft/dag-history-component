@@ -11,7 +11,7 @@ debug.enable('*,-sockjs*');
 ReactDOM.render(
   <Provider store={store}>
     <div style={{ display: 'flex', flexDirection: 'row', flex: 1 }}>
-      <div style={{ display: 'flex', flex: 2, flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flex: 3, flexDirection: 'column' }}>
         <VisualA />
         <VisualB />
       </div>

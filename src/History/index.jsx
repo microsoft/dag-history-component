@@ -5,8 +5,9 @@ import StateList from '../StateList';
 import BranchList from '../BranchList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import OptionDropdown from "../OptionDropdown";
+
 const {
     jumpToState,
     jumpToBranch,
@@ -81,33 +82,27 @@ function getBranchList(historyGraph, commitPath) {
   });
 }
 
-const ControlBar = ({
-  onSaveClick,
-  onLoadClick,
-  onClearClick,
-}) => (
-  <div className="history-control-bar">
-    <button onClick={onSaveClick}>Save</button>
-    <button onClick={onLoadClick}>Load</button>
-    <button onClick={onClearClick}>Clear</button>
-  </div>
-);
-ControlBar.propTypes = {
-  onSaveClick: PropTypes.func.isRequired,
-  onLoadClick: PropTypes.func.isRequired,
-  onClearClick: PropTypes.func.isRequired,
-};
-
 const History = ({
   history,
+
+  // Redux-Connected Props
   onBranchSelect,
   onStateSelect,
   onLoad,
-  onSaveHistory,
-  onLoadHistory,
   onClear,
-  onConfirmClear,
-  showControlBar,
+
+  // Control Bar Config
+  controlBar: {
+    onSaveHistory,
+    onLoadHistory,
+    onConfirmClear,
+    show: showControlBar,
+  },
+
+  // Bookmarks Config
+  bookmarks: {
+    show: showBookmarks,
+  },
 }) => {
   const historyGraph = new DagGraph(history.graph);
   const { currentBranch, currentStateId } = historyGraph;
@@ -118,12 +113,7 @@ const History = ({
   const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
 
   const onSaveClicked = () => {
-    const {
-      current,
-      lastBranchId,
-      lastStateId,
-      graph,
-    } = history;
+    const { current, lastBranchId, lastStateId, graph } = history;
     // Pass the plain history up to the client
     onSaveHistory({
       current,
@@ -149,34 +139,37 @@ const History = ({
   const onClearClicked = () => {
     log('clearing history');
     const doConfirm = onConfirmClear || (() => true);
-    return Promise.resolve(doConfirm())
-    .then(clearConfirmed => {
-      if (clearConfirmed) {
-        onClear();
-      }
-    });
+    return Promise.resolve(doConfirm()).then(confirmed => confirmed && onClear());
   };
 
   return (
     <div className="history-container">
-      {
-        showControlBar ?
-          <ControlBar
-            onSaveClick={onSaveClicked}
-            onLoadClick={onLoadClicked}
-            onClearClick={onClearClicked}
-          /> :
-          null
-      }
+      <div className="history-control-bar">
+        <span className="title">History</span>
+        {
+          <OptionDropdown
+            options={showControlBar ? [
+              { label: 'Save', onClick: onSaveClicked },
+              { label: 'Load', onClick: onLoadClicked },
+              { label: 'Clear', onClick: onClearClicked },
+            ] : []}
+          />
+        }
+      </div>
       <div className="state-list-container">
         <StateList
           activeStateId={currentStateId}
           states={getStateList(historyGraph, commitPath)}
           onStateClick={onStateSelect}
           onStateContinuationClick={onStateContinuationClick}
+          renderBookmarks={showBookmarks}
         />
       </div>
       <div className="branch-list-container">
+        <div className="history-control-bar">
+          <span className="title">Branches</span>
+          <OptionDropdown options={[]} />
+        </div>
         <BranchList
           activeBranch={currentBranch}
           branches={getBranchList(historyGraph, commitPath)}
@@ -202,10 +195,36 @@ History.propTypes = {
   onLoad: PropTypes.func,
   onClear: PropTypes.func,
 
-  showControlBar: PropTypes.bool,
-  onSaveHistory: PropTypes.func,
-  onLoadHistory: PropTypes.func,
-  onConfirmClear: PropTypes.func,
+  /**
+   * ControlBar Configuration Properties
+   */
+  controlBar: PropTypes.shape({
+    /**
+     * Whether or not to show the control bar
+     */
+    show: PropTypes.bool,
+    /**
+     * A handler to save the history tree out. This is handled by clients.
+     */
+    onSaveHistory: PropTypes.func,
+
+    /**
+     * A handler to retrieve the history tree. This is handled by clients
+     */
+    onLoadHistory: PropTypes.func,
+
+    /**
+     * A function that emits a Promise<boolean> that confirms the clear-history operation.
+     */
+    onConfirmClear: PropTypes.func,
+  }),
+
+  /**
+   * Bookbark Configuration Properties
+   */
+  bookmarks: PropTypes.shape({
+    show: PropTypes.bool,
+  }),
 };
 export default connect(
   () => ({}),

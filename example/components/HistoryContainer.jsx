@@ -25,10 +25,15 @@ function loadHistory() {
 
 const HistoryContainer = ({ historyRoot }) => (
   <History
-    showControlBar
     history={historyRoot}
-    onSaveHistory={saveHistory}
-    onLoadHistory={loadHistory}
+    controlBar={{
+      show: true,
+      onSaveHistory: saveHistory,
+      onLoadHistory: loadHistory,
+    }}
+    bookmarks={{
+      show: true,
+    }}
   />
 );
 HistoryContainer.propTypes = {

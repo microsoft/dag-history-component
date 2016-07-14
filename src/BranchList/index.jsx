@@ -10,16 +10,8 @@ const BranchList = ({
 }) => {
   const branchViews = branches.map(s => (
     <Branch
+      {...s}
       key={`branch:${s.id}`}
-      label={s.label}
-      activeStateIndex={s.activeStateIndex}
-      continuation={s.continuation}
-      startsAt={s.startsAt}
-      endsAt={s.endsAt}
-      maxDepth={s.maxDepth}
-      branchType={s.branchType}
-      currentBranchStart={s.currentBranchStart}
-      currentBranchEnd={s.currentBranchEnd}
       onClick={() => (onBranchClick || DO_NOTHING)(s.id)}
       onContinuationClick={() => (onBranchContinuationClick || DO_NOTHING)(s.id)}
       active={activeBranch === s.id}

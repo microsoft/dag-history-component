@@ -7,14 +7,14 @@ const StateList = ({
   activeStateId,
   onStateClick,
   onStateContinuationClick,
+  renderBookmarks,
 }) => {
   const stateViews = states.map(s => (
     <State
+      {...s}
+      {...{ renderBookmarks }}
       key={`state:${s.id}`}
-      label={s.label}
       active={s.id === activeStateId}
-      branchType={s.branchType}
-      continuation={s.continuation}
       onClick={() => (onStateClick || DO_NOTHING)(s.id)}
       onContinuationClick={() => (onStateContinuationClick || DO_NOTHING)(s.id)}
     />
@@ -32,11 +32,13 @@ StateList.propTypes = {
     label: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
+    bookmarked: PropTypes.bool,
     continuation: PropTypes.shape({
       numContinuations: PropTypes.number,
       isSelected: PropTypes.bool,
     }).isRequired,
   })),
+  renderBookmarks: PropTypes.bool,
   onStateClick: PropTypes.func,
   onStateContinuationClick: PropTypes.func,
 };
