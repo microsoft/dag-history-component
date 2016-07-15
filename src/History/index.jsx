@@ -149,10 +149,14 @@ const History = ({
   return (
     <div className="history-container">
       <div className="history-control-bar">
-        <OptionDropdown label="History" options={[]} />
+        <OptionDropdown
+          label="History"
+          triggerClass="view-select-dropdown"
+          options={[]}
+        />
         {
           <OptionDropdown
-            contentStyle={{ right: 0 }}
+            contentClass="view-options-dropdown"
             options={showControlBar ? [
               { label: 'Save', onClick: onSaveClicked },
               { label: 'Load', onClick: onLoadClicked },
@@ -174,6 +178,7 @@ const History = ({
         <div className="history-control-bar">
           <OptionDropdown
             label="Branches"
+            triggerClass="view-select-dropdown"
             options={[
              { label: 'Bookmarks', onClick: onBookmarksClicked },
             ]}

@@ -3,10 +3,14 @@ import { MdMoreVert } from 'react-icons/lib/md';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 require('./OptionDropdown.sass');
 
-const OptionDropdown = ({ label, options, contentStyle }) => {
+const OptionDropdown = ({ label, options, triggerClass, contentClass }) => {
   let result = null;
   if (options.length === 0) {
-    result = label ? (<div className="dropdown-label-only">{label}</div>) : null;
+    result = label ? (
+      <div className={`dropdown-label-only ${triggerClass}`}>
+        {label}
+      </div>
+    ) : null;
   } else {
     const trigger = label ?
       <div className="label">{label}</div> :
@@ -16,10 +20,10 @@ const OptionDropdown = ({ label, options, contentStyle }) => {
 
     result = (
       <Dropdown>
-        <DropdownTrigger>
+        <DropdownTrigger className={`dropdown__trigger ${triggerClass}`}>
           {trigger}
         </DropdownTrigger>
-        <DropdownContent style={contentStyle || {}}>
+        <DropdownContent className={`dropdown__content ${contentClass}`}>
           <ul>
           {
             options.map(({ label: optionLabel, onClick }, index) => (
@@ -35,7 +39,8 @@ const OptionDropdown = ({ label, options, contentStyle }) => {
 };
 OptionDropdown.propTypes = {
   label: PropTypes.string,
-  contentStyle: PropTypes.object,
+  triggerClass: PropTypes.string,
+  contentClass: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
