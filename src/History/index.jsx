@@ -6,7 +6,7 @@ import BranchList from '../BranchList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
-import OptionDropdown from "../OptionDropdown";
+import OptionDropdown from '../OptionDropdown';
 
 const {
     jumpToState,
@@ -142,12 +142,17 @@ const History = ({
     return Promise.resolve(doConfirm()).then(confirmed => confirmed && onClear());
   };
 
+  const onBookmarksClicked = () => {
+    log('switch to bookmarks');
+  };
+
   return (
     <div className="history-container">
       <div className="history-control-bar">
-        <span className="title">History</span>
+        <OptionDropdown label="History" options={[]} />
         {
           <OptionDropdown
+            contentStyle={{ right: 0 }}
             options={showControlBar ? [
               { label: 'Save', onClick: onSaveClicked },
               { label: 'Load', onClick: onLoadClicked },
@@ -167,7 +172,12 @@ const History = ({
       </div>
       <div className="branch-list-container">
         <div className="history-control-bar">
-          <span className="title">Branches</span>
+          <OptionDropdown
+            label="Branches"
+            options={[
+             { label: 'Bookmarks', onClick: onBookmarksClicked },
+            ]}
+          />
           <OptionDropdown options={[]} />
         </div>
         <BranchList
