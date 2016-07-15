@@ -15,114 +15,28 @@ const {
     clear,
 } = DagHistoryActions;
 
-function getStateList(historyGraph, commitPath) {
-  const { currentBranch, currentStateId } = historyGraph;
-  const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
-  return commitPath.map((id, index) => {
-    const label = historyGraph.stateName(id);
-    const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
-    return {
-      id,
-      label,
-      branchType,
-      continuation: {
-        numContinuations: historyGraph.childrenOf(id).length,
-        isSelected: currentStateId === id,
-      },
+class History extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      mainView: 'history',
+      underView: 'branches',
     };
-  }).reverse();
-}
+  }
 
-function getBranchList(historyGraph, commitPath) {
-  const {
-    branches,
-    maxDepth,
-    currentBranch,
-    currentStateId,
-  } = historyGraph;
-
-
-  // Determine what branches are on the commit path
-  const branchPaths = {};
-  const branchPath = commitPath.map(commit => historyGraph.branchOf(commit));
-  branchPath.forEach((branch, index) => {
-    if (branchPaths[branch]) {
-      branchPaths[branch].end = index;
-    } else {
-      branchPaths[branch] = { start: index, end: index };
-    }
-  });
-
-  return branches.sort((a, b) => a - b).reverse().map(branch => {
-    const activeStateIndex = historyGraph.depthIndexOf(branch, currentStateId);
-    const startsAt = historyGraph.branchStartDepth(branch);
-    const endsAt = historyGraph.branchEndDepth(branch);
-    const branchType = currentBranch === branch ? 'current' : 'legacy';
-    const label = historyGraph.getBranchName(branch);
-
-    // Figure out where this branch intersects the commit path
-    const myBranchPath = branchPaths[branch];
-    const currentBranchStart = myBranchPath ? myBranchPath.start : null;
-    const currentBranchEnd = myBranchPath ? myBranchPath.end : null;
-    return {
-      id: branch,
-      label,
-      activeStateIndex,
-      continuation: {
-        numContinuations: 0, // TODO
-        isSelected: currentBranch === branch,
-      },
-      startsAt,
-      endsAt,
-      maxDepth,
-      branchType,
-      currentBranchStart,
-      currentBranchEnd,
-    };
-  });
-}
-
-const History = ({
-  history,
-
-  // Redux-Connected Props
-  onBranchSelect,
-  onStateSelect,
-  onLoad,
-  onClear,
-
-  // Control Bar Config
-  controlBar: {
-    onSaveHistory,
-    onLoadHistory,
-    onConfirmClear,
-    show: showControlBar,
-  },
-
-  // Bookmarks Config
-  bookmarks: {
-    show: showBookmarks,
-  },
-}) => {
-  const historyGraph = new DagGraph(history.graph);
-  const { currentBranch, currentStateId } = historyGraph;
-  const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
-  const commitPath = historyGraph.commitPath(latestCommitOnBranch);
-
-  const onStateContinuationClick = (id) => log('state continuation clicked!', id);
-  const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
-
-  const onSaveClicked = () => {
+  onSaveClicked() {
+    const { controlBar: { onSaveHistory } } = this.props;
     const { current, lastBranchId, lastStateId, graph } = history;
-    // Pass the plain history up to the client
+    // Pass the plain history up to the client to save
     onSaveHistory({
       current,
       lastBranchId,
       lastStateId, graph: graph.toJS(),
     });
-  };
+  }
 
-  const onLoadClicked = () => {
+  onLoadClicked() {
+    const { onLoad, controlBar: { onLoadHistory } } = this.props;
     log('loading history');
     if (!onLoadHistory) {
       throw new Error("Cannot load history, 'onLoadHistory' must be defined");
@@ -134,67 +48,170 @@ const History = ({
       onLoad(state);
     });
     onLoadHistory();
-  };
+  }
 
-  const onClearClicked = () => {
+  onClearClicked() {
+    const { onClear, controlBar: { onConfirmClear } } = this.props;
     log('clearing history');
     const doConfirm = onConfirmClear || (() => true);
     return Promise.resolve(doConfirm()).then(confirmed => confirmed && onClear());
-  };
+  }
 
-  const onBookmarksClicked = () => {
+  onBookmarksClicked() {
     log('switch to bookmarks');
-  };
+  }
 
-  return (
-    <div className="history-container">
-      <div className="history-control-bar">
-        <OptionDropdown
-          label="History"
-          triggerClass="view-select-dropdown"
-          options={[]}
-        />
-        {
-          <OptionDropdown
-            contentClass="view-options-dropdown"
-            options={showControlBar ? [
-              { label: 'Save', onClick: onSaveClicked },
-              { label: 'Load', onClick: onLoadClicked },
-              { label: 'Clear', onClick: onClearClicked },
-            ] : []}
-          />
-        }
-      </div>
-      <div className="state-list-container">
-        <StateList
-          activeStateId={currentStateId}
-          states={getStateList(historyGraph, commitPath)}
-          onStateClick={onStateSelect}
-          onStateContinuationClick={onStateContinuationClick}
-          renderBookmarks={showBookmarks}
-        />
-      </div>
-      <div className="branch-list-container">
+
+  getCurrentCommitPath(historyGraph) {
+    const { currentBranch } = historyGraph;
+    const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
+    return historyGraph.commitPath(latestCommitOnBranch);
+  }
+
+  getStateList(historyGraph, commitPath) {
+    const { currentBranch, currentStateId } = historyGraph;
+    const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
+    return commitPath.map((id, index) => {
+      const label = historyGraph.stateName(id);
+      const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
+      return {
+        id,
+        label,
+        branchType,
+        continuation: {
+          numContinuations: historyGraph.childrenOf(id).length,
+          isSelected: currentStateId === id,
+        },
+      };
+    }).reverse();
+  }
+
+  getBranchList(historyGraph, commitPath) {
+    const {
+      branches,
+      maxDepth,
+      currentBranch,
+      currentStateId,
+    } = historyGraph;
+
+    // Determine what branches are on the commit path
+    const branchPaths = {};
+    const branchPath = commitPath.map(commit => historyGraph.branchOf(commit));
+    branchPath.forEach((branch, index) => {
+      if (branchPaths[branch]) {
+        branchPaths[branch].end = index;
+      } else {
+        branchPaths[branch] = { start: index, end: index };
+      }
+    });
+
+    return branches.sort((a, b) => a - b).reverse().map(branch => {
+      const activeStateIndex = historyGraph.depthIndexOf(branch, currentStateId);
+      const startsAt = historyGraph.branchStartDepth(branch);
+      const endsAt = historyGraph.branchEndDepth(branch);
+      const branchType = currentBranch === branch ? 'current' : 'legacy';
+      const label = historyGraph.getBranchName(branch);
+
+      // Figure out where this branch intersects the commit path
+      const myBranchPath = branchPaths[branch];
+      const currentBranchStart = myBranchPath ? myBranchPath.start : null;
+      const currentBranchEnd = myBranchPath ? myBranchPath.end : null;
+      return {
+        id: branch,
+        label,
+        activeStateIndex,
+        continuation: {
+          numContinuations: 0, // TODO
+          isSelected: currentBranch === branch,
+        },
+        startsAt,
+        endsAt,
+        maxDepth,
+        branchType,
+        currentBranchStart,
+        currentBranchEnd,
+      };
+    });
+  }
+
+  renderStateList(historyGraph, commitPath) {
+    const {
+      onStateSelect,
+      bookmarks: { show: showBookmarks },
+    } = this.props;
+    const { currentStateId } = historyGraph;
+    const onStateContinuationClick = (id) => log('state continuation clicked!', id);
+    return (
+      <StateList
+        activeStateId={currentStateId}
+        states={this.getStateList(historyGraph, commitPath)}
+        onStateClick={onStateSelect}
+        onStateContinuationClick={onStateContinuationClick}
+        renderBookmarks={showBookmarks}
+      />
+    );
+  }
+
+  renderBranchList(historyGraph, commitPath) {
+    const { currentBranch } = historyGraph;
+    const { onBranchSelect } = this.props;
+    const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
+    return (
+      <BranchList
+        activeBranch={currentBranch}
+        branches={this.getBranchList(historyGraph, commitPath)}
+        onBranchClick={onBranchSelect}
+        onBranchContinuationClick={onBranchContinuationClick}
+      />
+    );
+  }
+
+  render() {
+    const {
+      history: { graph },
+      controlBar: { show: showControlBar },
+    } = this.props;
+    const historyGraph = new DagGraph(graph);
+    const commitPath = this.getCurrentCommitPath(historyGraph);
+    return (
+      <div className="history-container">
         <div className="history-control-bar">
           <OptionDropdown
-            label="Branches"
+            label="History"
             triggerClass="view-select-dropdown"
-            options={[
-             { label: 'Bookmarks', onClick: onBookmarksClicked },
-            ]}
+            options={[]}
           />
-          <OptionDropdown options={[]} />
+          {
+            <OptionDropdown
+              contentClass="view-options-dropdown"
+              options={showControlBar ? [
+                { label: 'Save', onClick: this.onSaveClicked },
+                { label: 'Load', onClick: this.onLoadClicked },
+                { label: 'Clear', onClick: this.onClearClicked },
+              ] : []}
+            />
+          }
         </div>
-        <BranchList
-          activeBranch={currentBranch}
-          branches={getBranchList(historyGraph, commitPath)}
-          onBranchClick={onBranchSelect}
-          onBranchContinuationClick={onBranchContinuationClick}
-        />
+        <div className="state-list-container">
+          {this.renderStateList(historyGraph, commitPath)}
+        </div>
+        <div className="branch-list-container">
+          <div className="history-control-bar">
+            <OptionDropdown
+              label="Branches"
+              triggerClass="view-select-dropdown"
+              options={[
+               { label: 'Bookmarks', onClick: this.onBookmarksClicked },
+              ]}
+            />
+            <OptionDropdown options={[]} />
+          </div>
+          {this.renderBranchList(historyGraph, commitPath)}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 History.propTypes = {
   /**
