@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { colors } from '../palette';
+import { colors } from '../../palette';
+require('./BranchProfile.sass');
 
 const branchColor = (type, loc) => {
   let result;

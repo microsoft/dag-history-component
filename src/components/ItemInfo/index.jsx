@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 const classnames = require('classnames');
 import Continuation from '../Continuation';
-
+require('./ItemInfo.sass');
 const DO_NOTHING = () => ({});
 
 const ItemInfo = ({

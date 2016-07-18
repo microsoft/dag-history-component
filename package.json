@@ -4,7 +4,7 @@
   "description": "A React Component for Dag-History Visualization",
   "main": "lib/index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --history-api-fallback --publicPath /example",
+    "start": "webpack-dev-server --hot --inline --history-api-fallback --publicPath ./",
     "babel": "babel src --out-dir lib",
     "lint": "esw 'src/**/*.{js,jsx}' 'example/**/*.{js,jsx}' --color",
     "sass": "node-sass src/daghistory.sass --output lib",

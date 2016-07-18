@@ -1,7 +1,7 @@
-import History from './History';
-import State from './State';
-import StateList from './StateList';
-import Branch from './Branch';
+import History from './components/History';
+import State from './components/State';
+import StateList from './components/StateList';
+import Branch from './components/Branch';
 
 module.exports = {
   History,

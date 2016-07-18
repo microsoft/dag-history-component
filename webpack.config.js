@@ -3,14 +3,14 @@ const path = require('path');
 const CarteBlanche = require('carte-blanche');
 
 module.exports = {
-  context: path.join(__dirname, 'example'),
+  context: path.join(__dirname),
   devtool: 'inline-source-map',
   entry: {
-    javascript: './app.jsx',
-    html: './index.html',
+    javascript: './example/app.jsx',
+    html: './example/index.html',
   },
   output: {
-    filename: 'app.js',
+    filename: './appbundle.js',
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
@@ -21,7 +21,7 @@ module.exports = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
-    new CarteBlanche({ componentRoot: path.join(__dirname, 'src') }),
+    new CarteBlanche({ componentRoot: path.join(__dirname, 'src', 'components') }),
   ],
   module: {
     loaders: [

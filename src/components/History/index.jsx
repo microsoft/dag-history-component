@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
 import OptionDropdown from '../OptionDropdown';
+require('./History.sass');
 
 const {
     jumpToState,
@@ -15,7 +16,13 @@ const {
     clear,
 } = DagHistoryActions;
 
-class History extends React.Component {
+const viewNames = {
+  branches: 'Branches',
+  bookmarks: 'Bookmarks',
+  history: 'History',
+};
+
+export class History extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -57,10 +64,10 @@ class History extends React.Component {
     return Promise.resolve(doConfirm()).then(confirmed => confirmed && onClear());
   }
 
-  onBookmarksClicked() {
-    log('switch to bookmarks');
+  onUnderViewClicked(underView) {
+    log('underview clicked', underView);
+    this.setState({ ...this.state, underView });
   }
-
 
   getCurrentCommitPath(historyGraph) {
     const { currentBranch } = historyGraph;
@@ -166,18 +173,45 @@ class History extends React.Component {
     );
   }
 
+  renderBookmarks(/* historyGraph, commitPath */) {
+    return (
+      <div>
+        <span>TODO: Bookmarks</span>
+      </div>
+    );
+  }
+
+  renderMainView(historyGraph, commitPath) {
+    const { mainView } = this.state;
+    switch (mainView) {
+      default:
+        return this.renderStateList(historyGraph, commitPath);
+    }
+  }
+
+  renderUnderView(historyGraph, commitPath) {
+    const { underView } = this.state;
+    switch (underView) {
+      case 'branches':
+        return this.renderBranchList(historyGraph, commitPath);
+      case 'bookmarks':
+        return this.renderBookmarks(historyGraph, commitPath);
+      default:
+        return this.renderBranchList(historyGraph, commitPath);
+    }
+  }
+
   render() {
-    const {
-      history: { graph },
-      controlBar: { show: showControlBar },
-    } = this.props;
+    const { history: { graph }, controlBar: { show: showControlBar } } = this.props;
+    const { underView, mainView } = this.state;
     const historyGraph = new DagGraph(graph);
     const commitPath = this.getCurrentCommitPath(historyGraph);
+
     return (
       <div className="history-container">
         <div className="history-control-bar">
           <OptionDropdown
-            label="History"
+            label={viewNames[mainView]}
             triggerClass="view-select-dropdown"
             options={[]}
           />
@@ -193,20 +227,21 @@ class History extends React.Component {
           }
         </div>
         <div className="state-list-container">
-          {this.renderStateList(historyGraph, commitPath)}
+          {this.renderMainView(historyGraph, commitPath)}
         </div>
         <div className="branch-list-container">
           <div className="history-control-bar">
             <OptionDropdown
-              label="Branches"
+              label={viewNames[underView]}
               triggerClass="view-select-dropdown"
               options={[
-               { label: 'Bookmarks', onClick: this.onBookmarksClicked },
+               { label: 'Branches', onClick: () => this.onUnderViewClicked('branches') },
+               { label: 'Bookmarks', onClick: () => this.onUnderViewClicked('bookmarks') },
               ]}
             />
             <OptionDropdown options={[]} />
           </div>
-          {this.renderBranchList(historyGraph, commitPath)}
+          {this.renderUnderView(historyGraph, commitPath)}
         </div>
       </div>
     );

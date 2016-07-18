@@ -3,7 +3,12 @@ import { MdMoreVert } from 'react-icons/lib/md';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 require('./OptionDropdown.sass');
 
-const OptionDropdown = ({ label, options, triggerClass, contentClass }) => {
+const OptionDropdown = ({
+  label,
+  options,
+  triggerClass,
+  contentClass,
+}) => {
   let result = null;
   if (options.length === 0) {
     result = label ? (

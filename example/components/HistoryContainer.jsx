@@ -2,7 +2,7 @@ const log = require('debug')('dag-history-component:example:HistoryContainer');
 import React, { PropTypes } from 'react';
 import Promise from 'bluebird';
 import { connect } from 'react-redux';
-import History from '../../src/History';
+import History from '../../src/components/History';
 require('../../src/daghistory.sass');
 
 /* eslint-disable no-alert,no-console */

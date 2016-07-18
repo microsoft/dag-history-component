@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
-import { colors } from '../palette';
+import { colors } from '../../palette';
 import EmptyBookmark from 'react-icons/lib/fa/bookmark-o';
 import Bookmark from 'react-icons/lib/fa/bookmark';
 
