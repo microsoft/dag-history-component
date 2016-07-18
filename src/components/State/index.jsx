@@ -25,11 +25,14 @@ const State = ({
   continuation,
   onClick,
   onContinuationClick,
+  onBookmarkClick,
 }) => {
   const backgroundColor = coloring[branchType][active ? 'active' : 'nonactive'];
   let bookmark = null;
   if (renderBookmarks) {
-    bookmark = bookmarked ? <Bookmark color="gold" /> : <EmptyBookmark />;
+    bookmark = bookmarked ?
+      <Bookmark color="gold" onClick={onBookmarkClick || DO_NOTHING} /> :
+      <EmptyBookmark onClick={onBookmarkClick || DO_NOTHING} />;
   }
   return (
     <div className="history-state" style={{ backgroundColor }} onClick={onClick || DO_NOTHING}>
@@ -54,6 +57,7 @@ State.propTypes = {
     numContinuations: PropTypes.number,
     isSelected: PropTypes.bool,
   }).isRequired,
+  onBookmarkClick: PropTypes.func,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
 };

@@ -8,6 +8,7 @@ const StateList = ({
   onStateClick,
   onStateContinuationClick,
   renderBookmarks,
+  onStateBookmarkClick,
 }) => {
   const stateViews = states.map(s => (
     <State
@@ -17,6 +18,7 @@ const StateList = ({
       active={s.id === activeStateId}
       onClick={() => (onStateClick || DO_NOTHING)(s.id)}
       onContinuationClick={() => (onStateContinuationClick || DO_NOTHING)(s.id)}
+      onBookmarkClick={() => (onStateBookmarkClick || DO_NOTHING)(s.id)}
     />
   ));
   return (
@@ -41,6 +43,7 @@ StateList.propTypes = {
   renderBookmarks: PropTypes.bool,
   onStateClick: PropTypes.func,
   onStateContinuationClick: PropTypes.func,
+  onStateBookmarkClick: PropTypes.func,
 };
 
 export default StateList;

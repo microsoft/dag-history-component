@@ -3,6 +3,7 @@ import DagGraph from 'redux-dag-history/lib/DagGraph';
 import React, { PropTypes } from 'react';
 import StateList from '../StateList';
 import BranchList from '../BranchList';
+import BookmarkList from '../BookmarkList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
@@ -14,6 +15,9 @@ const {
     jumpToBranch,
     load,
     clear,
+    addBookmark,
+    removeBookmark,
+    renameBookmark,
 } = DagHistoryActions;
 
 const viewNames = {
@@ -32,13 +36,15 @@ export class History extends React.Component {
   }
 
   onSaveClicked() {
-    const { controlBar: { onSaveHistory } } = this.props;
-    const { current, lastBranchId, lastStateId, graph } = history;
+    const { history, controlBar: { onSaveHistory } } = this.props;
+    const { current, lastBranchId, lastStateId, graph, bookmarks } = history;
     // Pass the plain history up to the client to save
     onSaveHistory({
       current,
       lastBranchId,
-      lastStateId, graph: graph.toJS(),
+      lastStateId,
+      bookmarks,
+      graph: graph.toJS(),
     });
   }
 
@@ -75,16 +81,18 @@ export class History extends React.Component {
     return historyGraph.commitPath(latestCommitOnBranch);
   }
 
-  getStateList(historyGraph, commitPath) {
+  getStateList(historyGraph, commitPath, bookmarks) {
     const { currentBranch, currentStateId } = historyGraph;
     const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
     return commitPath.map((id, index) => {
       const label = historyGraph.stateName(id);
       const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
+      const bookmarked = bookmarks.map(b => b.stateId).includes(id);
       return {
         id,
         label,
         branchType,
+        bookmarked,
         continuation: {
           numContinuations: historyGraph.childrenOf(id).length,
           isSelected: currentStateId === id,
@@ -141,19 +149,34 @@ export class History extends React.Component {
     });
   }
 
-  renderStateList(historyGraph, commitPath) {
+  renderStateList(historyGraph, commitPath, bookmarks) {
     const {
       onStateSelect,
+      onAddBookmark,
+      onRemoveBookmark,
       bookmarks: { show: showBookmarks },
     } = this.props;
     const { currentStateId } = historyGraph;
     const onStateContinuationClick = (id) => log('state continuation clicked!', id);
+    const onStateBookmarkClick = (id) => {
+      log('bookmarking state %s',
+        id,
+        bookmarks,
+        bookmarks.map(b => b.stateId),
+        bookmarks.map(b => b.stateId).includes(id)
+      );
+      const bookmarked = bookmarks.map(b => b.stateId).includes(id);
+      log('bookmarked?', bookmarked);
+      return bookmarked ? onRemoveBookmark(id) : onAddBookmark(id);
+    };
+
     return (
       <StateList
         activeStateId={currentStateId}
-        states={this.getStateList(historyGraph, commitPath)}
+        states={this.getStateList(historyGraph, commitPath, bookmarks)}
         onStateClick={onStateSelect}
         onStateContinuationClick={onStateContinuationClick}
+        onStateBookmarkClick={onStateBookmarkClick}
         renderBookmarks={showBookmarks}
       />
     );
@@ -173,36 +196,53 @@ export class History extends React.Component {
     );
   }
 
-  renderBookmarks(/* historyGraph, commitPath */) {
+  renderBookmarks(historyGraph, commitPath, bookmarks) {
+    const { currentStateId } = historyGraph;
+    const { onStateSelect } = this.props;
+
+    const bookmarkData = bookmarks.map(b => {
+      const isSelected = b.stateId === currentStateId;
+      return {
+        ...b,
+        active: isSelected,
+        continuation: {
+          isSelected,
+          numContinuations: 0,
+        },
+      };
+    });
+    log('rendering bookmarks with data', bookmarkData);
     return (
-      <div>
-        <span>TODO: Bookmarks</span>
-      </div>
+      <BookmarkList
+        bookmarks={bookmarkData}
+        onBookmarkClick={(id) => onStateSelect(id)}
+        onBookmarkContinuationClick={(id) => log(`bookmark ${id} continuation click`)}
+      />
     );
   }
 
-  renderMainView(historyGraph, commitPath) {
+  renderMainView(historyGraph, commitPath, bookmarks) {
     const { mainView } = this.state;
     switch (mainView) {
       default:
-        return this.renderStateList(historyGraph, commitPath);
+        return this.renderStateList(historyGraph, commitPath, bookmarks);
     }
   }
 
-  renderUnderView(historyGraph, commitPath) {
+  renderUnderView(historyGraph, commitPath, bookmarks) {
     const { underView } = this.state;
     switch (underView) {
       case 'branches':
-        return this.renderBranchList(historyGraph, commitPath);
+        return this.renderBranchList(historyGraph, commitPath, bookmarks);
       case 'bookmarks':
-        return this.renderBookmarks(historyGraph, commitPath);
+        return this.renderBookmarks(historyGraph, commitPath, bookmarks);
       default:
-        return this.renderBranchList(historyGraph, commitPath);
+        return this.renderBranchList(historyGraph, commitPath, bookmarks);
     }
   }
 
   render() {
-    const { history: { graph }, controlBar: { show: showControlBar } } = this.props;
+    const { history: { graph, bookmarks }, controlBar: { show: showControlBar } } = this.props;
     const { underView, mainView } = this.state;
     const historyGraph = new DagGraph(graph);
     const commitPath = this.getCurrentCommitPath(historyGraph);
@@ -219,15 +259,15 @@ export class History extends React.Component {
             <OptionDropdown
               contentClass="view-options-dropdown"
               options={showControlBar ? [
-                { label: 'Save', onClick: this.onSaveClicked },
-                { label: 'Load', onClick: this.onLoadClicked },
-                { label: 'Clear', onClick: this.onClearClicked },
+                { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
+                { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
+                { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
               ] : []}
             />
           }
         </div>
         <div className="state-list-container">
-          {this.renderMainView(historyGraph, commitPath)}
+          {this.renderMainView(historyGraph, commitPath, bookmarks)}
         </div>
         <div className="branch-list-container">
           <div className="history-control-bar">
@@ -241,7 +281,7 @@ export class History extends React.Component {
             />
             <OptionDropdown options={[]} />
           </div>
-          {this.renderUnderView(historyGraph, commitPath)}
+          {this.renderUnderView(historyGraph, commitPath, bookmarks)}
         </div>
       </div>
     );
@@ -261,6 +301,9 @@ History.propTypes = {
   onStateSelect: PropTypes.func,
   onLoad: PropTypes.func,
   onClear: PropTypes.func,
+  onAddBookmark: PropTypes.func,
+  onRemoveBookmark: PropTypes.func,
+  onRenameBookmark: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -300,5 +343,8 @@ export default connect(
     onBranchSelect: jumpToBranch,
     onClear: clear,
     onLoad: load,
+    onAddBookmark: addBookmark,
+    onRemoveBookmark: removeBookmark,
+    onRenameBookmark: renameBookmark,
   }, dispatch)
 )(History);

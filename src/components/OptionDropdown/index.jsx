@@ -24,7 +24,7 @@ const OptionDropdown = ({
       </div>;
 
     result = (
-      <Dropdown>
+      <Dropdown options={{ show: false }}>
         <DropdownTrigger className={`dropdown__trigger ${triggerClass}`}>
           {trigger}
         </DropdownTrigger>
