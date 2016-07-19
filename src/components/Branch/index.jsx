@@ -17,6 +17,7 @@ const Branch = ({
   onClick,
   onContinuationClick,
   active,
+  itemKey,
 }) => (
   <div className="history-branch" onClick={onClick || DO_NOTHING}>
     <div className="history-branch-profile-container">
@@ -32,6 +33,7 @@ const Branch = ({
     </div>
     <div className="branch-details">
       <ItemInfo
+        itemKey={itemKey}
         continuation={continuation}
         label={label}
         onContinuationClick={onContinuationClick || DO_NOTHING}
@@ -42,6 +44,7 @@ const Branch = ({
 );
 
 Branch.propTypes = {
+  itemKey: PropTypes.string,
   label: PropTypes.string.isRequired,
   activeStateIndex: PropTypes.number,
   continuation: PropTypes.shape({

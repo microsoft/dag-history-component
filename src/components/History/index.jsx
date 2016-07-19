@@ -7,6 +7,7 @@ import BookmarkList from '../BookmarkList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import * as DagComponentActions from '../../actions';
 import OptionDropdown from '../OptionDropdown';
 require('./History.sass');
 
@@ -20,6 +21,11 @@ const {
     renameBookmark,
 } = DagHistoryActions;
 
+const {
+  selectMainView,
+  selectUnderView,
+} = DagComponentActions;
+
 const viewNames = {
   branches: 'Branches',
   bookmarks: 'Bookmarks',
@@ -27,14 +33,6 @@ const viewNames = {
 };
 
 export class History extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      mainView: 'history',
-      underView: 'branches',
-    };
-  }
-
   onSaveClicked() {
     const { history, controlBar: { onSaveHistory } } = this.props;
     const { current, lastBranchId, lastStateId, graph, bookmarks } = history;
@@ -198,17 +196,19 @@ export class History extends React.Component {
 
   renderBookmarks(historyGraph, commitPath, bookmarks) {
     const { currentStateId } = historyGraph;
-    const { onStateSelect } = this.props;
+    const { onStateSelect, onRenameBookmark } = this.props;
 
     const bookmarkData = bookmarks.map(b => {
       const isSelected = b.stateId === currentStateId;
       return {
         ...b,
+        itemKey: `bookmark::${b.stateId}`,
         active: isSelected,
         continuation: {
           isSelected,
           numContinuations: 0,
         },
+        onLabelChange: name => onRenameBookmark({ bookmark: b.stateId, name }),
       };
     });
     log('rendering bookmarks with data', bookmarkData);
@@ -222,7 +222,7 @@ export class History extends React.Component {
   }
 
   renderMainView(historyGraph, commitPath, bookmarks) {
-    const { mainView } = this.state;
+    const { mainView } = this.props;
     switch (mainView) {
       default:
         return this.renderStateList(historyGraph, commitPath, bookmarks);
@@ -230,7 +230,7 @@ export class History extends React.Component {
   }
 
   renderUnderView(historyGraph, commitPath, bookmarks) {
-    const { underView } = this.state;
+    const { underView } = this.props;
     switch (underView) {
       case 'branches':
         return this.renderBranchList(historyGraph, commitPath, bookmarks);
@@ -242,8 +242,14 @@ export class History extends React.Component {
   }
 
   render() {
-    const { history: { graph, bookmarks }, controlBar: { show: showControlBar } } = this.props;
-    const { underView, mainView } = this.state;
+    const {
+      history: { graph, bookmarks },
+      controlBar: { show: showControlBar },
+      mainView,
+      underView,
+      onSelectMainView,
+      onSelectUnderView,
+    } = this.props;
     const historyGraph = new DagGraph(graph);
     const commitPath = this.getCurrentCommitPath(historyGraph);
 
@@ -253,7 +259,9 @@ export class History extends React.Component {
           <OptionDropdown
             label={viewNames[mainView]}
             triggerClass="view-select-dropdown"
-            options={[]}
+            options={[
+              { label: 'History', onClick: () => onSelectMainView('history') },
+            ]}
           />
           {
             <OptionDropdown
@@ -275,8 +283,8 @@ export class History extends React.Component {
               label={viewNames[underView]}
               triggerClass="view-select-dropdown"
               options={[
-               { label: 'Branches', onClick: () => this.onUnderViewClicked('branches') },
-               { label: 'Bookmarks', onClick: () => this.onUnderViewClicked('bookmarks') },
+               { label: 'Branches', onClick: () => onSelectUnderView('branches') },
+               { label: 'Bookmarks', onClick: () => onSelectUnderView('bookmarks') },
               ]}
             />
             <OptionDropdown options={[]} />
@@ -293,6 +301,8 @@ History.propTypes = {
    * The Dag-History Object
    */
   history: PropTypes.object.isRequired,
+  mainView: PropTypes.string.isRequired,
+  underView: PropTypes.string.isRequired,
 
   /**
    * User Interaction Handlers - loaded by redux
@@ -304,6 +314,8 @@ History.propTypes = {
   onAddBookmark: PropTypes.func,
   onRemoveBookmark: PropTypes.func,
   onRenameBookmark: PropTypes.func,
+  onSelectMainView: PropTypes.func,
+  onSelectUnderView: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -346,5 +358,7 @@ export default connect(
     onAddBookmark: addBookmark,
     onRemoveBookmark: removeBookmark,
     onRenameBookmark: renameBookmark,
+    onSelectMainView: selectMainView,
+    onSelectUnderView: selectUnderView,
   }, dispatch)
 )(History);
