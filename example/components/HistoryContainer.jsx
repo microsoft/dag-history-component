@@ -23,11 +23,11 @@ function loadHistory() {
   return Promise.resolve(JSON.parse(window.localStorage.dagHistorySession));
 }
 
-const HistoryContainer = ({ historyRoot, mainView, underView }) => (
+const HistoryContainer = ({ historyRoot, mainView, branchContainerExpanded }) => (
   <History
     history={historyRoot}
     mainView={mainView}
-    underView={underView}
+    branchContainerExpanded={branchContainerExpanded}
     controlBar={{
       show: true,
       onSaveHistory: saveHistory,
@@ -41,12 +41,12 @@ const HistoryContainer = ({ historyRoot, mainView, underView }) => (
 HistoryContainer.propTypes = {
   historyRoot: PropTypes.object,
   mainView: PropTypes.string,
-  underView: PropTypes.string,
+  branchContainerExpanded: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
-  historyRoot: state,
-  mainView: state.current.history.mainView,
-  underView: state.current.history.underView,
+  historyRoot: state.app,
+  mainView: state.history.mainView,
+  branchContainerExpanded: state.history.branchContainerExpanded,
 });
 export default connect(mapStateToProps)(HistoryContainer);

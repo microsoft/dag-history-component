@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
 import * as DagComponentActions from '../../actions';
 import OptionDropdown from '../OptionDropdown';
+import HistoryContainer from './HistoryContainer';
+import ExpandCollapseToggle from '../ExpandCollapseToggle';
 require('./History.sass');
 
 const {
@@ -23,16 +25,14 @@ const {
 
 const {
   selectMainView,
-  selectUnderView,
+  toggleBranchContainer,
 } = DagComponentActions;
 
-const viewNames = {
-  branches: 'Branches',
-  bookmarks: 'Bookmarks',
-  history: 'History',
-};
-
 export class History extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;
+  }
+
   onSaveClicked() {
     const { history, controlBar: { onSaveHistory } } = this.props;
     const { current, lastBranchId, lastStateId, graph, bookmarks } = history;
@@ -147,11 +147,12 @@ export class History extends React.Component {
     });
   }
 
-  renderStateList(historyGraph, commitPath, bookmarks) {
+  renderStateList(historyGraph, commitPath) {
     const {
       onStateSelect,
       onAddBookmark,
       onRemoveBookmark,
+      history: { bookmarks },
       bookmarks: { show: showBookmarks },
     } = this.props;
     const { currentStateId } = historyGraph;
@@ -221,77 +222,59 @@ export class History extends React.Component {
     );
   }
 
-  renderMainView(historyGraph, commitPath, bookmarks) {
-    const { mainView } = this.props;
-    switch (mainView) {
-      default:
-        return this.renderStateList(historyGraph, commitPath, bookmarks);
-    }
-  }
-
-  renderUnderView(historyGraph, commitPath, bookmarks) {
-    const { underView } = this.props;
-    switch (underView) {
-      case 'branches':
-        return this.renderBranchList(historyGraph, commitPath, bookmarks);
-      case 'bookmarks':
-        return this.renderBookmarks(historyGraph, commitPath, bookmarks);
-      default:
-        return this.renderBranchList(historyGraph, commitPath, bookmarks);
-    }
-  }
-
-  render() {
+  renderHistoryView(historyGraph, commitPath) {
     const {
-      history: { graph, bookmarks },
-      controlBar: { show: showControlBar },
-      mainView,
-      underView,
-      onSelectMainView,
-      onSelectUnderView,
+      branchContainerExpanded,
+      onToggleBranchContainer,
     } = this.props;
-    const historyGraph = new DagGraph(graph);
-    const commitPath = this.getCurrentCommitPath(historyGraph);
-
     return (
       <div className="history-container">
         <div className="history-control-bar">
-          <OptionDropdown
-            label={viewNames[mainView]}
-            triggerClass="view-select-dropdown"
-            options={[
-              { label: 'History', onClick: () => onSelectMainView('history') },
-            ]}
-          />
+          <div className="title">States</div>
           {
             <OptionDropdown
               contentClass="view-options-dropdown"
-              options={showControlBar ? [
+              options={[
                 { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
                 { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
                 { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
-              ] : []}
+              ]}
             />
           }
         </div>
         <div className="state-list-container">
-          {this.renderMainView(historyGraph, commitPath, bookmarks)}
+          {this.renderStateList(historyGraph, commitPath)}
         </div>
         <div className="branch-list-container">
           <div className="history-control-bar">
-            <OptionDropdown
-              label={viewNames[underView]}
-              triggerClass="view-select-dropdown"
-              options={[
-               { label: 'Branches', onClick: () => onSelectUnderView('branches') },
-               { label: 'Bookmarks', onClick: () => onSelectUnderView('bookmarks') },
-              ]}
+            <div className="title">Branches</div>
+            <ExpandCollapseToggle
+              isExpanded={branchContainerExpanded}
+              onClick={onToggleBranchContainer}
             />
             <OptionDropdown options={[]} />
           </div>
-          {this.renderUnderView(historyGraph, commitPath, bookmarks)}
+          {branchContainerExpanded ? this.renderBranchList(historyGraph, commitPath) : null}
         </div>
       </div>
+    );
+  }
+
+  render() {
+    const {
+      history: { graph },
+      mainView,
+      onSelectMainView,
+    } = this.props;
+    const historyGraph = new DagGraph(graph);
+    const commitPath = this.getCurrentCommitPath(historyGraph);
+    return (
+      <HistoryContainer
+        selectedTab={mainView}
+        onTabSelect={onSelectMainView}
+        historyView={this.renderHistoryView(historyGraph, commitPath)}
+        storyboardingView={<div>Storyboarding</div>}
+      />
     );
   }
 }
@@ -302,7 +285,7 @@ History.propTypes = {
    */
   history: PropTypes.object.isRequired,
   mainView: PropTypes.string.isRequired,
-  underView: PropTypes.string.isRequired,
+  branchContainerExpanded: PropTypes.bool,
 
   /**
    * User Interaction Handlers - loaded by redux
@@ -315,16 +298,12 @@ History.propTypes = {
   onRemoveBookmark: PropTypes.func,
   onRenameBookmark: PropTypes.func,
   onSelectMainView: PropTypes.func,
-  onSelectUnderView: PropTypes.func,
+  onToggleBranchContainer: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
    */
   controlBar: PropTypes.shape({
-    /**
-     * Whether or not to show the control bar
-     */
-    show: PropTypes.bool,
     /**
      * A handler to save the history tree out. This is handled by clients.
      */
@@ -359,6 +338,6 @@ export default connect(
     onRemoveBookmark: removeBookmark,
     onRenameBookmark: renameBookmark,
     onSelectMainView: selectMainView,
-    onSelectUnderView: selectUnderView,
+    onToggleBranchContainer: toggleBranchContainer,
   }, dispatch)
 )(History);

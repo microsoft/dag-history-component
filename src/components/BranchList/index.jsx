@@ -20,7 +20,9 @@ const BranchList = ({
   ));
   return (
     <div className="history-branch-list">
-      {branchViews}
+      <div className="history-branch-list-inner">
+        {branchViews}
+      </div>
     </div>
   );
 };

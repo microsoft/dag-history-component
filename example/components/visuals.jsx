@@ -24,7 +24,18 @@ RawVisualA.propTypes = {
 };
 
 export const VisualA = connect(
-  ({ current: { visuals: { color } } }) => ({ backgroundColor: color }),
+  state => {
+    const {
+      app: {
+        current: {
+          visuals: {
+            color: backgroundColor,
+          },
+        },
+      },
+    } = state;
+    return { backgroundColor };
+  },
   dispatch => ({ actions: bindActionCreators({ pickRandomColor: doPickRandomColor }, dispatch) })
 )(RawVisualA);
 
@@ -48,7 +59,18 @@ RawVisualB.propTypes = {
 };
 
 export const VisualB = connect(
-  ({ current: { visuals: { value } } }) => ({ value }),
+  state => {
+    const {
+      app: {
+        current: {
+          visuals: {
+            value,
+          },
+        },
+      },
+    } = state;
+    return { value };
+  },
   dispatch => ({
     actions: bindActionCreators({
       increment: doIncrement,
