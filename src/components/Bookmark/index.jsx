@@ -11,8 +11,19 @@ const Bookmark = ({
   active,
   continuation,
   onLabelChange,
+  draggable,
+  onDragStart,
+  onDragEnd,
+  index,
 }) => (
-  <div className="history-bookmark" onClick={onClick || DO_NOTHING}>
+  <div
+    className="history-bookmark"
+    onClick={onClick || DO_NOTHING}
+    draggable={draggable}
+    onDragStart={onDragStart}
+    onDragEnd={onDragEnd}
+    data-index={index}
+  >
     <div className="bookmark-details">
       <ItemInfo
         itemKey={itemKey}
@@ -29,6 +40,7 @@ const Bookmark = ({
 
 Bookmark.propTypes = {
   itemKey: PropTypes.string,
+  index: PropTypes.number,
   name: PropTypes.string.isRequired,
   active: PropTypes.bool,
   continuation: PropTypes.shape({
@@ -38,6 +50,9 @@ Bookmark.propTypes = {
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
   onLabelChange: PropTypes.func,
+  draggable: PropTypes.bool,
+  onDragStart: PropTypes.func,
+  onDragEnd: PropTypes.func,
 };
 
 export default Bookmark;

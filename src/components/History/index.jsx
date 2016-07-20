@@ -21,6 +21,7 @@ const {
     addBookmark,
     removeBookmark,
     renameBookmark,
+    moveBookmark,
 } = DagHistoryActions;
 
 const {
@@ -195,9 +196,14 @@ export class History extends React.Component {
     );
   }
 
-  renderBookmarks(historyGraph, commitPath, bookmarks) {
+  renderBookmarks(historyGraph) {
     const { currentStateId } = historyGraph;
-    const { onStateSelect, onRenameBookmark } = this.props;
+    const {
+      history: { bookmarks },
+      onStateSelect,
+      onRenameBookmark,
+      onBookmarkMove,
+    } = this.props;
 
     const bookmarkData = bookmarks.map(b => {
       const isSelected = b.stateId === currentStateId;
@@ -218,6 +224,7 @@ export class History extends React.Component {
         bookmarks={bookmarkData}
         onBookmarkClick={(id) => onStateSelect(id)}
         onBookmarkContinuationClick={(id) => log(`bookmark ${id} continuation click`)}
+        onBookmarkMove={onBookmarkMove}
       />
     );
   }
@@ -260,6 +267,29 @@ export class History extends React.Component {
     );
   }
 
+  renderStoryboardingView(historyGraph, commitPath) {
+    return (
+      <div className="history-container">
+        <div className="history-control-bar">
+          <div className="title">Storyboarding</div>
+          {
+            <OptionDropdown
+              contentClass="view-options-dropdown"
+              options={[
+                { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
+                { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
+                { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
+              ]}
+            />
+          }
+        </div>
+        <div className="state-list-container">
+          {this.renderBookmarks(historyGraph, commitPath)}
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const {
       history: { graph },
@@ -273,7 +303,7 @@ export class History extends React.Component {
         selectedTab={mainView}
         onTabSelect={onSelectMainView}
         historyView={this.renderHistoryView(historyGraph, commitPath)}
-        storyboardingView={<div>Storyboarding</div>}
+        storyboardingView={this.renderStoryboardingView(historyGraph, commitPath)}
       />
     );
   }
@@ -339,5 +369,6 @@ export default connect(
     onRenameBookmark: renameBookmark,
     onSelectMainView: selectMainView,
     onToggleBranchContainer: toggleBranchContainer,
+    onBookmarkMove: moveBookmark,
   }, dispatch)
 )(History);
