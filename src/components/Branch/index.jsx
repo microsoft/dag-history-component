@@ -18,6 +18,7 @@ const Branch = ({
   onContinuationClick,
   active,
   itemKey,
+  successorDepth,
 }) => (
   <div className="history-branch" onClick={onClick || DO_NOTHING}>
     <div className="history-branch-profile-container">
@@ -25,9 +26,10 @@ const Branch = ({
         start={startsAt}
         end={endsAt}
         max={maxDepth}
-        currentBranchStart={currentBranchStart}
-        currentBranchEnd={currentBranchEnd}
+        branchStart={currentBranchStart}
+        branchEnd={currentBranchEnd}
         type={branchType}
+        successorStateIndex={successorDepth}
         activeStateIndex={activeStateIndex}
       />
     </div>
@@ -54,6 +56,7 @@ Branch.propTypes = {
   startsAt: PropTypes.number.isRequired,
   endsAt: PropTypes.number.isRequired,
   maxDepth: PropTypes.number.isRequired,
+  successorDepth: PropTypes.number,
   currentBranchStart: PropTypes.number,
   currentBranchEnd: PropTypes.number,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,

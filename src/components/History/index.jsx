@@ -27,6 +27,7 @@ const {
 const {
   selectMainView,
   toggleBranchContainer,
+  highlightSuccessors,
 } = DagComponentActions;
 
 export class History extends React.Component {
@@ -107,6 +108,9 @@ export class History extends React.Component {
       currentBranch,
       currentStateId,
     } = historyGraph;
+    const {
+      highlightSuccessorsOf,
+    } = this.props;
 
     // Determine what branches are on the commit path
     const branchPaths = {};
@@ -119,6 +123,20 @@ export class History extends React.Component {
       }
     });
 
+    // This is a hash of branchId -> stateId
+    const selectedSuccessorsByBranch = {};
+    historyGraph.childrenOf(currentStateId).forEach(child => {
+      const branch = historyGraph.branchOf(child);
+      selectedSuccessorsByBranch[branch] = child;
+    });
+
+    const getSuccessorDepth = branch => {
+      const successorId = selectedSuccessorsByBranch[branch];
+      return successorId ?
+        historyGraph.depthIndexOf(branch, successorId) :
+        null;
+    };
+
     return branches.sort((a, b) => a - b).reverse().map(branch => {
       const activeStateIndex = historyGraph.depthIndexOf(branch, currentStateId);
       const startsAt = historyGraph.branchStartDepth(branch);
@@ -130,6 +148,9 @@ export class History extends React.Component {
       const myBranchPath = branchPaths[branch];
       const currentBranchStart = myBranchPath ? myBranchPath.start : null;
       const currentBranchEnd = myBranchPath ? myBranchPath.end : null;
+      const successorDepth = isNaN(highlightSuccessorsOf) || highlightSuccessorsOf === null ?
+        null :
+        getSuccessorDepth(branch);
       return {
         id: branch,
         label,
@@ -144,6 +165,7 @@ export class History extends React.Component {
         branchType,
         currentBranchStart,
         currentBranchEnd,
+        successorDepth,
       };
     });
   }
@@ -153,11 +175,12 @@ export class History extends React.Component {
       onStateSelect,
       onAddBookmark,
       onRemoveBookmark,
+      onHighlightSuccessors,
       history: { bookmarks },
       bookmarks: { show: showBookmarks },
     } = this.props;
     const { currentStateId } = historyGraph;
-    const onStateContinuationClick = (id) => log('state continuation clicked!', id);
+    const onStateContinuationClick = id => onHighlightSuccessors(id);
     const onStateBookmarkClick = (id) => {
       log('bookmarking state %s',
         id,
@@ -169,11 +192,12 @@ export class History extends React.Component {
       log('bookmarked?', bookmarked);
       return bookmarked ? onRemoveBookmark(id) : onAddBookmark(id);
     };
-
+    const stateList = this.getStateList(historyGraph, commitPath, bookmarks);
+    log('rendering stateList with data', stateList);
     return (
       <StateList
         activeStateId={currentStateId}
-        states={this.getStateList(historyGraph, commitPath, bookmarks)}
+        states={stateList}
         onStateClick={onStateSelect}
         onStateContinuationClick={onStateContinuationClick}
         onStateBookmarkClick={onStateBookmarkClick}
@@ -186,10 +210,12 @@ export class History extends React.Component {
     const { currentBranch } = historyGraph;
     const { onBranchSelect } = this.props;
     const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
+    const branchList = this.getBranchList(historyGraph, commitPath);
+    log('Rendering branchList with', branchList);
     return (
       <BranchList
         activeBranch={currentBranch}
-        branches={this.getBranchList(historyGraph, commitPath)}
+        branches={branchList}
         onBranchClick={onBranchSelect}
         onBranchContinuationClick={onBranchContinuationClick}
       />
@@ -316,6 +342,7 @@ History.propTypes = {
   history: PropTypes.object.isRequired,
   mainView: PropTypes.string.isRequired,
   branchContainerExpanded: PropTypes.bool,
+  highlightSuccessorsOf: PropTypes.number,
 
   /**
    * User Interaction Handlers - loaded by redux
@@ -329,6 +356,8 @@ History.propTypes = {
   onRenameBookmark: PropTypes.func,
   onSelectMainView: PropTypes.func,
   onToggleBranchContainer: PropTypes.func,
+  onBookmarkMove: PropTypes.func,
+  onHighlightSuccessors: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -370,5 +399,6 @@ export default connect(
     onSelectMainView: selectMainView,
     onToggleBranchContainer: toggleBranchContainer,
     onBookmarkMove: moveBookmark,
+    onHighlightSuccessors: highlightSuccessors,
   }, dispatch)
 )(History);

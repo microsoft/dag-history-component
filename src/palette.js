@@ -5,4 +5,5 @@ export const colors = {
   CURRENT: '#B3E4F5',
   ANCESTOR: '#CCC',
   UNRELATED: '#F1F1F1',
+  SUCCESSOR: '#00FF00',
 };

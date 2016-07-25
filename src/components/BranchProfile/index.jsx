@@ -1,25 +1,13 @@
+// const log = require('debug')('dag-history-component:BranchProfile');
 import React, { PropTypes } from 'react';
 import { colors } from '../../palette';
+import * as SpanCalc from './SpanCalculator';
 require('./BranchProfile.sass');
-
-const branchColor = (type, loc) => {
-  let result;
-  if (type === 'current') {
-    result = colors.CURRENT;
-  } else if (loc === 'pre') {
-    result = colors.ANCESTOR;
-  } else {
-    result = colors.UNRELATED;
-  }
-  return result;
-};
-
-const activeBranchColor = (type) => type === 'current' ? colors.CURRENT_ACTIVE : colors.LEGACY_ACTIVE; // eslint-disable-line
 
 /**
  * Gets styling for the branch-info spans
  */
-function infoSpanStyle(backgroundColor, flex) {
+function infoSpanStyle(flex, backgroundColor) {
   if (flex === 0) {
     return { display: 'none' };
   }
@@ -29,39 +17,37 @@ function infoSpanStyle(backgroundColor, flex) {
   };
 }
 
-function activeInfoSpans(start, end, currentBranchStart, currentBranchEnd, type, activeStateIndex) {
-  let result;
-  const isActiveStatePresent = !activeStateIndex && activeStateIndex !== 0;
+const isNumber = d => !isNaN(d) && d !== null;
 
-  if (isActiveStatePresent) {
-    // Case 1 No activeStateIndex
-    const totalLength = end - start + 1;
-    const isCurrentBranchInProfile = currentBranchEnd !== null && currentBranchEnd !== undefined;
-
-    // 1.1 - Split the track into ancestral/unrelated blocks
-    if (isCurrentBranchInProfile) {
-      const ancestorLength = (currentBranchEnd || end) - (currentBranchStart || start) + 1;
-      const unrelatedLength = totalLength - ancestorLength;
-      result = [
-        infoSpanStyle(branchColor(type, 'pre'), ancestorLength),
-        infoSpanStyle(branchColor(type, 'post'), unrelatedLength),
-      ];
-    } else {
-      // 1.2 - Entire block is unrelated
-      result = [infoSpanStyle(branchColor(type, 'post'), totalLength)];
-    }
-  } else {
-    const afterActiveLength = end - activeStateIndex;
-    const unrelatedLength = end - (currentBranchEnd || activeStateIndex);
-    const ancestralLength = afterActiveLength - unrelatedLength;
-    result = [
-      infoSpanStyle(branchColor(type, 'pre'), activeStateIndex - start),
-      infoSpanStyle(activeBranchColor(type), 1),
-      infoSpanStyle(branchColor(type, 'pre'), ancestralLength),
-      infoSpanStyle(branchColor(type, 'post'), unrelatedLength),
-    ];
+function getSpans(
+  type,
+  max,
+  start,
+  end,
+  branchStart,
+  branchEnd,
+  activeIndex,
+  successorIndex
+) {
+  // Set up the initial spans ranges; culling out empty ranges
+  let spans = SpanCalc.initialSpans(max);
+  spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(start, end + 1, 'UNRELATED'));
+  if (isNumber(branchStart) && isNumber(branchEnd)) {
+    const color = type === 'current' ? 'CURRENT' : 'ANCESTOR';
+    const span = new SpanCalc.Span(branchStart, branchEnd + 1, color);
+    spans = SpanCalc.insertSpan(spans, span);
   }
-  return result;
+
+  if (isNumber(activeIndex)) {
+    const color = type === 'current' ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
+    const span = new SpanCalc.Span(activeIndex, activeIndex + 1, color);
+    spans = SpanCalc.insertSpan(spans, span);
+  }
+  if (isNumber(successorIndex)) {
+    const span = new SpanCalc.Span(successorIndex, successorIndex + 1, 'SUCCESSOR');
+    spans = SpanCalc.insertSpan(spans, span);
+  }
+  return spans;
 }
 
 const BranchProfile = ({
@@ -69,22 +55,23 @@ const BranchProfile = ({
   start,
   end,
   max,
-  currentBranchStart,
-  currentBranchEnd,
-  activeStateIndex,
+  branchStart,
+  branchEnd,
+  activeStateIndex: activeIndex,
+  successorStateIndex: successorIndex,
 }) => {
-  const infoSpans = [
-    // state depths that occur before this branch was created
-    infoSpanStyle(colors.UNRELATED, start),
-
-    // the colored spans for this branch
-    ...activeInfoSpans(start, end, currentBranchStart, currentBranchEnd, type, activeStateIndex),
-
-    // state depths after this branch was inactive
-    infoSpanStyle(colors.NONE, max - end),
-  ].map((style, index) => (
-    <div key={`branchinfo:${index}`} style={style} />
-  ));
+  const infoSpans = getSpans(
+    type,
+    max,
+    start,
+    end,
+    branchStart,
+    branchEnd,
+    activeIndex,
+    successorIndex
+  )
+  .map(s => infoSpanStyle(s.length, colors[s.type]))
+  .map((style, index) => (<div key={`branchinfo:${index}`} style={style} />));
   return (
     <div className="history-branch-profile">
       {infoSpans}
@@ -95,10 +82,11 @@ const BranchProfile = ({
 BranchProfile.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
-  currentBranchStart: PropTypes.number,
-  currentBranchEnd: PropTypes.number,
+  branchStart: PropTypes.number,
+  branchEnd: PropTypes.number,
   max: PropTypes.number.isRequired,
   activeStateIndex: PropTypes.number,
+  successorStateIndex: PropTypes.number,
   type: PropTypes.oneOf(['current', 'legacy']).isRequired,
   paths: PropTypes.shape({
     color: PropTypes.string.isRequired,

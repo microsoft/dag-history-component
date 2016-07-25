@@ -4,5 +4,8 @@
     "ecmaFeatures": {
         "experimentalObjectRestSpread": true
     }
+  },
+  "env": {
+    "mocha": "true"
   }
 }
