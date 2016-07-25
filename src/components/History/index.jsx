@@ -130,10 +130,12 @@ export class History extends React.Component {
 
     // This is a hash of branchId -> stateId
     const selectedSuccessorsByBranch = {};
-    historyGraph.childrenOf(currentStateId).forEach(child => {
-      const branch = historyGraph.branchOf(child);
-      selectedSuccessorsByBranch[branch] = child;
-    });
+    if (!isNaN(highlightSuccessorsOf) && highlightSuccessorsOf !== null) {
+      historyGraph.childrenOf(highlightSuccessorsOf).forEach(child => {
+        const branch = historyGraph.branchOf(child);
+        selectedSuccessorsByBranch[branch] = child;
+      });
+    }
 
     const getSuccessorDepth = branch => {
       const successorId = selectedSuccessorsByBranch[branch];
