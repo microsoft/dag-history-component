@@ -1,6 +1,4 @@
 import React, { PropTypes } from 'react';
-const SELECTED_COLOR = '#5DFA48';
-const NOT_SELECTED_COLOR = 'white';
 const DO_NOTHING = () => ({});
 require('./Continuation.sass');
 
@@ -19,15 +17,14 @@ function getContinuationText(numContinuations) {
 
 const Continuation = ({
   numContinuations,
-  isSelected,
+  color,
   onClick,
 }) => {
-  const backgroundColor = isSelected ? SELECTED_COLOR : NOT_SELECTED_COLOR;
   const continuationText = getContinuationText(numContinuations);
   return (
     <div
       className="history-state-continuations"
-      style={{ backgroundColor }}
+      style={{ backgroundColor: color }}
       onClick={onClick || DO_NOTHING}
     >
       {continuationText}
@@ -37,7 +34,7 @@ const Continuation = ({
 
 Continuation.propTypes = {
   numContinuations: PropTypes.number,
-  isSelected: PropTypes.bool,
+  color: PropTypes.string,
   onClick: PropTypes.func,
 };
 

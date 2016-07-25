@@ -20,6 +20,7 @@ const State = ({
   label,
   branchType,
   active,
+  continuationActive,
   renderBookmarks,
   bookmarked,
   continuation,
@@ -41,6 +42,7 @@ const State = ({
         continuation={continuation}
         onContinuationClick={onContinuationClick || DO_NOTHING}
         active={active}
+        continuationActive={continuationActive}
       />
       {bookmark}
     </div>
@@ -50,6 +52,7 @@ const State = ({
 State.propTypes = {
   label: PropTypes.string.isRequired,
   active: PropTypes.bool,
+  continuationActive: PropTypes.bool,
   bookmarked: PropTypes.bool,
   renderBookmarks: PropTypes.bool,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,

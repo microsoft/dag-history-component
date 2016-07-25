@@ -5,6 +5,8 @@ require('./ContextMenu.css');
 import Continuation from '../Continuation';
 import { ContextMenu, MenuItem, ContextMenuLayer } from 'react-contextmenu';
 import { ItemLabel } from './ItemLabel';
+import { colors } from '../../palette';
+
 
 const ItemInfoContextMenu = ({ itemKey, onRenameClick }) => (
   <ContextMenu identifier={itemKey}>
@@ -31,6 +33,7 @@ class ItemInfo extends React.Component {
       onClick,
       onContinuationClick,
       active,
+      continuationActive,
       editable,
       onLabelChange,
       itemKey,
@@ -49,11 +52,18 @@ class ItemInfo extends React.Component {
       ContextualItemLabel = ContextMenuLayer(itemKey)(ItemLabel); // eslint-disable-line
     }
 
+    let continuationColor = colors.CONT_BLANK;
+    if (continuationActive) {
+      continuationColor = colors.CONT_SELECTED;
+    } else if (active) {
+      continuationColor = colors.CONT_ACTIVE;
+    }
+
     return (
       <div className="history-item-info" onClick={onClick || DO_NOTHING}>
         <Continuation
           numContinuations={continuation.numContinuations}
-          isSelected={continuation.isSelected}
+          color={continuationColor}
           onClick={onContinuationClick || DO_NOTHING}
         />
         {
@@ -92,6 +102,7 @@ ItemInfo.propTypes = {
   onContinuationClick: PropTypes.func,
   onLabelChange: PropTypes.func,
   active: PropTypes.bool,
+  continuationActive: PropTypes.bool,
 };
 
 export default ItemInfo;
