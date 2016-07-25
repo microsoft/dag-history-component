@@ -193,7 +193,6 @@ export class History extends React.Component {
       return bookmarked ? onRemoveBookmark(id) : onAddBookmark(id);
     };
     const stateList = this.getStateList(historyGraph, commitPath, bookmarks);
-    log('rendering stateList with data', stateList);
     return (
       <StateList
         activeStateId={currentStateId}
@@ -211,7 +210,6 @@ export class History extends React.Component {
     const { onBranchSelect } = this.props;
     const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
     const branchList = this.getBranchList(historyGraph, commitPath);
-    log('Rendering branchList with', branchList);
     return (
       <BranchList
         activeBranch={currentBranch}
@@ -244,7 +242,6 @@ export class History extends React.Component {
         onLabelChange: name => onRenameBookmark({ bookmark: b.stateId, name }),
       };
     });
-    log('rendering bookmarks with data', bookmarkData);
     return (
       <BookmarkList
         bookmarks={bookmarkData}
