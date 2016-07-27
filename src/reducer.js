@@ -1,4 +1,4 @@
-const log = require('debug')('dag-history-component:reducer');
+// const log = require('debug')('dag-history-component:reducer');
 import {
   SELECT_MAIN_VIEW,
   TOGGLE_BRANCH_CONTAINER,
@@ -26,7 +26,6 @@ export default function (config) {
         result = { ...state, highlightSuccessorsOf: highlightedState };
       }
     } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action)) {
-      log('action %s is clearing out highlighted successor', action.type, action.type.indexOf('DAG_HISTORY_'));
       // Insertable actions clear the pinned state
       result = { ...state, highlightSuccessorsOf: null };
     }

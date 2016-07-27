@@ -187,7 +187,13 @@ export class History extends React.Component {
         successorDepth,
         pinnedStateIndex,
       };
-    });
+    })
+    .filter(branch => (
+      !pinnedState ||
+      branch.active ||
+      isNumber(branch.pinnedStateIndex) ||
+      isNumber(branch.successorDepth)
+    ));
   }
 
   renderStateList(historyGraph, commitPath) {

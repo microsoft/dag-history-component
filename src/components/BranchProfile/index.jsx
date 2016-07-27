@@ -1,4 +1,4 @@
-const log = require('debug')('dag-history-component:BranchProfile');
+// const log = require('debug')('dag-history-component:BranchProfile');
 import React, { PropTypes } from 'react';
 import { colors } from '../../palette';
 import * as SpanCalc from './SpanCalculator';

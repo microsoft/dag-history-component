@@ -20,7 +20,7 @@ const Branch = ({
   itemKey,
   successorDepth,
   continuationActive,
-  pinnedStateIndex
+  pinnedStateIndex,
 }) => (
   <div className="history-branch" onClick={onClick || DO_NOTHING}>
     <div className="history-branch-profile-container">
