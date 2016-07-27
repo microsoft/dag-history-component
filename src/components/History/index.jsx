@@ -13,6 +13,8 @@ import HistoryContainer from './HistoryContainer';
 import ExpandCollapseToggle from '../ExpandCollapseToggle';
 require('./History.sass');
 
+const isNumber = d => !isNaN(d) && d !== null;
+
 const {
     jumpToState,
     jumpToBranch,
@@ -91,10 +93,14 @@ export class History extends React.Component {
       const label = historyGraph.stateName(id);
       const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
       const bookmarked = bookmarks.map(b => b.stateId).includes(id);
+      const isSuccessor = isNumber(highlightSuccessorsOf) &&
+        historyGraph.parentOf(id) === highlightSuccessorsOf;
       return {
         id,
         label,
         active: currentStateId === id,
+        isPinned: highlightSuccessorsOf === id,
+        isSuccessor,
         continuationActive: id === highlightSuccessorsOf,
         branchType,
         bookmarked,
@@ -114,8 +120,9 @@ export class History extends React.Component {
       currentStateId,
     } = historyGraph;
     const {
-      highlightSuccessorsOf,
+      highlightSuccessorsOf: pinnedState,
     } = this.props;
+    const pinnedStateBranch = historyGraph.branchOf(pinnedState);
 
     // Determine what branches are on the commit path
     const branchPaths = {};
@@ -130,8 +137,8 @@ export class History extends React.Component {
 
     // This is a hash of branchId -> stateId
     const selectedSuccessorsByBranch = {};
-    if (!isNaN(highlightSuccessorsOf) && highlightSuccessorsOf !== null) {
-      historyGraph.childrenOf(highlightSuccessorsOf).forEach(child => {
+    if (isNumber(pinnedState)) {
+      historyGraph.childrenOf(pinnedState).forEach(child => {
         const branch = historyGraph.branchOf(child);
         selectedSuccessorsByBranch[branch] = child;
       });
@@ -142,6 +149,13 @@ export class History extends React.Component {
       return successorId ?
         historyGraph.depthIndexOf(branch, successorId) :
         null;
+    };
+
+    const getPinnedStateDepth = (branch) => {
+      if (!isNumber(pinnedState) || pinnedStateBranch !== branch) {
+        return null;
+      }
+      return historyGraph.depthIndexOf(branch, pinnedState);
     };
 
     return branches.sort((a, b) => a - b).reverse().map(branch => {
@@ -155,18 +169,15 @@ export class History extends React.Component {
       const myBranchPath = branchPaths[branch];
       const currentBranchStart = myBranchPath ? myBranchPath.start : null;
       const currentBranchEnd = myBranchPath ? myBranchPath.end : null;
-      const successorDepth = isNaN(highlightSuccessorsOf) || highlightSuccessorsOf === null ?
+      const successorDepth = !isNumber(pinnedState) ?
         null :
         getSuccessorDepth(branch);
+      const pinnedStateIndex = getPinnedStateDepth(branch);
       return {
         id: branch,
         active: currentBranch === branch,
         label,
         activeStateIndex,
-        continuation: {
-          numContinuations: 0, // TODO
-          isSelected: currentBranch === branch,
-        },
         startsAt,
         endsAt,
         maxDepth,
@@ -174,6 +185,7 @@ export class History extends React.Component {
         currentBranchStart,
         currentBranchEnd,
         successorDepth,
+        pinnedStateIndex,
       };
     });
   }
@@ -185,7 +197,7 @@ export class History extends React.Component {
       onRemoveBookmark,
       onHighlightSuccessors,
       history: { bookmarks },
-      bookmarks: { show: showBookmarks },
+      bookmarksEnabled,
     } = this.props;
     const { currentStateId } = historyGraph;
     const onStateContinuationClick = id => onHighlightSuccessors(id);
@@ -208,7 +220,7 @@ export class History extends React.Component {
         onStateClick={onStateSelect}
         onStateContinuationClick={onStateContinuationClick}
         onStateBookmarkClick={onStateBookmarkClick}
-        renderBookmarks={showBookmarks}
+        renderBookmarks={bookmarksEnabled}
       />
     );
   }
@@ -292,7 +304,7 @@ export class History extends React.Component {
             />
             <OptionDropdown options={[]} />
           </div>
-          {branchContainerExpanded ? this.renderBranchList(historyGraph, commitPath) : null}
+          {branchContainerExpanded ? this.renderBranchList(historyGraph, commitPath) : <div />}
         </div>
       </div>
     );
@@ -326,11 +338,13 @@ export class History extends React.Component {
       history: { graph },
       mainView,
       onSelectMainView,
+      bookmarksEnabled,
     } = this.props;
     const historyGraph = new DagGraph(graph);
     const commitPath = this.getCurrentCommitPath(historyGraph);
     return (
       <HistoryContainer
+        bookmarksEnabled={bookmarksEnabled}
         selectedTab={mainView}
         onTabSelect={onSelectMainView}
         historyView={this.renderHistoryView(historyGraph, commitPath)}
@@ -387,9 +401,7 @@ History.propTypes = {
   /**
    * Bookbark Configuration Properties
    */
-  bookmarks: PropTypes.shape({
-    show: PropTypes.bool,
-  }),
+  bookmarksEnabled: PropTypes.bool,
 };
 export default connect(
   () => ({}),

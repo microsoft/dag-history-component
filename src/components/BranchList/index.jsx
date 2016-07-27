@@ -38,7 +38,7 @@ BranchList.propTypes = {
     continuation: PropTypes.shape({
       numContinuations: PropTypes.number.isRequired,
       isSelected: PropTypes.bool.isRequired,
-    }).isRequired,
+    }),
     startsAt: PropTypes.number.isRequired,
     endsAt: PropTypes.number.isRequired,
     currentBranchStart: PropTypes.number.isRequired,

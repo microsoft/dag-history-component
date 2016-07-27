@@ -1,4 +1,4 @@
-// const log = require('debug')('dag-history-component:BranchProfile');
+const log = require('debug')('dag-history-component:BranchProfile');
 import React, { PropTypes } from 'react';
 import { colors } from '../../palette';
 import * as SpanCalc from './SpanCalculator';
@@ -27,11 +27,12 @@ function getSpans(
   branchStart,
   branchEnd,
   activeIndex,
-  successorIndex
+  successorIndex,
+  pinnedIndex
 ) {
   // Set up the initial spans ranges; culling out empty ranges
   let spans = SpanCalc.initialSpans(max);
-  spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(start, end + 1, 'UNRELATED'));
+  spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(0, end + 1, 'UNRELATED'));
   if (isNumber(branchStart) && isNumber(branchEnd)) {
     const color = type === 'current' ? 'CURRENT' : 'ANCESTOR';
     const span = new SpanCalc.Span(branchStart, branchEnd + 1, color);
@@ -39,12 +40,20 @@ function getSpans(
   }
 
   if (isNumber(activeIndex)) {
-    const color = type === 'current' ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
+    let color = type === 'current' ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
+    if (isNumber(pinnedIndex) && activeIndex === pinnedIndex + 1) {
+      color = 'SUCCESSOR_ACTIVE';
+    }
     const span = new SpanCalc.Span(activeIndex, activeIndex + 1, color);
     spans = SpanCalc.insertSpan(spans, span);
   }
+  if (isNumber(pinnedIndex)) {
+    const span = new SpanCalc.Span(pinnedIndex, pinnedIndex + 1, 'SUCCESSOR_PIN');
+    spans = SpanCalc.insertSpan(spans, span);
+  }
   if (isNumber(successorIndex)) {
-    const span = new SpanCalc.Span(successorIndex, successorIndex + 1, 'SUCCESSOR');
+    const color = type === 'current' ? 'SUCCESSOR_ACTIVE' : 'SUCCESSOR';
+    const span = new SpanCalc.Span(successorIndex, successorIndex + 1, color);
     spans = SpanCalc.insertSpan(spans, span);
   }
   return spans;
@@ -59,6 +68,7 @@ const BranchProfile = ({
   branchEnd,
   activeStateIndex: activeIndex,
   successorStateIndex: successorIndex,
+  pinnedStateIndex: pinnedIndex,
 }) => {
   const infoSpans = getSpans(
     type,
@@ -68,7 +78,8 @@ const BranchProfile = ({
     branchStart,
     branchEnd,
     activeIndex,
-    successorIndex
+    successorIndex,
+    pinnedIndex
   )
   .map(s => infoSpanStyle(s.length, colors[s.type]))
   .map((style, index) => (<div key={`branchinfo:${index}`} style={style} />));
@@ -86,6 +97,7 @@ BranchProfile.propTypes = {
   branchEnd: PropTypes.number,
   max: PropTypes.number.isRequired,
   activeStateIndex: PropTypes.number,
+  pinnedStateIndex: PropTypes.number,
   successorStateIndex: PropTypes.number,
   type: PropTypes.oneOf(['current', 'legacy']).isRequired,
   paths: PropTypes.shape({

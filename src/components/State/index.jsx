@@ -13,8 +13,22 @@ const coloring = {
     active: colors.LEGACY_ACTIVE,
     nonactive: colors.ANCESTOR,
   },
+  pinned: colors.SUCCESSOR_PIN,
+  successor: colors.SUCCESSOR_ACTIVE,
 };
 const DO_NOTHING = () => ({});
+
+function getBackgroundColor(isPinned, isSuccessor, branchType, active) {
+  let result = null;
+  if (isPinned) {
+    result = coloring.pinned;
+  } else if (isSuccessor) {
+    result = coloring.successor;
+  } else {
+    result = coloring[branchType][active ? 'active' : 'nonactive'];
+  }
+  return result;
+}
 
 const State = ({
   label,
@@ -27,8 +41,10 @@ const State = ({
   onClick,
   onContinuationClick,
   onBookmarkClick,
+  isPinned,
+  isSuccessor,
 }) => {
-  const backgroundColor = coloring[branchType][active ? 'active' : 'nonactive'];
+  const backgroundColor = getBackgroundColor(isPinned, isSuccessor, branchType, active);
   let bookmark = null;
   if (renderBookmarks) {
     bookmark = bookmarked ?
@@ -56,6 +72,8 @@ State.propTypes = {
   bookmarked: PropTypes.bool,
   renderBookmarks: PropTypes.bool,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
+  isPinned: PropTypes.bool,
+  isSuccessor: PropTypes.bool,
   continuation: PropTypes.shape({
     numContinuations: PropTypes.number,
     isSelected: PropTypes.bool,

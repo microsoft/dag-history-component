@@ -20,6 +20,7 @@ const Branch = ({
   itemKey,
   successorDepth,
   continuationActive,
+  pinnedStateIndex
 }) => (
   <div className="history-branch" onClick={onClick || DO_NOTHING}>
     <div className="history-branch-profile-container">
@@ -27,6 +28,7 @@ const Branch = ({
         start={startsAt}
         end={endsAt}
         max={maxDepth}
+        pinnedStateIndex={pinnedStateIndex}
         branchStart={currentBranchStart}
         branchEnd={currentBranchEnd}
         type={branchType}
@@ -54,10 +56,11 @@ Branch.propTypes = {
   continuation: PropTypes.shape({
     numContinuations: PropTypes.number.isRequired,
     isSelected: PropTypes.bool.isRequired,
-  }).isRequired,
+  }),
   startsAt: PropTypes.number.isRequired,
   endsAt: PropTypes.number.isRequired,
   maxDepth: PropTypes.number.isRequired,
+  pinnedStateIndex: PropTypes.number,
   successorDepth: PropTypes.number,
   currentBranchStart: PropTypes.number,
   currentBranchEnd: PropTypes.number,

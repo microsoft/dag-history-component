@@ -1,12 +1,11 @@
 
 import React, { PropTypes } from 'react';
 require('./ItemInfo.sass');
-require('./ContextMenu.css');
+require('./ContextMenu.sass');
 import Continuation from '../Continuation';
 import { ContextMenu, MenuItem, ContextMenuLayer } from 'react-contextmenu';
 import { ItemLabel } from './ItemLabel';
 import { colors } from '../../palette';
-
 
 const ItemInfoContextMenu = ({ itemKey, onRenameClick }) => (
   <ContextMenu identifier={itemKey}>
@@ -33,7 +32,6 @@ class ItemInfo extends React.Component {
       onClick,
       onContinuationClick,
       active,
-      continuationActive,
       editable,
       onLabelChange,
       itemKey,
@@ -53,19 +51,21 @@ class ItemInfo extends React.Component {
     }
 
     let continuationColor = colors.CONT_BLANK;
-    if (continuationActive) {
-      continuationColor = colors.CONT_SELECTED;
-    } else if (active) {
+    if (active) {
       continuationColor = colors.CONT_ACTIVE;
     }
 
+    const renderedContinuation = continuation ? (
+      <Continuation
+        numContinuations={continuation.numContinuations}
+        color={continuationColor}
+        onClick={onContinuationClick || DO_NOTHING}
+      />
+    ) : null;
+
     return (
       <div className="history-item-info" onClick={onClick || DO_NOTHING}>
-        <Continuation
-          numContinuations={continuation.numContinuations}
-          color={continuationColor}
-          onClick={onContinuationClick || DO_NOTHING}
-        />
+        {renderedContinuation}
         {
           editable ? (
             <div className="item-info-context-menu-container">
@@ -97,12 +97,11 @@ ItemInfo.propTypes = {
   continuation: PropTypes.shape({
     numContinuations: PropTypes.number,
     isSelected: PropTypes.bool,
-  }).isRequired,
+  }),
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
   onLabelChange: PropTypes.func,
   active: PropTypes.bool,
-  continuationActive: PropTypes.bool,
 };
 
 export default ItemInfo;

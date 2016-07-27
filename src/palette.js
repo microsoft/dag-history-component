@@ -6,10 +6,12 @@ export const colors = {
   CURRENT: '#B3E4F5',
   ANCESTOR: '#CCC',
   UNRELATED: '#F1F1F1',
-  SUCCESSOR: '#00FF00',
+
+  SUCCESSOR_PIN: '#009C42',
+  SUCCESSOR: '#A3FFCA',
+  SUCCESSOR_ACTIVE: '#0CF871',
 
   // Continuation Cloors
-  CONT_ACTIVE: '#CCFFCC',
-  CONT_SELECTED: '#00FF00',
+  CONT_ACTIVE: '#F1C40F',
   CONT_BLANK: 'white',
 };

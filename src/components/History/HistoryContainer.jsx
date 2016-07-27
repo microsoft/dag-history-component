@@ -20,22 +20,26 @@ const HistoryContainer = ({
   selectedTab,
   historyView,
   storyboardingView,
+  bookmarksEnabled,
 }) => (
-  <Tabs
-    onSelect={handleTabSelector(onTabSelect)}
-    selectedIndex={viewNameToIndex[selectedTab]}
-  >
-    <TabList>
-      <Tab>History</Tab>
-      <Tab>Storyboards</Tab>
-    </TabList>
-    <TabPanel>
-      {historyView}
-    </TabPanel>
-    <TabPanel>
-      {storyboardingView}
-    </TabPanel>
-  </Tabs>
+  bookmarksEnabled ? (
+    <Tabs
+      onSelect={handleTabSelector(onTabSelect)}
+      selectedIndex={viewNameToIndex[selectedTab]}
+    >
+      <TabList>
+        <Tab>History</Tab>
+        <Tab>Storyboards</Tab>
+      </TabList>
+      <TabPanel>
+        {historyView}
+      </TabPanel>
+      <TabPanel>
+        {storyboardingView}
+      </TabPanel>
+    </Tabs>
+  ) :
+  historyView
 );
 
 HistoryContainer.propTypes = {
@@ -43,6 +47,7 @@ HistoryContainer.propTypes = {
   onTabSelect: PropTypes.func.isRequired,
   historyView: PropTypes.element.isRequired,
   storyboardingView: PropTypes.element.isRequired,
+  bookmarksEnabled: PropTypes.bool,
 };
 
 export default HistoryContainer;

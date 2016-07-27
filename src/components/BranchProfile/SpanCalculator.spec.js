@@ -29,12 +29,23 @@ describe('The span calculator', () => {
     assertSpan(spans[2], 6, 11, 'NONE');
   });
 
+
   it('can insert a one-length span in the middle of the initial span', () => {
     let spans = SpanCalc.initialSpans(10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 4, 'test'));
     expect(spans.length).to.equal(3, 'expected 3 spans');
     assertSpan(spans[0], 0, 3, 'NONE');
     assertSpan(spans[1], 3, 4, 'test');
+    assertSpan(spans[2], 4, 11, 'NONE');
+  });
+
+  it('can replace a one-length span', () => {
+    let spans = SpanCalc.initialSpans(10);
+    spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 4, 'test'));
+    spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 4, 'derp'));
+    expect(spans.length).to.equal(3, 'expected 3 spans');
+    assertSpan(spans[0], 0, 3, 'NONE');
+    assertSpan(spans[1], 3, 4, 'derp');
     assertSpan(spans[2], 4, 11, 'NONE');
   });
 

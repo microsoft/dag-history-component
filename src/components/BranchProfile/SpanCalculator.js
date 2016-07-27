@@ -23,8 +23,8 @@ function spanContains(span, index) {
 /**
  * Gets the initial set of common spans for a branch profile
  */
-export function initialSpans(max) {
-  return [new Span(0, max + 1, 'NONE')];
+export function initialSpans(max, type = 'NONE') {
+  return [new Span(0, max + 1, type)];
 }
 
 export function insertSpan(spans, newSpan) {
@@ -79,8 +79,7 @@ export function insertSpan(spans, newSpan) {
   }
 
   if (!modified) {
-    const printSpan = s => `{${s.start}, ${s.end}, ${s.type}}`;
-    throw new Error(`Could not insert span ${printSpan(newSpan)} into spanset [${spans.map(printSpan).join(',')}]`); // eslint-disable-line
+    throw new Error(`Could not insert span ${newSpan.toString()} into spanset [${spans.map(s => s.toString()).join(',')}]`); // eslint-disable-line
   }
   return result;
 }

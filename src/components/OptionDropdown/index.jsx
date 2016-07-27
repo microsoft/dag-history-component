@@ -15,7 +15,7 @@ const OptionDropdown = ({
       <div className={`dropdown-label-only ${triggerClass}`}>
         {label}
       </div>
-    ) : null;
+    ) : <div />;
   } else {
     const trigger = label ?
       <div className="label">{label}</div> :

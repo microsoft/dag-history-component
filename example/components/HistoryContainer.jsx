@@ -35,13 +35,10 @@ const HistoryContainer = ({
     branchContainerExpanded={branchContainerExpanded}
     highlightSuccessorsOf={highlightSuccessorsOf}
     controlBar={{
-      show: true,
       onSaveHistory: saveHistory,
       onLoadHistory: loadHistory,
     }}
-    bookmarks={{
-      show: true,
-    }}
+    bookmarksEnabled
   />
 );
 HistoryContainer.propTypes = {
