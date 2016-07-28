@@ -320,7 +320,7 @@ export class History extends React.Component {
     return (
       <div className="history-container">
         <div className="history-control-bar">
-          <div className="title">Storyboards</div>
+          <div className="title">Bookmarked States</div>
           {
             <OptionDropdown
               contentClass="view-options-dropdown"
