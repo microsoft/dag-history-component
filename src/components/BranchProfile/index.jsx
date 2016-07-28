@@ -33,6 +33,8 @@ function getSpans(
   // Set up the initial spans ranges; culling out empty ranges
   let spans = SpanCalc.initialSpans(max);
   spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(0, end + 1, 'UNRELATED'));
+  spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(start, end + 1, 'UNRELATED_UNIQUE'));
+
   if (isNumber(branchStart) && isNumber(branchEnd)) {
     const color = type === 'current' ? 'CURRENT' : 'ANCESTOR';
     const span = new SpanCalc.Span(branchStart, branchEnd + 1, color);
