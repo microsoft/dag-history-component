@@ -12,6 +12,6 @@ export const colors = {
   SUCCESSOR_ACTIVE: '#0CF871',
 
   // Continuation Cloors
-  CONT_ACTIVE: '#F1C40F',
+  CONT_ACTIVE: '#A3FFCA',
   CONT_BLANK: 'white',
 };
