@@ -38,6 +38,7 @@ export class History extends React.Component {
   }
 
   onSaveClicked() {
+    log('history save clicked');
     const { history, controlBar: { onSaveHistory } } = this.props;
     const { current, lastBranchId, lastStateId, graph, bookmarks } = history;
     // Pass the plain history up to the client to save
@@ -51,8 +52,8 @@ export class History extends React.Component {
   }
 
   onLoadClicked() {
+    log('history load clicked');
     const { onLoad, controlBar: { onLoadHistory } } = this.props;
-    log('loading history');
     if (!onLoadHistory) {
       throw new Error("Cannot load history, 'onLoadHistory' must be defined");
     }
@@ -62,7 +63,6 @@ export class History extends React.Component {
       }
       onLoad(state);
     });
-    onLoadHistory();
   }
 
   onClearClicked() {

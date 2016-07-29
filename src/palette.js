@@ -5,7 +5,7 @@ export const colors = {
   LEGACY_ACTIVE: '#9e9e9e',
   CURRENT: '#B3E4F5',
   ANCESTOR: '#ABB2B9',
-  UNRELATED_UNIQUE: '#D5D8DC',
+  UNRELATED_UNIQUE: '#e0f4fb',
   UNRELATED: '#F8F9F9',
 
   SUCCESSOR_PIN: '#2ECC71',
