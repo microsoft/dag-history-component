@@ -1,6 +1,6 @@
 {
   "name": "dag-history-component",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A React Component for Dag-History Visualization",
   "main": "lib/index.js",
   "scripts": {
