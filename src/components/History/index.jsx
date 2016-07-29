@@ -285,20 +285,20 @@ export class History extends React.Component {
     } = this.props;
     return (
       <div className="history-container">
-        <div className="history-control-bar">
-          <div className="title">States</div>
-          {
-            <OptionDropdown
-              contentClass="view-options-dropdown"
-              options={[
-                { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
-                { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
-                { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
-              ]}
-            />
-          }
-        </div>
         <div className="state-list-container">
+          <div className="history-control-bar">
+            <div className="title">States</div>
+            {
+              <OptionDropdown
+                contentClass="view-options-dropdown"
+                options={[
+                  { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
+                  { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
+                  { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
+                ]}
+              />
+            }
+          </div>
           {this.renderStateList(historyGraph, commitPath)}
         </div>
         <div className="branch-list-container">
@@ -308,7 +308,6 @@ export class History extends React.Component {
               isExpanded={branchContainerExpanded}
               onClick={onToggleBranchContainer}
             />
-            <OptionDropdown options={[]} />
           </div>
           {branchContainerExpanded ? this.renderBranchList(historyGraph, commitPath) : <div />}
         </div>
