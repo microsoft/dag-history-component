@@ -32,17 +32,19 @@ function getSpans(
 ) {
   // Set up the initial spans ranges; culling out empty ranges
   let spans = SpanCalc.initialSpans(max);
+  const isCurrent = type === 'current';
   spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(0, end + 1, 'UNRELATED'));
   spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(start, end + 1, 'UNRELATED_UNIQUE'));
 
   if (isNumber(branchStart) && isNumber(branchEnd)) {
-    const color = type === 'current' ? 'CURRENT' : 'ANCESTOR';
+    const color = isCurrent ? 'CURRENT' : 'ANCESTOR';
     const span = new SpanCalc.Span(branchStart, branchEnd + 1, color);
     spans = SpanCalc.insertSpan(spans, span);
   }
 
   if (isNumber(activeIndex)) {
-    let color = type === 'current' ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
+    const isWithinBranch = activeIndex >= branchStart && activeIndex <= branchEnd;
+    let color = isWithinBranch ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
     if (isNumber(pinnedIndex) && activeIndex === pinnedIndex + 1) {
       color = 'SUCCESSOR_ACTIVE';
     }
@@ -54,7 +56,7 @@ function getSpans(
     spans = SpanCalc.insertSpan(spans, span);
   }
   if (isNumber(successorIndex)) {
-    const color = type === 'current' ? 'SUCCESSOR_ACTIVE' : 'SUCCESSOR';
+    const color = isCurrent ? 'SUCCESSOR_ACTIVE' : 'SUCCESSOR';
     const span = new SpanCalc.Span(successorIndex, successorIndex + 1, color);
     spans = SpanCalc.insertSpan(spans, span);
   }

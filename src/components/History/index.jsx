@@ -158,12 +158,15 @@ export class History extends React.Component {
       return historyGraph.depthIndexOf(branch, pinnedState);
     };
 
+    const activeStateBranch = historyGraph.branchOf(currentStateId);
+    const activeStateIndex = historyGraph.depthIndexOf(activeStateBranch, currentStateId);
+
     return branches.sort((a, b) => a - b).reverse().map(branch => {
-      const activeStateIndex = historyGraph.depthIndexOf(branch, currentStateId);
       const startsAt = historyGraph.branchStartDepth(branch);
       const endsAt = historyGraph.branchEndDepth(branch);
       const branchType = currentBranch === branch ? 'current' : 'legacy';
       const label = historyGraph.getBranchName(branch);
+      const showActiveStateIndex = currentBranch === branch || activeStateBranch === branch;
 
       // Figure out where this branch intersects the commit path
       const myBranchPath = branchPaths[branch];
@@ -177,7 +180,7 @@ export class History extends React.Component {
         id: branch,
         active: currentBranch === branch,
         label,
-        activeStateIndex,
+        activeStateIndex: showActiveStateIndex ? activeStateIndex : null,
         startsAt,
         endsAt,
         maxDepth,
