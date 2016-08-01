@@ -15,6 +15,13 @@ function getContinuationText(numContinuations) {
   return result;
 }
 
+function handleClick(handler) {
+  return (evt) => {
+    handler(evt);
+    evt.stopPropagation();
+  };
+}
+
 const Continuation = ({
   numContinuations,
   color,
@@ -25,7 +32,7 @@ const Continuation = ({
     <div
       className="history-state-continuations"
       style={{ backgroundColor: color }}
-      onClick={onClick || DO_NOTHING}
+      onClick={handleClick(onClick || DO_NOTHING)}
     >
       {continuationText}
     </div>

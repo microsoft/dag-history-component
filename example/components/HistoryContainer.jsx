@@ -37,6 +37,6 @@ const mapStateToProps = state => ({
   historyRoot: state.app,
   mainView: state.history.mainView,
   branchContainerExpanded: state.history.branchContainerExpanded,
-  highlightSuccessorsOf: state.history.highlightSuccessorsOf,
+  highlightSuccessorsOf: state.app.pinnedStateId,
 });
 export default connect(mapStateToProps)(HistoryContainer);

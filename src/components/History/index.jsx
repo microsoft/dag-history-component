@@ -24,12 +24,12 @@ const {
     removeBookmark,
     renameBookmark,
     moveBookmark,
+    pinState: highlightSuccessors,
 } = DagHistoryActions;
 
 const {
   selectMainView,
   toggleBranchContainer,
-  highlightSuccessors,
 } = DagComponentActions;
 
 export class History extends React.Component {
