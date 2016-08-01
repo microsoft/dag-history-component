@@ -21,6 +21,9 @@ module.exports = {
   },
   plugins: [
     new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      saveAs: 'imports?this=>global!exports?global.saveAs!filesaver.js',
+    }),
     new CarteBlanche({ componentRoot: path.join(__dirname, 'src', 'components') }),
   ],
   module: {

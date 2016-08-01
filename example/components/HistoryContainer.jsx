@@ -1,27 +1,9 @@
-const log = require('debug')('dag-history-component:example:HistoryContainer');
 import React, { PropTypes } from 'react';
-import Promise from 'bluebird';
 import { connect } from 'react-redux';
 import History from '../../src/components/History';
+import { save, load } from '../persister';
+
 require('../../src/daghistory.sass');
-
-/* eslint-disable no-alert,no-console */
-function saveHistory(history) {
-  log('saving history to localstorage');
-  try {
-    window.localStorage.dagHistorySession = JSON.stringify(history);
-    alert('History has been saved to localStorage');
-  } catch (err) {
-    console.log('Error Saving History to LocalStorage', err);
-    alert('Error saving history to local storage, see console');
-  }
-}
-/* eslint-enable no-alent,no-console */
-
-function loadHistory() {
-  log('loading history from localstorage');
-  return Promise.resolve(JSON.parse(window.localStorage.dagHistorySession));
-}
 
 const HistoryContainer = ({
   historyRoot,
@@ -29,17 +11,20 @@ const HistoryContainer = ({
   branchContainerExpanded,
   highlightSuccessorsOf,
 }) => (
-  <History
-    history={historyRoot}
-    mainView={mainView}
-    branchContainerExpanded={branchContainerExpanded}
-    highlightSuccessorsOf={highlightSuccessorsOf}
-    controlBar={{
-      onSaveHistory: saveHistory,
-      onLoadHistory: loadHistory,
-    }}
-    bookmarksEnabled
-  />
+  <div className="history-viz-container">
+    <History
+      history={historyRoot}
+      mainView={mainView}
+      branchContainerExpanded={branchContainerExpanded}
+      highlightSuccessorsOf={highlightSuccessorsOf}
+      controlBar={{
+        onSaveHistory: save,
+        onLoadHistory: load,
+      }}
+      bookmarksEnabled
+    />
+    <input id="pickFileInput" type="file" name="pickFileInput" style={{ display: 'none' }} />
+  </div>
 );
 HistoryContainer.propTypes = {
   historyRoot: PropTypes.object,
