@@ -11,6 +11,7 @@ import * as DagComponentActions from '../../actions';
 import OptionDropdown from '../OptionDropdown';
 import HistoryContainer from './HistoryContainer';
 import ExpandCollapseToggle from '../ExpandCollapseToggle';
+// import { MdPlayArrow } from 'react-icons/lib/md';
 require('./History.sass');
 
 const isNumber = d => !isNaN(d) && d !== null;

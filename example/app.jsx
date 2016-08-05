@@ -10,13 +10,15 @@ debug.enable('*,-sockjs*');
 
 ReactDOM.render(
   <Provider store={store}>
-    <div style={{ display: 'flex', flexDirection: 'row', flex: 1 }}>
-      <div style={{ display: 'flex', flex: 3, flexDirection: 'column' }}>
-        <VisualA />
-        <VisualB />
-      </div>
-      <div style={{ display: 'flex', flex: 1 }}>
-        <HistoryContainer />
+    <div className="app-container">
+      <div className="dashboard">
+        <div className="visual-pane">
+          <VisualA />
+          <VisualB />
+        </div>
+        <div className="history-pane">
+          <HistoryContainer />
+        </div>
       </div>
     </div>
   </Provider>
