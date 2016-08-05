@@ -11,6 +11,7 @@ import * as DagComponentActions from '../../actions';
 import OptionDropdown from '../OptionDropdown';
 import HistoryContainer from './HistoryContainer';
 import ExpandCollapseToggle from '../ExpandCollapseToggle';
+import Transport from '../Transport';
 // import { MdPlayArrow } from 'react-icons/lib/md';
 require('./History.sass');
 
@@ -25,6 +26,10 @@ const {
     removeBookmark,
     renameBookmark,
     moveBookmark,
+    undo,
+    redo,
+    skipToStart,
+    skipToEnd,
     pinState: highlightSuccessors,
 } = DagHistoryActions;
 
@@ -286,6 +291,10 @@ export class History extends React.Component {
     const {
       branchContainerExpanded,
       onToggleBranchContainer,
+      onUndo,
+      onRedo,
+      onSkipToStart,
+      onSkipToEnd,
     } = this.props;
     return (
       <div className="history-container">
@@ -314,6 +323,13 @@ export class History extends React.Component {
             />
           </div>
           {branchContainerExpanded ? this.renderBranchList(historyGraph, commitPath) : <div />}
+          <Transport
+            iconSize={30}
+            onSkipToStart={onSkipToStart}
+            onBack={onUndo}
+            onForward={onRedo}
+            onSkipToEnd={onSkipToEnd}
+          />
         </div>
       </div>
     );
@@ -386,6 +402,10 @@ History.propTypes = {
   onToggleBranchContainer: PropTypes.func,
   onBookmarkMove: PropTypes.func,
   onHighlightSuccessors: PropTypes.func,
+  onUndo: PropTypes.func,
+  onRedo: PropTypes.func,
+  onSkipToStart: PropTypes.func,
+  onSkipToEnd: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -425,6 +445,10 @@ export default connect(
     onSelectMainView: selectMainView,
     onToggleBranchContainer: toggleBranchContainer,
     onBookmarkMove: moveBookmark,
+    onUndo: undo,
+    onRedo: redo,
+    onSkipToStart: skipToStart,
+    onSkipToEnd: skipToEnd,
     onHighlightSuccessors: highlightSuccessors,
   }, dispatch)
 )(History);
