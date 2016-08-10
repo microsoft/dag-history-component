@@ -296,6 +296,9 @@ export class History extends React.Component {
       onSkipToStart,
       onSkipToEnd,
     } = this.props;
+    const branchList = branchContainerExpanded ?
+      this.renderBranchList(historyGraph, commitPath) :
+      <div />;
     return (
       <div className="history-container">
         <div className="state-list-container">
@@ -322,15 +325,15 @@ export class History extends React.Component {
               onClick={onToggleBranchContainer}
             />
           </div>
-          {branchContainerExpanded ? this.renderBranchList(historyGraph, commitPath) : <div />}
-          <Transport
-            iconSize={30}
-            onSkipToStart={onSkipToStart}
-            onBack={onUndo}
-            onForward={onRedo}
-            onSkipToEnd={onSkipToEnd}
-          />
+          {branchList}
         </div>
+        <Transport
+          iconSize={30}
+          onSkipToStart={onSkipToStart}
+          onBack={onUndo}
+          onForward={onRedo}
+          onSkipToEnd={onSkipToEnd}
+        />
       </div>
     );
   }
