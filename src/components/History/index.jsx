@@ -12,8 +12,8 @@ import OptionDropdown from '../OptionDropdown';
 import HistoryContainer from './HistoryContainer';
 import ExpandCollapseToggle from '../ExpandCollapseToggle';
 import Transport from '../Transport';
-// import { MdPlayArrow } from 'react-icons/lib/md';
-require('./History.sass');
+
+import './History.scss';
 
 const isNumber = d => !isNaN(d) && d !== null;
 
@@ -24,7 +24,7 @@ const {
     clear,
     addBookmark,
     removeBookmark,
-    renameBookmark,
+    changeBookmark,
     moveBookmark,
     undo,
     redo,
@@ -260,21 +260,21 @@ export class History extends React.Component {
     const {
       history: { bookmarks },
       onStateSelect,
-      onRenameBookmark,
+      onBookmarkChange,
       onBookmarkMove,
     } = this.props;
-
     const bookmarkData = bookmarks.map(b => {
       const isSelected = b.stateId === currentStateId;
       return {
         ...b,
         itemKey: `bookmark::${b.stateId}`,
         active: isSelected,
+        annotation: b.data.annotation || null,
         continuation: {
           isSelected,
           numContinuations: 0,
         },
-        onLabelChange: name => onRenameBookmark({ bookmark: b.stateId, name }),
+        onBookmarkChange: ({ name, data }) => onBookmarkChange({ bookmark: b.stateId, name, data }),
       };
     });
     return (
@@ -400,7 +400,7 @@ History.propTypes = {
   onClear: PropTypes.func,
   onAddBookmark: PropTypes.func,
   onRemoveBookmark: PropTypes.func,
-  onRenameBookmark: PropTypes.func,
+  onBookmarkChange: PropTypes.func,
   onSelectMainView: PropTypes.func,
   onToggleBranchContainer: PropTypes.func,
   onBookmarkMove: PropTypes.func,
@@ -444,7 +444,7 @@ export default connect(
     onLoad: load,
     onAddBookmark: addBookmark,
     onRemoveBookmark: removeBookmark,
-    onRenameBookmark: renameBookmark,
+    onBookmarkChange: changeBookmark,
     onSelectMainView: selectMainView,
     onToggleBranchContainer: toggleBranchContainer,
     onBookmarkMove: moveBookmark,

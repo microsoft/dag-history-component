@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react';
 import { MdMoreVert } from 'react-icons/lib/md';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
-require('./OptionDropdown.sass');
+import './OptionDropdown.scss';
 
 const OptionDropdown = ({
   label,

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import BranchProfile from '../BranchProfile';
 import ItemInfo from '../ItemInfo';
 const DO_NOTHING = () => ({});
-require('./Branch.sass');
+import './Branch.scss';
 
 const Branch = ({
   label,

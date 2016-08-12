@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 const DO_NOTHING = () => ({});
-require('./Continuation.sass');
+import './Continuation.scss';
 
 function getContinuationText(numContinuations) {
   const saneNumContinuations = Math.abs(numContinuations);

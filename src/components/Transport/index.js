@@ -6,7 +6,7 @@ import {
   MdSkipNext,
   MdSkipPrevious,
 } from 'react-icons/lib/md';
-require('./Transport.sass');
+import './Transport.scss';
 
 const Transport = ({
   iconSize,

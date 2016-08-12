@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-const classnames = require('classnames');
+import classnames from 'classnames';
 
 class EditableItemLabel extends React.Component {
   componentDidMount() {

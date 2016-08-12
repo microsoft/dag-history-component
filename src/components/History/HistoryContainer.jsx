@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-require('./Tabs.sass');
+import './Tabs.scss';
 
 const viewNameToIndex = {
   history: 0,

@@ -2,8 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import History from '../../src/components/History';
 import { save, load } from '../persister';
-
-require('../../src/daghistory.sass');
+import '../../src/daghistory.scss';
 
 const HistoryContainer = ({
   historyRoot,

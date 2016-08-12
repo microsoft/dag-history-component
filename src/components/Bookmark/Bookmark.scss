@@ -1,0 +1,65 @@
+$white: #fff;
+$highlight: #f00;
+$background: #faac58;
+
+.history-bookmark {
+  align-items: center;
+  background-color: $background;
+  border-top: 1px solid $white;
+  cursor: pointer;
+  display: flex;
+  min-height: 30px;
+  min-width: 250px;
+  position: relative;
+
+  &:not(:hover) {
+    border-right: 0;
+  }
+
+  &:hover {
+    border-right: 3px solid $highlight;
+  }
+
+  .label {
+    font-family: sans-serif;
+    font-size: 11pt;
+    font-weight: 300;
+  }
+}
+
+.history-bookmark-profile-container {
+  align-items: stretch;
+  display: flex;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.history-bookmark-background {
+  align-items: stretch;
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+%bookmark-details-base {
+  align-self: stretch;
+  display: flex;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.bookmark-details {
+  @extend %bookmark-details-base;
+  align-items: center;
+  flex-direction: row;
+  padding: 0 4px;
+}
+
+.bookmark-details-editable {
+  @extend %bookmark-details-base;
+  align-items: stretch;
+  flex-direction: column;
+  padding: 5px;
+}

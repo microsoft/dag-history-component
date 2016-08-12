@@ -5,7 +5,7 @@ import HistoryContainer from './components/HistoryContainer';
 import { VisualA, VisualB } from './components/visuals';
 import store from './state/store';
 import debug from 'debug';
-require('./app.sass');
+import './app.scss';
 debug.enable('*,-sockjs*');
 
 ReactDOM.render(

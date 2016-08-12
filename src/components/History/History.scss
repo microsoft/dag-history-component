@@ -1,0 +1,64 @@
+%flexy {
+  display: flex;
+  flex: 1;
+}
+
+.history-container {
+  @extend %flexy;
+  align-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.state-list-container {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.branch-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 3px;
+  max-height: 35%;
+  overflow-y: scroll;
+}
+
+.history-view {
+  @extend %flexy;
+  flex-direction: column;
+}
+
+.history-item-container {
+  @extend %flexy;
+  align-items: stretch;
+  flex-direction: column;
+  margin-left: 1px;
+}
+
+.history-control-bar {
+  align-items: center;
+  cursor: default;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 24px;
+
+  .title {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+}
+
+.view-options-dropdown {
+  right: 0;
+}
+
+.view-select-dropdown {
+  display: flex;
+  font-weight: bold;
+  margin-left: 5px;
+}

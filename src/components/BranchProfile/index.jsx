@@ -2,7 +2,7 @@
 import React, { PropTypes } from 'react';
 import { colors } from '../../palette';
 import * as SpanCalc from './SpanCalculator';
-require('./BranchProfile.sass');
+import './BranchProfile.scss';
 
 /**
  * Gets styling for the branch-info spans

@@ -1,7 +1,7 @@
 const log = require('debug')('redux-dag-history:BookmarkList');
 import React, { PropTypes } from 'react';
 import Bookmark from '../Bookmark';
-require('./BookmarkList.sass');
+import './BookmarkList.scss';
 
 const placeholder = document.createElement('div');
 placeholder.className = 'placeholder';
@@ -75,7 +75,11 @@ class BookmarkList extends React.Component {
     // The endSentinel is here for drag-and-drop operations so that we have an elements
     // at the end of the bookmark list.
     const endSentinel = (
-      <div className="history-bookmark-end-sentinel" data-index={bookmarkViews.length} />
+      <div
+        key="bookmarks::endsentinel"
+        className="history-bookmark-end-sentinel"
+        data-index={bookmarkViews.length}
+      />
     );
     return (
       <div className="history-bookmark-list" onDragOver={(event) => this.onDragOver(event)}>
