@@ -6,6 +6,8 @@
     "react"
   ],
   "plugins": [
+    "syntax-decorators",
+    "transform-decorators-legacy",
     "transform-es2015-destructuring"
   ]
 }

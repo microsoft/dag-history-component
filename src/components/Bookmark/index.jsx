@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
 const DO_NOTHING = () => ({});
 import './Bookmark.scss';
-
+import EditBookmark from './EditBookmark';
 import {
   MdEdit,
-  MdDone,
 } from 'react-icons/lib/md';
 
 class Bookmark extends React.Component {
@@ -18,23 +17,9 @@ class Bookmark extends React.Component {
     this.setState({ editMode: true });
   }
 
-  onClickDone() {
-    const {
-      name,
-      annotation: existingAnnotation,
-      onBookmarkChange,
-    } = this.props;
-
-    const newName = this.refs.label.value;
-    const annotation = this.refs.annotation.value;
-    const nameChanged = newName !== name;
-    const annotationChanged = annotation !== existingAnnotation;
-    const isBookmarkUpdated = nameChanged || annotationChanged;
-
-    if (isBookmarkUpdated) {
-      onBookmarkChange({ name, data: { annotation } });
-    }
+  onBookmarkChangeDone(payload) {
     this.setState({ editMode: false });
+    this.props.onBookmarkChange(payload);
   }
 
   render() {
@@ -49,42 +34,16 @@ class Bookmark extends React.Component {
       onDragStart,
       onDragEnd,
       index,
-      annotation,
     } = this.props;
     const {
       editMode,
     } = this.state;
 
     return editMode ? (
-      <div
-        className="history-bookmark"
-        data-index={index}
-      >
-        <div className="bookmark-details-editable">
-          <input
-            ref="label"
-            name="bookmarkLabel"
-            type="text"
-            default="Bookmark Label" defaultValue={name}
-          />
-          <textarea
-            ref="annotation"
-            name="bookmarkAnnotation"
-            cols="40"
-            rows="5"
-            placeholder="Presentation Text"
-            defaultValue={annotation}
-          >
-          </textarea>
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
-            <MdDone
-              style={{ padding: 4, marginRight: 4 }}
-              size={25}
-              onClick={() => this.onClickDone()}
-            />
-          </div>
-        </div>
-      </div>
+      <EditBookmark
+        {...this.props}
+        onBookmarkChange={p => this.onBookmarkChangeDone(p)}
+      />
     ) : (
       <div
         className="history-bookmark"
@@ -102,11 +61,17 @@ class Bookmark extends React.Component {
             onContinuationClick={onContinuationClick || DO_NOTHING}
             active={active}
           />
-          <MdEdit
-            style={{ padding: 4, marginRight: 4 }}
-            size={25}
-            onClick={() => this.onClickEdit()}
-          />
+          <div
+            style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}
+            tabIndex={0}
+            onKeyPress={() => this.onClickEdit()}
+          >
+            <MdEdit
+              style={{ padding: 4, marginRight: 4 }}
+              size={25}
+              onClick={() => this.onClickEdit()}
+            />
+          </div>
         </div>
       </div>
     );

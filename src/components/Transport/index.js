@@ -1,6 +1,5 @@
-const log = require('debug')('dag-history-component:Transport');
 import React, { PropTypes } from 'react';
-import applykeydown from 'react-keydown';
+import keydown, { Keys } from 'react-keydown';
 import {
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
@@ -11,10 +10,31 @@ import {
 import './Transport.scss';
 
 class Transport extends React.Component {
-  componentWillReceiveProps({ keydown }) {
-    if (keydown.event) {
-      log('keydown', keydown.event);
+  @keydown(Keys.SPACE)
+  play() {
+    if (this.props.onPlay) {
+      this.props.onPlay();
     }
+  }
+
+  @keydown(Keys.LEFT)
+  back() {
+    this.props.onBack();
+  }
+
+  @keydown(Keys.RIGHT)
+  forward() {
+    this.props.onForward();
+  }
+
+  @keydown('shift+left')
+  skiptoStart() {
+    this.props.onSkipToStart();
+  }
+
+  @keydown('shift+right')
+  skipToEnd() {
+    this.props.onSkipToEnd();
   }
 
   render() {
@@ -27,9 +47,7 @@ class Transport extends React.Component {
       onPlay,
       showPlay,
     } = this.props;
-    const handleKeyPress = evt => {
-      log('KEYPRESS', evt);
-    };
+    const handleKeyPress = () => ({});
     return (
       <div className="history-transport-panel" onKeyPress={handleKeyPress} tabIndex="0">
         <MdSkipPrevious size={iconSize} onClick={onSkipToStart} />
@@ -50,4 +68,4 @@ Transport.propTypes = {
   onSkipToEnd: PropTypes.func.isRequired,
   onPlay: PropTypes.func,
 };
-export default applykeydown(Transport);
+export default Transport;
