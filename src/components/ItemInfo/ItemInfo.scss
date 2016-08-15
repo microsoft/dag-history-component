@@ -20,17 +20,13 @@ $black: #2c3e50;
     padding-left: 3px;
     padding-right: 3px;
 
-    .active {
-      font-weight: bold;
-    }
-
     &:not(.active) {
       font-weight: 300;
     }
+  }
 
-    .editable {
-      cursor: text;
-    }
+  .active {
+    font-weight: bold;
   }
 }
 

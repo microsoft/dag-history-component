@@ -31,6 +31,11 @@ const {
     skipToStart,
     skipToEnd,
     pinState: highlightSuccessors,
+    playBookmarkStory,
+    skipToFirstBookmark,
+    skipToLastBookmark,
+    nextBookmark,
+    previousBookmark,
 } = DagHistoryActions;
 
 const {
@@ -269,7 +274,7 @@ export class History extends React.Component {
         ...b,
         itemKey: `bookmark::${b.stateId}`,
         active: isSelected,
-        annotation: b.data.annotation || null,
+        annotation: b.data.annotation || '',
         continuation: {
           isSelected,
           numContinuations: 0,
@@ -339,6 +344,13 @@ export class History extends React.Component {
   }
 
   renderStoryboardingView(historyGraph, commitPath) {
+    const {
+      onPlayBookmarkStory,
+      onSkipToFirstBookmark,
+      onSkipToLastBookmark,
+      onNextBookmark,
+      onPreviousBookmark,
+    } = this.props;
     return (
       <div className="history-container">
         <div className="history-control-bar">
@@ -357,6 +369,15 @@ export class History extends React.Component {
         <div className="state-list-container">
           {this.renderBookmarks(historyGraph, commitPath)}
         </div>
+        <Transport
+          showPlay
+          iconSize={30}
+          onSkipToStart={onSkipToFirstBookmark}
+          onBack={onPreviousBookmark}
+          onForward={onNextBookmark}
+          onSkipToEnd={onSkipToLastBookmark}
+          onPlay={onPlayBookmarkStory}
+        />
       </div>
     );
   }
@@ -409,6 +430,11 @@ History.propTypes = {
   onRedo: PropTypes.func,
   onSkipToStart: PropTypes.func,
   onSkipToEnd: PropTypes.func,
+  onPlayBookmarkStory: PropTypes.func,
+  onSkipToFirstBookmark: PropTypes.func,
+  onSkipToLastBookmark: PropTypes.func,
+  onNextBookmark: PropTypes.func,
+  onPreviousBookmark: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -453,5 +479,10 @@ export default connect(
     onSkipToStart: skipToStart,
     onSkipToEnd: skipToEnd,
     onHighlightSuccessors: highlightSuccessors,
+    onPlayBookmarkStory: playBookmarkStory,
+    onSkipToFirstBookmark: skipToFirstBookmark,
+    onSkipToLastBookmark: skipToLastBookmark,
+    onNextBookmark: nextBookmark,
+    onPreviousBookmark: previousBookmark,
   }, dispatch)
 )(History);
