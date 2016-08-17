@@ -12,14 +12,14 @@ export default class EditBookmark extends React.Component {
 
   onClickDone() {
     const {
-      name,
+      name: existingName,
       annotation: existingAnnotation,
       onBookmarkChange,
     } = this.props;
 
-    const newName = this.refs.label.value;
+    const name = this.refs.label.value;
     const annotation = this.refs.annotation.value;
-    const nameChanged = newName !== name;
+    const nameChanged = name !== existingName;
     const annotationChanged = annotation !== existingAnnotation;
     const isBookmarkUpdated = nameChanged || annotationChanged;
 
