@@ -6,12 +6,20 @@ import {
   MdSkipNext,
   MdSkipPrevious,
   MdPlayArrow,
+  MdPause,
 } from 'react-icons/lib/md';
 import './Transport.scss';
 
 class Transport extends React.Component {
   @keydown(Keys.SPACE)
   play() {
+    if (this.props.onPlay) {
+      this.props.onPlay();
+    }
+  }
+
+  @keydown(Keys.ESC)
+  pause() {
     if (this.props.onPlay) {
       this.props.onPlay();
     }
@@ -46,6 +54,7 @@ class Transport extends React.Component {
       onSkipToEnd,
       onPlay,
       showPlay,
+      showPause,
     } = this.props;
     const handleKeyPress = () => ({});
     return (
@@ -53,6 +62,7 @@ class Transport extends React.Component {
         <MdSkipPrevious size={iconSize} onClick={onSkipToStart} />
         <MdKeyboardArrowLeft size={iconSize} onClick={onBack} />
         {showPlay ? <MdPlayArrow size={iconSize} onClick={onPlay} /> : null}
+        {showPause ? <MdPause size={iconSize} onClick={onPlay} /> : null}
         <MdKeyboardArrowRight size={iconSize} onClick={onForward} />
         <MdSkipNext size={iconSize} onClick={onSkipToEnd} />
       </div>
@@ -61,6 +71,7 @@ class Transport extends React.Component {
 }
 Transport.propTypes = {
   showPlay: PropTypes.bool,
+  showPause: PropTypes.bool,
   iconSize: PropTypes.number.isRequired,
   onSkipToStart: PropTypes.func.isRequired,
   onBack: PropTypes.func.isRequired,

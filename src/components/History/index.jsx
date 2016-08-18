@@ -346,10 +346,6 @@ export class History extends React.Component {
 
   renderStoryboardingView(historyGraph, commitPath) {
     const {
-      history: {
-        bookmarkPlaybackIndex,
-        bookmarks,
-      },
       onPlayBookmarkStory,
       onSkipToFirstBookmark,
       onSkipToLastBookmark,
@@ -357,40 +353,24 @@ export class History extends React.Component {
       onPreviousBookmark,
     } = this.props;
 
-    const isPlaybackMode = Number.isInteger(bookmarkPlaybackIndex);
     return (
       <div className="history-container">
-        {
-          isPlaybackMode ?
-            <PlaybackPane
-              text={bookmarks[bookmarkPlaybackIndex].data.annotation || 'No Slide Data'}
-            /> :
-            null
-        }
-        {
-          isPlaybackMode ? null : (
-            <div className="history-control-bar">
-              <div className="title">Bookmarked States</div>
-              {
-                <OptionDropdown
-                  contentClass="view-options-dropdown"
-                  options={[
-                    { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
-                    { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
-                    { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
-                  ]}
-                />
-              }
-            </div>
-          )
-        }
-        {
-          isPlaybackMode ? null : (
-            <div className="state-list-container">
-              {this.renderBookmarks(historyGraph, commitPath)}
-            </div>
-          )
-        }
+        <div className="history-control-bar">
+          <div className="title">Bookmarked States</div>
+          {
+            <OptionDropdown
+              contentClass="view-options-dropdown"
+              options={[
+                { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
+                { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
+                { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
+              ]}
+            />
+          }
+        </div>
+        <div className="state-list-container">
+          {this.renderBookmarks(historyGraph, commitPath)}
+        </div>
         <Transport
           showPlay
           iconSize={30}
@@ -404,16 +384,52 @@ export class History extends React.Component {
     );
   }
 
+  renderPlayback() {
+    const {
+      history: {
+        bookmarks,
+        bookmarkPlaybackIndex,
+      },
+      onPlayBookmarkStory,
+      onSkipToFirstBookmark,
+      onSkipToLastBookmark,
+      onNextBookmark,
+      onPreviousBookmark,
+    } = this.props;
+
+    return (
+      <div className="state-list-container">
+        <PlaybackPane
+          text={bookmarks[bookmarkPlaybackIndex].data.annotation || 'No Slide Data'}
+        />
+        <Transport
+          showPause
+          iconSize={30}
+          onSkipToStart={onSkipToFirstBookmark}
+          onBack={onPreviousBookmark}
+          onForward={onNextBookmark}
+          onSkipToEnd={onSkipToLastBookmark}
+          onPlay={onPlayBookmarkStory}
+        />
+      </div>
+    );
+  }
+
   render() {
     const {
-      history: { graph },
+      history: {
+        bookmarkPlaybackIndex,
+        graph,
+      },
       mainView,
       onSelectMainView,
       bookmarksEnabled,
     } = this.props;
+    const isPlaybackMode = Number.isInteger(bookmarkPlaybackIndex);
     const historyGraph = new DagGraph(graph);
     const commitPath = this.getCurrentCommitPath(historyGraph);
-    return (
+
+    return isPlaybackMode ? this.renderPlayback() : (
       <HistoryContainer
         bookmarksEnabled={bookmarksEnabled}
         selectedTab={mainView}
