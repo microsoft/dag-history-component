@@ -1,26 +1,29 @@
 $white: #fff;
-$black: black;
+$black: #000;
 $shadow: rgba(0, 0, 0, .2);
 
 .dropdown {
-  display: inline-block;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
 
-  .dropdown--active {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    justify-content: flex-end;
+  .dropdown-content {
+    display: none;
+  }
 
-    .dropdown__content {
+  &.dropdown--active {
+    .dropdown-content {
       display: block;
     }
   }
 }
 
-.dropdown__content {
+.dropdown-content {
   background-color: $white;
   box-shadow: 0 8px 16px 0 $shadow;
   display: none;
+  margin-top: 30px;
   min-width: 160px;
   position: absolute;
   z-index: 1;
@@ -37,7 +40,7 @@ $shadow: rgba(0, 0, 0, .2);
   }
 }
 
-.dropdown__trigger {
+.dropdown-trigger {
   color: $black;
   text-decoration: none;
 }
