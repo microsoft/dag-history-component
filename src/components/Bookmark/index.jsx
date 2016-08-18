@@ -62,7 +62,7 @@ class Bookmark extends React.Component {
             active={active}
           />
           <div
-            style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}
+            style={{ alignSelf: 'flex-end' }}
             tabIndex={0}
             onKeyPress={() => this.onClickEdit()}
           >

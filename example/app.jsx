@@ -4,9 +4,7 @@ import { Provider } from 'react-redux';
 import HistoryContainer from './components/HistoryContainer';
 import { VisualA, VisualB } from './components/visuals';
 import store from './state/store';
-import debug from 'debug';
 import './app.scss';
-debug.enable('*,-sockjs*');
 
 ReactDOM.render(
   <Provider store={store}>

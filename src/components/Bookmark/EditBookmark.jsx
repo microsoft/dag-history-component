@@ -42,6 +42,7 @@ export default class EditBookmark extends React.Component {
       >
         <div className="bookmark-details-editable">
           <input
+            className="bookmark-input"
             tabIndex={0}
             ref="label"
             name="bookmarkLabel"
@@ -50,6 +51,7 @@ export default class EditBookmark extends React.Component {
             defaultValue={name}
           />
           <textarea
+            className="bookmark-input"
             tabIndex={0}
             ref="annotation"
             name="bookmarkAnnotation"
@@ -60,15 +62,12 @@ export default class EditBookmark extends React.Component {
           >
           </textarea>
           <div
-            style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}
+            style={{ alignSelf: 'flex-end' }}
             tabIndex={0}
             onKeyPress={() => this.onClickDone()}
+            onClick={() => this.onClickDone()}
           >
-            <MdDone
-              style={{ padding: 4, marginRight: 4 }}
-              size={25}
-              onClick={() => this.onClickDone()}
-            />
+            <MdDone style={{ padding: 4, marginRight: 4 }} size={25} />
           </div>
         </div>
       </div>
