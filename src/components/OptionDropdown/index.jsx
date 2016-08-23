@@ -26,10 +26,10 @@ const OptionDropdown = ({
 
     result = (
       <Dropdown options={{ show: false }}>
-        <DropdownTrigger className={`dropdown-trigger ${triggerClass}`}>
+        <DropdownTrigger className={`history-dropdown-trigger ${triggerClass}`}>
           {trigger}
         </DropdownTrigger>
-        <DropdownContent className={`dropdown-content ${contentClass}`}>
+        <DropdownContent className={`history-dropdown-content ${contentClass}`}>
           <ul>
           {
             options.map(({ label: optionLabel, onClick }, index) => (
