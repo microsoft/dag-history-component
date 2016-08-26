@@ -3,7 +3,7 @@ import './PlaybackPane.scss';
 
 const PlaybackPane = ({ text }) => (
   <div className="playback-pane">
-    <h1>{text}</h1>
+    <h3>{text}</h3>
   </div>
 );
 PlaybackPane.propTypes = {

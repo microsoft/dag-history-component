@@ -279,7 +279,6 @@ export class History extends React.Component {
         itemKey: `bookmark::${b.stateId}`,
         active: isSelected,
         annotation: b.data.annotation || '',
-        selected: isSelected,
         onBookmarkChange: ({ name, data }) => onBookmarkChange({ bookmark: b.stateId, name, data }),
       };
     });

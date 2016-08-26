@@ -76,7 +76,7 @@ export default class EditBookmark extends React.Component {
             name="bookmarkAnnotation"
             cols="40"
             rows="5"
-            placeholder="Presentation Text"
+            placeholder="Enter caption for presentation"
             defaultValue={annotation}
             onFocus={onClick}
             onBlur={() => this.executeChange()}

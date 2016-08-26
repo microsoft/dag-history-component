@@ -93,15 +93,7 @@ BookmarkList.propTypes = {
   onBookmarkClick: PropTypes.func,
   onBookmarkContinuationClick: PropTypes.func,
   onBookmarkMove: PropTypes.func.isRequired,
-  bookmarks: PropTypes.arrayOf(React.PropTypes.shape({
-    stateId: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    active: PropTypes.bool,
-    continuation: PropTypes.shape({
-      numContinuations: PropTypes.number,
-      isSelected: PropTypes.bool,
-    }).isRequired,
-  })).isRequired,
+  bookmarks: PropTypes.arrayOf(React.PropTypes.shape(Bookmark.PropTypes)).isRequired,
 };
 
 export default BookmarkList;

@@ -13,6 +13,12 @@ class Bookmark extends React.Component {
     this.state = { editMode: false };
   }
 
+  componentDidMount() {
+    if (this.props.active) {
+      this.setState({ editMode: true }); // eslint-disable-line
+    }
+  }
+
   onClickEdit() {
     this.setState({ editMode: true });
   }
@@ -36,7 +42,6 @@ class Bookmark extends React.Component {
       onDragStart,
       onDragEnd,
       index,
-      selected,
     } = this.props;
     const {
       editMode,
@@ -50,7 +55,7 @@ class Bookmark extends React.Component {
       />
     ) : (
       <div
-        className={`history-bookmark ${selected ? 'selected' : ''}`}
+        className={`history-bookmark ${active ? 'selected' : ''}`}
         onClick={onClick || DO_NOTHING}
         draggable={draggable}
         onDragStart={onDragStart}
@@ -92,7 +97,6 @@ Bookmark.propTypes = {
   draggable: PropTypes.bool,
   onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
-  selected: PropTypes.bool,
 };
 
 export default Bookmark;
