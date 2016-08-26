@@ -37,6 +37,7 @@ const {
     skipToLastBookmark,
     nextBookmark,
     previousBookmark,
+    renameBranch,
 } = DagHistoryActions;
 
 const {
@@ -133,6 +134,7 @@ export class History extends React.Component {
     } = historyGraph;
     const {
       highlightSuccessorsOf: pinnedState,
+      onRenameBranch,
     } = this.props;
     const pinnedStateBranch = historyGraph.branchOf(pinnedState);
 
@@ -201,6 +203,7 @@ export class History extends React.Component {
         currentBranchEnd,
         successorDepth,
         pinnedStateIndex,
+        onRename: (name) => onRenameBranch({ branch, name }),
       };
     })
     .filter(branch => (
@@ -470,6 +473,7 @@ History.propTypes = {
   onSkipToLastBookmark: PropTypes.func,
   onNextBookmark: PropTypes.func,
   onPreviousBookmark: PropTypes.func,
+  onRenameBranch: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -503,6 +507,7 @@ export default connect(
     onBranchSelect: jumpToBranch,
     onClear: clear,
     onLoad: load,
+    onRenameBranch: renameBranch,
     onAddBookmark: addBookmark,
     onRemoveBookmark: removeBookmark,
     onBookmarkChange: changeBookmark,

@@ -71,7 +71,6 @@ class Bookmark extends React.Component {
             onKeyPress={() => this.onClickEdit()}
           >
             <EditIcon
-              style={{ padding: 4, marginRight: 4 }}
               size={30}
               onClick={() => this.onClickEdit()}
             />
