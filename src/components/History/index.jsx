@@ -276,10 +276,7 @@ export class History extends React.Component {
         itemKey: `bookmark::${b.stateId}`,
         active: isSelected,
         annotation: b.data.annotation || '',
-        continuation: {
-          isSelected,
-          numContinuations: 0,
-        },
+        selected: isSelected,
         onBookmarkChange: ({ name, data }) => onBookmarkChange({ bookmark: b.stateId, name, data }),
       };
     });
@@ -396,12 +393,12 @@ export class History extends React.Component {
       onNextBookmark,
       onPreviousBookmark,
     } = this.props;
+    const bookmark = bookmarks[bookmarkPlaybackIndex];
+    const slideText = bookmark.data.annotation || bookmark.name || 'No Slide Data';
 
     return (
       <div className="state-list-container">
-        <PlaybackPane
-          text={bookmarks[bookmarkPlaybackIndex].data.annotation || 'No Slide Data'}
-        />
+        <PlaybackPane text={slideText} />
         <Transport
           showPause
           iconSize={30}

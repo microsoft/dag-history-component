@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import './Bookmark.scss';
 
 import {
-  MdDone,
+  MdKeyboardArrowDown as CloseIcon,
 } from 'react-icons/lib/md';
 
 export default class EditBookmark extends React.Component {
@@ -11,6 +11,12 @@ export default class EditBookmark extends React.Component {
   }
 
   onClickDone() {
+    const { onDoneEditing } = this.props;
+    this.executeChange();
+    onDoneEditing();
+  }
+
+  executeChange() {
     const {
       name: existingName,
       annotation: existingAnnotation,
@@ -33,23 +39,36 @@ export default class EditBookmark extends React.Component {
       name,
       index,
       annotation,
+      selected,
+      onClick,
     } = this.props;
 
     return (
       <div
-        className="history-bookmark"
+        className={`history-bookmark ${selected ? 'selected' : ''}`}
         data-index={index}
       >
         <div className="bookmark-details-editable">
-          <input
-            className="bookmark-input"
-            tabIndex={0}
-            ref="label"
-            name="bookmarkLabel"
-            type="text"
-            default="Bookmark Label"
-            defaultValue={name}
-          />
+          <div style={{ display: 'flex' }}>
+            <input
+              className="bookmark-input"
+              tabIndex={0}
+              ref="label"
+              name="bookmarkLabel"
+              type="text"
+              default="Bookmark Label"
+              defaultValue={name}
+              onFocus={onClick}
+              onBlur={() => this.executeChange()}
+            />
+            <div
+              tabIndex={0}
+              onKeyPress={() => this.onClickDone()}
+              onClick={() => this.onClickDone()}
+            >
+              <CloseIcon style={{ padding: 4, marginRight: 4 }} size={30} />
+            </div>
+          </div>
           <textarea
             className="bookmark-input"
             tabIndex={0}
@@ -59,16 +78,10 @@ export default class EditBookmark extends React.Component {
             rows="5"
             placeholder="Presentation Text"
             defaultValue={annotation}
+            onFocus={onClick}
+            onBlur={() => this.executeChange()}
           >
           </textarea>
-          <div
-            style={{ alignSelf: 'flex-end' }}
-            tabIndex={0}
-            onKeyPress={() => this.onClickDone()}
-            onClick={() => this.onClickDone()}
-          >
-            <MdDone style={{ padding: 4, marginRight: 4 }} size={25} />
-          </div>
         </div>
       </div>
     );
@@ -79,4 +92,7 @@ EditBookmark.propTypes = {
   name: PropTypes.string.isRequired,
   annotation: PropTypes.string.isRequired,
   onBookmarkChange: PropTypes.func,
+  onDoneEditing: PropTypes.func,
+  selected: PropTypes.bool,
+  onClick: PropTypes.func,
 };

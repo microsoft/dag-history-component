@@ -1,6 +1,7 @@
 $white: #fff;
 $highlight: #f00;
 $background: #faac58;
+$selected-background: #fa5b58;
 $gray: #d1d1d1;
 
 .history-bookmark {
@@ -12,6 +13,14 @@ $gray: #d1d1d1;
   min-height: 30px;
   min-width: 250px;
   position: relative;
+
+  &.selected {
+    background-color: $selected-background;
+
+    &:not(:hover) {
+      border-right: 3px solid $selected-background;
+    }
+  }
 
   &:not(:hover) {
     border-right: 3px solid $background;
@@ -62,7 +71,7 @@ $gray: #d1d1d1;
   @extend %bookmark-details-base;
   align-items: stretch;
   flex-direction: column;
-  padding: 5px;
+  padding: 10px;
 }
 
 .bookmark-input {
@@ -71,5 +80,6 @@ $gray: #d1d1d1;
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
+  flex: 1;
   padding: 6px 10px;
 }

@@ -4,7 +4,7 @@ const DO_NOTHING = () => ({});
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
 import {
-  MdEdit,
+  MdKeyboardArrowUp as EditIcon,
 } from 'react-icons/lib/md';
 
 class Bookmark extends React.Component {
@@ -17,8 +17,11 @@ class Bookmark extends React.Component {
     this.setState({ editMode: true });
   }
 
-  onBookmarkChangeDone(payload) {
+  onDoneEditing() {
     this.setState({ editMode: false });
+  }
+
+  onBookmarkChangeDone(payload) {
     this.props.onBookmarkChange(payload);
   }
 
@@ -29,11 +32,11 @@ class Bookmark extends React.Component {
       onClick,
       onContinuationClick,
       active,
-      continuation,
       draggable,
       onDragStart,
       onDragEnd,
       index,
+      selected,
     } = this.props;
     const {
       editMode,
@@ -42,11 +45,12 @@ class Bookmark extends React.Component {
     return editMode ? (
       <EditBookmark
         {...this.props}
+        onDoneEditing={() => this.onDoneEditing()}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
       />
     ) : (
       <div
-        className="history-bookmark"
+        className={`history-bookmark ${selected ? 'selected' : ''}`}
         onClick={onClick || DO_NOTHING}
         draggable={draggable}
         onDragStart={onDragStart}
@@ -57,7 +61,7 @@ class Bookmark extends React.Component {
           <ItemInfo
             itemKey={itemKey}
             label={name}
-            continuation={continuation}
+            continuation={null}
             onContinuationClick={onContinuationClick || DO_NOTHING}
             active={active}
           />
@@ -66,9 +70,9 @@ class Bookmark extends React.Component {
             tabIndex={0}
             onKeyPress={() => this.onClickEdit()}
           >
-            <MdEdit
+            <EditIcon
               style={{ padding: 4, marginRight: 4 }}
-              size={25}
+              size={30}
               onClick={() => this.onClickEdit()}
             />
           </div>
@@ -83,16 +87,13 @@ Bookmark.propTypes = {
   name: PropTypes.string.isRequired,
   annotation: PropTypes.string.isRequired,
   active: PropTypes.bool,
-  continuation: PropTypes.shape({
-    numContinuations: PropTypes.number,
-    isSelected: PropTypes.bool,
-  }).isRequired,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
   onBookmarkChange: PropTypes.func,
   draggable: PropTypes.bool,
   onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
+  selected: PropTypes.bool,
 };
 
 export default Bookmark;
