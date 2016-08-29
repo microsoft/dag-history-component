@@ -395,9 +395,12 @@ export class History extends React.Component {
       onNextBookmark,
       onPreviousBookmark,
     } = this.props;
+
     const bookmark = bookmarks[bookmarkPlaybackIndex];
     const slideText = bookmark.data.annotation || bookmark.name || 'No Slide Data';
-
+    const isLastSlide = bookmarkPlaybackIndex === bookmarks.length - 1;
+    // End the presentation if we're on the last slide
+    const forwardAction = isLastSlide ? onPlayBookmarkStory : onNextBookmark;
     return (
       <div className="state-list-container">
         <PlaybackPane text={slideText} />
@@ -406,7 +409,7 @@ export class History extends React.Component {
           iconSize={30}
           onSkipToStart={onSkipToFirstBookmark}
           onBack={onPreviousBookmark}
-          onForward={onNextBookmark}
+          onForward={forwardAction}
           onSkipToEnd={onSkipToLastBookmark}
           onPlay={onPlayBookmarkStory}
         />

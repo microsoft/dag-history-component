@@ -1,7 +1,7 @@
 $white: #fff;
 $highlight: #f00;
-$background: #faac58;
-$selected-background: #fa5b58;
+$background: #ffb300;
+$selected-background: #ff8f00;
 $gray: #d1d1d1;
 
 .history-bookmark {
@@ -82,4 +82,5 @@ $gray: #d1d1d1;
   box-sizing: border-box;
   flex: 1;
   padding: 6px 10px;
+  width: 100%;
 }

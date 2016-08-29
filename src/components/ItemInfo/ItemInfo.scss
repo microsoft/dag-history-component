@@ -1,8 +1,9 @@
-$black: #2c3e50;
+$black: #000;
+$charcoal: #5d6d7e;
 
 .history-item-info {
   align-items: center;
-  color: $black;
+  color: $charcoal;
   cursor: pointer;
   display: flex;
   flex: 1;
@@ -26,7 +27,7 @@ $black: #2c3e50;
   }
 
   .active {
-    font-weight: bold;
+    color: $black;
   }
 }
 

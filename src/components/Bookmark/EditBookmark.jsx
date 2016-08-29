@@ -39,13 +39,13 @@ export default class EditBookmark extends React.Component {
       name,
       index,
       annotation,
-      selected,
+      active,
       onClick,
     } = this.props;
 
     return (
       <div
-        className={`history-bookmark ${selected ? 'selected' : ''}`}
+        className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}
       >
         <div className="bookmark-details-editable">
@@ -70,6 +70,7 @@ export default class EditBookmark extends React.Component {
             </div>
           </div>
           <textarea
+            style={{ marginTop: 5 }}
             className="bookmark-input"
             tabIndex={0}
             ref="annotation"
@@ -93,6 +94,6 @@ EditBookmark.propTypes = {
   annotation: PropTypes.string.isRequired,
   onBookmarkChange: PropTypes.func,
   onDoneEditing: PropTypes.func,
-  selected: PropTypes.bool,
+  active: PropTypes.bool,
   onClick: PropTypes.func,
 };
