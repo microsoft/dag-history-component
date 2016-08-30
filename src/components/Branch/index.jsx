@@ -79,16 +79,6 @@ class Branch extends React.Component {
             active={active}
             continuationActive={continuationActive}
           />
-          <div
-            style={{ alignSelf: 'flex-end' }}
-            tabIndex={0}
-            onKeyPress={() => this.onClickEdit()}
-          >
-            <EditIcon
-              size={30}
-              onClick={() => this.onClickEdit()}
-            />
-          </div>
         </div>
       </div>
     );

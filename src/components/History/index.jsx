@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
 import * as DagComponentActions from '../../actions';
-import OptionDropdown from '../OptionDropdown';
 import HistoryContainer from './HistoryContainer';
 import ExpandCollapseToggle from '../ExpandCollapseToggle';
 import Transport from '../Transport';
@@ -70,7 +69,7 @@ export class History extends React.Component {
     if (!onLoadHistory) {
       throw new Error("Cannot load history, 'onLoadHistory' must be defined");
     }
-    Promise.resolve(onLoadHistory()).then(state => {
+    return Promise.resolve(onLoadHistory()).then(state => {
       if (!state) {
         throw new Error("'onLoadHistory' must return either a state graph object or a promise that resolves to a state graph object"); // eslint-disable-line
       }
@@ -307,24 +306,11 @@ export class History extends React.Component {
     return (
       <div className="history-container">
         <div className="state-list-container">
-          <div className="history-control-bar">
-            <div className="title">States</div>
-            {
-              <OptionDropdown
-                contentClass="view-options-dropdown"
-                options={[
-                  { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
-                  { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
-                  { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
-                ]}
-              />
-            }
-          </div>
           {this.renderStateList(historyGraph, commitPath)}
         </div>
         <div className="branch-list-container">
           <div className="history-control-bar">
-            <div className="title">Branches</div>
+            <div className="title">Paths</div>
             <ExpandCollapseToggle
               isExpanded={branchContainerExpanded}
               onClick={onToggleBranchContainer}
@@ -354,19 +340,6 @@ export class History extends React.Component {
 
     return (
       <div className="history-container">
-        <div className="history-control-bar">
-          <div className="title">Bookmarked States</div>
-          {
-            <OptionDropdown
-              contentClass="view-options-dropdown"
-              options={[
-                { label: 'Save', onClick: this.onSaveClicked.bind(this) }, // eslint-disable-line
-                { label: 'Load', onClick: this.onLoadClicked.bind(this) }, // eslint-disable-line
-                { label: 'Clear', onClick: this.onClearClicked.bind(this) }, // eslint-disable-line
-              ]}
-            />
-          }
-        </div>
         <div className="state-list-container">
           {this.renderBookmarks(historyGraph, commitPath)}
         </div>
@@ -438,6 +411,9 @@ export class History extends React.Component {
         onTabSelect={onSelectMainView}
         historyView={this.renderHistoryView(historyGraph, commitPath)}
         storyboardingView={this.renderStoryboardingView(historyGraph, commitPath)}
+        onSaveClicked={this.onSaveClicked.bind(this)}  // eslint-disable-line
+        onLoadClicked={this.onLoadClicked.bind(this)}  // eslint-disable-line
+        onClearClicked={this.onClearClicked.bind(this)}  // eslint-disable-line
       />
     );
   }

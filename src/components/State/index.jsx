@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
 import { colors } from '../../palette';
-import EmptyBookmark from 'react-icons/lib/fa/bookmark-o';
-import Bookmark from 'react-icons/lib/fa/bookmark';
+import EmptyBookmark from 'react-icons/lib/io/ios-location';
+import Bookmark from 'react-icons/lib/io/ios-location';
 
 const coloring = {
   current: {
@@ -49,7 +49,7 @@ const State = ({
   if (renderBookmarks) {
     bookmark = bookmarked ?
       <Bookmark color="gold" onClick={onBookmarkClick || DO_NOTHING} /> :
-      <EmptyBookmark onClick={onBookmarkClick || DO_NOTHING} />;
+      <EmptyBookmark color="#E8E8E8" onClick={onBookmarkClick || DO_NOTHING} />;
   }
   return (
     <div className="history-state" style={{ backgroundColor }} onClick={onClick || DO_NOTHING}>

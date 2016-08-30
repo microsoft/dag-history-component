@@ -8,6 +8,7 @@
   align-content: space-between;
   flex-direction: column;
   height: 100%;
+  position: relative;
   width: 100%;
 }
 
@@ -37,6 +38,15 @@
   align-items: stretch;
   flex-direction: column;
   margin-left: 1px;
+}
+
+.history-option-menu {
+  margin-right: 4px;
+  margin-top: 4px;
+  min-height: 24px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .history-control-bar {
