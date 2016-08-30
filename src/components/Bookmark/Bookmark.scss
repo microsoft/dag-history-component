@@ -17,6 +17,10 @@ $gray: #d1d1d1;
   &.selected {
     background-color: $selected-background;
 
+    &:hover {
+      border-right: 3px solid $highlight;
+    }
+
     &:not(:hover) {
       border-right: 3px solid $selected-background;
     }

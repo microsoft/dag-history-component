@@ -13,12 +13,6 @@ class Bookmark extends React.Component {
     this.state = { editMode: false };
   }
 
-  componentDidMount() {
-    if (this.props.active) {
-      this.setState({ editMode: true }); // eslint-disable-line
-    }
-  }
-
   onClickEdit() {
     this.setState({ editMode: true });
   }

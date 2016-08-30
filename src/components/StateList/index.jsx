@@ -22,7 +22,7 @@ const StateList = ({
     />
   ));
   return (
-    <div className="history-state-list">
+    <div className="state-list-container">
       {stateViews}
     </div>
   );

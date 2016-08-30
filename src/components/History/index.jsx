@@ -305,9 +305,7 @@ export class History extends React.Component {
       <div />;
     return (
       <div className="history-container">
-        <div className="state-list-container">
-          {this.renderStateList(historyGraph, commitPath)}
-        </div>
+        {this.renderStateList(historyGraph, commitPath)}
         <div className="branch-list-container">
           <div className="history-control-bar">
             <div className="title">Paths</div>
@@ -340,9 +338,7 @@ export class History extends React.Component {
 
     return (
       <div className="history-container">
-        <div className="state-list-container">
-          {this.renderBookmarks(historyGraph, commitPath)}
-        </div>
+        {this.renderBookmarks(historyGraph, commitPath)}
         <Transport
           showPlay
           iconSize={30}
