@@ -42,6 +42,7 @@ class Bookmark extends React.Component {
       onDragStart,
       onDragEnd,
       index,
+      annotation,
     } = this.props;
     const {
       editMode,
