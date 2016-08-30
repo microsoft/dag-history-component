@@ -4,9 +4,6 @@ import ItemInfo from '../ItemInfo';
 import EditBranch from './EditBranch';
 const DO_NOTHING = () => ({});
 import './Branch.scss';
-import {
-  MdKeyboardArrowUp as EditIcon,
-} from 'react-icons/lib/md';
 
 class Branch extends React.Component {
   constructor() {
