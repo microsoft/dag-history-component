@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
 import { colors } from '../../palette';
-import Bookmark from 'react-icons/lib/io/ios-location';
+import Bookmark from 'react-icons/lib/io/bookmark';
 
 const coloring = {
   current: {
@@ -48,6 +48,7 @@ const State = ({
   if (renderBookmarks) {
     bookmark = (
       <Bookmark
+        size={25}
         color={bookmarked ? 'gold' : '#e8e8e8'}
         onClick={onBookmarkClick || DO_NOTHING}
       />

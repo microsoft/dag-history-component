@@ -43,7 +43,7 @@ const HistoryContainer = ({
         selectedIndex={viewNameToIndex[selectedTab]}
       >
         <TabList>
-          <Tab>Views</Tab>
+          <Tab>History</Tab>
           <Tab>Bookmarks</Tab>
         </TabList>
         <TabPanel>
