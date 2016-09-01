@@ -7,17 +7,28 @@ import { colors } from '../../palette';
 
 const DO_NOTHING = () => ({});
 
+const continuationColor = (isActive, isPinned) => {
+  let result = colors.CONT_BLANK;
+  if (isPinned) {
+    result = colors.CONT_PINNED;
+  } else if (isActive) {
+    result = colors.CONT_ACTIVE;
+  }
+  return result;
+};
+
 const ItemInfo = ({
   continuation,
   label,
   onClick,
   onContinuationClick,
   active,
+  pinned,
 }) => {
   const renderedContinuation = continuation ? (
     <Continuation
       numContinuations={continuation.numContinuations}
-      color={active ? colors.CONT_ACTIVE : colors.CONT_BLANK}
+      color={continuationColor(active, pinned)}
       onClick={onContinuationClick || DO_NOTHING}
     />
   ) : null;
@@ -39,6 +50,7 @@ ItemInfo.propTypes = {
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
   active: PropTypes.bool,
+  pinned: PropTypes.bool,
 };
 
 export default ItemInfo;

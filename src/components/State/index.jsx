@@ -40,10 +40,10 @@ const State = ({
   onClick,
   onContinuationClick,
   onBookmarkClick,
-  isPinned,
+  pinned,
   isSuccessor,
 }) => {
-  const backgroundColor = getBackgroundColor(isPinned, isSuccessor, branchType, active);
+  const backgroundColor = getBackgroundColor(pinned, isSuccessor, branchType, active);
   let bookmark = null;
   if (renderBookmarks) {
     bookmark = (
@@ -61,6 +61,7 @@ const State = ({
         continuation={continuation}
         onContinuationClick={onContinuationClick || DO_NOTHING}
         active={active}
+        pinned={pinned}
         continuationActive={continuationActive}
       />
       {bookmark}
@@ -71,11 +72,11 @@ const State = ({
 State.propTypes = {
   label: PropTypes.string.isRequired,
   active: PropTypes.bool,
+  pinned: PropTypes.bool,
   continuationActive: PropTypes.bool,
   bookmarked: PropTypes.bool,
   renderBookmarks: PropTypes.bool,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
-  isPinned: PropTypes.bool,
   isSuccessor: PropTypes.bool,
   continuation: PropTypes.shape({
     numContinuations: PropTypes.number,

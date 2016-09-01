@@ -107,18 +107,19 @@ export class History extends React.Component {
       const bookmarked = bookmarks.map(b => b.stateId).includes(id);
       const isSuccessor = isNumber(highlightSuccessorsOf) &&
         historyGraph.parentOf(id) === highlightSuccessorsOf;
+      const pinned = highlightSuccessorsOf === id;
+      const active = currentStateId === id;
       return {
         id,
         label,
-        active: currentStateId === id,
-        isPinned: highlightSuccessorsOf === id,
+        active,
+        pinned,
         isSuccessor,
         continuationActive: id === highlightSuccessorsOf,
         branchType,
         bookmarked,
         continuation: {
           numContinuations: historyGraph.childrenOf(id).length,
-          isSelected: currentStateId === id,
         },
       };
     }).reverse();
