@@ -1,3 +1,4 @@
+import './components/Bookmark';
 import './components/Branch';
 import './components/BranchList';
 import './components/BranchProfile';
