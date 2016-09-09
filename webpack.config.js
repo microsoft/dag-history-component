@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const CarteBlanche = require('carte-blanche');
 
 module.exports = {
   context: path.join(__dirname),
@@ -24,7 +23,6 @@ module.exports = {
     new webpack.ProvidePlugin({
       saveAs: 'imports?this=>global!exports?global.saveAs!filesaver.js',
     }),
-    new CarteBlanche({ componentRoot: path.join(__dirname, 'src', 'components') }),
   ],
   module: {
     loaders: [

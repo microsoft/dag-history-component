@@ -43,10 +43,7 @@ const ItemInfo = ({
 ItemInfo.propTypes = {
   itemKey: PropTypes.string,
   label: PropTypes.string.isRequired,
-  continuation: PropTypes.shape({
-    numContinuations: PropTypes.number,
-    isSelected: PropTypes.bool,
-  }),
+  continuation: PropTypes.shape(Continuation.propTypes),
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
   active: PropTypes.bool,

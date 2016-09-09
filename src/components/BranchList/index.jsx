@@ -32,19 +32,8 @@ BranchList.propTypes = {
   onBranchClick: PropTypes.func,
   onBranchContinuationClick: PropTypes.func,
   branches: PropTypes.arrayOf(React.PropTypes.shape({
+    ...Branch.propTypes,
     id: PropTypes.number.isRequired,
-    label: PropTypes.string.isRequired,
-    activeStateIndex: PropTypes.number,
-    continuation: PropTypes.shape({
-      numContinuations: PropTypes.number.isRequired,
-      isSelected: PropTypes.bool.isRequired,
-    }),
-    startsAt: PropTypes.number.isRequired,
-    endsAt: PropTypes.number.isRequired,
-    currentBranchStart: PropTypes.number,
-    currentBranchEnd: PropTypes.number,
-    maxDepth: PropTypes.number.isRequired,
-    branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
   })).isRequired,
 };
 

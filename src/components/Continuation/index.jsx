@@ -3,7 +3,7 @@ const DO_NOTHING = () => ({});
 import './Continuation.scss';
 
 function getContinuationText(numContinuations) {
-  const saneNumContinuations = Math.abs(numContinuations);
+  const saneNumContinuations = Math.abs(numContinuations || 0);
   let result;
   if (saneNumContinuations <= 1) {
     result = '';
