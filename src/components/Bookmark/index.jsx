@@ -1,11 +1,8 @@
 import React, { PropTypes } from 'react';
-import ItemInfo from '../ItemInfo';
 const DO_NOTHING = () => ({});
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
-import {
-  MdKeyboardArrowUp as EditIcon,
-} from 'react-icons/lib/md';
+import classnames from 'classnames';
 
 class Bookmark extends React.Component {
   constructor() {
@@ -29,7 +26,6 @@ class Bookmark extends React.Component {
     const {
       name,
       onClick,
-      onContinuationClick,
       active,
       draggable,
       onDragStart,
@@ -59,13 +55,12 @@ class Bookmark extends React.Component {
         data-index={index}
       >
         <div className="bookmark-details">
-          <ItemInfo
-            label={name}
-            continuation={null}
+          <div
+            className={classnames('bookmark-title', { active })}
             onClick={() => this.onClickEdit('title')}
-            onContinuationClick={onContinuationClick || DO_NOTHING}
-            active={active}
-          />
+          >
+            {name}
+          </div>
           <div
             className="bookmark-annotation"
             onClick={() => this.onClickEdit('annotation')}
@@ -83,7 +78,6 @@ Bookmark.propTypes = {
   annotation: PropTypes.string.isRequired,
   active: PropTypes.bool,
   onClick: PropTypes.func,
-  onContinuationClick: PropTypes.func,
   onBookmarkChange: PropTypes.func,
   draggable: PropTypes.bool,
   onDragStart: PropTypes.func,

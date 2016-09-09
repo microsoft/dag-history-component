@@ -13,7 +13,7 @@ storiesOf('Bookmark', module)
     onBookmarkChange={action('bookmarkChange')}
   />
 ))
-.add('Aactive', () => (
+.add('Active', () => (
   <Bookmark
     name="Some Bookmark Name"
     annotation="Some Bookmark Annotation Text. Derp Depr Derp Derp"

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
-import ItemInfo from '../ItemInfo';
+import Continuation from '../Continuation';
 import { colors } from '../../palette';
 import Bookmark from 'react-icons/lib/io/bookmark';
+import classnames from 'classnames';
 import './State.scss';
 
 const coloring = {
@@ -34,7 +35,6 @@ const State = ({
   label,
   branchType,
   active,
-  continuationActive,
   renderBookmarks,
   bookmarked,
   continuation,
@@ -57,14 +57,10 @@ const State = ({
   }
   return (
     <div className="history-state" style={{ backgroundColor }} onClick={onClick || DO_NOTHING}>
-      <ItemInfo
-        label={label}
-        continuation={continuation}
-        onContinuationClick={onContinuationClick || DO_NOTHING}
-        active={active}
-        pinned={pinned}
-        continuationActive={continuationActive}
-      />
+      <Continuation {...continuation} onClick={onContinuationClick} />
+      <div className={classnames('state-name', { active })}>
+        {label}
+      </div>
       {bookmark}
     </div>
   );

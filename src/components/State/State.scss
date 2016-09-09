@@ -1,5 +1,7 @@
 $white: #fff;
 $highlight: #f93;
+$black: #000;
+$charcoal: #5d6d7e;
 
 .history-state {
   align-items: center;
@@ -10,6 +12,7 @@ $highlight: #f93;
   min-height: 30px;
   min-width: 250px;
   padding: 4px;
+  padding-left: 5px;
   position: relative;
 
   &:not(:hover) {
@@ -18,5 +21,18 @@ $highlight: #f93;
 
   &:hover {
     border-right: 3px solid $highlight;
+  }
+
+  .state-name {
+    flex: 1;
+    margin-left: 5px;
+
+    &:active {
+      color: $black;
+    }
+
+    &:not(.active) {
+      color: $charcoal;
+    }
   }
 }
