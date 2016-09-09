@@ -13,8 +13,8 @@ class Bookmark extends React.Component {
     this.state = { editMode: false };
   }
 
-  onClickEdit() {
-    this.setState({ editMode: true });
+  onClickEdit(focusOn) {
+    this.setState({ editMode: true, focusOn });
   }
 
   onDoneEditing() {
@@ -35,15 +35,17 @@ class Bookmark extends React.Component {
       onDragStart,
       onDragEnd,
       index,
-      //annotation,
+      annotation,
     } = this.props;
     const {
       editMode,
+      focusOn,
     } = this.state;
 
     return editMode ? (
       <EditBookmark
         {...this.props}
+        focusOn={focusOn}
         onDoneEditing={() => this.onDoneEditing()}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
       />
@@ -60,18 +62,15 @@ class Bookmark extends React.Component {
           <ItemInfo
             label={name}
             continuation={null}
+            onClick={() => this.onClickEdit('title')}
             onContinuationClick={onContinuationClick || DO_NOTHING}
             active={active}
           />
           <div
-            style={{ alignSelf: 'flex-end' }}
-            tabIndex={0}
-            onKeyPress={() => this.onClickEdit()}
+            className="bookmark-annotation"
+            onClick={() => this.onClickEdit('annotation')}
           >
-            <EditIcon
-              size={30}
-              onClick={() => this.onClickEdit()}
-            />
+            {annotation}
           </div>
         </div>
       </div>

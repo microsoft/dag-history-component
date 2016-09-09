@@ -1,19 +1,25 @@
 import React, { PropTypes } from 'react';
 import './Bookmark.scss';
 
-import {
-  MdKeyboardArrowDown as CloseIcon,
-} from 'react-icons/lib/md';
-
 export default class EditBookmark extends React.Component {
   componentDidMount() {
-    this.refs.label.focus();
+    const { focusOn } = this.props;
+    this.refs[focusOn].focus();
   }
 
   onClickDone() {
     const { onDoneEditing } = this.props;
     this.executeChange();
     onDoneEditing();
+  }
+
+  onDone(e) {
+    const { currentTarget } = e;
+    setTimeout(() => {
+      if (!currentTarget.contains(document.activeElement)) {
+        this.onClickDone();
+      }
+    }, 0);
   }
 
   executeChange() {
@@ -23,7 +29,7 @@ export default class EditBookmark extends React.Component {
       onBookmarkChange,
     } = this.props;
 
-    const name = this.refs.label.value;
+    const name = this.refs.title.value;
     const annotation = this.refs.annotation.value;
     const nameChanged = name !== existingName;
     const annotationChanged = annotation !== existingAnnotation;
@@ -48,12 +54,12 @@ export default class EditBookmark extends React.Component {
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}
       >
-        <div className="bookmark-details-editable">
+        <div className="bookmark-details-editable" onBlur={(e) => this.onDone(e)}>
           <div style={{ display: 'flex' }}>
             <input
               className="bookmark-input"
               tabIndex={0}
-              ref="label"
+              ref="title"
               name="bookmarkLabel"
               type="text"
               default="Bookmark Label"
@@ -61,13 +67,6 @@ export default class EditBookmark extends React.Component {
               onFocus={onClick}
               onBlur={() => this.executeChange()}
             />
-            <div
-              tabIndex={0}
-              onKeyPress={() => this.onClickDone()}
-              onClick={() => this.onClickDone()}
-            >
-              <CloseIcon style={{ padding: 4, marginRight: 4 }} size={30} />
-            </div>
           </div>
           <textarea
             style={{ marginTop: 5 }}
@@ -96,4 +95,5 @@ EditBookmark.propTypes = {
   onDoneEditing: PropTypes.func,
   active: PropTypes.bool,
   onClick: PropTypes.func,
+  focusOn: PropTypes.string,
 };

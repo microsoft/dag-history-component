@@ -3,6 +3,7 @@ $highlight: #f00;
 $background: #ffe0b3;
 $selected-background: #ffb84d;
 $gray: #d1d1d1;
+$charcoal: #5d6d7e;
 
 .history-bookmark {
   align-items: center;
@@ -12,6 +13,7 @@ $gray: #d1d1d1;
   display: flex;
   min-height: 30px;
   min-width: 250px;
+  padding: 4px;
   position: relative;
 
   &.selected {
@@ -66,9 +68,18 @@ $gray: #d1d1d1;
 
 .bookmark-details {
   @extend %bookmark-details-base;
-  align-items: center;
-  flex-direction: row;
+  align-items: flex-start;
+  flex-direction: column;
   padding: 0 4px;
+}
+
+.bookmark-annotation {
+  @extend %bookmark-details-base;
+  color: $charcoal;
+  font-family: sans-serif;
+  font-size: 9pt;
+  margin-left: 8px;
+  margin-top: 5px;
 }
 
 .bookmark-details-editable {
