@@ -3,7 +3,7 @@ import { storiesOf, action } from '@kadira/storybook';
 import State from '../../../src/components/State';
 
 storiesOf('State', module)
-.add('Current Branch - Active', () => (
+.add('Current, Active', () => (
   <State
     label="Added Search Criteria"
     branchType="current"
@@ -13,7 +13,7 @@ storiesOf('State', module)
     active
   />
 ))
-.add('Current Branch - Inactive', () => (
+.add('Current, Inactive', () => (
   <State
     label="Added Search Criteria"
     branchType="current"
@@ -22,7 +22,7 @@ storiesOf('State', module)
     continuation={{ numContinuations: 2 }}
   />
 ))
-.add('Legacy Branch - Active', () => (
+.add('Legacy, Active', () => (
   <State
     label="Added Search Criteria"
     branchType="legacy"
@@ -32,12 +32,64 @@ storiesOf('State', module)
     active
   />
 ))
-.add('Legacy Branch - Inactive', () => (
+.add('Legacy, Inactive', () => (
   <State
     label="Added Search Criteria"
     branchType="legacy"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
     continuation={{ numContinuations: 12 }}
+  />
+))
+.add('Current, Unbookmarked', () => (
+  <State
+    label="Added Search Criteria"
+    branchType="current"
+    onClick={action('click')}
+    onContinuationClick={action('continuationClick')}
+    continuation={{ numContinuations: 2 }}
+    renderBookmarks
+  />
+))
+.add('Legacy, Unbookmarked', () => (
+  <State
+    label="Added Search Criteria"
+    branchType="legacy"
+    onClick={action('click')}
+    onContinuationClick={action('continuationClick')}
+    continuation={{ numContinuations: 2 }}
+    renderBookmarks
+  />
+))
+.add('Current, Bookmarked', () => (
+  <State
+    label="Added Search Criteria"
+    branchType="current"
+    onClick={action('click')}
+    onContinuationClick={action('continuationClick')}
+    continuation={{ numContinuations: 2 }}
+    renderBookmarks
+    bookmarked
+  />
+))
+.add('Legacy, Bookmarked', () => (
+  <State
+    label="Added Search Criteria"
+    branchType="legacy"
+    onClick={action('click')}
+    onContinuationClick={action('continuationClick')}
+    continuation={{ numContinuations: 2 }}
+    renderBookmarks
+    bookmarked
+  />
+))
+.add('Pinned', () => (
+  <State
+    label="Added Search Criteria"
+    branchType="current"
+    onClick={action('click')}
+    onContinuationClick={action('continuationClick')}
+    continuation={{ numContinuations: 12 }}
+    pinned
   />
 ));

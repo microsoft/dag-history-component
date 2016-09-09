@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import ItemInfo from '../ItemInfo';
 import { colors } from '../../palette';
 import Bookmark from 'react-icons/lib/io/bookmark';
+import './State.scss';
 
 const coloring = {
   current: {
