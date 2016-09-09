@@ -80,7 +80,7 @@ $black: #000;
   &:active {
     color: $black;
   }
-  
+
   &:not(.active) {
     color: $charcoal;
   }
@@ -98,6 +98,7 @@ $black: #000;
   align-items: stretch;
   flex-direction: column;
   padding: 10px;
+  width: 100%;
 }
 
 .bookmark-input {
