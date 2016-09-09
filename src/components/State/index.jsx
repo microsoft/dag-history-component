@@ -31,6 +31,16 @@ function getBackgroundColor(isPinned, isSuccessor, branchType, active) {
   return result;
 }
 
+function continuationColor(isActive, isPinned) {
+  let result = colors.CONT_BLANK;
+  if (isPinned) {
+    result = colors.CONT_PINNED;
+  } else if (isActive) {
+    result = colors.CONT_ACTIVE;
+  }
+  return result;
+}
+
 const State = ({
   label,
   branchType,
@@ -57,7 +67,11 @@ const State = ({
   }
   return (
     <div className="history-state" style={{ backgroundColor }} onClick={onClick || DO_NOTHING}>
-      <Continuation {...continuation} onClick={onContinuationClick} />
+      <Continuation
+        {...continuation}
+        color={continuationColor(active, pinned)}
+        onClick={onContinuationClick}
+      />
       <div className={classnames('state-name', { active })}>
         {label}
       </div>
