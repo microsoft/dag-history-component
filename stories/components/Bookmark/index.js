@@ -8,7 +8,6 @@ storiesOf('Bookmark', module)
     name="Some Bookmark Name"
     annotation="Some Bookmark Annotation Text. Derp Depr Derp Derp"
     index={1}
-    itemKey="1"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
     onBookmarkChange={action('bookmarkChange')}
@@ -19,7 +18,6 @@ storiesOf('Bookmark', module)
     name="Some Bookmark Name"
     annotation="Some Bookmark Annotation Text. Derp Depr Derp Derp"
     index={1}
-    itemKey="1"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
     onBookmarkChange={action('bookmarkChange')}

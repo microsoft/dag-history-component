@@ -41,7 +41,6 @@ const ItemInfo = ({
 };
 
 ItemInfo.propTypes = {
-  itemKey: PropTypes.string,
   label: PropTypes.string.isRequired,
   continuation: PropTypes.shape(Continuation.propTypes),
   onClick: PropTypes.func,

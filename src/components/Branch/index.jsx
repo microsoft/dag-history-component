@@ -37,7 +37,6 @@ class Branch extends React.Component {
       onClick,
       onContinuationClick,
       active,
-      itemKey,
       successorDepth,
       continuationActive,
       pinnedStateIndex,
@@ -69,7 +68,6 @@ class Branch extends React.Component {
         </div>
         <div className="branch-details">
           <ItemInfo
-            itemKey={itemKey}
             continuation={continuation}
             label={label}
             onContinuationClick={onContinuationClick || DO_NOTHING}
@@ -83,7 +81,6 @@ class Branch extends React.Component {
 }
 
 Branch.propTypes = {
-  itemKey: PropTypes.string,
   label: PropTypes.string.isRequired,
   activeStateIndex: PropTypes.number,
   continuation: PropTypes.shape({

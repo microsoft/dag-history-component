@@ -27,7 +27,6 @@ class Bookmark extends React.Component {
 
   render() {
     const {
-      itemKey,
       name,
       onClick,
       onContinuationClick,
@@ -59,7 +58,6 @@ class Bookmark extends React.Component {
       >
         <div className="bookmark-details">
           <ItemInfo
-            itemKey={itemKey}
             label={name}
             continuation={null}
             onContinuationClick={onContinuationClick || DO_NOTHING}
@@ -81,7 +79,6 @@ class Bookmark extends React.Component {
   }
 }
 Bookmark.propTypes = {
-  itemKey: PropTypes.string,
   index: PropTypes.number,
   name: PropTypes.string.isRequired,
   annotation: PropTypes.string.isRequired,
