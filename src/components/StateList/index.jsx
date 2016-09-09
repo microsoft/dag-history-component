@@ -36,7 +36,7 @@ StateList.propTypes = {
     branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
     bookmarked: PropTypes.bool,
     continuation: PropTypes.shape({
-      numContinuations: PropTypes.number,
+      count: PropTypes.number,
       isSelected: PropTypes.bool,
     }).isRequired,
   })),

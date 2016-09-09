@@ -24,7 +24,7 @@ storiesOf('StateList', module)
         label: 'Added Time Filter',
         branchType: 'current',
         continuation: {
-          numContinuations: 2,
+          count: 2,
         },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),
@@ -34,7 +34,7 @@ storiesOf('StateList', module)
         label: 'Set Probox to 2',
         branchType: 'legacy',
         continuation: {
-          numContinuations: 12,
+          count: 12,
         },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),
@@ -44,7 +44,7 @@ storiesOf('StateList', module)
         label: 'Enable Hydrospanner',
         branchType: 'legacy',
         continuation: {
-          numContinuations: 12,
+          count: 12,
         },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),
@@ -74,7 +74,7 @@ storiesOf('StateList', module)
         label: 'Added Time Filter',
         branchType: 'current',
         continuation: {
-          numContinuations: 2,
+          count: 2,
         },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),
@@ -84,7 +84,7 @@ storiesOf('StateList', module)
         label: 'Set Probox to 2',
         branchType: 'legacy',
         continuation: {
-          numContinuations: 12,
+          count: 12,
         },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),
@@ -94,7 +94,7 @@ storiesOf('StateList', module)
         label: 'Enable Hydrospanner',
         branchType: 'legacy',
         continuation: {
-          numContinuations: 12,
+          count: 12,
         },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),

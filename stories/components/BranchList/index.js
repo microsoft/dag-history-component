@@ -11,7 +11,7 @@ storiesOf('BranchList', module)
         id: 0,
         label: 'delta-1',
         continuation: {
-          numContinuations: 0,
+          count: 0,
           isSelected: true,
         },
         startsAt: 5,
@@ -24,7 +24,7 @@ storiesOf('BranchList', module)
         activeStateIndex: 3,
         label: 'master',
         continuation: {
-          numContinuations: 2,
+          count: 2,
           isSelected: true,
         },
         startsAt: 0,

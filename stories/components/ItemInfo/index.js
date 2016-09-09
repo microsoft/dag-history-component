@@ -6,7 +6,7 @@ storiesOf('ItemInfo', module)
 .add('Basic', () => (
   <ItemInfo
     label="Et qui corporis quia animi."
-    continuation={{ numContinuations: 98098 }}
+    continuation={{ count: 98098 }}
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
   />
@@ -14,7 +14,7 @@ storiesOf('ItemInfo', module)
 .add('Active', () => (
   <ItemInfo
     label="Et qui corporis quia animi."
-    continuation={{ numContinuations: 98098 }}
+    continuation={{ count: 98098 }}
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
     active
@@ -23,7 +23,7 @@ storiesOf('ItemInfo', module)
 .add('Pinned', () => (
   <ItemInfo
     label="Et qui corporis quia animi."
-    continuation={{ numContinuations: 98098 }}
+    continuation={{ count: 98098 }}
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
     pinned
@@ -32,7 +32,7 @@ storiesOf('ItemInfo', module)
 .add('Active & Pinned', () => (
   <ItemInfo
     label="Et qui corporis quia animi."
-    continuation={{ numContinuations: 98098 }}
+    continuation={{ count: 98098 }}
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
     active

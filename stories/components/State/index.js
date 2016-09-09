@@ -9,7 +9,7 @@ storiesOf('State', module)
     branchType="current"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 4 }}
+    continuation={{ count: 4 }}
     active
   />
 ))
@@ -19,7 +19,7 @@ storiesOf('State', module)
     branchType="current"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 2 }}
+    continuation={{ count: 2 }}
   />
 ))
 .add('Legacy, Active', () => (
@@ -28,7 +28,7 @@ storiesOf('State', module)
     branchType="legacy"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 1 }}
+    continuation={{ count: 1 }}
     active
   />
 ))
@@ -38,7 +38,7 @@ storiesOf('State', module)
     branchType="legacy"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 12 }}
+    continuation={{ count: 12 }}
   />
 ))
 .add('Current, Unbookmarked', () => (
@@ -47,7 +47,7 @@ storiesOf('State', module)
     branchType="current"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 2 }}
+    continuation={{ count: 2 }}
     renderBookmarks
   />
 ))
@@ -57,7 +57,7 @@ storiesOf('State', module)
     branchType="legacy"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 2 }}
+    continuation={{ count: 2 }}
     renderBookmarks
   />
 ))
@@ -67,7 +67,7 @@ storiesOf('State', module)
     branchType="current"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 2 }}
+    continuation={{ count: 2 }}
     renderBookmarks
     bookmarked
   />
@@ -78,7 +78,7 @@ storiesOf('State', module)
     branchType="legacy"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 2 }}
+    continuation={{ count: 2 }}
     renderBookmarks
     bookmarked
   />
@@ -89,7 +89,7 @@ storiesOf('State', module)
     branchType="current"
     onClick={action('click')}
     onContinuationClick={action('continuationClick')}
-    continuation={{ numContinuations: 12 }}
+    continuation={{ count: 12 }}
     pinned
   />
 ));

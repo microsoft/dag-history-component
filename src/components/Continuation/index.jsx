@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react';
 const DO_NOTHING = () => ({});
 import './Continuation.scss';
 
-function getContinuationText(numContinuations) {
-  const saneNumContinuations = Math.abs(numContinuations || 0);
+function getContinuationText(count) {
+  const sanecount = Math.abs(count || 0);
   let result;
-  if (saneNumContinuations <= 1) {
+  if (sanecount <= 1) {
     result = '';
-  } else if (saneNumContinuations < 99) {
-    result = `${saneNumContinuations}`;
+  } else if (sanecount < 99) {
+    result = `${sanecount}`;
   } else {
     result = '99+';
   }
@@ -23,11 +23,11 @@ function handleClick(handler) {
 }
 
 const Continuation = ({
-  numContinuations,
+  count,
   color,
   onClick,
 }) => {
-  const continuationText = getContinuationText(numContinuations);
+  const continuationText = getContinuationText(count);
   return (
     <div
       className="history-state-continuations"
@@ -40,7 +40,7 @@ const Continuation = ({
 };
 
 Continuation.propTypes = {
-  numContinuations: PropTypes.number,
+  count: PropTypes.number,
   color: PropTypes.string,
   onClick: PropTypes.func,
 };

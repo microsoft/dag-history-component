@@ -119,7 +119,7 @@ export class History extends React.Component {
         branchType,
         bookmarked,
         continuation: {
-          numContinuations: historyGraph.childrenOf(id).length,
+          count: historyGraph.childrenOf(id).length,
         },
       };
     }).reverse();

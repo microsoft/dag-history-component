@@ -87,7 +87,7 @@ Branch.propTypes = {
   label: PropTypes.string.isRequired,
   activeStateIndex: PropTypes.number,
   continuation: PropTypes.shape({
-    numContinuations: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
     isSelected: PropTypes.bool.isRequired,
   }),
   startsAt: PropTypes.number.isRequired,

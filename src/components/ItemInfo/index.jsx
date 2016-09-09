@@ -27,7 +27,7 @@ const ItemInfo = ({
 }) => {
   const renderedContinuation = continuation ? (
     <Continuation
-      numContinuations={continuation.numContinuations}
+      count={continuation.count}
       color={continuationColor(active, pinned)}
       onClick={onContinuationClick || DO_NOTHING}
     />

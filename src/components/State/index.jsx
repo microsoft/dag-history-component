@@ -80,7 +80,7 @@ State.propTypes = {
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
   isSuccessor: PropTypes.bool,
   continuation: PropTypes.shape({
-    numContinuations: PropTypes.number,
+    count: PropTypes.number,
     isSelected: PropTypes.bool,
   }).isRequired,
   onBookmarkClick: PropTypes.func,
