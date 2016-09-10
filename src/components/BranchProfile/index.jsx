@@ -1,6 +1,5 @@
-// const log = require('debug')('dag-history-component:BranchProfile');
 import React, { PropTypes } from 'react';
-import { colors } from '../../palette';
+import colors from '../../palette';
 import * as SpanCalc from './SpanCalculator';
 import './BranchProfile.scss';
 
@@ -104,16 +103,6 @@ BranchProfile.propTypes = {
   pinnedStateIndex: PropTypes.number,
   successorStateIndex: PropTypes.number,
   type: PropTypes.oneOf(['current', 'legacy']).isRequired,
-  paths: PropTypes.shape({
-    color: PropTypes.string.isRequired,
-    ingressEars: PropTypes.arrayOf(PropTypes.number),
-    egressEars: PropTypes.arrayOf(PropTypes.number),
-    traversal: PropTypes.shape({
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
-    }),
-    verticals: PropTypes.arrayOf(PropTypes.number),
-  }),
 };
 
 export default BranchProfile;

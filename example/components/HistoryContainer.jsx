@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import History from '../../src/components/History';
 import { save, load } from '../persister';
 import '../../src/daghistory.scss';
+
+import HistoryComponent from '../../src/components/History';
 
 const HistoryContainer = ({
   historyRoot,
@@ -11,7 +12,7 @@ const HistoryContainer = ({
   highlightSuccessorsOf,
 }) => (
   <div className="history-viz-container">
-    <History
+    <HistoryComponent
       history={historyRoot}
       mainView={mainView}
       branchContainerExpanded={branchContainerExpanded}
@@ -26,7 +27,7 @@ const HistoryContainer = ({
   </div>
 );
 HistoryContainer.propTypes = {
-  historyRoot: PropTypes.object,
+  historyRoot: PropTypes.object, // eslint-disable-line
   mainView: PropTypes.string,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,

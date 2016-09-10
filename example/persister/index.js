@@ -1,7 +1,8 @@
-const log = require('debug')('redux-dag-history:FilePersister');
 import { Promise } from 'bluebird';
-import { simulate } from './simulate';
 import { saveAs } from 'filesaver.js';
+import simulate from './simulate';
+
+const log = require('debug')('redux-dag-history:FilePersister');
 
 function readJson(file) {
   return new Promise((resolve, reject) => {

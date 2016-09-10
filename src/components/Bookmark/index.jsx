@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
-const DO_NOTHING = () => ({});
+import classnames from 'classnames';
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
-import classnames from 'classnames';
+
+const DO_NOTHING = () => ({});
 
 class Bookmark extends React.Component {
   constructor() {

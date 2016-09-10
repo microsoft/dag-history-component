@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import State from '../State';
+
 const DO_NOTHING = () => ({});
 
 const StateList = ({
@@ -31,14 +32,8 @@ const StateList = ({
 StateList.propTypes = {
   activeStateId: PropTypes.number.isRequired,
   states: PropTypes.arrayOf(React.PropTypes.shape({
-    label: PropTypes.string.isRequired,
+    ...State.propTypes,
     id: PropTypes.number.isRequired,
-    branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
-    bookmarked: PropTypes.bool,
-    continuation: PropTypes.shape({
-      count: PropTypes.number,
-      isSelected: PropTypes.bool,
-    }).isRequired,
   })),
   renderBookmarks: PropTypes.bool,
   onStateClick: PropTypes.func,

@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react';
-
 import {
   MdKeyboardArrowDown as CloseIcon,
 } from 'react-icons/lib/md';
 
 export default class EditBranch extends React.Component {
   componentDidMount() {
-    this.refs.label.focus();
+    this.label.focus();
   }
 
   onClickDone() {
@@ -15,13 +14,17 @@ export default class EditBranch extends React.Component {
     onDoneEditing();
   }
 
+  setLabel(c) {
+    this.label = c;
+  }
+
   executeChange() {
     const {
       label: existingName,
       onRename,
     } = this.props;
 
-    const name = this.refs.label.value;
+    const name = this.label.value;
     const nameChanged = name !== existingName;
     const isUpdated = nameChanged;
     if (isUpdated) {
@@ -41,7 +44,7 @@ export default class EditBranch extends React.Component {
             <input
               className="branch-input"
               tabIndex={0}
-              ref="label"
+              ref={c => this.setLabel(c)}
               name="branchLabel"
               type="text"
               default="Branch Name"

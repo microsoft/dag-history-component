@@ -25,7 +25,7 @@ function extend(destination, source) {
 //
 // From http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript
 //
-export function simulate(element, eventName, opts = {}) {
+export default function simulate(element, eventName, opts = {}) {
   const options = extend(DEFAULT_OPTIONS, opts);
   let oEvent = null;
   let eventType = null;

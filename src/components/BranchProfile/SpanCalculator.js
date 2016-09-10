@@ -33,7 +33,7 @@ export function insertSpan(spans, newSpan) {
 
   // Find span to split
   let modified = false;
-  for (let i = 0; i < spans.length; i++) {
+  for (let i = 0; i < spans.length; i += 1) {
     const span = spans[i];
     if (span.start === newSpan.start && span.end === newSpan.end) {
       return spans.slice(0, i).concat([newSpan]).concat(spans.slice(i + 1));

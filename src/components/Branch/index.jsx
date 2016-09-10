@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
+import classnames from 'classnames';
 import BranchProfile from '../BranchProfile';
 import EditBranch from './EditBranch';
-import classnames from 'classnames';
-const DO_NOTHING = () => ({});
 import './Branch.scss';
+
+const DO_NOTHING = () => ({});
 
 class Branch extends React.Component {
   constructor() {

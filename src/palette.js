@@ -1,4 +1,4 @@
-export const colors = {
+const colors = {
   // Profile Colors
   NONE: 'transparent',
   CURRENT_ACTIVE: '#70A5D3',
@@ -17,3 +17,4 @@ export const colors = {
   CONT_BLANK: 'white',
   CONT_PINNED: '#FFB300',
 };
+export default colors;

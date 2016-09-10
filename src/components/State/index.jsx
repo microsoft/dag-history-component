@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Continuation from '../Continuation';
-import { colors } from '../../palette';
 import Bookmark from 'react-icons/lib/io/bookmark';
 import classnames from 'classnames';
+import Continuation from '../Continuation';
+import colors from '../../palette';
 import './State.scss';
 
 const coloring = {

@@ -6,7 +6,7 @@ const INITIAL_STATE = {
 };
 
 function randomColor() {
-  return `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`;
+  return `#${(Math.random() * 0xFFFFFF).toString(16)}`;
 }
 
 export default function reduce(state = INITIAL_STATE, action) {

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
 import Branch from '../Branch';
-const DO_NOTHING = () => ({});
 import './BranchList.scss';
+
+const DO_NOTHING = () => ({});
 
 const BranchList = ({
   activeBranch,

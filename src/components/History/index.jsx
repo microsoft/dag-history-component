@@ -1,21 +1,27 @@
-const log = require('debug')('dag-history-component:components:History');
-import DagGraph from 'redux-dag-history/lib/DagGraph';
 import React, { PropTypes } from 'react';
-import StateList from '../StateList';
-import BranchList from '../BranchList';
-import BookmarkList from '../BookmarkList';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import DagGraph from 'redux-dag-history/lib/DagGraph';
+import StateList from '../StateList';
+import BranchList from '../BranchList';
+import BookmarkList from '../BookmarkList';
 import * as DagComponentActions from '../../actions';
 import HistoryContainer from './HistoryContainer';
 import ExpandCollapseToggle from '../ExpandCollapseToggle';
 import Transport from '../Transport';
 import PlaybackPane from '../PlaybackPane';
-
 import './History.scss';
 
+const log = require('debug')('dag-history-component:components:History');
+
 const isNumber = d => !isNaN(d) && d !== null;
+
+function getCurrentCommitPath(historyGraph) {
+  const { currentBranch } = historyGraph;
+  const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
+  return historyGraph.commitPath(latestCommitOnBranch);
+}
 
 const {
     jumpToState,
@@ -87,12 +93,6 @@ export class History extends React.Component {
   onUnderViewClicked(underView) {
     log('underview clicked', underView);
     this.setState({ ...this.state, underView });
-  }
-
-  getCurrentCommitPath(historyGraph) {
-    const { currentBranch } = historyGraph;
-    const latestCommitOnBranch = historyGraph.latestOn(currentBranch);
-    return historyGraph.commitPath(latestCommitOnBranch);
   }
 
   getStateList(historyGraph, commitPath, bookmarks) {
@@ -398,7 +398,7 @@ export class History extends React.Component {
     } = this.props;
     const isPlaybackMode = Number.isInteger(bookmarkPlaybackIndex);
     const historyGraph = new DagGraph(graph);
-    const commitPath = this.getCurrentCommitPath(historyGraph);
+    const commitPath = getCurrentCommitPath(historyGraph);
 
     return isPlaybackMode ? this.renderPlayback() : (
       <HistoryContainer
@@ -419,7 +419,7 @@ History.propTypes = {
   /**
    * The Dag-History Object
    */
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired, // eslint-disable-line
   mainView: PropTypes.string.isRequired,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
