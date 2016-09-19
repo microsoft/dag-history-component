@@ -3,8 +3,7 @@ import './Bookmark.scss';
 
 export default class EditBookmark extends React.Component {
   componentDidMount() {
-    const { focusOn } = this.props;
-    this[`${focusOn}Component`].focus();
+    this.titleComponent.focus();
   }
 
   onClickDone() {
@@ -102,5 +101,4 @@ EditBookmark.propTypes = {
   onDoneEditing: PropTypes.func,
   active: PropTypes.bool,
   onClick: PropTypes.func,
-  focusOn: PropTypes.string,
 };

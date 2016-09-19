@@ -6,19 +6,6 @@ import EditBookmark from './EditBookmark';
 const DO_NOTHING = () => ({});
 
 class Bookmark extends React.Component {
-  constructor() {
-    super();
-    this.state = { editMode: false };
-  }
-
-  onClickEdit(focusOn) {
-    this.setState({ editMode: true, focusOn });
-  }
-
-  onDoneEditing() {
-    this.setState({ editMode: false });
-  }
-
   onBookmarkChangeDone(payload) {
     this.props.onBookmarkChange(payload);
   }
@@ -31,19 +18,17 @@ class Bookmark extends React.Component {
       draggable,
       onDragStart,
       onDragEnd,
+      onEdit,
       index,
       annotation,
+      edit,
     } = this.props;
-    const {
-      editMode,
-      focusOn,
-    } = this.state;
 
-    return editMode ? (
+    return edit ? (
       <EditBookmark
         {...this.props}
-        focusOn={focusOn}
-        onDoneEditing={() => this.onDoneEditing()}
+        // focusOn={focusOn}
+        onDoneEditing={onEdit}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
       />
     ) : (
@@ -58,13 +43,13 @@ class Bookmark extends React.Component {
         <div className="bookmark-details">
           <div
             className={classnames('bookmark-title', { active })}
-            onClick={() => this.onClickEdit('title')}
+            onClick={onEdit}
           >
             {name}
           </div>
           <div
             className="bookmark-annotation"
-            onClick={() => this.onClickEdit('annotation')}
+            onClick={onEdit}
           >
             {annotation}
           </div>
@@ -80,9 +65,11 @@ Bookmark.propTypes = {
   active: PropTypes.bool,
   onClick: PropTypes.func,
   onBookmarkChange: PropTypes.func,
+  onEdit: PropTypes.func.isRequired,
   draggable: PropTypes.bool,
   onDragStart: PropTypes.func,
   onDragEnd: PropTypes.func,
+  edit: PropTypes.bool,
 };
 
 export default Bookmark;

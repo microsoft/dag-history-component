@@ -10,11 +10,13 @@ const HistoryContainer = ({
   mainView,
   branchContainerExpanded,
   highlightSuccessorsOf,
+  editBookmarkId,
 }) => (
   <div className="history-viz-container">
     <HistoryComponent
       history={historyRoot}
       mainView={mainView}
+      editBookmarkId={editBookmarkId}
       branchContainerExpanded={branchContainerExpanded}
       highlightSuccessorsOf={highlightSuccessorsOf}
       controlBar={{
@@ -31,11 +33,13 @@ HistoryContainer.propTypes = {
   mainView: PropTypes.string,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
+  editBookmarkId: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
   historyRoot: state.app,
   mainView: state.history.mainView,
+  editBookmarkId: state.history.editBookmarkId,
   branchContainerExpanded: state.history.branchContainerExpanded,
   highlightSuccessorsOf: state.app.pinnedStateId,
 });

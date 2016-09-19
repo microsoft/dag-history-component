@@ -48,6 +48,7 @@ const {
 const {
   selectMainView,
   toggleBranchContainer,
+  editBookmark,
 } = DagComponentActions;
 
 export class History extends React.Component {
@@ -109,6 +110,7 @@ export class History extends React.Component {
         historyGraph.parentOf(id) === highlightSuccessorsOf;
       const pinned = highlightSuccessorsOf === id;
       const active = currentStateId === id;
+
       return {
         id,
         label,
@@ -271,18 +273,23 @@ export class History extends React.Component {
       onStateSelect,
       onBookmarkChange,
       onBookmarkMove,
+      onEditBookmark,
+      editBookmarkId,
     } = this.props;
     const bookmarkData = bookmarks.map((b) => {
       const isSelected = b.stateId === currentStateId;
       return {
         ...b,
+        edit: editBookmarkId === b.stateId,
         active: isSelected,
         annotation: b.data.annotation || '',
+        onEdit: () => onEditBookmark(b.stateId),
         onBookmarkChange: ({ name, data }) => onBookmarkChange({ bookmark: b.stateId, name, data }),
       };
     });
     return (
       <BookmarkList
+        onEdit={onEditBookmark}
         bookmarks={bookmarkData}
         onBookmarkClick={id => onStateSelect(id)}
         onBookmarkContinuationClick={id => log(`bookmark ${id} continuation click`)}
@@ -423,6 +430,7 @@ History.propTypes = {
   mainView: PropTypes.string.isRequired,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
+  editBookmarkId: PropTypes.number,
 
   /**
    * User Interaction Handlers - loaded by redux
@@ -448,6 +456,7 @@ History.propTypes = {
   onNextBookmark: PropTypes.func,
   onPreviousBookmark: PropTypes.func,
   onRenameBranch: PropTypes.func,
+  onEditBookmark: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -475,7 +484,7 @@ History.propTypes = {
   bookmarksEnabled: PropTypes.bool,
 };
 export default connect(
-  () => ({}),
+  () => ({}), // we don't dictate state-shape
   dispatch => bindActionCreators({
     onStateSelect: jumpToState,
     onBranchSelect: jumpToBranch,
@@ -498,5 +507,6 @@ export default connect(
     onSkipToLastBookmark: skipToLastBookmark,
     onNextBookmark: nextBookmark,
     onPreviousBookmark: previousBookmark,
+    onEditBookmark: editBookmark,
   }, dispatch)
 )(History);
