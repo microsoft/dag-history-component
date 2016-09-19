@@ -62,7 +62,7 @@ export default class EditBookmark extends React.Component {
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}
       >
-        <div className="bookmark-details-editable" onBlur={(e) => this.onDone(e)}>
+        <div className="bookmark-details-editable" onBlur={e => this.onDone(e)}>
           <div style={{ display: 'flex' }}>
             <input
               className="bookmark-input"

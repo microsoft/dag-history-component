@@ -75,7 +75,7 @@ export class History extends React.Component {
     if (!onLoadHistory) {
       throw new Error("Cannot load history, 'onLoadHistory' must be defined");
     }
-    return Promise.resolve(onLoadHistory()).then(state => {
+    return Promise.resolve(onLoadHistory()).then((state) => {
       if (!state) {
         throw new Error("'onLoadHistory' must return either a state graph object or a promise that resolves to a state graph object"); // eslint-disable-line
       }
@@ -152,13 +152,13 @@ export class History extends React.Component {
     // This is a hash of branchId -> stateId
     const selectedSuccessorsByBranch = {};
     if (isNumber(pinnedState)) {
-      historyGraph.childrenOf(pinnedState).forEach(child => {
+      historyGraph.childrenOf(pinnedState).forEach((child) => {
         const branch = historyGraph.branchOf(child);
         selectedSuccessorsByBranch[branch] = child;
       });
     }
 
-    const getSuccessorDepth = branch => {
+    const getSuccessorDepth = (branch) => {
       const successorId = selectedSuccessorsByBranch[branch];
       return successorId ?
         historyGraph.depthIndexOf(branch, successorId) :
@@ -175,7 +175,7 @@ export class History extends React.Component {
     const activeStateBranch = historyGraph.branchOf(currentStateId);
     const activeStateIndex = historyGraph.depthIndexOf(activeStateBranch, currentStateId);
 
-    return branches.sort((a, b) => a - b).reverse().map(branch => {
+    return branches.sort((a, b) => a - b).reverse().map((branch) => {
       const startsAt = historyGraph.branchStartDepth(branch);
       const endsAt = historyGraph.branchEndDepth(branch);
       const branchType = currentBranch === branch ? 'current' : 'legacy';
@@ -203,7 +203,7 @@ export class History extends React.Component {
         currentBranchEnd,
         successorDepth,
         pinnedStateIndex,
-        onRename: (name) => onRenameBranch({ branch, name }),
+        onRename: name => onRenameBranch({ branch, name }),
       };
     })
     .filter(branch => (
@@ -252,7 +252,7 @@ export class History extends React.Component {
   renderBranchList(historyGraph, commitPath) {
     const { currentBranch } = historyGraph;
     const { onBranchSelect } = this.props;
-    const onBranchContinuationClick = (id) => log('branch continuation clicked', id);
+    const onBranchContinuationClick = id => log('branch continuation clicked', id);
     const branchList = this.getBranchList(historyGraph, commitPath);
     return (
       <BranchList
@@ -272,7 +272,7 @@ export class History extends React.Component {
       onBookmarkChange,
       onBookmarkMove,
     } = this.props;
-    const bookmarkData = bookmarks.map(b => {
+    const bookmarkData = bookmarks.map((b) => {
       const isSelected = b.stateId === currentStateId;
       return {
         ...b,
@@ -284,8 +284,8 @@ export class History extends React.Component {
     return (
       <BookmarkList
         bookmarks={bookmarkData}
-        onBookmarkClick={(id) => onStateSelect(id)}
-        onBookmarkContinuationClick={(id) => log(`bookmark ${id} continuation click`)}
+        onBookmarkClick={id => onStateSelect(id)}
+        onBookmarkContinuationClick={id => log(`bookmark ${id} continuation click`)}
         onBookmarkMove={onBookmarkMove}
       />
     );
