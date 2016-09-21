@@ -4,7 +4,7 @@
   "description": "A React Component for Dag-History Visualization",
   "main": "lib/index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --history-api-fallback --publicPath ./",
+    "webpack:server": "webpack-dev-server --hot --inline --history-api-fallback --publicPath ./",
     "babel": "babel src --out-dir lib",
     "lint": "esw 'src/**/*.{js,jsx}' 'example/**/*.{js,jsx}' --color",
     "sass": "node-sass src/daghistory.scss --output lib",
@@ -18,9 +18,10 @@
     "watch:mocha": "npm run mocha -- -w",
     "watch:copysass": "npm run copysass -- --watch",
     "watch": "npm-run-all --parallel 'watch:*'",
-    "develop": "npm-run-all --parallel watch start storybook",
+    "develop": "npm-run-all --parallel watch webpack:server storybook",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "start": "npm run develop"
   },
   "author": "Chris Trevino <chris.trevino@atsid.com>",
   "license": "ISC",

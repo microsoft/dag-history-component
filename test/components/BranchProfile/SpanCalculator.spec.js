@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as SpanCalc from '../src/components/BranchProfile/SpanCalculator';
+import * as SpanCalc from '../../../src/components/BranchProfile/SpanCalculator';
 
 function assertSpan(span, start, end, type) {
   expect(span.start).to.equal(start);

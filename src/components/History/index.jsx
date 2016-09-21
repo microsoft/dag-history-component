@@ -430,7 +430,6 @@ History.propTypes = {
   mainView: PropTypes.string.isRequired,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
-  editBookmarkId: PropTypes.number,
 
   /**
    * User Interaction Handlers - loaded by redux
