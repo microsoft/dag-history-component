@@ -274,13 +274,11 @@ export class History extends React.Component {
       onBookmarkChange,
       onBookmarkMove,
       onEditBookmark,
-      editBookmarkId,
     } = this.props;
     const bookmarkData = bookmarks.map((b) => {
       const isSelected = b.stateId === currentStateId;
       return {
         ...b,
-        edit: editBookmarkId === b.stateId,
         active: isSelected,
         annotation: b.data.annotation || '',
         onEdit: () => onEditBookmark(b.stateId),
