@@ -22,7 +22,7 @@ export default function (config) {
       result = { ...state, editBookmarkId: action.payload };
     } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action)) {
       // Insertable actions clear the pinned state
-      result = { ...state };
+      result = { ...state, mainView: 'history' };
     }
     return result;
   };

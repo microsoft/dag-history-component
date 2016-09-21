@@ -5,5 +5,8 @@ webpack.conf.js
 gulpfile.babel.js
 .eslintrc
 .babelrc
+.nycrc
 server.js
 .npmignore
+coverage/
+.nyc_output/
