@@ -4,7 +4,10 @@ import './Bookmark.scss';
 export default class EditBookmark extends React.Component {
   componentDidMount() {
     const { focusOn } = this.props;
-    this[`${focusOn}Component`].focus();
+    const target = this[`${focusOn}Component`];
+    if (target) {
+      target.focus();
+    }
   }
 
   onClickDone() {
@@ -16,7 +19,7 @@ export default class EditBookmark extends React.Component {
   onDone(e) {
     const { currentTarget } = e;
     setTimeout(() => {
-      if (!currentTarget.contains(document.activeElement)) {
+      if (!currentTarget.contains(this.titleComponent)) {
         this.onClickDone();
       }
     }, 0);

@@ -1,2 +1,3 @@
 --require babel-register
-test/**/*.js
+--require test/setup
+test/**/*.spec.*

@@ -3,7 +3,11 @@
     "lcov",
     "text-summary"
   ],
-  "require": "babel-register",
+  "require": [
+    "babel-register"
+  ],
   "extension": ["js", "jsx"],
-  "include": ["src"]
+  "include": ["src/**/*.js", "src/**/*.jsx"],
+  "sourceMap": false,
+  "instrument": false
 }

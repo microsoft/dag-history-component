@@ -8,10 +8,11 @@ storiesOf('StateList', module)
     activeStateId={0}
     onStateClick={action('state click')}
     onStateContinuationClick={action('state continuation click')}
-    onStateContinuationClick={action('state bookmark click')}
+    onStateBookmarkClick={action('state bookmark click')}
     states={[
       {
         id: 0,
+        source: 'Search Widget',
         label: 'Added Search Criteria',
         branchType: 'current',
         active: true,
@@ -21,6 +22,7 @@ storiesOf('StateList', module)
       },
       {
         id: 1,
+        source: 'Search Widget',
         label: 'Added Time Filter',
         branchType: 'current',
         continuation: {
@@ -31,6 +33,7 @@ storiesOf('StateList', module)
       },
       {
         id: 2,
+        source: 'Search Widget',
         label: 'Set Probox to 2',
         branchType: 'legacy',
         continuation: {
@@ -41,6 +44,7 @@ storiesOf('StateList', module)
       },
       {
         id: 3,
+        source: 'Search Widget',
         label: 'Enable Hydrospanner',
         branchType: 'legacy',
         continuation: {
@@ -58,10 +62,11 @@ storiesOf('StateList', module)
     renderBookmarks
     onStateClick={action('state click')}
     onStateContinuationClick={action('state continuation click')}
-    onStateContinuationClick={action('state bookmark click')}
+    onStateBookmarkClick={action('state bookmark click')}
     states={[
       {
         id: 0,
+        source: 'Search Widget',
         label: 'Added Search Criteria',
         branchType: 'current',
         active: true,
@@ -71,6 +76,7 @@ storiesOf('StateList', module)
       },
       {
         id: 1,
+        source: 'Search Widget',
         label: 'Added Time Filter',
         branchType: 'current',
         continuation: {
@@ -81,6 +87,7 @@ storiesOf('StateList', module)
       },
       {
         id: 2,
+        source: 'Search Widget',
         label: 'Set Probox to 2',
         branchType: 'legacy',
         continuation: {
@@ -91,6 +98,7 @@ storiesOf('StateList', module)
       },
       {
         id: 3,
+        source: 'Search Widget',
         label: 'Enable Hydrospanner',
         branchType: 'legacy',
         continuation: {

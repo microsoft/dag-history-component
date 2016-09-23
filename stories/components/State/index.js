@@ -5,6 +5,7 @@ import State from '../../../src/components/State';
 storiesOf('State', module)
 .add('Current, Active', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="current"
     onClick={action('click')}
@@ -15,6 +16,7 @@ storiesOf('State', module)
 ))
 .add('Current, Inactive', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="current"
     onClick={action('click')}
@@ -24,6 +26,7 @@ storiesOf('State', module)
 ))
 .add('Legacy, Active', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="legacy"
     onClick={action('click')}
@@ -34,6 +37,7 @@ storiesOf('State', module)
 ))
 .add('Legacy, Inactive', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="legacy"
     onClick={action('click')}
@@ -43,6 +47,7 @@ storiesOf('State', module)
 ))
 .add('Current, Unbookmarked', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="current"
     onClick={action('click')}
@@ -53,6 +58,7 @@ storiesOf('State', module)
 ))
 .add('Legacy, Unbookmarked', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="legacy"
     onClick={action('click')}
@@ -63,6 +69,7 @@ storiesOf('State', module)
 ))
 .add('Current, Bookmarked', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="current"
     onClick={action('click')}
@@ -74,6 +81,7 @@ storiesOf('State', module)
 ))
 .add('Legacy, Bookmarked', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="legacy"
     onClick={action('click')}
@@ -85,6 +93,7 @@ storiesOf('State', module)
 ))
 .add('Pinned', () => (
   <State
+    source="Search Widget"
     label="Added Search Criteria"
     branchType="current"
     onClick={action('click')}

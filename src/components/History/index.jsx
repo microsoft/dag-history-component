@@ -97,13 +97,20 @@ export class History extends React.Component {
   }
 
   getStateList(historyGraph, commitPath, bookmarks) {
-    const { currentBranch, currentStateId } = historyGraph;
+    const {
+      currentBranch,
+      currentStateId,
+    } = historyGraph;
     const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
     const {
       highlightSuccessorsOf,
+      getSourceFromState,
     } = this.props;
     return commitPath.map((id, index) => {
+      const state = historyGraph.getState(id);
+      const source = getSourceFromState(state);
       const label = historyGraph.stateName(id);
+
       const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
       const bookmarked = bookmarks.map(b => b.stateId).includes(id);
       const isSuccessor = isNumber(highlightSuccessorsOf) &&
@@ -113,6 +120,7 @@ export class History extends React.Component {
 
       return {
         id,
+        source,
         label,
         active,
         pinned,
@@ -426,6 +434,7 @@ History.propTypes = {
    */
   history: PropTypes.object.isRequired, // eslint-disable-line
   mainView: PropTypes.string.isRequired,
+  getSourceFromState: PropTypes.func.isRequired,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
 

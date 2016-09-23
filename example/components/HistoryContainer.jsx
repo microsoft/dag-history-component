@@ -17,6 +17,11 @@ const HistoryContainer = ({
       mainView={mainView}
       branchContainerExpanded={branchContainerExpanded}
       highlightSuccessorsOf={highlightSuccessorsOf}
+      getSourceFromState={state => (
+        state.toJS ?
+        state.toJS().metadata.source :
+        state.metadata.source
+      )}
       controlBar={{
         onSaveHistory: save,
         onLoadHistory: load,
