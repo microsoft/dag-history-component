@@ -19,7 +19,7 @@ export default class EditBookmark extends React.Component {
   onDone(e) {
     const { currentTarget } = e;
     setTimeout(() => {
-      if (!currentTarget.contains(this.titleComponent)) {
+      if (!currentTarget.contains(document.activeElement)) {
         this.onClickDone();
       }
     }, 0);

@@ -73,7 +73,6 @@
     "redux-thunk": "^2.0.1",
     "sass-lint": "^1.8.2",
     "sass-loader": "^4.0.0",
-    "sasslint-webpack-plugin": "^1.0.3",
     "style-loader": "^0.13.1",
     "wallaby-webpack": "0.0.23",
     "webpack": "^1.13.1",
