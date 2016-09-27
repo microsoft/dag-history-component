@@ -5,7 +5,6 @@ import Promise from 'bluebird';
 import Bookmark from '../../../src/components/Bookmark';
 import EditBookmark from '../../../src/components/Bookmark/EditBookmark';
 
-
 describe('Bookmark Component', () => {
   it('exists', () => {
     expect(document).to.be.ok;
