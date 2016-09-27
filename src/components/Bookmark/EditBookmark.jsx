@@ -34,6 +34,9 @@ export default class EditBookmark extends React.Component {
   }
 
   executeChange(event) {
+    if (!event) {
+      return;
+    }
     const {
       name: existingName,
       annotation: existingAnnotation,
@@ -50,13 +53,11 @@ export default class EditBookmark extends React.Component {
       onBookmarkChange({ name, data: { annotation } });
     }
 
-    if (event) {
-      const relatedTarget = event.relatedTarget;
-      const isTargetHere = relatedTarget === this.titleComponent ||
-        relatedTarget === this.annotationComponent;
-      if (isTargetHere) {
-        event.stopPropagation();
-      }
+    const relatedTarget = event.relatedTarget;
+    const isTargetHere = relatedTarget === this.titleComponent ||
+      relatedTarget === this.annotationComponent;
+    if (isTargetHere) {
+      event.stopPropagation();
     }
   }
 
@@ -77,7 +78,7 @@ export default class EditBookmark extends React.Component {
         <div className="bookmark-details-editable" onBlur={e => this.onDone(e)}>
           <div style={{ display: 'flex' }}>
             <input
-              className="bookmark-input"
+              className="bookmark-input bookmark-title"
               tabIndex={0}
               ref={c => this.setTitleComponent(c)}
               name="bookmarkLabel"
@@ -90,7 +91,7 @@ export default class EditBookmark extends React.Component {
           </div>
           <textarea
             style={{ marginTop: 5 }}
-            className="bookmark-input"
+            className="bookmark-input bookmark-annotation"
             tabIndex={0}
             ref={c => this.setAnnotationComponent(c)}
             name="bookmarkAnnotation"
