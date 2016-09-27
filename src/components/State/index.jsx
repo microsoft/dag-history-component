@@ -61,7 +61,7 @@ const State = ({
     bookmark = (
       <Bookmark
         size={25}
-        color={bookmarked ? 'gold' : '#e8e8e8'}
+        color={bookmarked ? 'gold' : 'white'}
         onClick={onBookmarkClick || DO_NOTHING}
       />
     );
