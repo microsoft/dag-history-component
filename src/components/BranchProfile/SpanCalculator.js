@@ -23,8 +23,8 @@ function spanContains(span, index) {
 /**
  * Gets the initial set of common spans for a branch profile
  */
-export function initialSpans(max, type = 'NONE') {
-  return [new Span(0, max + 1, type)];
+export function initialSpans(start, max, type = 'NONE') {
+  return [new Span(start, max + 1, type)];
 }
 
 export function insertSpan(spans, newSpan) {
@@ -82,4 +82,50 @@ export function insertSpan(spans, newSpan) {
     throw new Error(`Could not insert span ${newSpan.toString()} into spanset [${spans.map(s => s.toString()).join(',')}]`); // eslint-disable-line
   }
   return result;
+}
+
+
+const isNumber = d => !isNaN(d) && d !== null;
+
+export function getSpans(
+  type,
+  max,
+  start,
+  end,
+  branchStart,
+  branchEnd,
+  activeIndex,
+  successorIndex,
+  pinnedIndex
+) {
+  // Set up the initial spans ranges; culling out empty ranges
+  let spans = initialSpans(start, max);
+  const isCurrent = type === 'current';
+  spans = insertSpan(spans, new Span(start, end + 1, 'UNRELATED_UNIQUE'));
+
+  if (isNumber(branchStart) && isNumber(branchEnd)) {
+    const color = isCurrent ? 'CURRENT' : 'ANCESTOR';
+    const span = new Span(branchStart, branchEnd + 1, color);
+    spans = insertSpan(spans, span);
+  }
+
+  if (isNumber(activeIndex) && activeIndex >= start && activeIndex <= max) {
+    const isWithinBranch = activeIndex >= branchStart && activeIndex <= branchEnd;
+    let color = isWithinBranch ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
+    if (isNumber(pinnedIndex) && activeIndex === pinnedIndex + 1) {
+      color = 'SUCCESSOR_ACTIVE';
+    }
+    const span = new Span(activeIndex, activeIndex + 1, color);
+    spans = insertSpan(spans, span);
+  }
+  if (isNumber(pinnedIndex)) {
+    const span = new Span(pinnedIndex, pinnedIndex + 1, 'SUCCESSOR_PIN');
+    spans = insertSpan(spans, span);
+  }
+  if (isNumber(successorIndex)) {
+    const color = isCurrent ? 'SUCCESSOR_ACTIVE' : 'SUCCESSOR';
+    const span = new Span(successorIndex, successorIndex + 1, color);
+    spans = insertSpan(spans, span);
+  }
+  return spans;
 }
