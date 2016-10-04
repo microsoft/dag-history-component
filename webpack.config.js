@@ -13,9 +13,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
+    modulesDirectories: [path.join(__dirname, 'node_modules')],
     fallback: path.join(__dirname, 'node_modules'),
   },
   resolveLoader: {
+    modulesDirectories: [path.join(__dirname, 'node_modules')],
     fallback: path.join(__dirname, 'node_modules'),
   },
   plugins: [

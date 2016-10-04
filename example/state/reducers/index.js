@@ -3,6 +3,8 @@ import dagHistory from 'redux-dag-history/lib/reducer';
 import app from './app';
 import history from '../../../src/reducer';
 
+const log = require('debug')('app:state');
+
 export const EXCLUDED_ACTION_NAMES = [
   '@@INIT',
   'INIT',
@@ -12,10 +14,41 @@ export const EXCLUDED_ACTION_NAMES = [
   'HIGHLIGHT_SUCCESSORS',
 ];
 
+function stateEqualityPredicate(state1, state2) {
+  log('checking equality between states', state1, state2);
+  const colorsEqual = state1.visuals.color === state2.visuals.color;
+  const valuesEqual = state1.visuals.value === state2.visuals.value;
+  return colorsEqual && valuesEqual;
+}
+
+function hashString(str) {
+  let hash = 0;
+  let i;
+  let chr;
+  let len;
+  if (str.length === 0) {
+    return hash;
+  }
+  for (i = 0, len = str.length; i < len; i += 1) {
+    chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr; // eslint-disable-line no-bitwise
+    hash |= 0;                         // eslint-disable-line no-bitwise
+  }
+  return hash;
+}
+
+function stateKeyGenerator(state) {
+  const { color, value } = state.visuals;
+  const stateString = `${color}:${value}`;
+  return hashString(stateString);
+}
+
 const DAG_HISTORY_CONFIG = {
   debug: false,
   actionName: state => state.metadata.name,
   actionFilter: actionType => EXCLUDED_ACTION_NAMES.indexOf(actionType) === -1,
+  stateEqualityPredicate,
+  stateKeyGenerator,
 };
 
 const rootReducer = combineReducers({
