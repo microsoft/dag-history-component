@@ -83,7 +83,7 @@ class BookmarkList extends React.Component {
       />
     );
     return (
-      <div className="state-list-container" onDragOver={(event) => this.onDragOver(event)}>
+      <div className="state-list-container" onDragOver={event => this.onDragOver(event)}>
         {bookmarkViews.concat([endSentinel])}
       </div>
     );

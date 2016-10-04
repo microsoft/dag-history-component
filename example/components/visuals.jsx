@@ -24,7 +24,7 @@ RawVisualA.propTypes = {
 };
 
 export const VisualA = connect(
-  state => {
+  (state) => {
     const {
       app: {
         current: {
@@ -59,7 +59,7 @@ RawVisualB.propTypes = {
 };
 
 export const VisualB = connect(
-  state => {
+  (state) => {
     const {
       app: {
         current: {
