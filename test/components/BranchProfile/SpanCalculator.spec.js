@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import * as SpanCalc from '../src/components/BranchProfile/SpanCalculator';
+import * as SpanCalc from '../../../src/components/BranchProfile/SpanCalculator';
 
 function assertSpan(span, start, end, type) {
   expect(span.start).to.equal(start);
@@ -13,13 +13,13 @@ describe('The span calculator', () => {
   });
 
   it('can create initial span', () => {
-    const spans = SpanCalc.initialSpans(10);
+    const spans = SpanCalc.initialSpans(0, 10);
     expect(spans.length).to.equal(1, 'expected one span');
     assertSpan(spans[0], 0, 11, 'NONE');
   });
 
   it('can insert a span in the middle of the initial span', () => {
-    let spans = SpanCalc.initialSpans(10);
+    let spans = SpanCalc.initialSpans(0, 10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 6, 'test'));
     expect(spans.length).to.equal(3, 'expected 3 spans');
     assertSpan(spans[0], 0, 3, 'NONE');
@@ -29,7 +29,7 @@ describe('The span calculator', () => {
 
 
   it('can insert a one-length span in the middle of the initial span', () => {
-    let spans = SpanCalc.initialSpans(10);
+    let spans = SpanCalc.initialSpans(0, 10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 4, 'test'));
     expect(spans.length).to.equal(3, 'expected 3 spans');
     assertSpan(spans[0], 0, 3, 'NONE');
@@ -38,7 +38,7 @@ describe('The span calculator', () => {
   });
 
   it('can replace a one-length span', () => {
-    let spans = SpanCalc.initialSpans(10);
+    let spans = SpanCalc.initialSpans(0, 10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 4, 'test'));
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 4, 'derp'));
     expect(spans.length).to.equal(3, 'expected 3 spans');
@@ -48,7 +48,7 @@ describe('The span calculator', () => {
   });
 
   it('can insert a span at the end of the initial span', () => {
-    let spans = SpanCalc.initialSpans(10);
+    let spans = SpanCalc.initialSpans(0, 10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(8, 11, 'test'));
     expect(spans.length).to.equal(2, `expected 2 spans: ${spans}`);
     assertSpan(spans[0], 0, 8, 'NONE');
@@ -56,7 +56,7 @@ describe('The span calculator', () => {
   });
 
   it('can insert a span at the beginning of the initial span', () => {
-    let spans = SpanCalc.initialSpans(10);
+    let spans = SpanCalc.initialSpans(0, 10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(0, 2, 'test'));
     expect(spans.length).to.equal(2, `expected 2 spans: ${spans}`);
     assertSpan(spans[0], 0, 2, 'test');
@@ -64,7 +64,7 @@ describe('The span calculator', () => {
   });
 
   it('can insert a span overlapping two spans', () => {
-    let spans = SpanCalc.initialSpans(10);
+    let spans = SpanCalc.initialSpans(0, 10);
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(0, 6, 'test'));
     spans = SpanCalc.insertSpan(spans, new SpanCalc.Span(3, 7, 'test'));
     expect(spans.length).to.equal(3, 'expected 3 spans');

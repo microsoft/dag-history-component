@@ -42,6 +42,7 @@ function continuationColor(isActive, isPinned) {
 }
 
 const State = ({
+  source,
   label,
   branchType,
   active,
@@ -60,7 +61,7 @@ const State = ({
     bookmark = (
       <Bookmark
         size={25}
-        color={bookmarked ? 'gold' : '#e8e8e8'}
+        color={bookmarked ? 'gold' : 'white'}
         onClick={onBookmarkClick || DO_NOTHING}
       />
     );
@@ -72,8 +73,13 @@ const State = ({
         color={continuationColor(active, pinned)}
         onClick={onContinuationClick}
       />
-      <div className={classnames('state-name', { active })}>
-        {label}
+      <div className="state-detail">
+        <div className={classnames('state-source', { active })}>
+          {source}
+        </div>
+        <div className={classnames('state-name', { active })}>
+          {label}
+        </div>
       </div>
       {bookmark}
     </div>
@@ -81,6 +87,7 @@ const State = ({
 };
 
 State.propTypes = {
+  source: PropTypes.string,
   label: PropTypes.string.isRequired,
   active: PropTypes.bool,
   pinned: PropTypes.bool,

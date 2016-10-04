@@ -4,7 +4,10 @@ import './Bookmark.scss';
 export default class EditBookmark extends React.Component {
   componentDidMount() {
     const { focusOn } = this.props;
-    this[`${focusOn}Component`].focus();
+    const target = this[`${focusOn}Component`];
+    if (target) {
+      target.focus();
+    }
   }
 
   onClickDone() {
@@ -30,7 +33,10 @@ export default class EditBookmark extends React.Component {
     this.annotationComponent = c;
   }
 
-  executeChange() {
+  executeChange(event) {
+    if (!event) {
+      return;
+    }
     const {
       name: existingName,
       annotation: existingAnnotation,
@@ -45,6 +51,13 @@ export default class EditBookmark extends React.Component {
 
     if (isBookmarkUpdated) {
       onBookmarkChange({ name, data: { annotation } });
+    }
+
+    const relatedTarget = event.relatedTarget;
+    const isTargetHere = relatedTarget === this.titleComponent ||
+      relatedTarget === this.annotationComponent;
+    if (isTargetHere) {
+      event.stopPropagation();
     }
   }
 
@@ -65,7 +78,7 @@ export default class EditBookmark extends React.Component {
         <div className="bookmark-details-editable" onBlur={e => this.onDone(e)}>
           <div style={{ display: 'flex' }}>
             <input
-              className="bookmark-input"
+              className="bookmark-input bookmark-title"
               tabIndex={0}
               ref={c => this.setTitleComponent(c)}
               name="bookmarkLabel"
@@ -73,12 +86,12 @@ export default class EditBookmark extends React.Component {
               default="Bookmark Label"
               defaultValue={name}
               onFocus={onClick}
-              onBlur={() => this.executeChange()}
+              onBlur={e => this.executeChange(e)}
             />
           </div>
           <textarea
             style={{ marginTop: 5 }}
-            className="bookmark-input"
+            className="bookmark-input bookmark-annotation"
             tabIndex={0}
             ref={c => this.setAnnotationComponent(c)}
             name="bookmarkAnnotation"
@@ -87,7 +100,7 @@ export default class EditBookmark extends React.Component {
             placeholder="Enter caption for presentation"
             defaultValue={annotation}
             onFocus={onClick}
-            onBlur={() => this.executeChange()}
+            onBlur={e => this.executeChange(e)}
           />
         </div>
       </div>

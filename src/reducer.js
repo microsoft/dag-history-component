@@ -1,4 +1,3 @@
-// const log = require('debug')('dag-history-component:reducer');
 import {
   SELECT_MAIN_VIEW,
   TOGGLE_BRANCH_CONTAINER,
@@ -18,7 +17,7 @@ export default function (config) {
       result = { ...state, branchContainerExpanded: !state.branchContainerExpanded };
     } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action)) {
       // Insertable actions clear the pinned state
-      result = { ...state };
+      result = { ...state, mainView: 'history' };
     }
     return result;
   };

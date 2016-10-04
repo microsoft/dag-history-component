@@ -1,1 +1,1 @@
-export HistoryImplementation from './components/History';
+export HistoryComponent from './components/History';

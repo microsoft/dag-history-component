@@ -1,4 +1,3 @@
-import { Promise } from 'bluebird';
 import { saveAs } from 'filesaver.js';
 import simulate from './simulate';
 

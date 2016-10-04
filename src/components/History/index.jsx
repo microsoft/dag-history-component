@@ -48,6 +48,7 @@ const {
 const {
   selectMainView,
   toggleBranchContainer,
+  editBookmark,
 } = DagComponentActions;
 
 export class History extends React.Component {
@@ -96,21 +97,30 @@ export class History extends React.Component {
   }
 
   getStateList(historyGraph, commitPath, bookmarks) {
-    const { currentBranch, currentStateId } = historyGraph;
+    const {
+      currentBranch,
+      currentStateId,
+    } = historyGraph;
     const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
     const {
       highlightSuccessorsOf,
+      getSourceFromState,
     } = this.props;
     return commitPath.map((id, index) => {
+      const state = historyGraph.getState(id);
+      const source = getSourceFromState(state);
       const label = historyGraph.stateName(id);
+
       const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
       const bookmarked = bookmarks.map(b => b.stateId).includes(id);
       const isSuccessor = isNumber(highlightSuccessorsOf) &&
         historyGraph.parentOf(id) === highlightSuccessorsOf;
       const pinned = highlightSuccessorsOf === id;
       const active = currentStateId === id;
+
       return {
         id,
+        source,
         label,
         active,
         pinned,
@@ -271,6 +281,7 @@ export class History extends React.Component {
       onStateSelect,
       onBookmarkChange,
       onBookmarkMove,
+      onEditBookmark,
     } = this.props;
     const bookmarkData = bookmarks.map((b) => {
       const isSelected = b.stateId === currentStateId;
@@ -278,11 +289,13 @@ export class History extends React.Component {
         ...b,
         active: isSelected,
         annotation: b.data.annotation || '',
+        onEdit: () => onEditBookmark(b.stateId),
         onBookmarkChange: ({ name, data }) => onBookmarkChange({ bookmark: b.stateId, name, data }),
       };
     });
     return (
       <BookmarkList
+        onEdit={onEditBookmark}
         bookmarks={bookmarkData}
         onBookmarkClick={id => onStateSelect(id)}
         onBookmarkContinuationClick={id => log(`bookmark ${id} continuation click`)}
@@ -421,6 +434,7 @@ History.propTypes = {
    */
   history: PropTypes.object.isRequired, // eslint-disable-line
   mainView: PropTypes.string.isRequired,
+  getSourceFromState: PropTypes.func.isRequired,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
 
@@ -448,6 +462,7 @@ History.propTypes = {
   onNextBookmark: PropTypes.func,
   onPreviousBookmark: PropTypes.func,
   onRenameBranch: PropTypes.func,
+  onEditBookmark: PropTypes.func,
 
   /**
    * ControlBar Configuration Properties
@@ -474,8 +489,8 @@ History.propTypes = {
    */
   bookmarksEnabled: PropTypes.bool,
 };
-const HistoryWrapped = connect(
-  () => ({}),
+export default connect(
+  () => ({}), // we don't dictate state-shape
   dispatch => bindActionCreators({
     onStateSelect: jumpToState,
     onBranchSelect: jumpToBranch,
@@ -498,6 +513,6 @@ const HistoryWrapped = connect(
     onSkipToLastBookmark: skipToLastBookmark,
     onNextBookmark: nextBookmark,
     onPreviousBookmark: previousBookmark,
+    onEditBookmark: editBookmark,
   }, dispatch)
 )(History);
-export default HistoryWrapped;
