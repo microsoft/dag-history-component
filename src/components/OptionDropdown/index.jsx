@@ -31,13 +31,13 @@ const OptionDropdown = ({
         </DropdownTrigger>
         <DropdownContent className={`history-dropdown-content ${contentClass}`}>
           <ul>
-          {
-            options.map(({ label: optionLabel, onClick }, index) => (
-              <li key={`option:${index}`} onClick={onClick}>
-                {optionLabel}
-              </li>
-            ))
-          }
+            {
+              options.map(({ label: optionLabel, onClick }, index) => (
+                <li key={`option:${index}`} onClick={onClick}>
+                  {optionLabel}
+                </li>
+              ))
+            }
           </ul>
         </DropdownContent>
       </Dropdown>
