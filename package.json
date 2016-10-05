@@ -92,6 +92,6 @@
     "react-simple-dropdown": "^1.1.4",
     "react-tabs": "^0.7.0",
     "redux": "^3.3.1",
-    "redux-dag-history": "file:../redux-dag-history"
+    "redux-dag-history": "^1.4.0"
   }
 }
