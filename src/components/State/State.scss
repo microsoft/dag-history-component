@@ -29,6 +29,7 @@ $charcoal: #5d6d7e;
      display: flex;
      flex-direction: column;
      margin-left: 8px;
+     overflow: hidden;     
   }
 
   .state-source {
@@ -47,6 +48,7 @@ $charcoal: #5d6d7e;
   .state-name {
     font-weight: 300;
     font-size: 11pt;
+    white-space: nowrap;
 
     &:active {
       color: $black;
