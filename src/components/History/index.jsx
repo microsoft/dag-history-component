@@ -138,7 +138,7 @@ export class History extends React.Component {
   getBranchList(historyGraph, commitPath) {
     const {
       branches,
-      maxDepth,
+      // maxDepth,
       currentBranch,
       currentStateId,
     } = historyGraph;
@@ -185,9 +185,22 @@ export class History extends React.Component {
     const activeStateBranch = historyGraph.branchOf(currentStateId);
     const activeStateIndex = historyGraph.depthIndexOf(activeStateBranch, currentStateId);
 
-    return branches.sort((a, b) => a - b).reverse().map((branch) => {
+    let maxDepth = 0;
+    const branchData = {};
+    branches.forEach((branch) => {
       const startsAt = historyGraph.branchStartDepth(branch);
       const endsAt = historyGraph.branchEndDepth(branch);
+      const length = (endsAt - startsAt);
+      maxDepth = Math.max(maxDepth, length);
+      branchData[branch] = {
+        startsAt,
+        endsAt,
+        length,
+      };
+    });
+
+    return branches.sort((a, b) => a - b).reverse().map((branch) => {
+      const { startsAt, endsAt } = branchData[branch];
       const branchType = currentBranch === branch ? 'current' : 'legacy';
       const label = historyGraph.getBranchName(branch);
       const showActiveStateIndex = currentBranch === branch || activeStateBranch === branch;
