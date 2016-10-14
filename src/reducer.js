@@ -15,7 +15,7 @@ export default function (config) {
       result = { ...state, mainView: action.payload };
     } else if (action.type === TOGGLE_BRANCH_CONTAINER) {
       result = { ...state, branchContainerExpanded: !state.branchContainerExpanded };
-    } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action)) {
+    } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action.type)) {
       // Insertable actions clear the pinned state
       result = { ...state, mainView: 'history' };
     }
