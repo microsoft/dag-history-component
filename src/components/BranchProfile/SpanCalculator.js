@@ -119,8 +119,7 @@ export function getSpans(
   }
 
   if (isNumber(activeIndex) && activeIndex >= start && activeIndex <= max) {
-    const isWithinBranch = activeIndex >= branchStart && activeIndex <= branchEnd;
-    let color = isWithinBranch ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
+    let color = type === 'current' ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
     if (isNumber(pinnedIndex) && activeIndex === pinnedIndex + 1) {
       color = 'SUCCESSOR_ACTIVE';
     }

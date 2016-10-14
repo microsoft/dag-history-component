@@ -25,7 +25,7 @@ function getCurrentCommitPath(historyGraph) {
 
 const {
     jumpToState,
-    jumpToBranch,
+    jumpToLatestOnBranch,
     load,
     clear,
     addBookmark,
@@ -506,7 +506,7 @@ export default connect(
   () => ({}), // we don't dictate state-shape
   dispatch => bindActionCreators({
     onStateSelect: jumpToState,
-    onBranchSelect: jumpToBranch,
+    onBranchSelect: jumpToLatestOnBranch,
     onClear: clear,
     onLoad: load,
     onRenameBranch: renameBranch,

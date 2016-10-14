@@ -2,7 +2,7 @@ const colors = {
   // Profile Colors
   NONE: 'transparent',
   CURRENT_ACTIVE: '#70A5D3',
-  LEGACY_ACTIVE: '#B1B1B1',
+  LEGACY_ACTIVE: '#CECECE',
   CURRENT: '#AFCDE7',
   ANCESTOR: '#e0f4fb',
   UNRELATED_UNIQUE: '#EFEFEF',
