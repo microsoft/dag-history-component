@@ -83,7 +83,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "react": "*",
+    "react": "^15.1.0",
     "redux-actions": "^0.12.0",
     "debug": "^2.2.0",
     "react-icons": "^2.2.1",
