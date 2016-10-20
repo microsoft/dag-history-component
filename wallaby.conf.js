@@ -1,15 +1,14 @@
-var wallabyWebpack = require('wallaby-webpack');
+const wallabyWebpack = require('wallaby-webpack'); // eslint-disable-line
+const phantom = require('phantomjs2-ext'); // eslint-disable-line
 
-module.exports = function (wallaby) {
-
-  var webpackPostprocessor = wallabyWebpack({
+module.exports = function configureWallaby(wallaby) {
+  const webpackPostprocessor = wallabyWebpack({
     resolve: {
       extensions: ['', '.js', '.jsx'],
     },
     module: {
       loaders: [
           { test: /\.html$/, loader: 'file-loader?name=[name].[ext]' },
-          // { test: /\.js/, loaders: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
           { test: /\.css$/, loader: 'style-loader!css-loader' },
           { test: /\.s(a|c)ss$/, loader: 'style-loader!css-loader!sass-loader' },
       ],
@@ -19,21 +18,20 @@ module.exports = function (wallaby) {
   return {
     files: [
       { pattern: 'src/**/*.js*', load: false },
-      { pattern: 'src/**/*.spec.js*', load: false, ignore: true }
     ],
     tests: [
-      { pattern: 'src/**/*.spec.js*', load: false }
+      { pattern: 'test/**/*.spec.js*', load: false },
     ],
     compilers: {
-      '**/*.js*': wallaby.compilers.babel()
+      '**/*.js*': wallaby.compilers.babel(),
     },
     postprocessor: webpackPostprocessor,
-    bootstrap: function () {
-      window.__moduleBundler.loadTests();
+    bootstrap() {
+      window.__moduleBundler.loadTests(); // eslint-disable-line
     },
     env: {
-      runner: require('phantomjs2-ext').path,
-      params: { runner: '--web-security=false' }
-    }
+      runner: phantom.path,
+      params: { runner: '--web-security=false' },
+    },
   };
 };

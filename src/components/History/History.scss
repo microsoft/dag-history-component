@@ -97,6 +97,18 @@
   right: 0;
 }
 
+.history-type-dropdown-trigger {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdown-option-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .view-select-dropdown {
   display: flex;
   font-weight: bold;

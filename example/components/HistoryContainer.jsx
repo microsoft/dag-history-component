@@ -8,6 +8,7 @@ import HistoryComponent from '../../src/components/History';
 const HistoryContainer = ({
   historyRoot,
   mainView,
+  historyType,
   branchContainerExpanded,
   highlightSuccessorsOf,
 }) => (
@@ -15,6 +16,7 @@ const HistoryContainer = ({
     <HistoryComponent
       history={historyRoot}
       mainView={mainView}
+      historyType={historyType}
       branchContainerExpanded={branchContainerExpanded}
       highlightSuccessorsOf={highlightSuccessorsOf}
       getSourceFromState={state => (
@@ -34,6 +36,7 @@ const HistoryContainer = ({
 HistoryContainer.propTypes = {
   historyRoot: PropTypes.object, // eslint-disable-line
   mainView: PropTypes.string,
+  historyType: PropTypes.string,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
 };
@@ -41,6 +44,7 @@ HistoryContainer.propTypes = {
 const mapStateToProps = state => ({
   historyRoot: state.app,
   mainView: state.history.mainView,
+  historyType: state.history.historyType,
   branchContainerExpanded: state.history.branchContainerExpanded,
   highlightSuccessorsOf: state.app.pinnedStateId,
 });

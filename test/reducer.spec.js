@@ -15,6 +15,7 @@ describe('The Dag-History Component Reducer', () => {
     const state = reducer()(undefined, { type: 'DERP' });
     expect(state).to.deep.equal({
       mainView: 'history',
+      historyType: 'branched',
       branchContainerExpanded: true,
     });
   });
@@ -23,6 +24,7 @@ describe('The Dag-History Component Reducer', () => {
     const state = reducer()(undefined, { type: 'SELECT_MAIN_VIEW', payload: 'abc123' });
     expect(state).to.deep.equal({
       mainView: 'abc123',
+      historyType: 'branched',
       branchContainerExpanded: true,
     });
   });
@@ -31,11 +33,13 @@ describe('The Dag-History Component Reducer', () => {
     let state = reducer()(undefined, { type: 'TOGGLE_BRANCH_CONTAINER' });
     expect(state).to.deep.equal({
       mainView: 'history',
+      historyType: 'branched',
       branchContainerExpanded: false,
     });
     state = reducer()(state, { type: 'TOGGLE_BRANCH_CONTAINER' });
     expect(state).to.deep.equal({
       mainView: 'history',
+      historyType: 'branched',
       branchContainerExpanded: true,
     });
   });

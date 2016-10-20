@@ -11,11 +11,11 @@ const StateList = ({
   renderBookmarks,
   onStateBookmarkClick,
 }) => {
-  const stateViews = states.map(s => (
+  const stateViews = states.map((s, index) => (
     <State
       {...s}
       {...{ renderBookmarks }}
-      key={`state:${s.id}`}
+      key={`state:${s.id}:${index}`}
       active={s.id === activeStateId}
       onClick={() => (onStateClick || DO_NOTHING)(s.id)}
       onContinuationClick={() => (onStateContinuationClick || DO_NOTHING)(s.id)}
