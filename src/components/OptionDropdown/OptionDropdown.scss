@@ -10,6 +10,7 @@ $shadow: rgba(0, 0, 0, .2);
   .history-dropdown-content {
     display: none;
     cursor: pointer;
+    right: 1px;
   }
 
   &.dropdown--active {
@@ -23,7 +24,7 @@ $shadow: rgba(0, 0, 0, .2);
   background-color: $white;
   box-shadow: 0 8px 16px 0 $shadow;
   display: none;
-  margin-top: 30px;
+  margin-top: 35px;
   min-width: 160px;
   position: absolute;
   z-index: 1;

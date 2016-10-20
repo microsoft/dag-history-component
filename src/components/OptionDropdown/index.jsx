@@ -39,9 +39,14 @@ export default class OptionDropdown extends React.Component {
         this.dropdown.hide();
       };
 
+      const triggerClicked = () => {
+        console.log('Trigger Clicked');
+        this.dropdown.show();
+      };
+
       result = (
         <Dropdown ref={e => (this.dropdown = e)}>
-          <DropdownTrigger className={`history-dropdown-trigger ${triggerClass}`} onClick={() => this.dropdown.show()}>
+          <DropdownTrigger className={`history-dropdown-trigger ${triggerClass}`} onClick={() => triggerClicked()}>
             <div style={{ display: 'flex', flexDirection: 'row' }} onClick={() => this.setState({ show: true })}>
               {triggerLabel}
               {triggerIcon}
