@@ -40,7 +40,6 @@ export default class OptionDropdown extends React.Component {
       };
 
       const triggerClicked = () => {
-        console.log('Trigger Clicked');
         this.dropdown.show();
       };
 

@@ -4,7 +4,7 @@
   "description": "A React Component for Dag-History Visualization",
   "main": "lib/index.js",
   "scripts": {
-    "webpack:server": "webpack-dev-server --hot --inline --history-api-fallback --publicPath ./",
+    "webpack:server": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback --publicPath ./",
     "babel": "babel src --out-dir lib",
     "lint": "esw 'src/**/*.{js,jsx}' 'test/**/*.{js,jsx}' 'stories/**/*.{js,jsx}' 'example/**/*.{js,jsx}' --color",
     "sass": "node-sass src/daghistory.scss --output lib",
@@ -33,6 +33,7 @@
   ],
   "devDependencies": {
     "@kadira/storybook": "^2.5.2",
+    "autoprefixer": "^6.5.1",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.7.2",
     "babel-eslint": "^6.1.2",
@@ -65,6 +66,7 @@
     "npm-run-all": "^3.1.0",
     "nyc": "^8.3.0",
     "phantomjs2-ext": "^0.2.2",
+    "postcss-loader": "^1.0.0",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.1.0",

@@ -2,6 +2,7 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
+  -ms-overflow-style: none;
 }
 
 body {
@@ -31,13 +32,12 @@ body {
 .history-viz-container {
   display: flex;
   flex: 1;
-  height: 100%;
-  width: 100%;
 }
 
 .app-container {
   height: 100%;
   width: 100%;
+  position: absolute;
 }
 
 .dashboard {

@@ -1,0 +1,12 @@
+%flexy {
+  display: flex;
+  flex: 1;
+  max-height: 100%;
+}
+
+.history-state-list {
+  @extend %flexy;
+  flex-direction: column;
+  overflow-y: scroll;
+  width: 100%;
+}

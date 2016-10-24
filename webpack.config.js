@@ -30,8 +30,8 @@ module.exports = {
     loaders: [
         { test: /\.html$/, loader: 'file-loader?name=[name].[ext]' },
         { test: /\.js/, loaders: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
-        { test: /\.css$/, loader: 'style-loader!css-loader' },
-        { test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader' },
+        { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
+        { test: /\.scss$/, loader: 'style-loader!css-loader!postcss-loader!sass-loader' },
     ],
   },
 };
