@@ -1,6 +1,6 @@
 // const log = require('debug')('dag-history-component:OptionDropdown');
 import React, { PropTypes } from 'react';
-import { MdMoreVert } from 'react-icons/lib/md';
+import MdMoreVert from 'react-icons/lib/md/more-vert';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import './OptionDropdown.scss';
 

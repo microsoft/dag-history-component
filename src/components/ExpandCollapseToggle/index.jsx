@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { MdExpandMore, MdExpandLess } from 'react-icons/lib/md';
+import MdExpandMore from 'react-icons/lib/md/expand-more';
+import MdExpandLess from 'react-icons/lib/md/expand-less';
 
 const ExpandCollapseToggle = ({ isExpanded, onClick }) => (
   isExpanded ?

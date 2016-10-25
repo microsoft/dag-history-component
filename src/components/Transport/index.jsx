@@ -1,13 +1,12 @@
 import React, { PropTypes } from 'react';
 import keydown, { Keys } from 'react-keydown';
-import {
-  MdKeyboardArrowLeft,
-  MdKeyboardArrowRight,
-  MdSkipNext,
-  MdSkipPrevious,
-  MdPlayArrow,
-  MdPause,
-} from 'react-icons/lib/md';
+import MdKeyboardArrowLeft from 'react-icons/lib/md/keyboard-arrow-left';
+import MdKeyboardArrowRight from 'react-icons/lib/md/keyboard-arrow-right';
+import MdSkipNext from 'react-icons/lib/md/skip-next';
+import MdSkipPrevious from 'react-icons/lib/md/skip-previous';
+import MdPlayArrow from 'react-icons/lib/md/play-arrow';
+import MdPause from 'react-icons/lib/md/pause';
+
 import './Transport.scss';
 
 class Transport extends React.Component {
