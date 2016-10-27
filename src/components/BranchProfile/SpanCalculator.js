@@ -86,6 +86,7 @@ export function insertSpan(spans, newSpan) {
 
 
 const isNumber = d => !isNaN(d) && d !== null;
+const convertArg = (arg, offset) => (arg !== null && arg !== undefined) ? arg - offset : arg; // eslint-disable-line
 
 export function getSpans(
   type,
@@ -103,9 +104,9 @@ export function getSpans(
   const end = endArg - offset;
   const branchStart = branchStartArg - offset;
   const branchEnd = branchEndArg - offset;
-  const activeIndex = activeIndexArg ? activeIndexArg - offset : activeIndexArg;
-  const successorIndex = successorIndexArg ? successorIndexArg - offset : successorIndexArg;
-  const pinnedIndex = pinnedIndexArg ? pinnedIndexArg - offset : pinnedIndexArg;
+  const activeIndex = convertArg(activeIndexArg, offset);
+  const successorIndex = convertArg(successorIndexArg, offset);
+  const pinnedIndex = convertArg(pinnedIndexArg, offset);
 
   // Set up the initial spans ranges; culling out empty ranges
   let spans = initialSpans(start, max);
