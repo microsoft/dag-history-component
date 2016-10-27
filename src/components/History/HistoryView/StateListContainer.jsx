@@ -66,6 +66,7 @@ const StateListContainer = ({
   bookmarksEnabled,
   highlightSuccessorsOf,
   getSourceFromState,
+  branchTypeOverride,
 }) => {
   const historyGraph = new DagGraph(graph);
   const commitPathtoUse = commitPath || getCurrentCommitPath(historyGraph);
@@ -88,8 +89,13 @@ const StateListContainer = ({
     commitPathtoUse,
     bookmarks,
     highlightSuccessorsOf,
-    getSourceFromState)
-  ;
+    getSourceFromState
+  );
+
+  if (branchTypeOverride) {
+    stateList.forEach(s => s.branchType = branchTypeOverride); // eslint-disable-line
+  }
+
   return (
     <StateList
       activeStateId={currentStateId}
@@ -111,6 +117,7 @@ StateListContainer.propTypes = {
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
   bookmarksEnabled: PropTypes.bool,
+  branchTypeOverride: PropTypes.string,
 
   /**
    * User Interaction Handlers - loaded by redux

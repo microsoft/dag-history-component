@@ -5,6 +5,7 @@ const ChronologicalHistoryView = props => (
   <div className="history-container">
     <StateListContainer
       {...props}
+      branchTypeOverride={'current'}
       commitPath={props.history.chronologicalStates}
     />
   </div>
