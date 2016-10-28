@@ -9,6 +9,7 @@ $placeholder-highlight: #f00;
 .history-bookmark-list {
   @extend %flexy;
   flex-direction: column;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 

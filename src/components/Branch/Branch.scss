@@ -8,6 +8,7 @@ $charcoal: #5d6d7e;
   min-height: 30px;
   min-width: 250px;
   position: relative;
+  overflow: hidden;
 
   &:not(:hover) {
     border-right: 3px solid transparent;
@@ -28,6 +29,8 @@ $charcoal: #5d6d7e;
     position: absolute;
     top: 0;
     width: 100%;
+    overflow: hidden;
+    cursor: pointer;
 
     .branch-name {
       font-weight: 300;
@@ -52,6 +55,7 @@ $charcoal: #5d6d7e;
   position: absolute;
   top: 0;
   width: 100%;
+  overflow: hidden;
 }
 
 .history-branch-background {

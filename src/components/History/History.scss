@@ -8,14 +8,19 @@
   @extend %flexy;
   align-content: space-between;
   flex-direction: column;
-  overflow-y: scroll;
   -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+  overflow: hidden;
+}
+.history-container::-webkit-scrollbar {
+  display: none;
 }
 
 .state-list-container {
   display: flex;
   flex: 2;
   flex-direction: column;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
@@ -25,7 +30,7 @@
   justify-content: space-between;
   margin-top: 3px;
   max-height: 35%;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 
 .history-view {

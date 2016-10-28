@@ -15,6 +15,7 @@ $charcoal: #5d6d7e;
   min-width: 250px;
   padding: 8px;
   position: relative;
+  overflow: hidden;
 
   &:not(:hover) {
     border-right: 3px solid transparent;
@@ -29,12 +30,13 @@ $charcoal: #5d6d7e;
      display: flex;
      flex-direction: column;
      margin-left: 8px;
-     overflow: hidden;     
+     overflow: hidden;
   }
 
   .state-source {
     font-family: sans-serif;
     font-size: 8pt;
+    overflow: hidden;
 
     &:active {
       color: $black;
@@ -49,6 +51,7 @@ $charcoal: #5d6d7e;
     font-weight: 300;
     font-size: 11pt;
     white-space: nowrap;
+    overflow: hidden;
 
     &:active {
       color: $black;
