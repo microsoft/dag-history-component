@@ -14,7 +14,10 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     modulesDirectories: [path.join(__dirname, 'node_modules')],
-    fallback: path.join(__dirname, 'node_modules'),
+    fallback: path.join(__dirname, 'node_modules'),    
+    alias: {
+      'react/lib/ReactMount': 'react-dom/lib/ReactMount'
+    },
   },
   resolveLoader: {
     modulesDirectories: [path.join(__dirname, 'node_modules')],

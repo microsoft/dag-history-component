@@ -3796,7 +3796,7 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-lodash@4.x.x, lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+lodash@4.x.x, lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
   version "4.17.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
@@ -4968,7 +4968,7 @@ react-docgen@^2.12.1:
     nomnom "^1.8.1"
     recast "^0.11.5"
 
-react-dom@^15.1.0:
+react-dom@^15.4.1:
   version "15.4.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
   dependencies:
@@ -5093,7 +5093,7 @@ react-tabs@^0.7.0:
     classnames "^2.2.0"
     js-stylesheet "^0.0.1"
 
-react@^15.1.0:
+react@^15.4.1:
   version "15.4.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
   dependencies:
