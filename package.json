@@ -5,11 +5,12 @@
   "main": "lib/index.js",
   "scripts": {
     "webpack:server": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback --publicPath ./",
+    "lint": "eslint '{src,test,example}/**/*.ts'",
     "tsc": "tsc",
     "sass": "node-sass src/daghistory.scss --output lib",
     "copysass": "cpx 'src/**/*.scss' lib",
     "mocha": "mocha",
-    "test": "npm-run-all mocha --parallel tsc sass copysass",
+    "test": "npm-run-all mocha lint --parallel tsc sass copysass",
     "watch:tsc": "npm run tsc -- -w",
     "watch:sass": "npm run sass -- --watch",
     "watch:mocha": "npm run mocha -- -w",
@@ -46,6 +47,11 @@
     "cpx": "^1.3.1",
     "css-loader": "^0.25.0",
     "enzyme": "^2.6.0",
+    "eslint": "^3.11.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1",
     "file-loader": "^0.9.0",
     "filesaver.js": "^0.2.0",
     "imports-loader": "^0.6.5",
@@ -93,6 +99,7 @@
     "redux": "^3.3.1",
     "redux-actions": "^0.12.0",
     "redux-dag-history": "^1.5.0",
-    "typescript": "2.1.3-insiders.20161130"
+    "typescript": "2.1.3-insiders.20161130",
+    "typescript-eslint-parser": "^1.0.0"
   }
 }
