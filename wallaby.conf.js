@@ -1,5 +1,5 @@
-const wallabyWebpack = require('wallaby-webpack'); // eslint-disable-line
-const phantom = require('phantomjs2-ext'); // eslint-disable-line
+const wallabyWebpack = require('wallaby-webpack');
+const phantom = require('phantomjs2-ext');
 
 module.exports = function configureWallaby(wallaby) {
   const webpackPostprocessor = wallabyWebpack({
@@ -27,7 +27,7 @@ module.exports = function configureWallaby(wallaby) {
     },
     postprocessor: webpackPostprocessor,
     bootstrap() {
-      window.__moduleBundler.loadTests(); // eslint-disable-line
+      window.__moduleBundler.loadTests();
     },
     env: {
       runner: phantom.path,

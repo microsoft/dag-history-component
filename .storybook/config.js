@@ -1,4 +1,4 @@
-import { configure } from '@kadira/storybook';
+const { configure } = require('@kadira/storybook');
 
 function loadStories() {
   require('../stories');

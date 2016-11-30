@@ -22,9 +22,9 @@
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@kadira/storybook-addons/-/storybook-addons-1.6.1.tgz#e84923d298b38c7c1231ddebc219dfb87b2858a6"
 
-"@kadira/storybook-channel-postmsg@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@kadira/storybook-channel-postmsg/-/storybook-channel-postmsg-2.0.0.tgz#9b2382ddf9925e028e56f5e20d50707823f2692e"
+"@kadira/storybook-channel-postmsg@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@kadira/storybook-channel-postmsg/-/storybook-channel-postmsg-2.0.1.tgz#2a9065bf0647c940b8f9a3a7342a3e12e321af72"
   dependencies:
     "@kadira/storybook-channel" "^1.1.0"
     json-stringify-safe "^5.0.1"
@@ -54,15 +54,15 @@
     react-modal "^1.2.1"
     redux "^3.5.2"
 
-"@kadira/storybook@^2.32.1":
-  version "2.32.1"
-  resolved "https://registry.yarnpkg.com/@kadira/storybook/-/storybook-2.32.1.tgz#c15f758f79a7328f1b95152d29e94680aff22aab"
+"@kadira/storybook@^2.33.0":
+  version "2.33.0"
+  resolved "https://registry.yarnpkg.com/@kadira/storybook/-/storybook-2.33.0.tgz#84267316a9212cffc19be8781eb95e6d46077937"
   dependencies:
     "@kadira/react-split-pane" "^1.4.0"
     "@kadira/storybook-addon-actions" "^1.0.2"
     "@kadira/storybook-addon-links" "^1.0.0"
     "@kadira/storybook-addons" "^1.5.0"
-    "@kadira/storybook-channel-postmsg" "^2.0.0"
+    "@kadira/storybook-channel-postmsg" "^2.0.1"
     "@kadira/storybook-ui" "^3.8.0"
     airbnb-js-shims "^1.0.1"
     autoprefixer "^6.3.7"
@@ -98,9 +98,104 @@
     webpack-dev-middleware "^1.6.0"
     webpack-hot-middleware "^2.13.2"
 
-"@types/redux-actions@^0.8.30":
-  version "0.8.33"
-  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-0.8.33.tgz#a59ff61d0fccc3aff536ebe7b5121809654bd896"
+"@types/bluebird@^3.0.36":
+  version "3.0.36"
+  resolved "https://registry.yarnpkg.com/@types/bluebird/-/bluebird-3.0.36.tgz#b804ddd1b1a082cf3e2137dfa7b5287f437c29b7"
+
+"@types/chai@^3.4.34":
+  version "3.4.34"
+  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-3.4.34.tgz#d5335792823bb09cddd5e38c3d211b709183854d"
+
+"@types/classnames@^0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-0.0.32.tgz#449abcd9a826807811ef101e58df9f83cfc61713"
+
+"@types/enzyme@^2.5.39":
+  version "2.5.39"
+  resolved "https://registry.yarnpkg.com/@types/enzyme/-/enzyme-2.5.39.tgz#735efab43a93285aae169ea968ea0fb259fa8d68"
+  dependencies:
+    "@types/react" "*"
+
+"@types/history@*":
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-2.0.41.tgz#88faa58e931d1c676daca71369cbc3767737d8d3"
+
+"@types/jquery@*":
+  version "2.0.34"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.34.tgz#27615b369f30e572336126514e74672dda6e3d04"
+
+"@types/jsdom@^2.0.29":
+  version "2.0.29"
+  resolved "https://registry.yarnpkg.com/@types/jsdom/-/jsdom-2.0.29.tgz#b4efaa56b24b8b14a5f435a4badc6770bd0f8755"
+  dependencies:
+    "@types/jquery" "*"
+    "@types/node" "*"
+
+"@types/mocha@^2.2.33":
+  version "2.2.33"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.33.tgz#d79a0061ec270379f4d9e225f4096fb436669def"
+
+"@types/node@*", "@types/node@^6.0.51":
+  version "6.0.51"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.51.tgz#84cbf25111516ec9304d0b61469dc0fa9d12ba32"
+
+"@types/react-dom@^0.14.19":
+  version "0.14.19"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-0.14.19.tgz#698a14335e32fb1bc61db65f5647c9668a7fc2eb"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-redux@^4.4.33":
+  version "4.4.35"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-4.4.35.tgz#126c21a11956d03673257ccd179e43993fc8ad77"
+  dependencies:
+    "@types/react" "*"
+    redux "^3.6.0"
+
+"@types/react-router-redux@^4.0.35":
+  version "4.0.35"
+  resolved "https://registry.yarnpkg.com/@types/react-router-redux/-/react-router-redux-4.0.35.tgz#b753c9ab26d6904c5e1c7cc247d46d892d4ad56a"
+  dependencies:
+    "@types/history" "*"
+    "@types/react-router" "*"
+    redux "^3.6.0"
+
+"@types/react-router@*", "@types/react-router@^2.0.41":
+  version "2.0.41"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-2.0.41.tgz#4c2510dfa2d85651af2126aed681c70dbe2f0303"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-tabs@^0.5.21":
+  version "0.5.21"
+  resolved "https://registry.yarnpkg.com/@types/react-tabs/-/react-tabs-0.5.21.tgz#680e96a9364ce7fa1621ec991d88b69e7cbc1e64"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^0.14.51":
+  version "0.14.51"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-0.14.51.tgz#7bb70a087632a91cc2121dd5aecc2da268b74afe"
+
+"@types/redux-actions@^0.8.30", "@types/redux-actions@^0.8.33":
+  version "0.8.34"
+  resolved "https://registry.yarnpkg.com/@types/redux-actions/-/redux-actions-0.8.34.tgz#ed99b9aadececdae0e0f5c4fb8a5baef3fb522ed"
+
+"@types/redux-logger@^2.6.32":
+  version "2.6.32"
+  resolved "https://registry.yarnpkg.com/@types/redux-logger/-/redux-logger-2.6.32.tgz#017cac5dfeef9616f06e41114b7a03a9caa13141"
+  dependencies:
+    "@types/redux" "*"
+
+"@types/redux-thunk@^2.1.32":
+  version "2.1.32"
+  resolved "https://registry.yarnpkg.com/@types/redux-thunk/-/redux-thunk-2.1.32.tgz#27fac368ced9ea170bf15e5fa4a21d9201f73102"
+  dependencies:
+    redux "^3.6.0"
+
+"@types/redux@*", "@types/redux@^3.6.31":
+  version "3.6.31"
+  resolved "https://registry.yarnpkg.com/@types/redux/-/redux-3.6.31.tgz#40eafa7575db36b912ce0059b85de98c205b0708"
 
 Base64@~0.2.0:
   version "0.2.1"
@@ -127,7 +222,7 @@ acorn-globals@^1.0.4:
   dependencies:
     acorn "^2.1.0"
 
-acorn-jsx@^3.0.0, acorn-jsx@^3.0.1:
+acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/acorn-jsx/-/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
   dependencies:
@@ -209,6 +304,10 @@ ansi-styles@~1.0.0:
   version "1.0.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/ansi-styles/-/ansi-styles-1.0.0.tgz#cb102df1c56f5123eab8b67cd7b98027a0279178"
 
+any-promise@^1.3.0:
+  version "1.3.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
+
 anymatch@^1.3.0:
   version "1.3.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/anymatch/-/anymatch-1.3.0.tgz#a3e52fa39168c825ff57b0248126ce5a8ff95507"
@@ -216,17 +315,9 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-append-transform@^0.3.0:
-  version "0.3.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/append-transform/-/append-transform-0.3.0.tgz#d6933ce4a85f09445d9ccc4cc119051b7381a813"
-
 aproba@^1.0.3:
   version "1.0.4"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/aproba/-/aproba-1.0.4.tgz#2713680775e7614c8ba186c065d4e2e52d1072c0"
-
-archy@^1.0.0:
-  version "1.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/archy/-/archy-1.0.0.tgz#f9c8c13757cc1dd7bc379ac77b2c62a5c2868c40"
 
 are-we-there-yet@~1.1.2:
   version "1.1.2"
@@ -303,7 +394,7 @@ array-unique@^0.2.1:
   version "0.2.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
 
-arrify@^1.0.0, arrify@^1.0.1:
+arrify@^1.0.0:
   version "1.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
 
@@ -357,7 +448,7 @@ async@^0.9.0, async@~0.9.0:
   version "0.9.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
 
-async@^1.3.0, async@^1.4.0, async@^1.4.2:
+async@^1.3.0, async@^1.4.2:
   version "1.5.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
@@ -398,27 +489,6 @@ aws4@^1.2.1:
   version "1.5.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
 
-babel-cli@^6.11.4:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-cli/-/babel-cli-6.18.0.tgz#92117f341add9dead90f6fa7d0a97c0cc08ec186"
-  dependencies:
-    babel-core "^6.18.0"
-    babel-polyfill "^6.16.0"
-    babel-register "^6.18.0"
-    babel-runtime "^6.9.0"
-    commander "^2.8.1"
-    convert-source-map "^1.1.0"
-    fs-readdir-recursive "^1.0.0"
-    glob "^5.0.5"
-    lodash "^4.2.0"
-    output-file-sync "^1.1.0"
-    path-is-absolute "^1.0.0"
-    slash "^1.0.0"
-    source-map "^0.5.0"
-    v8flags "^2.0.10"
-  optionalDependencies:
-    chokidar "^1.0.0"
-
 babel-code-frame@^6.11.0, babel-code-frame@^6.16.0:
   version "6.16.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-code-frame/-/babel-code-frame-6.16.0.tgz#f90e60da0862909d3ce098733b5d3987c97cb8de"
@@ -427,7 +497,7 @@ babel-code-frame@^6.11.0, babel-code-frame@^6.16.0:
     esutils "^2.0.2"
     js-tokens "^2.0.0"
 
-babel-core@^6.11.4, babel-core@^6.18.0, babel-core@^6.7.2:
+babel-core@^6.11.4, babel-core@^6.18.0:
   version "6.18.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-core/-/babel-core-6.18.2.tgz#d8bb14dd6986fa4f3566a26ceda3964fa0e04e5b"
   dependencies:
@@ -451,16 +521,6 @@ babel-core@^6.11.4, babel-core@^6.18.0, babel-core@^6.7.2:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-eslint@^6.1.2:
-  version "6.1.2"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-eslint/-/babel-eslint-6.1.2.tgz#5293419fe3672d66598d327da9694567ba6a5f2f"
-  dependencies:
-    babel-traverse "^6.0.20"
-    babel-types "^6.0.19"
-    babylon "^6.0.18"
-    lodash.assign "^4.0.0"
-    lodash.pickby "^4.0.0"
-
 babel-generator@^6.18.0:
   version "6.19.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-generator/-/babel-generator-6.19.0.tgz#9b2f244204777a3d6810ec127c673c87b349fac5"
@@ -472,14 +532,6 @@ babel-generator@^6.18.0:
     jsesc "^1.3.0"
     lodash "^4.2.0"
     source-map "^0.5.0"
-
-babel-helper-bindify-decorators@^6.18.0:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-helper-bindify-decorators/-/babel-helper-bindify-decorators-6.18.0.tgz#fc00c573676a6e702fffa00019580892ec8780a5"
-  dependencies:
-    babel-runtime "^6.0.0"
-    babel-traverse "^6.18.0"
-    babel-types "^6.18.0"
 
 babel-helper-builder-binary-assignment-operator-visitor@^6.8.0:
   version "6.18.0"
@@ -524,15 +576,6 @@ babel-helper-explode-assignable-expression@^6.18.0:
     babel-traverse "^6.18.0"
     babel-types "^6.18.0"
 
-babel-helper-explode-class@^6.8.0:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-helper-explode-class/-/babel-helper-explode-class-6.18.0.tgz#c44f76f4fa23b9c5d607cbac5d4115e7a76f62cb"
-  dependencies:
-    babel-helper-bindify-decorators "^6.18.0"
-    babel-runtime "^6.0.0"
-    babel-traverse "^6.18.0"
-    babel-types "^6.18.0"
-
 babel-helper-function-name@^6.18.0, babel-helper-function-name@^6.8.0:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-helper-function-name/-/babel-helper-function-name-6.18.0.tgz#68ec71aeba1f3e28b2a6f0730190b754a9bf30e6"
@@ -572,7 +615,7 @@ babel-helper-regex@^6.8.0:
     babel-types "^6.18.0"
     lodash "^4.2.0"
 
-babel-helper-remap-async-to-generator@^6.16.0, babel-helper-remap-async-to-generator@^6.16.2:
+babel-helper-remap-async-to-generator@^6.16.0:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-helper-remap-async-to-generator/-/babel-helper-remap-async-to-generator-6.18.0.tgz#336cdf3cab650bb191b02fc16a3708e7be7f9ce5"
   dependencies:
@@ -621,15 +664,6 @@ babel-plugin-check-es2015-constants@^6.3.13:
   dependencies:
     babel-runtime "^6.0.0"
 
-babel-plugin-istanbul@^2.0.1:
-  version "2.0.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-istanbul/-/babel-plugin-istanbul-2.0.3.tgz#266b304b9109607d60748474394676982f660df4"
-  dependencies:
-    find-up "^1.1.2"
-    istanbul-lib-instrument "^1.1.4"
-    object-assign "^4.1.0"
-    test-exclude "^2.1.1"
-
 babel-plugin-react-docgen@^1.4.1:
   version "1.4.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-react-docgen/-/babel-plugin-react-docgen-1.4.1.tgz#dc0d1e3e453ea592bd3b78f378638b30380328c9"
@@ -642,33 +676,13 @@ babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
 
-babel-plugin-syntax-async-generators@^6.5.0:
-  version "6.13.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-async-generators/-/babel-plugin-syntax-async-generators-6.13.0.tgz#6bc963ebb16eccbae6b92b596eb7f35c342a8b9a"
-
-babel-plugin-syntax-class-constructor-call@^6.18.0:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-class-constructor-call/-/babel-plugin-syntax-class-constructor-call-6.18.0.tgz#9cb9d39fe43c8600bec8146456ddcbd4e1a76416"
-
 babel-plugin-syntax-class-properties@^6.8.0:
   version "6.13.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-class-properties/-/babel-plugin-syntax-class-properties-6.13.0.tgz#d7eb23b79a317f8543962c505b827c7d6cac27de"
 
-babel-plugin-syntax-decorators@^6.1.18, babel-plugin-syntax-decorators@^6.13.0:
-  version "6.13.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-decorators/-/babel-plugin-syntax-decorators-6.13.0.tgz#312563b4dbde3cc806cee3e416cceeaddd11ac0b"
-
-babel-plugin-syntax-dynamic-import@^6.18.0:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-dynamic-import/-/babel-plugin-syntax-dynamic-import-6.18.0.tgz#8d6a26229c83745a9982a441051572caa179b1da"
-
 babel-plugin-syntax-exponentiation-operator@^6.8.0:
   version "6.13.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-exponentiation-operator/-/babel-plugin-syntax-exponentiation-operator-6.13.0.tgz#9ee7e8337290da95288201a6a57f4170317830de"
-
-babel-plugin-syntax-export-extensions@^6.8.0:
-  version "6.13.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-export-extensions/-/babel-plugin-syntax-export-extensions-6.13.0.tgz#70a1484f0f9089a4e84ad44bac353c95b9b12721"
 
 babel-plugin-syntax-flow@^6.18.0, babel-plugin-syntax-flow@^6.3.13:
   version "6.18.0"
@@ -682,17 +696,9 @@ babel-plugin-syntax-object-rest-spread@^6.8.0:
   version "6.13.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
 
-babel-plugin-syntax-trailing-function-commas@^6.13.0, babel-plugin-syntax-trailing-function-commas@^6.3.13, babel-plugin-syntax-trailing-function-commas@^6.8.0:
+babel-plugin-syntax-trailing-function-commas@^6.13.0, babel-plugin-syntax-trailing-function-commas@^6.8.0:
   version "6.13.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-syntax-trailing-function-commas/-/babel-plugin-syntax-trailing-function-commas-6.13.0.tgz#2b84b7d53dd744f94ff1fad7669406274b23f541"
-
-babel-plugin-transform-async-generator-functions@^6.17.0:
-  version "6.17.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-async-generator-functions/-/babel-plugin-transform-async-generator-functions-6.17.0.tgz#d0b5a2b2f0940f2b245fa20a00519ed7bc6cae54"
-  dependencies:
-    babel-helper-remap-async-to-generator "^6.16.2"
-    babel-plugin-syntax-async-generators "^6.5.0"
-    babel-runtime "^6.0.0"
 
 babel-plugin-transform-async-to-generator@^6.16.0, babel-plugin-transform-async-to-generator@^6.8.0:
   version "6.16.0"
@@ -702,14 +708,6 @@ babel-plugin-transform-async-to-generator@^6.16.0, babel-plugin-transform-async-
     babel-plugin-syntax-async-functions "^6.8.0"
     babel-runtime "^6.0.0"
 
-babel-plugin-transform-class-constructor-call@^6.3.13:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-class-constructor-call/-/babel-plugin-transform-class-constructor-call-6.18.0.tgz#80855e38a1ab47b8c6c647f8ea1bcd2c00ca3aae"
-  dependencies:
-    babel-plugin-syntax-class-constructor-call "^6.18.0"
-    babel-runtime "^6.0.0"
-    babel-template "^6.8.0"
-
 babel-plugin-transform-class-properties@6.16.0:
   version "6.16.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-class-properties/-/babel-plugin-transform-class-properties-6.16.0.tgz#969bca24d34e401d214f36b8af5c1346859bc904"
@@ -717,34 +715,6 @@ babel-plugin-transform-class-properties@6.16.0:
     babel-helper-function-name "^6.8.0"
     babel-plugin-syntax-class-properties "^6.8.0"
     babel-runtime "^6.9.1"
-
-babel-plugin-transform-class-properties@^6.18.0:
-  version "6.19.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-class-properties/-/babel-plugin-transform-class-properties-6.19.0.tgz#1274b349abaadc835164e2004f4a2444a2788d5f"
-  dependencies:
-    babel-helper-function-name "^6.18.0"
-    babel-plugin-syntax-class-properties "^6.8.0"
-    babel-runtime "^6.9.1"
-    babel-template "^6.15.0"
-
-babel-plugin-transform-decorators-legacy@^1.3.4:
-  version "1.3.4"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-decorators-legacy/-/babel-plugin-transform-decorators-legacy-1.3.4.tgz#741b58f6c5bce9e6027e0882d9c994f04f366925"
-  dependencies:
-    babel-plugin-syntax-decorators "^6.1.18"
-    babel-runtime "^6.2.0"
-    babel-template "^6.3.0"
-
-babel-plugin-transform-decorators@^6.13.0:
-  version "6.13.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-decorators/-/babel-plugin-transform-decorators-6.13.0.tgz#82d65c1470ae83e2d13eebecb0a1c2476d62da9d"
-  dependencies:
-    babel-helper-define-map "^6.8.0"
-    babel-helper-explode-class "^6.8.0"
-    babel-plugin-syntax-decorators "^6.13.0"
-    babel-runtime "^6.0.0"
-    babel-template "^6.8.0"
-    babel-types "^6.13.0"
 
 babel-plugin-transform-es2015-arrow-functions@^6.3.13:
   version "6.8.0"
@@ -790,13 +760,13 @@ babel-plugin-transform-es2015-computed-properties@^6.3.13:
     babel-runtime "^6.0.0"
     babel-template "^6.8.0"
 
-babel-plugin-transform-es2015-destructuring@6.16.0:
+babel-plugin-transform-es2015-destructuring@6.16.0, babel-plugin-transform-es2015-destructuring@^6.6.0:
   version "6.16.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-es2015-destructuring/-/babel-plugin-transform-es2015-destructuring-6.16.0.tgz#050fe0866f5d53b36062ee10cdf5bfe64f929627"
   dependencies:
     babel-runtime "^6.9.0"
 
-babel-plugin-transform-es2015-destructuring@^6.18.0, babel-plugin-transform-es2015-destructuring@^6.6.0:
+babel-plugin-transform-es2015-destructuring@^6.18.0:
   version "6.19.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-es2015-destructuring/-/babel-plugin-transform-es2015-destructuring-6.19.0.tgz#ff1d911c4b3f4cab621bd66702a869acd1900533"
   dependencies:
@@ -869,7 +839,7 @@ babel-plugin-transform-es2015-object-super@^6.3.13:
     babel-helper-replace-supers "^6.8.0"
     babel-runtime "^6.0.0"
 
-babel-plugin-transform-es2015-parameters@6.17.0:
+babel-plugin-transform-es2015-parameters@6.17.0, babel-plugin-transform-es2015-parameters@^6.6.0:
   version "6.17.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.17.0.tgz#e06d30cef897f46adb4734707bbe128a0d427d58"
   dependencies:
@@ -880,7 +850,7 @@ babel-plugin-transform-es2015-parameters@6.17.0:
     babel-traverse "^6.16.0"
     babel-types "^6.16.0"
 
-babel-plugin-transform-es2015-parameters@^6.18.0, babel-plugin-transform-es2015-parameters@^6.6.0:
+babel-plugin-transform-es2015-parameters@^6.18.0:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.18.0.tgz#9b2cfe238c549f1635ba27fc1daa858be70608b1"
   dependencies:
@@ -940,13 +910,6 @@ babel-plugin-transform-exponentiation-operator@^6.3.13, babel-plugin-transform-e
     babel-plugin-syntax-exponentiation-operator "^6.8.0"
     babel-runtime "^6.0.0"
 
-babel-plugin-transform-export-extensions@^6.3.13:
-  version "6.8.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-export-extensions/-/babel-plugin-transform-export-extensions-6.8.0.tgz#fa80ff655b636549431bfd38f6b817bd82e47f5b"
-  dependencies:
-    babel-plugin-syntax-export-extensions "^6.8.0"
-    babel-runtime "^6.0.0"
-
 babel-plugin-transform-flow-strip-types@^6.3.13:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-flow-strip-types/-/babel-plugin-transform-flow-strip-types-6.18.0.tgz#4d3e642158661e9b40db457c004a30817fa32592"
@@ -954,7 +917,7 @@ babel-plugin-transform-flow-strip-types@^6.3.13:
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.0.0"
 
-babel-plugin-transform-object-rest-spread@6.16.0, babel-plugin-transform-object-rest-spread@^6.16.0:
+babel-plugin-transform-object-rest-spread@6.16.0:
   version "6.16.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.16.0.tgz#db441d56fffc1999052fdebe2e2f25ebd28e36a9"
   dependencies:
@@ -967,7 +930,7 @@ babel-plugin-transform-react-constant-elements@6.9.1:
   dependencies:
     babel-runtime "^6.9.1"
 
-babel-plugin-transform-react-display-name@^6.3.13, babel-plugin-transform-react-display-name@^6.8.0:
+babel-plugin-transform-react-display-name@^6.3.13:
   version "6.8.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-plugin-transform-react-display-name/-/babel-plugin-transform-react-display-name-6.8.0.tgz#f7a084977383d728bdbdc2835bba0159577f660e"
   dependencies:
@@ -1016,14 +979,6 @@ babel-plugin-transform-strict-mode@^6.18.0:
     babel-runtime "^6.0.0"
     babel-types "^6.18.0"
 
-babel-polyfill@^6.16.0:
-  version "6.16.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-polyfill/-/babel-polyfill-6.16.0.tgz#2d45021df87e26a374b6d4d1a9c65964d17f2422"
-  dependencies:
-    babel-runtime "^6.9.1"
-    core-js "^2.4.0"
-    regenerator-runtime "^0.9.5"
-
 babel-preset-env@0.0.6:
   version "0.0.6"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-preset-env/-/babel-preset-env-0.0.6.tgz#cda63a020069098fad12272a7a447a7c5bafb3c8"
@@ -1057,7 +1012,7 @@ babel-preset-env@0.0.6:
     babel-plugin-transform-regenerator "^6.6.0"
     browserslist "^1.4.0"
 
-babel-preset-es2015@^6.16.0, babel-preset-es2015@^6.6.0:
+babel-preset-es2015@^6.16.0:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-preset-es2015/-/babel-preset-es2015-6.18.0.tgz#b8c70df84ec948c43dcf2bf770e988eb7da88312"
   dependencies:
@@ -1125,7 +1080,7 @@ babel-preset-react-app@^1.0.0:
     babel-preset-react "6.16.0"
     babel-runtime "6.11.6"
 
-babel-preset-react@6.16.0, babel-preset-react@^6.5.0:
+babel-preset-react@6.16.0:
   version "6.16.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-preset-react/-/babel-preset-react-6.16.0.tgz#aa117d60de0928607e343c4828906e4661824316"
   dependencies:
@@ -1137,34 +1092,7 @@ babel-preset-react@6.16.0, babel-preset-react@^6.5.0:
     babel-plugin-transform-react-jsx-self "^6.11.0"
     babel-plugin-transform-react-jsx-source "^6.3.13"
 
-babel-preset-stage-1@^6.5.0:
-  version "6.16.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-preset-stage-1/-/babel-preset-stage-1-6.16.0.tgz#9d31fbbdae7b17c549fd3ac93e3cf6902695e479"
-  dependencies:
-    babel-plugin-transform-class-constructor-call "^6.3.13"
-    babel-plugin-transform-export-extensions "^6.3.13"
-    babel-preset-stage-2 "^6.16.0"
-
-babel-preset-stage-2@^6.16.0:
-  version "6.18.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-preset-stage-2/-/babel-preset-stage-2-6.18.0.tgz#9eb7bf9a8e91c68260d5ba7500493caaada4b5b5"
-  dependencies:
-    babel-plugin-syntax-dynamic-import "^6.18.0"
-    babel-plugin-transform-class-properties "^6.18.0"
-    babel-plugin-transform-decorators "^6.13.0"
-    babel-preset-stage-3 "^6.17.0"
-
-babel-preset-stage-3@^6.17.0:
-  version "6.17.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-preset-stage-3/-/babel-preset-stage-3-6.17.0.tgz#b6638e46db6e91e3f889013d8ce143917c685e39"
-  dependencies:
-    babel-plugin-syntax-trailing-function-commas "^6.3.13"
-    babel-plugin-transform-async-generator-functions "^6.17.0"
-    babel-plugin-transform-async-to-generator "^6.16.0"
-    babel-plugin-transform-exponentiation-operator "^6.3.13"
-    babel-plugin-transform-object-rest-spread "^6.16.0"
-
-babel-register@^6.14.0, babel-register@^6.18.0:
+babel-register@^6.18.0:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-register/-/babel-register-6.18.0.tgz#892e2e03865078dd90ad2c715111ec4449b32a68"
   dependencies:
@@ -1183,14 +1111,14 @@ babel-runtime@6.11.6:
     core-js "^2.4.0"
     regenerator-runtime "^0.9.5"
 
-babel-runtime@6.x.x, babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.5.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1, babel-runtime@^6.9.2:
+babel-runtime@6.x.x, babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.5.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1, babel-runtime@^6.9.2:
   version "6.18.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-runtime/-/babel-runtime-6.18.0.tgz#0f4177ffd98492ef13b9f823e9994a02584c9078"
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.9.5"
 
-babel-template@^6.14.0, babel-template@^6.15.0, babel-template@^6.16.0, babel-template@^6.3.0, babel-template@^6.8.0:
+babel-template@^6.14.0, babel-template@^6.15.0, babel-template@^6.16.0, babel-template@^6.8.0:
   version "6.16.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-template/-/babel-template-6.16.0.tgz#e149dd1a9f03a35f817ddbc4d0481988e7ebc8ca"
   dependencies:
@@ -1200,7 +1128,7 @@ babel-template@^6.14.0, babel-template@^6.15.0, babel-template@^6.16.0, babel-te
     babylon "^6.11.0"
     lodash "^4.2.0"
 
-babel-traverse@^6.0.20, babel-traverse@^6.16.0, babel-traverse@^6.18.0:
+babel-traverse@^6.16.0, babel-traverse@^6.18.0:
   version "6.19.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-traverse/-/babel-traverse-6.19.0.tgz#68363fb821e26247d52a519a84b2ceab8df4f55a"
   dependencies:
@@ -1214,7 +1142,7 @@ babel-traverse@^6.0.20, babel-traverse@^6.16.0, babel-traverse@^6.18.0:
     invariant "^2.2.0"
     lodash "^4.2.0"
 
-babel-types@^6.0.19, babel-types@^6.13.0, babel-types@^6.16.0, babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.8.0, babel-types@^6.9.0:
+babel-types@^6.16.0, babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.8.0, babel-types@^6.9.0:
   version "6.19.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babel-types/-/babel-types-6.19.0.tgz#8db2972dbed01f1192a8b602ba1e1e4c516240b9"
   dependencies:
@@ -1223,7 +1151,7 @@ babel-types@^6.0.19, babel-types@^6.13.0, babel-types@^6.16.0, babel-types@^6.18
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@^6.0.18, babylon@^6.11.0, babylon@^6.13.0:
+babylon@^6.11.0:
   version "6.14.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/babylon/-/babylon-6.14.1.tgz#956275fab72753ad9b3435d7afe58f8bf0a29815"
 
@@ -1234,10 +1162,6 @@ babylon@~5.8.3:
 balanced-match@^0.4.1, balanced-match@^0.4.2:
   version "0.4.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
-
-balanced-match@~0.1.0:
-  version "0.1.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/balanced-match/-/balanced-match-0.1.0.tgz#b504bd05869b39259dd0c5efc35d843176dccc4a"
 
 base64-js@^1.0.2:
   version "1.2.0"
@@ -1334,21 +1258,13 @@ buffer@^4.9.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-builtin-modules@^1.0.0, builtin-modules@^1.1.1:
+builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
 
 bytes@2.3.0:
   version "2.3.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/bytes/-/bytes-2.3.0.tgz#d5b680a165b6201739acb611542aabc2d8ceb070"
-
-caching-transform@^1.0.0:
-  version "1.0.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/caching-transform/-/caching-transform-1.0.1.tgz#6dbdb2f20f8d8fbce79f3e94e9d1742dcdf5c0a1"
-  dependencies:
-    md5-hex "^1.2.0"
-    mkdirp "^0.5.1"
-    write-file-atomic "^1.1.4"
 
 caller-path@^0.1.0:
   version "0.1.0"
@@ -1380,8 +1296,8 @@ camelcase@^3.0.0:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 caniuse-db@^1.0.30000539, caniuse-db@^1.0.30000578:
-  version "1.0.30000587"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/caniuse-db/-/caniuse-db-1.0.30000587.tgz#18bb26f03139887539054cfe1c5358583eaabcf0"
+  version "1.0.30000588"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/caniuse-db/-/caniuse-db-1.0.30000588.tgz#20baa051c5bd7e33ae32c7781b5379289c3d39d2"
 
 case-sensitive-paths-webpack-plugin@^1.1.2:
   version "1.1.4"
@@ -1449,7 +1365,7 @@ cheerio@^0.22.0:
     lodash.reject "^4.4.0"
     lodash.some "^4.4.0"
 
-chokidar@^1.0.0, chokidar@^1.4.3, chokidar@^1.6.0:
+chokidar@^1.0.0, chokidar@^1.6.0:
   version "1.6.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/chokidar/-/chokidar-1.6.1.tgz#2f4447ab5e96e50fb3d789fd90d4c72e0e4c70c2"
   dependencies:
@@ -1554,7 +1470,7 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colors@~1.1.2:
+colors@^1.0.3, colors@~1.1.2:
   version "1.1.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
 
@@ -1654,10 +1570,6 @@ constants-browserify@0.0.1:
   version "0.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/constants-browserify/-/constants-browserify-0.0.1.tgz#92577db527ba6c4cf0a4568d84bc031f441e21f2"
 
-contains-path@^0.1.0:
-  version "0.1.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/contains-path/-/contains-path-0.1.0.tgz#fe8cf184ff6670b6baef01a9d4861a5cbec4120a"
-
 content-disposition@0.5.1:
   version "0.5.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/content-disposition/-/content-disposition-0.5.1.tgz#87476c6a67c8daa87e32e87616df883ba7fb071b"
@@ -1670,7 +1582,7 @@ content-type@~1.0.2:
   version "1.0.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/content-type/-/content-type-1.0.2.tgz#b7d113aee7a8dd27bd21133c4dc2529df1721eed"
 
-convert-source-map@^1.1.0, convert-source-map@^1.3.0:
+convert-source-map@^1.1.0:
   version "1.3.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/convert-source-map/-/convert-source-map-1.3.0.tgz#e9f3e9c6e2728efc2676696a70eb382f73106a67"
 
@@ -1729,7 +1641,7 @@ cross-spawn@^3.0.0:
     lru-cache "^4.0.1"
     which "^1.2.9"
 
-cross-spawn@^4, cross-spawn@^4.0.0:
+cross-spawn@^4.0.0:
   version "4.0.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/cross-spawn/-/cross-spawn-4.0.2.tgz#7b9247621c23adfdd3856004a823cbe397424d41"
   dependencies:
@@ -1797,8 +1709,8 @@ cssesc@^0.1.0:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/cssesc/-/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
 
 "cssnano@>=2.6.1 <4":
-  version "3.8.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/cssnano/-/cssnano-3.8.0.tgz#bb90ac5292f42b679d9a05f6da0e9697556bb80d"
+  version "3.8.1"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/cssnano/-/cssnano-3.8.1.tgz#008a482148ee948cf0af2ee6e44bd97c53f886ec"
   dependencies:
     autoprefixer "^6.3.1"
     decamelize "^1.1.2"
@@ -1866,10 +1778,6 @@ d@^0.1.1, d@~0.1.1:
   dependencies:
     es5-ext "~0.10.2"
 
-damerau-levenshtein@^1.0.0:
-  version "1.0.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/damerau-levenshtein/-/damerau-levenshtein-1.0.3.tgz#ae4f4ce0b62acae10ff63a01bb08f652f5213af2"
-
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
@@ -1917,12 +1825,6 @@ deep-extend@~0.4.0:
 deep-is@~0.1.3:
   version "0.1.3"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
-
-default-require-extensions@^1.0.0:
-  version "1.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
-  dependencies:
-    strip-bom "^2.0.0"
 
 define-properties@^1.1.1, define-properties@^1.1.2:
   version "1.1.2"
@@ -1976,13 +1878,6 @@ detect-indent@^4.0.0:
 diff@1.4.0:
   version "1.4.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/diff/-/diff-1.4.0.tgz#7f28d2eb9ee7b15a97efd89ce63dcfdaa3ccbabf"
-
-doctrine@1.3.x:
-  version "1.3.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/doctrine/-/doctrine-1.3.0.tgz#13e75682b55518424276f7c173783456ef913d26"
-  dependencies:
-    esutils "^2.0.2"
-    isarray "^1.0.0"
 
 doctrine@^1.2.0, doctrine@^1.2.2:
   version "1.5.0"
@@ -2061,7 +1956,7 @@ encoding@^0.1.11:
   dependencies:
     iconv-lite "~0.4.13"
 
-enhanced-resolve@~0.9.0:
+enhanced-resolve@^0.9.0, enhanced-resolve@~0.9.0:
   version "0.9.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/enhanced-resolve/-/enhanced-resolve-0.9.1.tgz#4d6e689b3725f86090927ccc86cd9f1635b89e2e"
   dependencies:
@@ -2073,7 +1968,7 @@ entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-enzyme@^2.4.1:
+enzyme@^2.6.0:
   version "2.6.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/enzyme/-/enzyme-2.6.0.tgz#148d742b25e2565f7e80870a0c92aea9be1b90ea"
   dependencies:
@@ -2147,7 +2042,7 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.0"
     event-emitter "~0.3.4"
 
-es6-set@^0.1.4, es6-set@~0.1.3:
+es6-set@~0.1.3:
   version "0.1.4"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/es6-set/-/es6-set-0.1.4.tgz#9516b6761c2964b92ff479456233a247dc707ce8"
   dependencies:
@@ -2205,72 +2100,6 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^7.2.0:
-  version "7.2.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-config-airbnb-base/-/eslint-config-airbnb-base-7.2.0.tgz#1a2ff77cc5d4abc2e1c5daebe4106fce95ff7c2a"
-
-eslint-config-airbnb@^11.0.0:
-  version "11.2.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-config-airbnb/-/eslint-config-airbnb-11.2.0.tgz#a0930ed7891e824e1b3e436cdf9754c815a2920c"
-  dependencies:
-    eslint-config-airbnb-base "^7.2.0"
-
-eslint-import-resolver-node@^0.2.0:
-  version "0.2.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-import-resolver-node/-/eslint-import-resolver-node-0.2.3.tgz#5add8106e8c928db2cba232bcd9efa846e3da16c"
-  dependencies:
-    debug "^2.2.0"
-    object-assign "^4.0.1"
-    resolve "^1.1.6"
-
-eslint-plugin-import@^1.14.0:
-  version "1.16.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-plugin-import/-/eslint-plugin-import-1.16.0.tgz#b2fa07ebcc53504d0f2a4477582ec8bff1871b9f"
-  dependencies:
-    builtin-modules "^1.1.1"
-    contains-path "^0.1.0"
-    debug "^2.2.0"
-    doctrine "1.3.x"
-    es6-map "^0.1.3"
-    es6-set "^0.1.4"
-    eslint-import-resolver-node "^0.2.0"
-    has "^1.0.1"
-    lodash.cond "^4.3.0"
-    lodash.endswith "^4.0.1"
-    lodash.find "^4.3.0"
-    lodash.findindex "^4.3.0"
-    minimatch "^3.0.3"
-    object-assign "^4.0.1"
-    pkg-dir "^1.0.0"
-    pkg-up "^1.0.0"
-
-eslint-plugin-jsx-a11y@^2.2.1:
-  version "2.2.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-2.2.3.tgz#4e35cb71b8a7db702ac415c806eb8e8d9ea6c65d"
-  dependencies:
-    damerau-levenshtein "^1.0.0"
-    jsx-ast-utils "^1.0.0"
-    object-assign "^4.0.1"
-
-eslint-plugin-react@^6.2.0:
-  version "6.7.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-plugin-react/-/eslint-plugin-react-6.7.1.tgz#1af96aea545856825157d97c1b50d5a8fb64a5a7"
-  dependencies:
-    doctrine "^1.2.2"
-    jsx-ast-utils "^1.3.3"
-
-eslint-watch@^2.1.13:
-  version "2.1.14"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint-watch/-/eslint-watch-2.1.14.tgz#a9d200aefb158349f3631ec91a2ec484d152cbfe"
-  dependencies:
-    chalk "^1.1.3"
-    chokidar "^1.4.3"
-    debug "^2.2.0"
-    keypress "^0.2.1"
-    lodash "^4.13.1"
-    optionator "^0.8.1"
-    text-table "^0.2.0"
-
 eslint@^2.7.0:
   version "2.13.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint/-/eslint-2.13.1.tgz#e4cc8fa0f009fb829aaae23855a29360be1f6c11"
@@ -2309,46 +2138,7 @@ eslint@^2.7.0:
     text-table "~0.2.0"
     user-home "^2.0.0"
 
-eslint@^3.5.0:
-  version "3.10.2"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/eslint/-/eslint-3.10.2.tgz#c9a10e8bf6e9d65651204778c503341f1eac3ce7"
-  dependencies:
-    babel-code-frame "^6.16.0"
-    chalk "^1.1.3"
-    concat-stream "^1.4.6"
-    debug "^2.1.1"
-    doctrine "^1.2.2"
-    escope "^3.6.0"
-    espree "^3.3.1"
-    estraverse "^4.2.0"
-    esutils "^2.0.2"
-    file-entry-cache "^2.0.0"
-    glob "^7.0.3"
-    globals "^9.2.0"
-    ignore "^3.2.0"
-    imurmurhash "^0.1.4"
-    inquirer "^0.12.0"
-    is-my-json-valid "^2.10.0"
-    is-resolvable "^1.0.0"
-    js-yaml "^3.5.1"
-    json-stable-stringify "^1.0.0"
-    levn "^0.3.0"
-    lodash "^4.0.0"
-    mkdirp "^0.5.0"
-    natural-compare "^1.4.0"
-    optionator "^0.8.2"
-    path-is-inside "^1.0.1"
-    pluralize "^1.2.1"
-    progress "^1.1.8"
-    require-uncached "^1.0.2"
-    shelljs "^0.7.5"
-    strip-bom "^3.0.0"
-    strip-json-comments "~1.0.1"
-    table "^3.7.8"
-    text-table "~0.2.0"
-    user-home "^2.0.0"
-
-espree@^3.1.6, espree@^3.3.1:
+espree@^3.1.6:
   version "3.3.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/espree/-/espree-3.3.2.tgz#dbf3fadeb4ecb4d4778303e50103b3d36c88b89c"
   dependencies:
@@ -2360,8 +2150,8 @@ esprima@^2.6.0, esprima@^2.7.1:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/esprima/-/esprima-2.7.3.tgz#96e3b70d5779f6ad49cd032673d1c312767ba581"
 
 esprima@~3.1.0:
-  version "3.1.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/esprima/-/esprima-3.1.1.tgz#02dbcc5ac3ece81070377f99158ec742ab5dda06"
+  version "3.1.2"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/esprima/-/esprima-3.1.2.tgz#954b5d19321ca436092fa90f06d6798531fe8184"
 
 esrecurse@^4.1.0:
   version "4.1.0"
@@ -2533,13 +2323,6 @@ file-entry-cache@^1.1.1:
     flat-cache "^1.2.1"
     object-assign "^4.0.1"
 
-file-entry-cache@^2.0.0:
-  version "2.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/file-entry-cache/-/file-entry-cache-2.0.0.tgz#c392990c3e684783d838b8c84a45d8a048458361"
-  dependencies:
-    flat-cache "^1.2.1"
-    object-assign "^4.0.1"
-
 file-loader@^0.9.0:
   version "0.9.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/file-loader/-/file-loader-0.9.0.tgz#1d2daddd424ce6d1b07cfe3f79731bed3617ab42"
@@ -2586,7 +2369,7 @@ find-index@^0.1.1:
   version "0.1.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/find-index/-/find-index-0.1.1.tgz#675d358b2ca3892d795a1ab47232f8b6e2e0dde4"
 
-find-up@^1.0.0, find-up@^1.1.2:
+find-up@^1.0.0:
   version "1.1.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/find-up/-/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
   dependencies:
@@ -2619,13 +2402,6 @@ for-own@^0.1.4:
 foreach@^2.0.5:
   version "2.0.5"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/foreach/-/foreach-2.0.5.tgz#0bee005018aeb260d0a3af3ae658dd0136ec1b99"
-
-foreground-child@^1.3.3, foreground-child@^1.5.3:
-  version "1.5.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/foreground-child/-/foreground-child-1.5.3.tgz#94dd6aba671389867de8e57e99f1c2ecfb15c01a"
-  dependencies:
-    cross-spawn "^4"
-    signal-exit "^3.0.0"
 
 forever-agent@~0.6.0, forever-agent@~0.6.1:
   version "0.6.1"
@@ -2672,10 +2448,6 @@ fs-extra@^1.0.0:
     graceful-fs "^4.1.2"
     jsonfile "^2.1.0"
     klaw "^1.0.0"
-
-fs-readdir-recursive@^1.0.0:
-  version "1.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/fs-readdir-recursive/-/fs-readdir-recursive-1.0.0.tgz#8cd1745c8b4f8a29c8caec392476921ba195f560"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -2822,17 +2594,7 @@ glob@^4.4.2:
     minimatch "^2.0.1"
     once "^1.3.0"
 
-glob@^5.0.5:
-  version "5.0.15"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/glob/-/glob-5.0.15.tgz#1bc936b9e02f4a603fcc222ecf7633d30b8b93b1"
-  dependencies:
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "2 || 3"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.0.6, glob@~7.1.1:
+glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@~7.1.1:
   version "7.1.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
   dependencies:
@@ -2872,7 +2634,7 @@ gonzales-pe@3.4.7:
   dependencies:
     minimist "1.1.x"
 
-graceful-fs@^4.1.2, graceful-fs@^4.1.3, graceful-fs@^4.1.4, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
+graceful-fs@^4.1.2, graceful-fs@^4.1.3, graceful-fs@^4.1.6, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
@@ -2883,16 +2645,6 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.3, graceful-fs@^4.1.4, graceful-fs@^4.1.6, 
 growl@1.9.2:
   version "1.9.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
-
-handlebars@^4.0.3:
-  version "4.0.6"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/handlebars/-/handlebars-4.0.6.tgz#2ce4484850537f9c97a8026d5399b935c4ed4ed7"
-  dependencies:
-    async "^1.4.0"
-    optimist "^0.6.1"
-    source-map "^0.4.4"
-  optionalDependencies:
-    uglify-js "^2.6"
 
 har-validator@^1.4.0:
   version "1.8.0"
@@ -3074,7 +2826,7 @@ ieee754@^1.1.4:
   version "1.1.8"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
-ignore@^3.1.2, ignore@^3.2.0:
+ignore@^3.1.2:
   version "3.2.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/ignore/-/ignore-3.2.0.tgz#8d88f03c3002a0ac52114db25d2c673b0bf1e435"
 
@@ -3372,54 +3124,6 @@ isstream@~0.1.1, isstream@~0.1.2:
   version "0.1.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-istanbul-lib-coverage@^1.0.0, istanbul-lib-coverage@^1.0.0-alpha, istanbul-lib-coverage@^1.0.0-alpha.0:
-  version "1.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/istanbul-lib-coverage/-/istanbul-lib-coverage-1.0.0.tgz#c3f9b6d226da12424064cce87fce0fb57fdfa7a2"
-
-istanbul-lib-hook@^1.0.0-alpha.4:
-  version "1.0.0-alpha.4"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/istanbul-lib-hook/-/istanbul-lib-hook-1.0.0-alpha.4.tgz#8c5bb9f6fbd8526e0ae6cf639af28266906b938f"
-  dependencies:
-    append-transform "^0.3.0"
-
-istanbul-lib-instrument@^1.1.4, istanbul-lib-instrument@^1.2.0:
-  version "1.3.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/istanbul-lib-instrument/-/istanbul-lib-instrument-1.3.0.tgz#19f0a973397454989b98330333063a5b56df0e58"
-  dependencies:
-    babel-generator "^6.18.0"
-    babel-template "^6.16.0"
-    babel-traverse "^6.18.0"
-    babel-types "^6.18.0"
-    babylon "^6.13.0"
-    istanbul-lib-coverage "^1.0.0"
-    semver "^5.3.0"
-
-istanbul-lib-report@^1.0.0-alpha.3:
-  version "1.0.0-alpha.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/istanbul-lib-report/-/istanbul-lib-report-1.0.0-alpha.3.tgz#32d5f6ec7f33ca3a602209e278b2e6ff143498af"
-  dependencies:
-    async "^1.4.2"
-    istanbul-lib-coverage "^1.0.0-alpha"
-    mkdirp "^0.5.1"
-    path-parse "^1.0.5"
-    rimraf "^2.4.3"
-    supports-color "^3.1.2"
-
-istanbul-lib-source-maps@^1.0.2:
-  version "1.1.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/istanbul-lib-source-maps/-/istanbul-lib-source-maps-1.1.0.tgz#9d429218f35b823560ea300a96ff0c3bbdab785f"
-  dependencies:
-    istanbul-lib-coverage "^1.0.0-alpha.0"
-    mkdirp "^0.5.1"
-    rimraf "^2.4.4"
-    source-map "^0.5.3"
-
-istanbul-reports@^1.0.0:
-  version "1.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/istanbul-reports/-/istanbul-reports-1.0.0.tgz#24b4eb2b1d29d50f103b369bd422f6e640aa0777"
-  dependencies:
-    handlebars "^4.0.3"
-
 jodid25519@^1.0.0:
   version "1.0.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
@@ -3512,8 +3216,8 @@ json3@3.3.2, json3@^3.3.2:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/json3/-/json3-3.3.2.tgz#3c0434743df93e2f5c42aee7b19bcb483575f4e1"
 
 json5@^0.5.0:
-  version "0.5.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/json5/-/json5-0.5.0.tgz#9b20715b026cbe3778fd769edccd822d8332a5b2"
+  version "0.5.1"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
 
 jsonfile@^2.1.0:
   version "2.4.0"
@@ -3537,13 +3241,6 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.3.6"
 
-jsx-ast-utils@^1.0.0, jsx-ast-utils@^1.3.3:
-  version "1.3.4"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/jsx-ast-utils/-/jsx-ast-utils-1.3.4.tgz#0257ed1cc4b1e65b39d7d9940f9fb4f20f7ba0a9"
-  dependencies:
-    acorn-jsx "^3.0.1"
-    object-assign "^4.1.0"
-
 kew@0.5.0:
   version "0.5.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/kew/-/kew-0.5.0.tgz#ece11cb5d8d01a81f8ce804c8d0bba06e6b25ca2"
@@ -3551,10 +3248,6 @@ kew@0.5.0:
 keycode@^2.1.1:
   version "2.1.7"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/keycode/-/keycode-2.1.7.tgz#7b9255919f6cff562b09a064d222dca70b020f5c"
-
-keypress@^0.2.1:
-  version "0.2.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/keypress/-/keypress-0.2.1.tgz#1e80454250018dbad4c3fe94497d6e67b6269c77"
 
 kind-of@^3.0.2:
   version "3.0.4"
@@ -3595,7 +3288,7 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
-loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5:
+loader-utils@0.2.x, loader-utils@^0.2.11, loader-utils@^0.2.15, loader-utils@^0.2.16, loader-utils@^0.2.6, loader-utils@^0.2.7, loader-utils@~0.2.2, loader-utils@~0.2.5:
   version "0.2.16"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/loader-utils/-/loader-utils-0.2.16.tgz#f08632066ed8282835dff88dfb52704765adee6d"
   dependencies:
@@ -3662,7 +3355,7 @@ lodash.assign@^3.2.0:
     lodash._createassigner "^3.0.0"
     lodash.keys "^3.0.0"
 
-lodash.assign@^4.0.0, lodash.assign@^4.0.3, lodash.assign@^4.0.6, lodash.assign@^4.2.0:
+lodash.assign@^4.0.3, lodash.assign@^4.0.6, lodash.assign@^4.2.0:
   version "4.2.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
 
@@ -3688,10 +3381,6 @@ lodash.clonedeep@^4.3.2:
   version "4.5.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
 
-lodash.cond@^4.3.0:
-  version "4.5.2"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
-
 lodash.create@3.1.1:
   version "3.1.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.create/-/lodash.create-3.1.1.tgz#d7f2849f0dbda7e04682bb8cd72ab022461debe7"
@@ -3710,21 +3399,9 @@ lodash.defaults@^4.0.1:
   version "4.2.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
 
-lodash.endswith@^4.0.1:
-  version "4.2.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.endswith/-/lodash.endswith-4.2.1.tgz#fed59ac1738ed3e236edd7064ec456448b37bc09"
-
 lodash.filter@^4.4.0:
   version "4.6.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.filter/-/lodash.filter-4.6.0.tgz#668b1d4981603ae1cc5a6fa760143e480b4c4ace"
-
-lodash.find@^4.3.0:
-  version "4.6.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.find/-/lodash.find-4.6.0.tgz#cb0704d47ab71789ffa0de8b97dd926fb88b13b1"
-
-lodash.findindex@^4.3.0:
-  version "4.6.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.findindex/-/lodash.findindex-4.6.0.tgz#a3245dee61fb9b6e0624b535125624bb69c11106"
 
 lodash.flatten@^4.2.0:
   version "4.4.0"
@@ -3769,10 +3446,6 @@ lodash.merge@^4.4.0:
 lodash.pick@^4.2.0, lodash.pick@^4.2.1, lodash.pick@^4.4.0:
   version "4.4.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
-
-lodash.pickby@^4.0.0:
-  version "4.6.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
 
 lodash.reduce@^4.4.0:
   version "4.6.0"
@@ -3826,8 +3499,8 @@ loud-rejection@^1.0.0:
     signal-exit "^3.0.0"
 
 lru-cache@^4.0.1:
-  version "4.0.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lru-cache/-/lru-cache-4.0.1.tgz#1343955edaf2e37d9b9e7ee7241e27c4b9fb72be"
+  version "4.0.2"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/lru-cache/-/lru-cache-4.0.2.tgz#1d17679c069cda5d040991a09dbc2c0db377e55e"
   dependencies:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
@@ -3835,6 +3508,10 @@ lru-cache@^4.0.1:
 macaddress@^0.2.8:
   version "0.2.8"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
+
+make-error@^1.1.1:
+  version "1.2.1"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/make-error/-/make-error-1.2.1.tgz#9a6dfb4844423b9f145806728d05c6e935670e75"
 
 mantra-core@^1.7.0:
   version "1.7.0"
@@ -3857,16 +3534,6 @@ math-expression-evaluator@^1.2.14:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/math-expression-evaluator/-/math-expression-evaluator-1.2.14.tgz#39511771ed9602405fba9affff17eb4d2a3843ab"
   dependencies:
     lodash.indexof "^4.0.5"
-
-md5-hex@^1.2.0:
-  version "1.3.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/md5-hex/-/md5-hex-1.3.0.tgz#d2c4afe983c4370662179b8cad145219135046c4"
-  dependencies:
-    md5-o-matic "^0.1.1"
-
-md5-o-matic@^0.1.1:
-  version "0.1.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/md5-o-matic/-/md5-o-matic-0.1.1.tgz#822bccd65e117c514fab176b25945d54100a03c3"
 
 media-typer@0.3.0:
   version "0.3.0"
@@ -3956,15 +3623,15 @@ mime@1.3.4, mime@^1.3.4:
   version "1.3.4"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
-"minimatch@2 || 3", minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch@~3.0.2:
-  version "3.0.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/minimatch/-/minimatch-3.0.3.tgz#2a4e4090b96b2db06a9d7df01055a62a77c9b774"
-  dependencies:
-    brace-expansion "^1.0.0"
-
 minimatch@2.0.1, minimatch@^2.0.1:
   version "2.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/minimatch/-/minimatch-2.0.1.tgz#6c3760b45f66ed1cd5803143ee8d372488f02c37"
+  dependencies:
+    brace-expansion "^1.0.0"
+
+minimatch@^3.0.0, minimatch@^3.0.2, minimatch@~3.0.2:
+  version "3.0.3"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/minimatch/-/minimatch-3.0.3.tgz#2a4e4090b96b2db06a9d7df01055a62a77c9b774"
   dependencies:
     brace-expansion "^1.0.0"
 
@@ -3997,8 +3664,8 @@ mobx@^2.3.4:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/mobx/-/mobx-2.6.3.tgz#f2d8fac660edde38a9df5e37b924065ff0f1104a"
 
 mocha@^3.0.2:
-  version "3.1.2"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/mocha/-/mocha-3.1.2.tgz#51f93b432bf7e1b175ffc22883ccd0be32dba6b5"
+  version "3.2.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/mocha/-/mocha-3.2.0.tgz#7dc4f45e5088075171a68896814e6ae9eb7a85e3"
   dependencies:
     browser-stdout "1.3.0"
     commander "2.9.0"
@@ -4027,10 +3694,6 @@ mute-stream@0.0.5:
 nan@^2.3.0, nan@^2.3.2:
   version "2.4.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/nan/-/nan-2.4.0.tgz#fb3c59d45fe4effe215f0b890f8adf6eb32d2232"
-
-natural-compare@^1.4.0:
-  version "1.4.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
 ncp@~2.0.0:
   version "2.0.0"
@@ -4101,14 +3764,14 @@ node-libs-browser@^0.6.0:
     vm-browserify "0.0.4"
 
 node-pre-gyp@^0.6.29:
-  version "0.6.31"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/node-pre-gyp/-/node-pre-gyp-0.6.31.tgz#d8a00ddaa301a940615dbcc8caad4024d58f6017"
+  version "0.6.32"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/node-pre-gyp/-/node-pre-gyp-0.6.32.tgz#fc452b376e7319b3d255f5f34853ef6fd8fe1fd5"
   dependencies:
     mkdirp "~0.5.1"
     nopt "~3.0.6"
-    npmlog "^4.0.0"
+    npmlog "^4.0.1"
     rc "~1.1.6"
-    request "^2.75.0"
+    request "^2.79.0"
     rimraf "~2.5.4"
     semver "~5.3.0"
     tar "~2.2.1"
@@ -4216,7 +3879,7 @@ npmconf@2.1.1:
     gauge "~2.6.0"
     set-blocking "~2.0.0"
 
-npmlog@^4.0.0:
+npmlog@^4.0.0, npmlog@^4.0.1:
   version "4.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/npmlog/-/npmlog-4.0.1.tgz#d14f503b4cd79710375553004ba96e6662fbc0b8"
   dependencies:
@@ -4242,36 +3905,6 @@ number-is-nan@^1.0.0:
 "nwmatcher@>= 1.3.7 < 2.0.0":
   version "1.3.9"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/nwmatcher/-/nwmatcher-1.3.9.tgz#8bab486ff7fa3dfd086656bbe8b17116d3692d2a"
-
-nyc@^8.3.0:
-  version "8.4.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/nyc/-/nyc-8.4.0.tgz#660371c807caef0427fb9b0948f74180624ea6e4"
-  dependencies:
-    archy "^1.0.0"
-    arrify "^1.0.1"
-    caching-transform "^1.0.0"
-    convert-source-map "^1.3.0"
-    default-require-extensions "^1.0.0"
-    find-cache-dir "^0.1.1"
-    find-up "^1.1.2"
-    foreground-child "^1.5.3"
-    glob "^7.0.6"
-    istanbul-lib-coverage "^1.0.0"
-    istanbul-lib-hook "^1.0.0-alpha.4"
-    istanbul-lib-instrument "^1.2.0"
-    istanbul-lib-report "^1.0.0-alpha.3"
-    istanbul-lib-source-maps "^1.0.2"
-    istanbul-reports "^1.0.0"
-    md5-hex "^1.2.0"
-    micromatch "^2.3.11"
-    mkdirp "^0.5.0"
-    resolve-from "^2.0.0"
-    rimraf "^2.5.4"
-    signal-exit "^3.0.1"
-    spawn-wrap "^1.2.4"
-    test-exclude "^2.1.3"
-    yargs "^6.0.0"
-    yargs-parser "^4.0.2"
 
 oauth-sign@~0.6.0:
   version "0.6.0"
@@ -4363,14 +3996,14 @@ open@0.0.5:
   version "0.0.5"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/open/-/open-0.0.5.tgz#42c3e18ec95466b6bf0dc42f3a2945c3f0cad8fc"
 
-optimist@^0.6.1, optimist@~0.6.0, optimist@~0.6.1:
+optimist@~0.6.0, optimist@~0.6.1:
   version "0.6.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/optimist/-/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
   dependencies:
     minimist "~0.0.1"
     wordwrap "~0.0.2"
 
-optionator@^0.8.1, optionator@^0.8.2:
+optionator@^0.8.1:
   version "0.8.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/optionator/-/optionator-0.8.2.tgz#364c5e409d3f4d6301d6c0b4c05bba50180aeb64"
   dependencies:
@@ -4411,14 +4044,6 @@ osenv@0, osenv@^0.1.0:
   dependencies:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
-
-output-file-sync@^1.1.0:
-  version "1.1.2"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/output-file-sync/-/output-file-sync-1.1.2.tgz#d0a33eefe61a205facb90092e826598d5245ce76"
-  dependencies:
-    graceful-fs "^4.1.4"
-    mkdirp "^0.5.1"
-    object-assign "^4.1.0"
 
 pako@~0.2.0:
   version "0.2.9"
@@ -4471,10 +4096,6 @@ path-is-inside@^1.0.1:
   version "1.0.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
 
-path-parse@^1.0.5:
-  version "1.0.5"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
-
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
@@ -4522,19 +4143,13 @@ pinkie-promise@^2.0.0, pinkie-promise@^2.0.1:
   dependencies:
     pinkie "^2.0.0"
 
-pinkie@^2.0.0:
+pinkie@^2.0.0, pinkie@^2.0.4:
   version "2.0.4"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
 pkg-dir@^1.0.0:
   version "1.0.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/pkg-dir/-/pkg-dir-1.0.0.tgz#7a4b508a8d5bb2d629d447056ff4e9c9314cf3d4"
-  dependencies:
-    find-up "^1.0.0"
-
-pkg-up@^1.0.0:
-  version "1.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/pkg-up/-/pkg-up-1.0.0.tgz#3e08fb461525c4421624a33b9f7e6d0af5b05a26"
   dependencies:
     find-up "^1.0.0"
 
@@ -4566,8 +4181,8 @@ postcss-colormin@^2.1.8:
     postcss-value-parser "^3.2.3"
 
 postcss-convert-values@^2.3.4:
-  version "2.4.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/postcss-convert-values/-/postcss-convert-values-2.4.1.tgz#45dce4d4e33b7d967b97a4d937f270ea98d2fe7a"
+  version "2.5.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/postcss-convert-values/-/postcss-convert-values-2.5.0.tgz#570aceb04b3061fb25f6f46bd0329e7ab6263c0b"
   dependencies:
     postcss "^5.0.11"
     postcss-value-parser "^3.1.2"
@@ -4809,9 +4424,10 @@ postcss-value-parser@^3.0.1, postcss-value-parser@^3.0.2, postcss-value-parser@^
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/postcss-value-parser/-/postcss-value-parser-3.3.0.tgz#87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15"
 
 postcss-zindex@^2.0.1:
-  version "2.1.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/postcss-zindex/-/postcss-zindex-2.1.1.tgz#ea3fbe656c9738aa8729e2ee96ec2a46089b720f"
+  version "2.2.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/postcss-zindex/-/postcss-zindex-2.2.0.tgz#d2109ddc055b91af67fc4cb3b025946639d2af22"
   dependencies:
+    has "^1.0.1"
     postcss "^5.0.4"
     uniqs "^2.0.0"
 
@@ -4933,8 +4549,8 @@ querystringify@0.0.x:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/querystringify/-/querystringify-0.0.4.tgz#0cf7f84f9463ff0ae51c4c4b142d95be37724d9c"
 
 randomatic@^1.1.3:
-  version "1.1.5"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/randomatic/-/randomatic-1.1.5.tgz#5e9ef5f2d573c67bd2b8124ae90b5156e457840b"
+  version "1.1.6"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/randomatic/-/randomatic-1.1.6.tgz#110dcabff397e9dcff7c0789ccc0a49adf1ec5bb"
   dependencies:
     is-number "^2.0.2"
     kind-of "^3.0.2"
@@ -4989,8 +4605,8 @@ react-hot-api@^0.4.5:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/react-hot-api/-/react-hot-api-0.4.7.tgz#a7e22a56d252e11abd9366b61264cf4492c58171"
 
 react-hot-loader@^1.3.0:
-  version "1.3.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/react-hot-loader/-/react-hot-loader-1.3.0.tgz#7701658d02108b5bbc407e200dde591cb7a6ed69"
+  version "1.3.1"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/react-hot-loader/-/react-hot-loader-1.3.1.tgz#c95647ae78b73dfceff6ec71ffcb04182ff6daf9"
   dependencies:
     react-hot-api "^0.4.5"
     source-map "^0.4.4"
@@ -5125,10 +4741,11 @@ readable-stream@^1.0.27-1, readable-stream@^1.1.13:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-"readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@~2.0.0:
-  version "2.0.6"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+"readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.1, readable-stream@^2.0.2:
+  version "2.2.2"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/readable-stream/-/readable-stream-2.2.2.tgz#a9e6fec3c7dda85f8bb1b3ba7028604556fc825e"
   dependencies:
+    buffer-shims "^1.0.0"
     core-util-is "~1.0.0"
     inherits "~2.0.1"
     isarray "~1.0.0"
@@ -5144,6 +4761,17 @@ readable-stream@~1.0.26:
     inherits "~2.0.1"
     isarray "0.0.1"
     string_decoder "~0.10.x"
+
+readable-stream@~2.0.0:
+  version "2.0.6"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/readable-stream/-/readable-stream-2.0.6.tgz#8f90341e68a53ccc928788dacfcd11b36eb9b78e"
+  dependencies:
+    core-util-is "~1.0.0"
+    inherits "~2.0.1"
+    isarray "~1.0.0"
+    process-nextick-args "~1.0.6"
+    string_decoder "~0.10.x"
+    util-deprecate "~1.0.1"
 
 readable-stream@~2.1.4:
   version "2.1.5"
@@ -5175,8 +4803,8 @@ readline2@^1.0.1:
     mute-stream "0.0.5"
 
 recast@^0.11.5:
-  version "0.11.17"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/recast/-/recast-0.11.17.tgz#67e829df49ef8ea822381cc516d305411e60bad8"
+  version "0.11.18"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/recast/-/recast-0.11.18.tgz#07af6257ca769868815209401d4d60eef1b5b947"
   dependencies:
     ast-types "0.9.2"
     esprima "~3.1.0"
@@ -5205,10 +4833,10 @@ reduce-css-calc@^1.2.6:
     reduce-function-call "^1.0.1"
 
 reduce-function-call@^1.0.1:
-  version "1.0.1"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/reduce-function-call/-/reduce-function-call-1.0.1.tgz#fa02e126e695824263cab91d3a5b0fdc1dd27a9a"
+  version "1.0.2"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
-    balanced-match "~0.1.0"
+    balanced-match "^0.4.2"
 
 reduce-reducers@^0.1.0:
   version "0.1.2"
@@ -5247,7 +4875,7 @@ redux-thunk@^2.0.1:
   version "2.1.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/redux-thunk/-/redux-thunk-2.1.0.tgz#c724bfee75dbe352da2e3ba9bc14302badd89a98"
 
-redux@^3.3.1, redux@^3.5.2:
+redux@^3.3.1, redux@^3.5.2, redux@^3.6.0:
   version "3.6.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
   dependencies:
@@ -5317,7 +4945,7 @@ request-progress@0.3.1:
   dependencies:
     throttleit "~0.0.2"
 
-request@2, request@^2.55.0, request@^2.61.0, request@^2.74.0, request@^2.75.0:
+request@2, request@^2.55.0, request@^2.61.0, request@^2.74.0, request@^2.79.0:
   version "2.79.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
@@ -5392,10 +5020,6 @@ resolve-from@^1.0.0:
   version "1.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
 
-resolve-from@^2.0.0:
-  version "2.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/resolve-from/-/resolve-from-2.0.0.tgz#9480ab20e94ffa1d9e80a804c7ea147611966b57"
-
 resolve@^1.1.6, resolve@^1.1.7:
   version "1.1.7"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
@@ -5413,17 +5037,17 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@^2.2.8, rimraf@^2.3.3, rimraf@^2.4.3, rimraf@^2.4.4, rimraf@^2.5.4, rimraf@~2.5.1, rimraf@~2.5.4:
-  version "2.5.4"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
-  dependencies:
-    glob "^7.0.5"
-
-rimraf@~2.3.2:
+rimraf@2, rimraf@~2.3.2:
   version "2.3.4"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/rimraf/-/rimraf-2.3.4.tgz#82d9bc1b2fcf31e205ac7b28138a025d08e9159a"
   dependencies:
     glob "^4.4.2"
+
+rimraf@^2.2.8, rimraf@~2.5.1, rimraf@~2.5.4:
+  version "2.5.4"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
+  dependencies:
+    glob "^7.0.5"
 
 ripemd160@0.2.0:
   version "0.2.0"
@@ -5485,7 +5109,7 @@ sax@^1.1.4, sax@~1.2.1:
   version "4.3.6"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/semver/-/semver-4.3.6.tgz#300bc6e0e86374f7ba61068b5b1ecd57fc6532da"
 
-"semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", semver@^5.3.0, semver@~5.3.0:
+"semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", semver@^5.0.1, semver@~5.3.0:
   version "5.3.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/semver/-/semver-5.3.0.tgz#9b2ce5d3de02d17c6012ad326aa6b4d0cf54f94f"
 
@@ -5572,7 +5196,7 @@ shelljs@^0.6.0:
   version "0.6.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/shelljs/-/shelljs-0.6.1.tgz#ec6211bed1920442088fe0f70b2837232ed2c8a8"
 
-shelljs@^0.7.4, shelljs@^0.7.5:
+shelljs@^0.7.4:
   version "0.7.5"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/shelljs/-/shelljs-0.7.5.tgz#2eef7a50a21e1ccf37da00df767ec69e30ad0675"
   dependencies:
@@ -5580,11 +5204,7 @@ shelljs@^0.7.4, shelljs@^0.7.5:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
-signal-exit@^2.0.0:
-  version "2.1.2"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/signal-exit/-/signal-exit-2.1.2.tgz#375879b1f92ebc3b334480d038dc546a6d558564"
-
-signal-exit@^3.0.0, signal-exit@^3.0.1:
+signal-exit@^3.0.0:
   version "3.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/signal-exit/-/signal-exit-3.0.1.tgz#5a4c884992b63a7acd9badb7894c3ee9cfccad81"
 
@@ -5634,7 +5254,7 @@ source-list-map@^0.1.4, source-list-map@~0.1.0:
   version "0.1.6"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/source-list-map/-/source-list-map-0.1.6.tgz#e1e6f94f0b40c4d28dcf8f5b8766e0e45636877f"
 
-source-map-support@^0.4.2:
+source-map-support@^0.4.0, source-map-support@^0.4.2:
   version "0.4.6"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/source-map-support/-/source-map-support-0.4.6.tgz#32552aa64b458392a85eab3b0b5ee61527167aeb"
   dependencies:
@@ -5661,17 +5281,6 @@ source-map@~0.2.0:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/source-map/-/source-map-0.2.0.tgz#dab73fbcfc2ba819b4de03bd6f6eaa48164b3f9d"
   dependencies:
     amdefine ">=0.0.4"
-
-spawn-wrap@^1.2.4:
-  version "1.2.4"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/spawn-wrap/-/spawn-wrap-1.2.4.tgz#920eb211a769c093eebfbd5b0e7a5d2e68ab2e40"
-  dependencies:
-    foreground-child "^1.3.3"
-    mkdirp "^0.5.0"
-    os-homedir "^1.0.1"
-    rimraf "^2.3.3"
-    signal-exit "^2.0.0"
-    which "^1.2.4"
 
 spdx-correct@~1.0.0:
   version "1.0.2"
@@ -5737,7 +5346,7 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
 
-string-width@^1.0.1, string-width@^1.0.2:
+string-width@^1.0.1:
   version "1.0.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/string-width/-/string-width-1.0.2.tgz#118bdf5b8cdc51a2a7e70d211e07e2b0b9b107d3"
   dependencies:
@@ -5792,15 +5401,15 @@ strip-bom@^2.0.0:
   dependencies:
     is-utf8 "^0.2.0"
 
-strip-bom@^3.0.0:
-  version "3.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
-
 strip-indent@^1.0.1:
   version "1.0.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
   dependencies:
     get-stdin "^4.0.1"
+
+strip-json-comments@^2.0.0:
+  version "2.0.1"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
 strip-json-comments@~1.0.1, strip-json-comments@~1.0.4:
   version "1.0.4"
@@ -5884,17 +5493,7 @@ tar@^2.0.0, tar@~2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-test-exclude@^2.1.1, test-exclude@^2.1.3:
-  version "2.1.3"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/test-exclude/-/test-exclude-2.1.3.tgz#a8d8968e1da83266f9864f2852c55e220f06434a"
-  dependencies:
-    arrify "^1.0.1"
-    micromatch "^2.3.11"
-    object-assign "^4.1.0"
-    read-pkg-up "^1.0.1"
-    require-main-filename "^1.0.1"
-
-text-table@^0.2.0, text-table@~0.2.0:
+text-table@~0.2.0:
   version "0.2.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
 
@@ -5938,6 +5537,42 @@ tryit@^1.0.1:
   version "1.0.3"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
 
+ts-loader@^1.2.2:
+  version "1.2.2"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/ts-loader/-/ts-loader-1.2.2.tgz#b4445a621e688e25db8c75afe6b7ccb635014e5c"
+  dependencies:
+    arrify "^1.0.0"
+    colors "^1.0.3"
+    enhanced-resolve "^0.9.0"
+    loader-utils "^0.2.6"
+    object-assign "^4.1.0"
+    semver "^5.0.1"
+
+ts-node@^1.7.0:
+  version "1.7.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/ts-node/-/ts-node-1.7.0.tgz#18be2d80508008a3a4640e17982df73a402b7416"
+  dependencies:
+    arrify "^1.0.0"
+    chalk "^1.1.1"
+    make-error "^1.1.1"
+    minimist "^1.2.0"
+    mkdirp "^0.5.1"
+    pinkie "^2.0.4"
+    source-map-support "^0.4.0"
+    tsconfig "^5.0.2"
+    v8flags "^2.0.11"
+    xtend "^4.0.0"
+    yn "^1.2.0"
+
+tsconfig@^5.0.2:
+  version "5.0.3"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/tsconfig/-/tsconfig-5.0.3.tgz#5f4278e701800967a8fc383fd19648878f2a6e3a"
+  dependencies:
+    any-promise "^1.3.0"
+    parse-json "^2.2.0"
+    strip-bom "^2.0.0"
+    strip-json-comments "^2.0.0"
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
@@ -5975,13 +5610,17 @@ typedarray@~0.0.5:
   version "0.0.6"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typescript@2.1.3-insiders.20161130:
+  version "2.1.3-insiders.20161130"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/typescript/-/typescript-2.1.3-insiders.20161130.tgz#551668ba383827bdf4033aa99c6c4c3f0bd80cec"
+
 ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@^2.6, uglify-js@~2.7.3:
-  version "2.7.4"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/uglify-js/-/uglify-js-2.7.4.tgz#a295a0de12b6a650c031c40deb0dc40b14568bd2"
+uglify-js@~2.7.3:
+  version "2.7.5"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
   dependencies:
     async "~0.2.6"
     source-map "~0.5.1"
@@ -6079,10 +5718,10 @@ uuid@^2.0.1, uuid@^2.0.2, uuid@^2.0.3:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
 uuid@^3.0.0:
-  version "3.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/uuid/-/uuid-3.0.0.tgz#6728fc0459c450d796a99c31837569bdf672d728"
+  version "3.0.1"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
-v8flags@^2.0.10:
+v8flags@^2.0.11:
   version "2.0.11"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/v8flags/-/v8flags-2.0.11.tgz#bca8f30f0d6d60612cc2c00641e6962d42ae6881"
   dependencies:
@@ -6245,7 +5884,7 @@ which-module@^1.0.0:
   version "1.0.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/which-module/-/which-module-1.0.0.tgz#bba63ca861948994ff307736089e3b96026c2a4f"
 
-which@1, which@^1.2.4, which@^1.2.9:
+which@1, which@^1.2.9:
   version "1.2.12"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/which/-/which-1.2.12.tgz#de67b5e450269f194909ef23ece4ebe416fa1192"
   dependencies:
@@ -6282,16 +5921,17 @@ wordwrap@~1.0.0:
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
 
 wrap-ansi@^2.0.0:
-  version "2.0.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/wrap-ansi/-/wrap-ansi-2.0.0.tgz#7d30f8f873f9a5bbc3a64dabc8d177e071ae426f"
+  version "2.1.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/wrap-ansi/-/wrap-ansi-2.1.0.tgz#d8fc3d284dd05794fe84973caecdd1cf824fdd85"
   dependencies:
     string-width "^1.0.1"
+    strip-ansi "^3.0.1"
 
 wrappy@1:
   version "1.0.2"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-write-file-atomic@^1.1.2, write-file-atomic@^1.1.4:
+write-file-atomic@^1.1.2:
   version "1.2.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/write-file-atomic/-/write-file-atomic-1.2.0.tgz#14c66d4e4cb3ca0565c28cf3b7a6f3e4d5938fab"
   dependencies:
@@ -6334,12 +5974,6 @@ yargs-parser@^2.4.1:
     camelcase "^3.0.0"
     lodash.assign "^4.0.6"
 
-yargs-parser@^4.0.2, yargs-parser@^4.1.0:
-  version "4.1.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/yargs-parser/-/yargs-parser-4.1.0.tgz#313df030f20124124aeae8fbab2da53ec28c56d7"
-  dependencies:
-    camelcase "^3.0.0"
-
 yargs@^4.7.1:
   version "4.8.1"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/yargs/-/yargs-4.8.1.tgz#c0c42924ca4aaa6b0e6da1739dfb216439f9ddc0"
@@ -6359,25 +5993,6 @@ yargs@^4.7.1:
     y18n "^3.2.1"
     yargs-parser "^2.4.1"
 
-yargs@^6.0.0:
-  version "6.4.0"
-  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/yargs/-/yargs-6.4.0.tgz#816e1a866d5598ccf34e5596ddce22d92da490d4"
-  dependencies:
-    camelcase "^3.0.0"
-    cliui "^3.2.0"
-    decamelize "^1.1.1"
-    get-caller-file "^1.0.1"
-    os-locale "^1.4.0"
-    read-pkg-up "^1.0.1"
-    require-directory "^2.1.1"
-    require-main-filename "^1.0.1"
-    set-blocking "^2.0.0"
-    string-width "^1.0.2"
-    which-module "^1.0.0"
-    window-size "^0.2.0"
-    y18n "^3.2.1"
-    yargs-parser "^4.1.0"
-
 yargs@~3.10.0:
   version "3.10.0"
   resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/yargs/-/yargs-3.10.0.tgz#f7ee7bd857dd7c1d2d38c0e74efbd681d1431fd1"
@@ -6386,3 +6001,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yn@^1.2.0:
+  version "1.2.0"
+  resolved "http://essex-private-npm.westus.cloudapp.azure.com:4873/yn/-/yn-1.2.0.tgz#d237a4c533f279b2b89d3acac2db4b8c795e4a63"

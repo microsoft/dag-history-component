@@ -5,18 +5,18 @@ module.exports = {
   context: path.join(__dirname),
   devtool: 'inline-source-map',
   entry: {
-    javascript: './example/app.jsx',
+    javascript: './example/app.tsx',
     html: './example/index.html',
   },
   output: {
     filename: './appbundle.js',
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
     modulesDirectories: [path.join(__dirname, 'node_modules')],
-    fallback: path.join(__dirname, 'node_modules'),    
+    fallback: path.join(__dirname, 'node_modules'),
     alias: {
-      'react/lib/ReactMount': 'react-dom/lib/ReactMount'
+      'react/lib/ReactMount': 'react-dom/lib/ReactMount',
     },
   },
   resolveLoader: {
@@ -35,6 +35,7 @@ module.exports = {
         { test: /\.js/, loaders: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
         { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
         { test: /\.scss$/, loader: 'style-loader!css-loader!postcss-loader!sass-loader' },
+        { test: /\.ts(x|)/, loaders: ['ts-loader'], exclude: /node_modules/ },
     ],
   },
 };
