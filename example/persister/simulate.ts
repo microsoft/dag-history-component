@@ -15,18 +15,11 @@ const DEFAULT_OPTIONS = {
   cancelable: true,
 };
 
-function extend(destination, source) {
-  for (let property in source) {
-    destination[property] = source[property];
-  }
-  return destination;
-}
-
 //
 // From http://stackoverflow.com/questions/6157929/how-to-simulate-a-mouse-click-using-javascript
 //
 export default function simulate(element, eventName, opts = {}) {
-  const options = extend(DEFAULT_OPTIONS, opts);
+  const options = { ...DEFAULT_OPTIONS, ...opts };
   let oEvent = null;
   let eventType = null;
 
@@ -52,11 +45,13 @@ export default function simulate(element, eventName, opts = {}) {
     }
     element.dispatchEvent(oEvent);
   } else {
-    options.clientX = options.pointerX;
-    options.clientY = options.pointerY;
     const evt = document['createEventObject']();
-    oEvent = extend(evt, options);
-    element.fireEvent(`on${eventName}`, oEvent);
+    element.fireEvent(`on${eventName}`, {
+      ...evt,
+      ...options,
+      clientX: options.pointerX,
+      clientY: options.pointerY,
+    });
   }
   return element;
 }

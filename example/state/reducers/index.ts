@@ -1,5 +1,4 @@
-import * as redux from "redux";
-import { combineReducers } from 'redux';
+import * as redux from 'redux';
 import dagHistory from 'redux-dag-history/lib/reducer';
 import app from './app';
 import history from '../../../src/reducer';
@@ -33,8 +32,8 @@ function hashString(str) {
   }
   for (i = 0, len = str.length; i < len; i += 1) {
     chr = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + chr;
-    hash |= 0;
+    hash = ((hash << 5) - hash) + chr; // eslint-disable-line no-bitwise
+    hash |= 0; // eslint-disable-line no-bitwise
   }
   return hash;
 }
@@ -53,7 +52,7 @@ const DAG_HISTORY_CONFIG = {
   stateKeyGenerator,
 };
 
-const rootReducer = combineReducers({
+const rootReducer = redux.combineReducers({
   app: dagHistory(app, DAG_HISTORY_CONFIG),
   history: history(DAG_HISTORY_CONFIG),
 });

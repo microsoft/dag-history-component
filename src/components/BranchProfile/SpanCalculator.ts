@@ -18,74 +18,110 @@ export class Span {
   get length() {
     return this.end - this.start;
   }
-}
 
-function spanContains(span, index) {
-  return index >= span.start && index < span.end;
+  areBoundsEqual(other: Span) {
+    return other.start === this.start && other.end === this.end;
+  }
+
+  contains(index) {
+    return index >= this.start && index <= this.end;
+  }
 }
 
 /**
  * Gets the initial set of common spans for a branch profile
  */
-export function initialSpans(start, max, type = 'NONE') {
+export function initialSpans(start: number, max: number, type = 'NONE') {
   return [new Span(start, max + 1, type)];
 }
 
-export function insertSpan(spans, newSpan) {
-  let result = spans;
-  // log('insert span', newSpan);
+/**
+ * Replaces a span at at index with the given span
+ */
+function replaceSpan(spans: Span[], newSpan: Span, i: number) {
+  return spans.slice(0, i)
+    .concat([newSpan])
+    .concat(spans.slice(i + 1));
+}
 
-  // Find span to split
-  let modified = false;
+/**
+ * Inserts a span at the tail of an existing span
+ * [=============] <-- existing
+ *          [++++] <-- new
+ * becomes
+ *
+ * [=======][++++] <-- pruned existing + new
+ */
+function insertSpanAtTail(spans: Span[], newSpan: Span, i: number) {
+  const span = spans[i];
+  return spans.slice(0, i)
+    .concat([
+      new Span(span.start, newSpan.start, span.type),
+      newSpan,
+    ])
+    .concat(spans.slice(i + 1))
+    .filter(t => t.end > t.start);
+}
+
+/**
+ * Inserts a span at the bridge-point between two spans
+ * [aaaaaaaaaaaaaaa][bbbbbbbbbbbbbb] <-- existing
+ *              [cccccc]             <-- new
+ *  becomes
+ *
+ * [aaaaaaaaaaaa[cccccc][bbbbbbbbbb]
+ */
+function insertBridgingSpan(spans: Span[], newSpan: Span, i: number) {
+  const left = spans[i];
+  const right = spans[i + 1];
+
+  return spans.slice(0, i)
+    .concat([
+      new Span(left.start, newSpan.start, left.type),
+      newSpan,
+      new Span(newSpan.end, right.end, right.type),
+    ])
+    .concat(spans.slice(i + 2))
+    .filter(t => t.end > t.start);
+}
+
+/**
+ * Inserts a span interior to an existing span
+ * [aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa] <-- existing
+ *              [cccccc]              <-- new
+ *  becomes
+ *
+ * [aaaaaaaaaaaa[cccccc][aaaaaaaaaaa]
+ */
+function insertSplittingSpan(spans: Span[], newSpan: Span, i: number) {
+  const span = spans[i];
+  return spans.slice(0, i)
+    .concat([
+      new Span(span.start, newSpan.start, span.type),
+      newSpan,
+      new Span(newSpan.end, span.end, span.type),
+    ])
+    .concat(spans.slice(i + 1))
+    .filter(t => t.end > t.start);
+}
+
+export function insertSpan(spans: Span[], newSpan: Span) {
   for (let i = 0; i < spans.length; i += 1) {
     const span = spans[i];
-    if (span.start === newSpan.start && span.end === newSpan.end) {
-      return spans.slice(0, i).concat([newSpan]).concat(spans.slice(i + 1));
+    if (span.areBoundsEqual(newSpan)) {
+      return replaceSpan(spans, newSpan, i);
     }
-    if (spanContains(span, newSpan.start)) {
+    if (span.contains(newSpan.start)) {
       if (newSpan.end === span.end) {
-        modified = true;
-        result = spans.slice(0, i)
-          .concat([
-            new Span(span.start, newSpan.start, span.type),
-            newSpan,
-          ])
-          .concat(spans.slice(i + 1))
-          .filter(t => t.end > t.start);
-        break;
+        return insertSpanAtTail(spans, newSpan, i);
       } else if (newSpan.end > span.end) {
-        const nextSpan = spans[i + 1];
-        // Split next span as well
-        modified = true;
-        result = spans.slice(0, i)
-          .concat([
-            new Span(span.start, newSpan.start, span.type),
-            newSpan,
-            new Span(newSpan.end, nextSpan.end, nextSpan.type),
-          ])
-          .concat(spans.slice(i + 2))
-          .filter(t => t.end > t.start);
-        break;
-      } else {
-        // Only split current span
-        modified = true;
-        result = spans.slice(0, i)
-          .concat([
-            new Span(span.start, newSpan.start, span.type),
-            newSpan,
-            new Span(newSpan.end, span.end, span.type),
-          ])
-          .concat(spans.slice(i + 1))
-          .filter(t => t.end > t.start);
-        break;
+        return insertBridgingSpan(spans, newSpan, i);
       }
+      return insertSplittingSpan(spans, newSpan, i);
     }
   }
 
-  if (!modified) {
-    throw new Error(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
-  }
-  return result;
+  throw new Error(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
 }
 
 
@@ -93,15 +129,15 @@ const isNumber = d => !isNaN(d) && d !== null;
 const convertArg = (arg, offset) => (arg !== null && arg !== undefined) ? arg - offset : arg;
 
 export function getSpans(
-  type,
-  max,
-  startArg,
-  endArg,
-  branchStartArg,
-  branchEndArg,
-  activeIndexArg,
-  successorIndexArg,
-  pinnedIndexArg
+  type: string,
+  max: number,
+  startArg: number,
+  endArg: number,
+  branchStartArg: number,
+  branchEndArg: number,
+  activeIndexArg: number,
+  successorIndexArg: number,
+  pinnedIndexArg: number,
 ) {
   const offset = startArg;
   const start = startArg - offset;

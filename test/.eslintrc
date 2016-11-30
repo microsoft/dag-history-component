@@ -1,0 +1,6 @@
+{
+  "rules": {
+    // test assertions trigger this rule
+    "no-unused-expressions": "off"
+  }
+}

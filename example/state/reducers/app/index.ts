@@ -1,6 +1,5 @@
-import * as redux from "redux";
-import { combineReducers } from 'redux';
+import * as redux from 'redux';
 import metadata from './metadata';
 import visuals from './visuals';
 
-export default combineReducers({ metadata, visuals });
+export default redux.combineReducers({ metadata, visuals });

@@ -1,5 +1,6 @@
 import simulate from './simulate';
-const { saveAs } = require("filesaver.js");
+
+const { saveAs } = require('filesaver.js');
 const log = require('debug')('redux-dag-history:FilePersister');
 
 function readJson(file) {

@@ -10,6 +10,9 @@
     // conflicts with 'arrow body style'
     "no-confusing-arrow": "off",
 
+    // workaround for incomplete types
+    "dot-notation": "off",
+
     // due to TypeScript
     "no-undef": "off",
     "import/no-unresolved": "off",

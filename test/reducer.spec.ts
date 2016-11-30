@@ -7,8 +7,8 @@ const reducer = () => reduceFactory({
 
 describe('The Dag-History Component Reducer', () => {
   it('is a function that returns a function', () => {
-    expect(reduceFactory).to.be.a("function");
-    expect(reduceFactory({} as any)).to.be.a("function");
+    expect(reduceFactory).to.be.a('function');
+    expect(reduceFactory({} as any)).to.be.a('function');
   });
 
   it('can generate an initial state', () => {
