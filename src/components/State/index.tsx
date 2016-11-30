@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as classnames from "classnames";
-import Continuation from '../Continuation';
+import { default as Continuation, IContinuationProps } from '../Continuation';
 import colors from '../../palette';
 import './State.scss';
 
@@ -43,7 +43,7 @@ function continuationColor(isActive, isPinned) {
 }
 
 export interface IStateProps {
-  id: number;
+  id?: number;
   source: string;
   label: string;
   active?: boolean;
@@ -53,11 +53,8 @@ export interface IStateProps {
   renderBookmarks?: boolean;
   branchType: 'current' | 'legacy';
   isSuccessor?: boolean;
-  continuation: {
-    count: number,
-    isSelected?: boolean;
-  };
-  onBookmarkClick: Function;
+  continuation: IContinuationProps;
+  onBookmarkClick?: Function;
   onClick: React.EventHandler<React.MouseEvent<any>>;
   onContinuationClick: Function;
 }
@@ -92,7 +89,7 @@ const State: React.StatelessComponent<IStateProps> = ({
       <Continuation
         {...continuation}
         color={continuationColor(active, pinned)}
-        onClick={onContinuationClick}
+        onClick={() => onContinuationClick ? onContinuationClick() : undefined}
       />
       <div className="state-detail">
         <div className={classnames('state-source', { active })}>
@@ -118,10 +115,7 @@ State.propTypes = {
   renderBookmarks: PropTypes.bool,
   branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
   isSuccessor: PropTypes.bool,
-  continuation: PropTypes.shape({
-    count: PropTypes.number,
-    isSelected: PropTypes.bool,
-  }).isRequired,
+  continuation: PropTypes.shape(Continuation.propTypes).isRequired,
   onBookmarkClick: PropTypes.func,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,

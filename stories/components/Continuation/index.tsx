@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Continuation from '../../../src/components/Continuation';
 

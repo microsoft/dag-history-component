@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import State from '../../../src/components/State';
 

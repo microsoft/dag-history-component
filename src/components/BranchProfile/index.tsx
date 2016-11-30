@@ -18,12 +18,12 @@ function infoSpanStyle(flex, backgroundColor) {
 export interface IBranchProfileProps {
   start: number;
   end: number;
-  branchStart: number;
-  branchEnd: number;
+  branchStart?: number;
+  branchEnd?: number;
   max: number;
-  activeStateIndex: number;
-  pinnedStateIndex: number;
-  successorStateIndex: number;
+  activeStateIndex?: number;
+  pinnedStateIndex?: number;
+  successorStateIndex?: number;
   type: 'current' | 'legacy';
 }
 
@@ -63,9 +63,9 @@ const BranchProfile: React.StatelessComponent<IBranchProfileProps> = ({
 BranchProfile.propTypes = {
   start: PropTypes.number.isRequired,
   end: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
   branchStart: PropTypes.number,
   branchEnd: PropTypes.number,
-  max: PropTypes.number.isRequired,
   activeStateIndex: PropTypes.number,
   pinnedStateIndex: PropTypes.number,
   successorStateIndex: PropTypes.number,

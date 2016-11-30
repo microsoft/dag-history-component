@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import BranchList from '../../../src/components/BranchList';
 
@@ -10,10 +10,6 @@ storiesOf('BranchList', module)
       {
         id: 0,
         label: 'delta-1',
-        continuation: {
-          count: 0,
-          isSelected: true,
-        },
         startsAt: 5,
         endsAt: 10,
         maxDepth: 10,
@@ -23,10 +19,6 @@ storiesOf('BranchList', module)
         id: 1,
         activeStateIndex: 3,
         label: 'master',
-        continuation: {
-          count: 2,
-          isSelected: true,
-        },
         startsAt: 0,
         endsAt: 4,
         maxDepth: 10,

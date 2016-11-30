@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import Bookmark from '../../../src/components/Bookmark';
 
@@ -9,7 +9,6 @@ storiesOf('Bookmark', module)
     annotation="Some Bookmark Annotation Text. Derp Depr Derp Derp"
     index={1}
     onClick={action('click')}
-    onContinuationClick={action('continuationClick')}
     onBookmarkChange={action('bookmarkChange')}
   />
 ))
@@ -19,7 +18,6 @@ storiesOf('Bookmark', module)
     annotation="Some Bookmark Annotation Text. Derp Depr Derp Derp"
     index={1}
     onClick={action('click')}
-    onContinuationClick={action('continuationClick')}
     onBookmarkChange={action('bookmarkChange')}
     active
   />

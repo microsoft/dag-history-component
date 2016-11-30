@@ -26,9 +26,9 @@ function handleClick(handler) {
 }
 
 export interface IContinuationProps {
-  count: number;
-  color: string;
-  onClick: Function;
+  count?: number;
+  color?: string;
+  onClick?: Function;
 }
 
 const Continuation: React.StatelessComponent<IContinuationProps> = ({

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
 import StateList from '../../../src/components/StateList';
 
@@ -16,7 +16,7 @@ storiesOf('StateList', module)
         label: 'Added Search Criteria',
         branchType: 'current',
         active: true,
-        continuation: {},
+        continuation: { },
         onClick: action('click state'),
         onContinuationClick: action('click state continuation'),
       },

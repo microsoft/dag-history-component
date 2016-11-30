@@ -7,7 +7,7 @@ const { PropTypes } = React;
 export interface IBranchListProps {
   activeBranch: number;
   branches: IBranchProps[];
-  onBranchClick: (branchId: number) => void;
+  onBranchClick?: (branchId: number) => void;
 }
 
 const BranchList: React.StatelessComponent<IBranchListProps> = ({
@@ -31,5 +31,11 @@ const BranchList: React.StatelessComponent<IBranchListProps> = ({
     </div>
   );
 };
+
+BranchList.propTypes = {
+  activeBranch: React.PropTypes.number.isRequired,
+  branches: React.PropTypes.arrayOf(React.PropTypes.shape(Branch.propTypes)),
+  onBranchClick: React.PropTypes.func,
+}
 
 export default BranchList;

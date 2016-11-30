@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import BranchProfile from '../../../src/components/BranchProfile';
 
@@ -33,11 +33,12 @@ storiesOf('BranchProfile', module)
 .add('2/3 Selected', () => (
   <BranchProfile
     start={0}
-    endsAt={10}
-    max={2}
+    end={10}
+    branchStart={0}
+    branchEnd={6}
+    activeStateIndex={6}
+    max={10}
     type="current"
-    end={2}
-    activeStateIndex={1}
   />
 ))
 .add('3/3 Selected', () => (
@@ -46,7 +47,7 @@ storiesOf('BranchProfile', module)
     end={2}
     max={2}
     activeStateIndex={2}
-    type="current"s
+    type="current"
   />
 ))
 .add('Half in Middle', () => (

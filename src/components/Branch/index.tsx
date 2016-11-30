@@ -4,19 +4,19 @@ import BranchProfile from '../BranchProfile';
 import './Branch.scss';
 
 export interface IBranchProps {
-  id: number;
+  id?: number;
   label: string;
   branchType: 'current' | 'legacy';
   startsAt: number;
   endsAt: number;
-  currentBranchStart: number;
-  currentBranchEnd: number;
+  currentBranchStart?: number;
+  currentBranchEnd?: number;
   maxDepth: number;
-  activeStateIndex: number;
-  onClick: React.EventHandler<React.MouseEvent<any>>;
-  active: boolean;
-  successorDepth: number;
-  pinnedStateIndex: number;
+  activeStateIndex?: number;
+  onClick?: React.EventHandler<React.MouseEvent<any>>;
+  active?: boolean;
+  successorDepth?: number;
+  pinnedStateIndex?: number;
 }
 
 const Branch: React.StatelessComponent<IBranchProps> = ({
@@ -56,7 +56,7 @@ const Branch: React.StatelessComponent<IBranchProps> = ({
 );
 
 Branch.propTypes = {
-  id: React.PropTypes.number.isRequired,
+  id: React.PropTypes.number,
   label: React.PropTypes.string.isRequired,
   branchType: React.PropTypes.string.isRequired,
   startsAt: React.PropTypes.number.isRequired,
@@ -65,7 +65,7 @@ Branch.propTypes = {
   currentBranchEnd: React.PropTypes.number,
   maxDepth: React.PropTypes.number.isRequired,
   activeStateIndex: React.PropTypes.number,
-  onClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
   active: React.PropTypes.bool,
   successorDepth: React.PropTypes.number,
   pinnedStateIndex: React.PropTypes.number,
