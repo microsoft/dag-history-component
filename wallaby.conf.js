@@ -10,6 +10,7 @@ module.exports = function configureWallaby(wallaby) {
       loaders: [
           { test: /\.html$/, loader: 'file-loader?name=[name].[ext]' },
           { test: /\.css$/, loader: 'style-loader!css-loader' },
+          { test: /\.json$/, loader: 'json-loader' },
           { test: /\.s(a|c)ss$/, loader: 'style-loader!css-loader!sass-loader' },
       ],
     },
@@ -17,21 +18,25 @@ module.exports = function configureWallaby(wallaby) {
 
   return {
     files: [
-      { pattern: 'src/**/*.js*', load: false },
+      { pattern: 'src/**/*.ts*', load: false },
+      { pattern: 'src/**/*.scss*', load: false },
     ],
     tests: [
-      { pattern: 'test/**/*.spec.js*', load: false },
+      { pattern: 'test/**/*.spec.ts*', load: false },
     ],
     compilers: {
-      '**/*.js*': wallaby.compilers.babel(),
+      '**/*.js*': wallaby.compilers.typeScript({
+        jsx: 'react',
+      }),
     },
     postprocessor: webpackPostprocessor,
     bootstrap() {
       window.__moduleBundler.loadTests();
     },
     env: {
-      runner: phantom.path,
-      params: { runner: '--web-security=false' },
+      kind: 'electron',
+      // runner: phantom.path,
+      // params: { runner: '--web-security=false' },
     },
   };
 };
