@@ -106,6 +106,7 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
       <div
         className="history-transport-panel"
         tabIndex={0}
+        onKeyDown={() => {}} // allows event bubbling
       >
         <MdSkipPrevious size={iconSize} onClick={() => this.skipToStart()} />
         <MdKeyboardArrowLeft size={iconSize} onClick={() => this.back()} />
