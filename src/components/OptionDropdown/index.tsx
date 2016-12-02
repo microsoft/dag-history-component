@@ -8,9 +8,9 @@ const { PropTypes } = React;
 export interface IOptionDropdownProps {
   label?: string;
   icon?: JSX.Element;
-  options: {
+  options?: {
     element?: JSX.Element;
-    label: string;
+    label?: string;
     onClick: Function;
   }[];
   triggerClass?: string;
@@ -31,9 +31,13 @@ export default class OptionDropdown extends React.Component<IOptionDropdownProps
     contentClass: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({
       element: PropTypes.element,
-      label: PropTypes.string.isRequired,
+      label: PropTypes.string,
       onClick: PropTypes.func.isRequired,
-    })).isRequired,
+    })),
+  };
+
+  public static defaultProps = {
+    options: [],
   };
 
   render() {
@@ -50,7 +54,7 @@ export default class OptionDropdown extends React.Component<IOptionDropdownProps
         <div className={`dropdown-label-only ${triggerClass}`}>
           {label}
         </div>
-      ) : <div />;
+      ) : null;
     } else {
       const triggerLabel = label ? <div className="label">{label}</div> : null;
       let triggerIcon = icon;
@@ -77,7 +81,7 @@ export default class OptionDropdown extends React.Component<IOptionDropdownProps
       result = (
         <Dropdown ref={e => (this.dropdown = e)}>
           <DropdownTrigger className={`history-dropdown-trigger ${triggerClass}`} onClick={() => triggerClicked()}>
-            <div style={{ display: 'flex', flexDirection: 'row' }} onClick={() => this.setState({ show: true })}>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
               {triggerLabel}
               {triggerIcon}
             </div>
