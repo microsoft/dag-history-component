@@ -1,13 +1,14 @@
 import * as React from 'react';
 import State, { IStateProps } from '../State';
+import isNumber from '../../isNumber';
 
 export interface IStateListProps {
   states: IStateProps[];
-  activeStateId: number;
-  onStateClick: Function;
-  onStateContinuationClick: Function;
+  activeStateId?: number;
+  onStateClick?: Function;
+  onStateContinuationClick?: Function;
   renderBookmarks?: boolean;
-  onStateBookmarkClick: Function;
+  onStateBookmarkClick?: Function;
 }
 
 const StateList: React.StatelessComponent<IStateListProps> = ({
@@ -18,15 +19,34 @@ const StateList: React.StatelessComponent<IStateListProps> = ({
   renderBookmarks,
   onStateBookmarkClick,
 }) => {
+
+  const handleClick = (id) => {
+    if (onStateClick) {
+      onStateClick(id);
+    }
+  };
+
+  const handleContinuationClick = (id) => {
+    if (onStateContinuationClick) {
+      onStateContinuationClick(id);
+    }
+  }
+
+  const handleBookmarkClick = (id) => {
+    if (onStateBookmarkClick) {
+      onStateBookmarkClick(id);
+    }
+  };
+
   const stateViews = states.map((s, index) => (
     <State
       {...s}
       {...{ renderBookmarks }}
       key={`state:${s.id}:${index}`}
-      active={s.id === activeStateId}
-      onClick={() => onStateClick ? onStateClick(s.id) : undefined}
-      onContinuationClick={() => onStateContinuationClick ? onStateContinuationClick(s.id) : undefined}
-      onBookmarkClick={() => onStateBookmarkClick ? onStateBookmarkClick(s.id) : undefined}
+      active={isNumber(activeStateId) && s.id === activeStateId}
+      onClick={() => handleClick(s.id)}
+      onContinuationClick={() => handleContinuationClick(s.id)}
+      onBookmarkClick={() => handleBookmarkClick(s.id)}
     />
   ));
   return (
@@ -38,11 +58,11 @@ const StateList: React.StatelessComponent<IStateListProps> = ({
 
 StateList.propTypes = {
   states: React.PropTypes.arrayOf(React.PropTypes.shape(State.propTypes)).isRequired,
-  activeStateId: React.PropTypes.number.isRequired,
-  onStateClick: React.PropTypes.func.isRequired,
-  onStateContinuationClick: React.PropTypes.func.isRequired,
+  activeStateId: React.PropTypes.number,
+  onStateClick: React.PropTypes.func,
+  onStateContinuationClick: React.PropTypes.func,
   renderBookmarks: React.PropTypes.bool,
-  onStateBookmarkClick: React.PropTypes.func.isRequired,
+  onStateBookmarkClick: React.PropTypes.func,
 };
 
 export default StateList;

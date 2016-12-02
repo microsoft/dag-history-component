@@ -44,19 +44,18 @@ function continuationColor(isActive, isPinned) {
 
 export interface IStateProps {
   id?: number;
-  source: string;
-  label: string;
+  source?: string;
+  label?: string;
   active?: boolean;
   pinned?: boolean;
-  continuationActive?: boolean;
   bookmarked?: boolean;
   renderBookmarks?: boolean;
-  branchType: 'current' | 'legacy';
+  branchType?: 'current' | 'legacy';
   isSuccessor?: boolean;
-  continuation: IContinuationProps;
+  continuation?: IContinuationProps;
   onBookmarkClick?: Function;
-  onClick: React.EventHandler<React.MouseEvent<any>>;
-  onContinuationClick: Function;
+  onClick?: React.EventHandler<React.MouseEvent<any>>;
+  onContinuationClick?: Function;
 }
 
 const State: React.StatelessComponent<IStateProps> = ({
@@ -74,32 +73,52 @@ const State: React.StatelessComponent<IStateProps> = ({
   isSuccessor,
 }) => {
   const backgroundColor = getBackgroundColor(pinned, isSuccessor, branchType, active);
-  let bookmark = null;
-  if (renderBookmarks) {
-    bookmark = (
-      <Bookmark
-        size={25}
-        color={bookmarked ? 'gold' : 'white'}
-        onClick={e => onBookmarkClick ? onBookmarkClick(e) : undefined}
-      />
-    );
+
+  const handleClick = (e) => {
+    if (onClick) {
+      onClick(e);
+    }
   }
+
+  const handleContinuationClick = (e) => {
+    if (onContinuationClick) {
+      onContinuationClick(e);
+    }
+  }
+
+  const handleBookmarkClick = (e) => {
+    if (onBookmarkClick) {
+      onBookmarkClick(e);
+    }
+  }
+
   return (
-    <div className="history-state" style={{ backgroundColor }} onClick={e => onClick ? onClick(e) : undefined}>
+    <div
+      className="history-state"
+      style={{ backgroundColor }}
+      onClick={e => handleClick(e)}
+    >
       <Continuation
         {...continuation}
         color={continuationColor(active, pinned)}
-        onClick={() => onContinuationClick ? onContinuationClick() : undefined}
+        onClick={(e) => handleContinuationClick(e)}
       />
       <div className="state-detail">
         <div className={classnames('state-source', { active })}>
-          {source}
+          {source || ''}
         </div>
         <div className={classnames('state-name', { active })}>
-          {label}
+          {label || ''}
         </div>
       </div>
-      {bookmark}
+      {
+        renderBookmarks &&
+          <Bookmark
+            size={25}
+            color={bookmarked ? 'gold' : 'white'}
+            onClick={e => handleBookmarkClick(e)}
+          />
+      }
     </div>
   );
 };
@@ -110,15 +129,18 @@ State.propTypes = {
   label: PropTypes.string.isRequired,
   active: PropTypes.bool,
   pinned: PropTypes.bool,
-  continuationActive: PropTypes.bool,
   bookmarked: PropTypes.bool,
   renderBookmarks: PropTypes.bool,
-  branchType: PropTypes.oneOf(['current', 'legacy']).isRequired,
+  branchType: PropTypes.oneOf(['current', 'legacy']),
   isSuccessor: PropTypes.bool,
-  continuation: PropTypes.shape(Continuation.propTypes).isRequired,
+  continuation: PropTypes.shape(Continuation.propTypes),
   onBookmarkClick: PropTypes.func,
   onClick: PropTypes.func,
   onContinuationClick: PropTypes.func,
+};
+State.defaultProps = {
+  continuation: {},
+  branchType: 'current',
 };
 
 export default State;

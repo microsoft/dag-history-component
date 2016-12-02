@@ -77,4 +77,35 @@ describe('The History Component', () => {
     );
     expect(rendered).to.be.ok;
   });
+
+  it('can be rendered in playback mode', () => {
+    const store = createStore(() => ({}));
+    const history = dagHistory.createHistory({}, 'initialBranch', 'initialState');
+
+    const rendered = mount(
+      <Provider store={store}>
+        <History
+          bookmarksEnabled
+          history={{...history, bookmarkPlaybackIndex: 0, bookmarks: [
+            {
+              stateId: 1,
+              name: 'a thing happened',
+              data: {
+                annotation: 'welp',
+              },
+            },
+          ]}}
+          getSourceFromState={state => "test source"}
+          historyType="branched"
+          mainView="storyboarding"
+          controlBar={{
+            onConfirmClear: () => Promise.resolve(true),
+            onLoadHistory: () => Promise.resolve({}),
+            onSaveHistory: () => Promise.resolve(true),
+          }}
+        />
+      </Provider>
+    );
+    expect(rendered).to.be.ok;
+  });
 });
