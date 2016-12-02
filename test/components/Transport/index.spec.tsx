@@ -75,7 +75,7 @@ describe('The Transport Component', () => {
 
   it('can handle skipToStart invocations', () => {
     let rendered = mount(<Transport />);
-    (rendered.get(0) as any).forward();
+    (rendered.get(0) as any).skipToStart();
 
     let fired = false;
     rendered = mount(<Transport onSkipToStart={() => fired = true} />);
@@ -89,7 +89,7 @@ describe('The Transport Component', () => {
 
   it('can handle skipToEnd invocations', () => {
     let rendered = mount(<Transport />);
-    (rendered.get(0) as any).forward();
+    (rendered.get(0) as any).skipToEnd();
 
     let fired = false;
     rendered = mount(<Transport onSkipToEnd={() => fired = true} />);

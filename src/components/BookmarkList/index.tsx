@@ -12,7 +12,7 @@ placeholder.className = 'placeholder';
 export interface IBookmarkListProps {
   bookmarks: any[];
   onBookmarkClick?: Function;
-  onBookmarkMove: Function;
+  onBookmarkMove?: Function;
 }
 
 class BookmarkList extends React.Component<IBookmarkListProps, {}> {
@@ -77,11 +77,18 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
     event.target.parentNode.insertBefore(placeholder, event.target);
   }
 
+  onBookmarkClick(stateId) {
+    if (this.props.onBookmarkClick) {
+      this.props.onBookmarkClick(stateId);
+    }
+  }
+
   render() {
     const {
       bookmarks,
       onBookmarkClick,
     } = this.props;
+
     const bookmarkViews = bookmarks.map((s, index) => (
       <Bookmark
         {...s}
@@ -90,7 +97,7 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
         draggable
         onDragStart={event => this.onBookmarkDragStart(event)}
         onDragEnd={event => this.onBookmarkDragEnd(event)}
-        onClick={() => onBookmarkClick ? onBookmarkClick(s.stateId) : undefined}
+        onClick={() => this.onBookmarkClick(s.stateId)}
       />
     ));
     // The endSentinel is here for drag-and-drop operations so that we have an elements
