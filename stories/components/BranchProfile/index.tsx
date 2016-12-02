@@ -33,11 +33,9 @@ storiesOf('BranchProfile', module)
 .add('2/3 Selected', () => (
   <BranchProfile
     start={0}
-    end={10}
-    branchStart={0}
-    branchEnd={6}
-    activeStateIndex={6}
-    max={10}
+    end={2}
+    max={2}
+    activeStateIndex={1}
     type="current"
   />
 ))
@@ -50,21 +48,70 @@ storiesOf('BranchProfile', module)
     type="current"
   />
 ))
-.add('Half in Middle', () => (
-  <BranchProfile
-    start={3}
-    end={7}
-    max={12}
-    type="legacy"
-    activeStateIndex={4}
-  />
-))
-.add('Half Length', () => (
+.add('Current Branch with Active State', () => (
   <BranchProfile
     start={0}
-    max={20}
-    type="legacy"
     end={10}
-    activeStateIndex={10}
+    max={10}
+    branchStart={0}
+    branchEnd={10}
+    activeStateIndex={9}
+    type="current"
+  />
+))
+.add('Legacy Branch with Active State', () => (
+  <BranchProfile
+    start={0}
+    end={10}
+    max={10}
+    branchStart={0}
+    branchEnd={5}
+    activeStateIndex={9}
+    type="legacy"
+  />
+))
+.add('Legacy With Pinned State', () => (
+  <BranchProfile
+    start={0}
+    end={10}
+    max={10}
+    branchStart={0}
+    branchEnd={5}
+    pinnedStateIndex={5}
+    type="legacy"
+  />
+))
+.add('Active With Pinned State', () => (
+  <BranchProfile
+    start={0}
+    end={10}
+    max={10}
+    branchStart={0}
+    branchEnd={5}
+    pinnedStateIndex={5}
+    type="current"
+  />
+))
+.add('Active With Pinned State and Successor State', () => (
+  <BranchProfile
+    start={0}
+    end={10}
+    max={10}
+    branchStart={0}
+    branchEnd={5}
+    pinnedStateIndex={5}
+    successorStateIndex={6}
+    type="current"
+  />
+))
+.add('Active With Successor State', () => (
+  <BranchProfile
+    start={0}
+    end={10}
+    max={10}
+    branchStart={0}
+    branchEnd={5}
+    successorStateIndex={6}
+    type="current"
   />
 ));

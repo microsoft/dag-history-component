@@ -10,7 +10,6 @@ import { IHistoryContainerSharedProps } from "../interfaces";
 const BranchedIcon = require('react-icons/lib/go/git-branch');
 const ChronologicalIcon = require('react-icons/lib/go/three-bars');
 
-
 const { PropTypes } = React;
 
 const viewLabels = {
