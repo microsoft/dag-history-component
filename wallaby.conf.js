@@ -1,5 +1,4 @@
 const wallabyWebpack = require('wallaby-webpack');
-const phantom = require('phantomjs2-ext');
 
 module.exports = function configureWallaby(wallaby) {
   const webpackPostprocessor = wallabyWebpack({
