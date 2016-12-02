@@ -9,7 +9,7 @@
     "tsc": "tsc",
     "sass": "node-sass src/daghistory.scss --output lib",
     "copysass": "cpx 'src/**/*.scss' lib",
-    "mocha:coverage": "nyc --require ts-node/register ./node_modules/.bin/_mocha",
+    "mocha:coverage": "nyc ./node_modules/.bin/_mocha",
     "mocha": "mocha",
     "test": "npm-run-all mocha:coverage lint --parallel tsc sass copysass",
     "watch:tsc": "npm run tsc -- -w",
