@@ -159,13 +159,13 @@ export class History extends React.Component<IHistoryProps, {}> {
       <div className="state-list-container">
         <PlaybackPane text={slideText} />
         <Transport
-          showPause
-          iconSize={30}
+          playing
           onSkipToStart={onSkipToFirstBookmark}
           onBack={onPreviousBookmark}
           onForward={forwardAction}
           onSkipToEnd={onSkipToLastBookmark}
           onPlay={onPlayBookmarkStory}
+          onStop={onPlayBookmarkStory}
         />
       </div>
     );

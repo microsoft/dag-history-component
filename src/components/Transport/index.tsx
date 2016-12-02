@@ -8,18 +8,19 @@ const MdPlayArrow = require("react-icons/lib/md/play-arrow");
 const MdPause = require("react-icons/lib/md/pause");
 
 const { PropTypes } = React;
+const DEFAULT_ICON_SIZE = 30;
 
 import "./Transport.scss";
 
 export interface ITransportProps {
-  iconSize: number;
-  showPlay?: boolean;
-  showPause?: boolean;
+  iconSize?: number;
+  playing?: boolean;
   onPlay?: Function;
-  onBack: Function;
-  onForward: Function;
-  onSkipToStart: Function;
-  onSkipToEnd: Function;
+  onStop?: Function;
+  onBack?: Function;
+  onForward?: Function;
+  onSkipToStart?: Function;
+  onSkipToEnd?: Function;
 }
 
 export interface ITransportState {
@@ -28,14 +29,19 @@ export interface ITransportState {
 class Transport extends React.Component<ITransportProps, ITransportState> {
 
   public static propTypes = {
-    showPlay: PropTypes.bool,
-    showPause: PropTypes.bool,
-    iconSize: PropTypes.number.isRequired,
-    onSkipToStart: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-    onForward: PropTypes.func.isRequired,
-    onSkipToEnd: PropTypes.func.isRequired,
+    playing: PropTypes.bool,
+    iconSize: PropTypes.number,
+    onSkipToStart: PropTypes.func,
+    onBack: PropTypes.func,
+    onForward: PropTypes.func,
+    onSkipToEnd: PropTypes.func,
+    onStop: PropTypes.func,
     onPlay: PropTypes.func,
+  };
+
+  public static defaultProps = {
+    iconSize: DEFAULT_ICON_SIZE,
+    playing: false,
   };
 
   @keydown(Keys.SPACE)
@@ -46,30 +52,38 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
   }
 
   @keydown(Keys.ESC)
-  pause() {
-    if (this.props.onPlay) {
-      this.props.onPlay();
+  stop() {
+    if (this.props.onStop) {
+      this.props.onStop();
     }
   }
 
   @keydown(Keys.LEFT)
   back() {
-    this.props.onBack();
+    if (this.props.onBack) {
+      this.props.onBack();
+    }
   }
 
   @keydown(Keys.RIGHT)
   forward() {
-    this.props.onForward();
+    if (this.props.onForward) {
+      this.props.onForward();
+    }
   }
 
   @keydown("shift+left")
-  skiptoStart() {
-    this.props.onSkipToStart();
+  skipToStart() {
+    if (this.props.onSkipToStart) {
+      this.props.onSkipToStart();
+    }
   }
 
   @keydown("shift+right")
   skipToEnd() {
-    this.props.onSkipToEnd();
+    if (this.props.onSkipToEnd) {
+      this.props.onSkipToEnd();
+    }
   }
 
   render() {
@@ -80,18 +94,24 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
       onForward,
       onSkipToEnd,
       onPlay,
-      showPlay,
-      showPause,
+      onStop,
+      playing,
     } = this.props;
-    const handleKeyPress = () => ({});
+
+    const playPauseButton = playing ?
+      (<MdPause size={iconSize} onClick={() => this.stop()} />) :
+      (<MdPlayArrow size={iconSize} onClick={() => this.play()} />)
+
     return (
-      <div className="history-transport-panel" onKeyPress={handleKeyPress} tabIndex={0}>
-        <MdSkipPrevious size={iconSize} onClick={onSkipToStart} />
-        <MdKeyboardArrowLeft size={iconSize} onClick={onBack} />
-        {showPlay ? <MdPlayArrow size={iconSize} onClick={onPlay} /> : null}
-        {showPause ? <MdPause size={iconSize} onClick={onPlay} /> : null}
-        <MdKeyboardArrowRight size={iconSize} onClick={onForward} />
-        <MdSkipNext size={iconSize} onClick={onSkipToEnd} />
+      <div
+        className="history-transport-panel"
+        tabIndex={0}
+      >
+        <MdSkipPrevious size={iconSize} onClick={() => this.skipToStart()} />
+        <MdKeyboardArrowLeft size={iconSize} onClick={() => this.back()} />
+        {playPauseButton}
+        <MdKeyboardArrowRight size={iconSize} onClick={() => this.forward()} />
+        <MdSkipNext size={iconSize} onClick={() => this.skipToEnd()} />
       </div>
     );
   }

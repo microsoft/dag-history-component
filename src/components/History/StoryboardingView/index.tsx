@@ -41,8 +41,6 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
         <BookmarkListContainer {...props} />
       }
       <Transport
-        showPlay
-        iconSize={30}
         onSkipToStart={onSkipToFirstBookmark}
         onBack={onPreviousBookmark}
         onForward={onNextBookmark}

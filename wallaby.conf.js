@@ -35,8 +35,6 @@ module.exports = function configureWallaby(wallaby) {
     },
     env: {
       kind: 'electron',
-      // runner: phantom.path,
-      // params: { runner: '--web-security=false' },
     },
   };
 };
