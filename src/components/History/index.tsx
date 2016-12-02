@@ -10,6 +10,7 @@ import PlaybackPane from '../PlaybackPane';
 import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
+import isNumber from '../../isNumber';
 import './History.scss';
 
 const { PropTypes } = React;
@@ -179,7 +180,7 @@ export class History extends React.Component<IHistoryProps, {}> {
       onSelectMainView,
       bookmarksEnabled,
     } = this.props;
-    const isPlaybackMode = Number.isInteger(bookmarkPlaybackIndex);
+    const isPlaybackMode = isNumber(bookmarkPlaybackIndex);
 
     return isPlaybackMode ? this.renderPlayback() : (
       <HistoryTabs

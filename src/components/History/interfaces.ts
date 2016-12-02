@@ -5,9 +5,9 @@ export interface IHistoryContainerSharedProps {
   mainView: string;
   historyType: string;
   getSourceFromState: Function;
-  branchContainerExpanded: boolean;
-  highlightSuccessorsOf: number;
-  bookmarksEnabled: boolean;
+  branchContainerExpanded?: boolean;
+  highlightSuccessorsOf?: number;
+  bookmarksEnabled?: boolean;
 
   /**
    * ControlBar Configuration Properties

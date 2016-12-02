@@ -7,7 +7,11 @@
         "sourceMap": false,
         "experimentalDecorators": true,
         "declaration": true,
-        "outDir": "lib"
+        "outDir": "lib",
+        "lib": [
+          "es2017",
+          "dom"
+        ]
     },
     "files": [
       "src/index.ts",

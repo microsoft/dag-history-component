@@ -29,6 +29,15 @@ describe('The Dag-History Component Reducer', () => {
     });
   });
 
+  it('can respond to a SELECT_HISTORY_TYPE action', () => {
+    const state = reducer()(undefined, { type: 'SELECT_HISTORY_TYPE', payload: 'derp' });
+    expect(state).to.deep.equal({
+      mainView: 'history',
+      historyType: 'derp',
+      branchContainerExpanded: true,
+    });
+  });
+
   it('can respond to a TOGGLE_BRANCH_CONTAINER action', () => {
     let state = reducer()(undefined, { type: 'TOGGLE_BRANCH_CONTAINER' });
     expect(state).to.deep.equal({
