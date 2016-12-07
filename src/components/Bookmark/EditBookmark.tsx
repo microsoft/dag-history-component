@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './Bookmark.scss';
 const { PropTypes } = React;
+import StatePager from '../StatePager';
 
 export interface IEditBookmarkProps {
   name: string;
@@ -11,6 +12,8 @@ export interface IEditBookmarkProps {
   onBookmarkChange?: Function;
   focusOn?: string;
   onDoneEditing?: Function;
+  shortestCommitPath?: number[];
+  selectedDepth: number;
 }
 
 export interface IEditBookmarkState {
@@ -29,16 +32,15 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     active: PropTypes.bool,
     onClick: PropTypes.func,
     focusOn: PropTypes.string,
+    shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
+  };
+
+  public static defaultProps = {
+    shortestCommitPath: [],
   };
 
   componentDidMount() {
-    const { focusOn } = this.props;
-    if (focusOn) {
-      const target = this[`${focusOn}Component`];
-      if (target) {
-        target.focus();
-      }
-    }
+    this.annotationComponent.focus();
   }
 
   onClickDone() {
@@ -57,10 +59,6 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     }, 0);
   }
 
-  setTitleComponent(c) {
-    this.titleComponent = c;
-  }
-
   setAnnotationComponent(c) {
     this.annotationComponent = c;
   }
@@ -70,19 +68,18 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       return;
     }
     const {
-      name: existingName,
       annotation: existingAnnotation,
       onBookmarkChange,
     } = this.props;
 
-    const name = this.titleComponent.value;
     const annotation = this.annotationComponent.value;
-    const nameChanged = name !== existingName;
-    const annotationChanged = annotation !== existingAnnotation;
-    const isBookmarkUpdated = nameChanged || annotationChanged;
+    const isBookmarkUpdated= annotation !== existingAnnotation;
 
     if (isBookmarkUpdated && onBookmarkChange) {
-      onBookmarkChange({ name, data: { annotation } });
+      onBookmarkChange({
+        name: this.props.name,
+        data: { annotation },
+      });
     }
 
     const relatedTarget = event.relatedTarget;
@@ -100,6 +97,8 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       annotation,
       active,
       onClick,
+      shortestCommitPath,
+      selectedDepth,
     } = this.props;
 
     return (
@@ -109,17 +108,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       >
         <div className="bookmark-details-editable" onBlur={e => this.onDone(e)}>
           <div style={{ display: 'flex' }}>
-            <input
-              className="bookmark-input bookmark-title"
-              tabIndex={0}
-              ref={c => this.setTitleComponent(c)}
-              name="bookmarkLabel"
-              type="text"
-              placeholder="Bookmark Label"
-              defaultValue={name}
-              onFocus={() => onClick ? onClick() : undefined}
-              onBlur={e => this.executeChange(e)}
-            />
+            <div className="bookmark-title">{name}</div>
           </div>
           <textarea
             style={{ marginTop: 5 }}
@@ -133,6 +122,10 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             defaultValue={annotation}
             onFocus={() => onClick()}
             onBlur={e => this.executeChange(e)}
+          />
+          <StatePager
+            depth={shortestCommitPath.length}
+            highlight={selectedDepth}
           />
         </div>
       </div>

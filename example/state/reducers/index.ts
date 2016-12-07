@@ -1,5 +1,6 @@
 import * as redux from 'redux';
 import dagHistory from 'redux-dag-history/lib/reducer';
+import Configuration from 'redux-dag-history/lib/Configuration';
 import app from './app';
 import history from '../../../src/reducer';
 
@@ -44,13 +45,13 @@ function stateKeyGenerator(state) {
   return hashString(stateString);
 }
 
-const DAG_HISTORY_CONFIG = {
+const DAG_HISTORY_CONFIG = new Configuration({
   debug: false,
   actionName: state => state.metadata.name,
   actionFilter: actionType => EXCLUDED_ACTION_NAMES.indexOf(actionType) === -1,
   stateEqualityPredicate,
   stateKeyGenerator,
-};
+});
 
 const rootReducer = redux.combineReducers({
   app: dagHistory(app, DAG_HISTORY_CONFIG),

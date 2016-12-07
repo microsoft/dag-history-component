@@ -2,7 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import * as Actions from '../../actions';
 import { IDagHistory } from 'redux-dag-history/lib/interfaces';
+import DagGraph from 'redux-dag-history/lib/DagGraph';
 import * as DagComponentActions from '../../actions';
 import HistoryTabs from './HistoryTabs';
 import Transport from '../Transport';
@@ -11,6 +13,7 @@ import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
 import isNumber from '../../isNumber';
+import { makeActions } from './BookmarkActions';
 import './History.scss';
 
 const { PropTypes } = React;
@@ -28,15 +31,20 @@ export interface IHistoryDispatchProps {
   onClear: Function;
   onSelectMainView: Function;
   onToggleBranchContainer: Function;
-  onSkipToStart: Function;
-  onSkipToEnd: Function;
-  onPlayBookmarkStory: Function;
-  onSkipToFirstBookmark: Function;
-  onSkipToLastBookmark: Function;
-  onNextBookmark: Function;
-  onPreviousBookmark: Function;
+  onStartPlayback: Function;
+  onStopPlayback: Function;
+  onSelectBookmarkDepth: Function;
 }
 export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
+  history: any;
+  mainView: string;
+  historyType: string;
+  getSourceFromState: Function;
+  branchContainerExpanded?: boolean;
+  highlightSuccessorsOf: number;
+  selectedBookmark?: number;
+  selectedBookmarkDepth?: number;
+  isPlayingBack?: boolean;
 }
 
 export interface IHistoryProps extends IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps {}
@@ -52,6 +60,8 @@ export class History extends React.Component<IHistoryProps, {}> {
     getSourceFromState: PropTypes.func.isRequired,
     branchContainerExpanded: PropTypes.bool,
     highlightSuccessorsOf: PropTypes.number,
+    selectedBookmark: PropTypes.number,
+    selectedBookmarkDepth: PropTypes.number,
 
     /**
      * User Interaction Handlers - loaded by redux
@@ -60,13 +70,8 @@ export class History extends React.Component<IHistoryProps, {}> {
     onClear: PropTypes.func,
     onSelectMainView: PropTypes.func,
     onToggleBranchContainer: PropTypes.func,
-    onSkipToStart: PropTypes.func,
-    onSkipToEnd: PropTypes.func,
-    onPlayBookmarkStory: PropTypes.func,
-    onSkipToFirstBookmark: PropTypes.func,
-    onSkipToLastBookmark: PropTypes.func,
-    onNextBookmark: PropTypes.func,
-    onPreviousBookmark: PropTypes.func,
+    onStartPlayback: PropTypes.func,
+    onStopPlayback: PropTypes.func,
 
     /**
      * ControlBar Configuration Properties
@@ -139,33 +144,53 @@ export class History extends React.Component<IHistoryProps, {}> {
 
   renderPlayback() {
     const {
-      history: {
-        bookmarks,
-        bookmarkPlaybackIndex,
-      },
-      onPlayBookmarkStory,
-      onSkipToFirstBookmark,
-      onSkipToLastBookmark,
-      onNextBookmark,
-      onPreviousBookmark,
+      history,
+      onStartPlayback,
+      onStopPlayback,
+      selectedBookmark,
+      selectedBookmarkDepth,
+      onSelectBookmarkDepth,
     } = this.props;
 
-    const bookmark = bookmarks[bookmarkPlaybackIndex];
+    const {
+      bookmarks,
+      graph,
+    } = history;
+    const historyGraph = new DagGraph(graph);
+    const bookmark = bookmarks[selectedBookmark];
     const slideText = bookmark.data.annotation || bookmark.name || 'No Slide Data';
-    const isLastSlide = bookmarkPlaybackIndex === bookmarks.length - 1;
+    const bookmarkPath = historyGraph.shortestCommitPath(bookmark.stateId);
+    const bookmarkHighlight = selectedBookmarkDepth !== undefined ? selectedBookmarkDepth : bookmarkPath.length - 1;
+
+    const {
+      handleStepBack,
+      handleStepForward,
+      handleNextBookmark,
+      handlePreviousBookmark,
+      handleSkipToEnd,
+      handleSkipToStart,
+    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
+
     // End the presentation if we're on the last slide
-    const forwardAction = isLastSlide ? onPlayBookmarkStory : onNextBookmark;
     return (
       <div className="state-list-container">
-        <PlaybackPane text={slideText} />
+        <PlaybackPane
+          text={slideText}
+          depth={bookmarks.length}
+          highlight={selectedBookmark}
+          bookmarkDepth={bookmarkPath.length}
+          bookmarkHighlight={bookmarkHighlight}
+        />
         <Transport
           playing
-          onSkipToStart={onSkipToFirstBookmark}
-          onBack={onPreviousBookmark}
-          onForward={forwardAction}
-          onSkipToEnd={onSkipToLastBookmark}
-          onPlay={onPlayBookmarkStory}
-          onStop={onPlayBookmarkStory}
+          onSkipToStart={handleSkipToEnd}
+          onStepBack={handleStepBack}
+          onStepForward={handleStepForward}
+          onBack={handlePreviousBookmark}
+          onForward={handleNextBookmark}
+          onSkipToEnd={handleSkipToStart}
+          onPlay={onStartPlayback}
+          onStop={onStopPlayback}
         />
       </div>
     );
@@ -179,10 +204,9 @@ export class History extends React.Component<IHistoryProps, {}> {
       mainView,
       onSelectMainView,
       bookmarksEnabled,
+      isPlayingBack,
     } = this.props;
-    const isPlaybackMode = isNumber(bookmarkPlaybackIndex);
-
-    return isPlaybackMode ? this.renderPlayback() : (
+    return isPlayingBack ? this.renderPlayback() : (
       <HistoryTabs
         bookmarksEnabled={bookmarksEnabled}
         selectedTab={mainView}
@@ -204,13 +228,9 @@ export default connect<IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnPro
     onLoad: DagHistoryActions.load,
     onSelectMainView: selectMainView,
     onToggleBranchContainer: toggleBranchContainer,
-    onSkipToStart: DagHistoryActions.skipToStart,
-    onSkipToEnd: DagHistoryActions.skipToEnd,
-    onPlayBookmarkStory: DagHistoryActions.playBookmarkStory,
-    onSkipToFirstBookmark: DagHistoryActions.skipToFirstBookmark,
-    onSkipToLastBookmark: DagHistoryActions.skipToLastBookmark,
-    onNextBookmark: DagHistoryActions.nextBookmark,
-    onPreviousBookmark: DagHistoryActions.previousBookmark,
+    onStartPlayback: Actions.startPlayback,
+    onStopPlayback: Actions.stopPlayback,
+    onSelectBookmarkDepth: Actions.selectBookmarkDepth,
   }, dispatch)
 )(History);
 

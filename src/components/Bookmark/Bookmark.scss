@@ -14,7 +14,6 @@ $black: #000;
   display: flex;
   min-height: 30px;
   min-width: 250px;
-  padding: 4px;
   position: relative;
 
   &.selected {
@@ -68,11 +67,17 @@ $black: #000;
   top: 0;
 }
 
+.bookmark-details-container {
+  @extend %bookmark-details-base;
+  flex-direction: column;
+  flex: 1;
+}
+
 .bookmark-details {
   @extend %bookmark-details-base;
   align-items: flex-start;
   flex-direction: column;
-  padding: 0 4px;
+  padding: 4px;
 }
 
 .bookmark-title {

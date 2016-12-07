@@ -2,6 +2,7 @@ import * as React from "react";
 import * as classnames from "classnames";
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
+import StatePager from '../StatePager';
 const { PropTypes } = React;
 
 export interface IBookmarkProps {
@@ -14,6 +15,8 @@ export interface IBookmarkProps {
   index: number;
   annotation: string;
   onBookmarkChange?: Function;
+  shortestCommitPath?: number[];
+  selectedDepth?: number;
 }
 
 export interface IBookmarkState {
@@ -32,6 +35,8 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     draggable: PropTypes.bool,
     onDragStart: PropTypes.func,
     onDragEnd: PropTypes.func,
+    shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
+    selectedDepth: PropTypes.number,
   };
 
   constructor() {
@@ -64,15 +69,23 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
       index,
       annotation,
       onBookmarkChange,
+      shortestCommitPath,
+      selectedDepth,
     } = this.props;
     const {
       editMode,
       focusOn,
     } = this.state;
 
+    let highlight = selectedDepth;
+    if (selectedDepth === undefined && active) {
+      highlight = shortestCommitPath.length - 1;;
+    }
+
     return editMode ? (
       <EditBookmark
         {...this.props}
+        selectedDepth={highlight}
         focusOn={focusOn}
         onDoneEditing={() => this.onDoneEditing()}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
@@ -86,19 +99,25 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
         onDragEnd={e => onDragEnd ? onDragEnd(e) : undefined}
         data-index={index}
       >
-        <div className="bookmark-details">
-          <div
-            className={classnames('bookmark-title', { active })}
-            onClick={() => this.onClickEdit('title')}
-          >
-            {name}
+        <div className="bookmark-details-container">
+          <div className="bookmark-details">
+            <div
+              className={classnames('bookmark-title', { active })}
+              onClick={() => this.onClickEdit('title')}
+            >
+              {name}
+            </div>
+            <div
+              className="bookmark-annotation"
+              onClick={() => this.onClickEdit('annotation')}
+            >
+              {annotation}
+            </div>
           </div>
-          <div
-            className="bookmark-annotation"
-            onClick={() => this.onClickEdit('annotation')}
-          >
-            {annotation}
-          </div>
+          <StatePager
+            depth={shortestCommitPath.length}
+            highlight={highlight}
+          />
         </div>
       </div>
     );

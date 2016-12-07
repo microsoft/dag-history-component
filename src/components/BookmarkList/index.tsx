@@ -77,9 +77,9 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
     event.target.parentNode.insertBefore(placeholder, event.target);
   }
 
-  onBookmarkClick(stateId) {
+  onBookmarkClick(index, stateId) {
     if (this.props.onBookmarkClick) {
-      this.props.onBookmarkClick(stateId);
+      this.props.onBookmarkClick(index, stateId);
     }
   }
 
@@ -97,7 +97,7 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
         draggable
         onDragStart={event => this.onBookmarkDragStart(event)}
         onDragEnd={event => this.onBookmarkDragEnd(event)}
-        onClick={() => this.onBookmarkClick(s.stateId)}
+        onClick={() => this.onBookmarkClick(index, s.stateId)}
       />
     ));
     // The endSentinel is here for drag-and-drop operations so that we have an elements

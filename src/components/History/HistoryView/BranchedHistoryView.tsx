@@ -66,8 +66,10 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
       <Transport
         iconSize={30}
         onSkipToStart={onSkipToStart}
-        onBack={onUndo}
-        onForward={onRedo}
+        onStepBack={onUndo}
+        onStepForward={onRedo}
+        onBack={onRedo}
+        onForward={onUndo}
         onSkipToEnd={onSkipToEnd}
       />
     </div>

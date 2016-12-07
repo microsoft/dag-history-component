@@ -21,6 +21,8 @@ export interface ITransportProps {
   onForward?: Function;
   onSkipToStart?: Function;
   onSkipToEnd?: Function;
+  onStepForward?: Function;
+  onStepBack?: Function;
 }
 
 export interface ITransportState {
@@ -37,6 +39,8 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     onSkipToEnd: PropTypes.func,
     onStop: PropTypes.func,
     onPlay: PropTypes.func,
+    onStepForward: PropTypes.func,
+    onStepBack: PropTypes.func,
   };
 
   public static defaultProps = {
@@ -51,6 +55,20 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     }
   }
 
+  @keydown(Keys.LEFT)
+  stepBack() {
+    if (this.props.onStepBack) {
+      this.props.onStepBack();
+    }
+  }
+
+  @keydown(Keys.RIGHT)
+  stepForward() {
+    if (this.props.onStepForward) {
+      this.props.onStepForward();
+    }
+  }
+
   @keydown(Keys.ESC)
   stop() {
     if (this.props.onStop) {
@@ -58,28 +76,28 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     }
   }
 
-  @keydown(Keys.LEFT)
+  @keydown(Keys.UP)
   back() {
     if (this.props.onBack) {
       this.props.onBack();
     }
   }
 
-  @keydown(Keys.RIGHT)
+  @keydown(Keys.DOWN)
   forward() {
     if (this.props.onForward) {
       this.props.onForward();
     }
   }
 
-  @keydown("shift+left")
+  @keydown("shift+up")
   skipToStart() {
     if (this.props.onSkipToStart) {
       this.props.onSkipToStart();
     }
   }
 
-  @keydown("shift+right")
+  @keydown("shift+down")
   skipToEnd() {
     if (this.props.onSkipToEnd) {
       this.props.onSkipToEnd();
@@ -106,7 +124,7 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
       <div
         className="history-transport-panel"
         tabIndex={0}
-        onKeyDown={() => {}} // allows event bubbling
+        onKeyPress={() => {}} // allows event bubbling
       >
         <MdSkipPrevious size={iconSize} onClick={() => this.skipToStart()} />
         <MdKeyboardArrowLeft size={iconSize} onClick={() => this.back()} />
