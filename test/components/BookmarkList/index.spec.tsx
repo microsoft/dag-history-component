@@ -38,10 +38,14 @@ describe('The BookmarkList Component', () => {
   });
 
   it('can propagate up bookmark clicks', () => {
-    let clicked = null;
+    let clickedIndex = null;
+    let clickedStateId = null;
     const rendered = mount(
       <BookmarkList
-        onBookmarkClick={id => clicked = id}
+        onBookmarkClick={(index, stateId) => {
+          clickedIndex = index;
+          clickedStateId = stateId;
+        }}
         bookmarks={[
           {
             index: 0,
@@ -69,7 +73,8 @@ describe('The BookmarkList Component', () => {
     );
 
     rendered.find(Bookmark).at(1).simulate('click');
-    expect(clicked).to.equal(2);
+    expect(clickedIndex).to.equal(1);
+    expect(clickedStateId).to.equal(2);
   });
 
   it('can handle click events when no handler is defined', () => {

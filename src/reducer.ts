@@ -1,4 +1,7 @@
 import {
+  IConfiguration, // eslint-disable-line no-unused-vars
+} from 'redux-dag-history/lib/interfaces';
+import {
   SELECT_MAIN_VIEW,
   SELECT_HISTORY_TYPE,
   TOGGLE_BRANCH_CONTAINER,
@@ -16,8 +19,6 @@ const INITIAL_STATE = {
   selectedBookmarkDepth: undefined,
 };
 
-import { IConfiguration } from 'redux-dag-history/lib/interfaces'
-
 export default function (config: IConfiguration<any>) {
   return function reduce(state = INITIAL_STATE, action) {
     let result = state;
@@ -34,7 +35,7 @@ export default function (config: IConfiguration<any>) {
     } else if (action.type === TOGGLE_BRANCH_CONTAINER) {
       result = {
         ...state,
-        branchContainerExpanded: !state.branchContainerExpanded
+        branchContainerExpanded: !state.branchContainerExpanded,
       };
     } else if (action.type === SELECT_BOOKMARK_DEPTH) {
       result = {

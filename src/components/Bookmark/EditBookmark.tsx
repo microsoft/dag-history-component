@@ -43,20 +43,11 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     this.annotationComponent.focus();
   }
 
-  onClickDone() {
+  onDone(e) {
     const { onDoneEditing } = this.props;
     if (onDoneEditing) {
       onDoneEditing();
     }
-  }
-
-  onDone(e) {
-    const { currentTarget } = e;
-    setTimeout(() => {
-      if (!currentTarget.contains(document.activeElement)) {
-        this.onClickDone();
-      }
-    }, 0);
   }
 
   setAnnotationComponent(c) {

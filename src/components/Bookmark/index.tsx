@@ -39,6 +39,10 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     selectedDepth: PropTypes.number,
   };
 
+  public static defaultProps = {
+    shortestCommitPath: [],
+  }
+
   constructor() {
     super();
     this.state = { editMode: false };

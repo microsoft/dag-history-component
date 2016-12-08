@@ -13,7 +13,7 @@ import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
 import isNumber from '../../isNumber';
-import { makeActions } from './BookmarkActions';
+import makeActions from './BookmarkActions';
 import './History.scss';
 
 const { PropTypes } = React;
@@ -41,7 +41,7 @@ export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
   historyType: string;
   getSourceFromState: Function;
   branchContainerExpanded?: boolean;
-  highlightSuccessorsOf: number;
+  highlightSuccessorsOf?: number;
   selectedBookmark?: number;
   selectedBookmarkDepth?: number;
   isPlayingBack?: boolean;

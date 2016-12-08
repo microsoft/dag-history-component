@@ -16,7 +16,6 @@ describe('Bookmark Component', () => {
       <Bookmark index={0} name="My Name" annotation="anno" />
     );
     expect(rendered.find('.bookmark-input').length).to.equal(0);
-    expect(rendered.find('.bookmark-title').length).to.equal(1);
     expect(rendered.find('.bookmark-annotation').length).to.equal(1);
   });
 
@@ -26,7 +25,7 @@ describe('Bookmark Component', () => {
     );
     expect(rendered.find('.history-bookmark .selected').length).to.equal(1);
     rendered = mount(
-      <EditBookmark index={0} active name="My Name" annotation="anno" />
+      <EditBookmark index={0} selectedDepth={0} active name="My Name" annotation="anno" />
     );
     expect(rendered.find('.history-bookmark .selected').length).to.equal(1);
   });
@@ -43,7 +42,7 @@ describe('Bookmark Component', () => {
       <Bookmark index={0} name="My Name" annotation="anno" />
     );
     rendered.find('.bookmark-title').simulate('click');
-    expect(rendered.find('.bookmark-input').length).to.equal(2);
+    expect(rendered.find('.bookmark-input').length).to.equal(1);
   });
 
   it('will flip into edit mode when the annotation is clicked on', () => {
@@ -51,44 +50,19 @@ describe('Bookmark Component', () => {
       <Bookmark index={0} name="My Name" annotation="anno" />
     );
     rendered.find('.bookmark-annotation').simulate('click');
-    expect(rendered.find('.bookmark-input').length).to.equal(2);
+    expect(rendered.find('.bookmark-input').length).to.equal(1);
   });
 
   it('will pop out of edit mode when the bookmark-details div is blurred', () => {
     let done = false;
     const doneEditing = () => (done = true);
     const rendered = mount(
-      <EditBookmark index={0} name="My Name" annotation="anno" onDoneEditing={doneEditing} />
+      <EditBookmark index={0} selectedDepth={0} name="My Name" annotation="anno" onDoneEditing={doneEditing} />
     );
-    rendered.find('.bookmark-details-editable').simulate('blur');
+    rendered.find('.bookmark-details-editable').simulate('blur', { currentTarge: null });
     return Promise.delay(10)
     .then(() => {
       expect(done).to.be.true;
-    });
-  });
-
-  it('will emit a change when the title input is blurred', () => {
-    let changesReceived = 0;
-    const doneEditing = () => ({});
-    const receiveChange = (change) => {
-      changesReceived += 1;
-      expect(change.name).to.equal('abc123');
-    };
-    const rendered = mount(
-      <EditBookmark
-        index={0}
-        name="My Name"
-        annotation="anno"
-        onDoneEditing={doneEditing}
-        onBookmarkChange={receiveChange}
-      />
-    );
-    rendered.find('.bookmark-title')["node"].value = 'abc123';
-    expect(changesReceived).to.equal(0);
-    rendered.find('.bookmark-title').simulate('blur');
-    return Promise.delay(10)
-    .then(() => {
-      expect(changesReceived).to.equal(1);
     });
   });
 
@@ -101,6 +75,7 @@ describe('Bookmark Component', () => {
     const rendered = mount(
       <EditBookmark
         index={0}
+        selectedDepth={0}
         name="My Name"
         annotation="anno"
         onDoneEditing={() => ({})}
@@ -121,6 +96,7 @@ describe('Bookmark Component', () => {
     const rendered = mount(
       <EditBookmark
         index={0}
+        selectedDepth={0}
         name="My Name"
         annotation="anno"
         onDoneEditing={doneEditing}

@@ -17,6 +17,9 @@ describe('The Dag-History Component Reducer', () => {
       mainView: 'history',
       historyType: 'branched',
       branchContainerExpanded: true,
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     });
   });
 
@@ -26,6 +29,9 @@ describe('The Dag-History Component Reducer', () => {
       mainView: 'abc123',
       historyType: 'branched',
       branchContainerExpanded: true,
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     });
   });
 
@@ -35,6 +41,9 @@ describe('The Dag-History Component Reducer', () => {
       mainView: 'history',
       historyType: 'derp',
       branchContainerExpanded: true,
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     });
   });
 
@@ -44,12 +53,18 @@ describe('The Dag-History Component Reducer', () => {
       mainView: 'history',
       historyType: 'branched',
       branchContainerExpanded: false,
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     });
     state = reducer()(state, { type: 'TOGGLE_BRANCH_CONTAINER' });
     expect(state).to.deep.equal({
       mainView: 'history',
       historyType: 'branched',
       branchContainerExpanded: true,
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     });
   });
 
@@ -58,6 +73,9 @@ describe('The Dag-History Component Reducer', () => {
       mainView: 'bookmarks',
       branchContainerExpanded: true,
       historyType: 'branched',
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     };
     const state = reducer()(initialState, { type: 'DAG_HISTORY_DERP' });
     expect(state).to.deep.equal(initialState);
@@ -68,6 +86,9 @@ describe('The Dag-History Component Reducer', () => {
       mainView: 'bookmarks',
       branchContainerExpanded: true,
       historyType: 'branched',
+      isPlayingBack: false,
+      selectedBookmark: undefined,
+      selectedBookmarkDepth: undefined,
     };
     const reduce = reduceFactory({
       actionFilter: () => true,

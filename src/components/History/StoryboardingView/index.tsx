@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import Transport from '../../Transport';
 import * as Actions from '../../../actions';
 import BookmarkListContainer, { IBookmarkListContainerProps } from './BookmarkListContainer';
-import { makeActions } from '../BookmarkActions';
+import makeActions from '../BookmarkActions';
 const { PropTypes } = React;
 
 export interface IStoryboardingViewStateProps {}

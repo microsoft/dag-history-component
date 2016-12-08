@@ -18,31 +18,30 @@ export const toggleBranchContainer = Actions.createAction<void>(TOGGLE_BRANCH_CO
 export const startPlayback = Actions.createAction<void>(START_PLAYBACK);
 export const stopPlayback = Actions.createAction<void>(STOP_PLAYBACK);
 
-export const selectBookmark = (bookmarkIndex: number, state: StateId) => {
-  return selectBookmarkDepth({
-    bookmarkIndex,
-    depth: undefined,
-    state,
-  });
-};
-
 export const selectBookmarkDepth = (payload: BookmarkDepthAndStateSelection) => {
   const {
     bookmarkIndex,
     depth,
     state,
   } = payload;
-  return dispatch => {
+  return (dispatch) => {
     dispatch(doSelectBookmarkDepth({ bookmarkIndex, depth }));
     dispatch(jumpToState(state));
   };
-}
+};
+
+export const selectBookmark = (bookmarkIndex: number, state: StateId) => (
+  selectBookmarkDepth({
+    bookmarkIndex,
+    depth: undefined,
+    state,
+  })
+);
 
 export interface BookmarkDepthSelection {
   bookmarkIndex?: number;
   depth?: number;
 }
-
 
 export interface BookmarkDepthAndStateSelection {
   bookmarkIndex: number;
