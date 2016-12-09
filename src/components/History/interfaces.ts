@@ -8,6 +8,7 @@ export interface IHistoryContainerSharedProps {
   branchContainerExpanded?: boolean;
   highlightSuccessorsOf?: number;
   bookmarksEnabled?: boolean;
+  bindTransportKeysGlobally?: boolean;
 
   /**
    * ControlBar Configuration Properties

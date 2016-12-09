@@ -45,6 +45,7 @@ export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
   selectedBookmark?: number;
   selectedBookmarkDepth?: number;
   isPlayingBack?: boolean;
+  bindTransportKeysGlobally?: boolean;
 }
 
 export interface IHistoryProps extends IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps {}
@@ -97,6 +98,8 @@ export class History extends React.Component<IHistoryProps, {}> {
      * Bookbark Configuration Properties
      */
     bookmarksEnabled: PropTypes.bool,
+
+    bindTransportKeysGlobally: PropTypes.bool,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -150,6 +153,7 @@ export class History extends React.Component<IHistoryProps, {}> {
       selectedBookmark,
       selectedBookmarkDepth,
       onSelectBookmarkDepth,
+      bindTransportKeysGlobally,
     } = this.props;
 
     const {
@@ -183,6 +187,7 @@ export class History extends React.Component<IHistoryProps, {}> {
         />
         <Transport
           playing
+          bindTransportKeysGlobally={bindTransportKeysGlobally}
           onSkipToStart={handleSkipToEnd}
           onStepBack={handleStepBack}
           onStepForward={handleStepForward}

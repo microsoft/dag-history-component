@@ -21,6 +21,7 @@ export interface IStoryboardingViewOwnProps {
   history: IDagHistory<any>;
   selectedBookmark?: number;
   selectedBookmarkDepth?: number;
+  bindTransportKeysGlobally?: boolean;
 }
 
 export interface IStoryboardingViewProps extends
@@ -37,6 +38,7 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
     selectedBookmark,
     selectedBookmarkDepth,
     onSelectBookmarkDepth,
+    bindTransportKeysGlobally,
   } = props;
 
   const {
@@ -52,6 +54,7 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
     <div className="history-container">
       <BookmarkListContainer {...props} />
       <Transport
+        bindTransportKeysGlobally={bindTransportKeysGlobally}
         onSkipToStart={handleSkipToStart}
         onBack={handlePreviousBookmark}
         onForward={handleNextBookmark}
@@ -72,6 +75,7 @@ StoryboardingView.propTypes = {
   history: PropTypes.object.isRequired,
   selectedBookmark: PropTypes.number,
   selectedBookmarkDepth: PropTypes.number,
+  bindTransportKeysGlobally: PropTypes.bool,
 
   /* User Interaction Handlers - loaded by redux */
   onPlayBookmarkStory: PropTypes.func,

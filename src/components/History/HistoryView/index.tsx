@@ -80,6 +80,7 @@ HistoryView.propTypes = {
   getSourceFromState: PropTypes.func.isRequired,
   branchContainerExpanded: PropTypes.bool,
   highlightSuccessorsOf: PropTypes.number,
+  bindTransportKeysGlobally: PropTypes.bool,
 
   // Redux-injected
   onSelectHistoryType: PropTypes.func,

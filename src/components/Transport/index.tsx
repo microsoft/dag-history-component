@@ -23,10 +23,20 @@ export interface ITransportProps {
   onSkipToEnd?: Function;
   onStepForward?: Function;
   onStepBack?: Function;
+  bindTransportKeysGlobally?: boolean;
 }
 
 export interface ITransportState {
 }
+
+const keys = {
+  SPACE: 32,
+  ESC: 27,
+  UP: 38,
+  DOWN: 40,
+  LEFT: 37,
+  RIGHT: 39,
+};
 
 class Transport extends React.Component<ITransportProps, ITransportState> {
 
@@ -41,12 +51,28 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     onPlay: PropTypes.func,
     onStepForward: PropTypes.func,
     onStepBack: PropTypes.func,
+    bindTransportKeysGlobally: PropTypes.bool,
   };
 
   public static defaultProps = {
     iconSize: DEFAULT_ICON_SIZE,
     playing: false,
   };
+
+  private oldKeydownHandler = null;
+
+  public componentDidMount() {
+    if (this.props.bindTransportKeysGlobally) {
+      this.oldKeydownHandler = document.onkeydown;
+      document.onkeydown = this.handleKeydown.bind(this);
+    }
+  }
+
+  public componentWillUnmount() {
+    if (this.props.bindTransportKeysGlobally) {
+      document.onkeydown = this.oldKeydownHandler;
+    }
+  }
 
   @keydown(Keys.SPACE)
   play() {
@@ -104,7 +130,7 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     }
   }
 
-  render() {
+  public render() {
     const {
       iconSize,
       onSkipToStart,
@@ -133,6 +159,32 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
         <MdSkipNext size={iconSize} onClick={() => this.skipToEnd()} />
       </div>
     );
+  }
+
+  private handleKeydown(arg: KeyboardEvent) {
+    const { keyCode } = arg;
+    if (keyCode === keys.SPACE) { // space
+      this.play();
+    } else if (keyCode === keys.ESC) {
+      this.stop();
+    } else if (keyCode === keys.UP) {
+      if (arg.shiftKey) {
+        this.skipToStart();
+      } else {
+        this.back();
+      }
+    } else if (keyCode === keys.DOWN) {
+      if (arg.shiftKey) {
+        this.skipToEnd();
+      } else {
+        this.forward();
+      }
+
+    } else if (keyCode === keys.LEFT) {
+      this.stepBack();
+    } else if (keyCode === keys.RIGHT) {
+      this.stepForward();
+    }
   }
 }
 export default Transport;

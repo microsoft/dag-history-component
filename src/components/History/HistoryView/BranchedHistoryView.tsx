@@ -29,6 +29,7 @@ export interface IBranchedHistoryViewDispatchProps {
 }
 
 export interface IBranchedHistoryViewOwnProps extends IHistoryContainerSharedProps {
+  bindTransportKeysGlobally?: boolean;
 }
 
 export interface IBranchedHistoryViewProps extends
@@ -45,6 +46,7 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
     onRedo,
     onSkipToStart,
     onSkipToEnd,
+    bindTransportKeysGlobally,
   } = props;
   const branchList = branchContainerExpanded ?
     <BranchListContainer {...props} /> :
@@ -64,6 +66,7 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
         {branchList}
       </div>
       <Transport
+        bindTransportKeysGlobally={bindTransportKeysGlobally}
         iconSize={30}
         onSkipToStart={onSkipToStart}
         onStepBack={onUndo}
@@ -104,6 +107,7 @@ BranchedHistoryView.propTypes = {
    * Bookbark Configuration Properties
    */
   bookmarksEnabled: PropTypes.bool,
+  bindTransportKeysGlobally: PropTypes.bool,
 };
 export default connect<IBranchedHistoryViewStateProps, IBranchedHistoryViewDispatchProps, IBranchedHistoryViewOwnProps>(
   () => ({}),

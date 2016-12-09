@@ -25,6 +25,7 @@ const HistoryContainer: React.StatelessComponent<IHistoryContainerProps> = (prop
       <HistoryComponent
         {...props}
         bookmarksEnabled
+        bindTransportKeysGlobally
         getSourceFromState={state => (
           state.toJS ?
           state.toJS().metadata.source :
