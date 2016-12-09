@@ -1,6 +1,7 @@
 import * as React from 'react';
-import './StatePager.scss';
 import * as classnames from 'classnames';
+
+import './StatePager.scss';
 
 export interface IStatePagerProps {
   /**
