@@ -7,9 +7,11 @@ export interface IEditBookmarkProps {
   name: string;
   annotation: string;
   index: number;
+  numLeadInStates?: number;
   active?: boolean;
   onClick?: Function;
   onBookmarkChange?: Function;
+  commitPathLength?: number;
   focusOn?: string;
   onDoneEditing?: Function;
   shortestCommitPath?: number[];
@@ -22,11 +24,14 @@ export interface IEditBookmarkState {
 export default class EditBookmark extends React.Component<IEditBookmarkProps, IEditBookmarkState> {
   private titleComponent: HTMLInputElement;
   private annotationComponent: HTMLTextAreaElement;
+  private leadInComponent: HTMLSelectElement;
 
   public static propTypes = {
     index: PropTypes.number,
     name: PropTypes.string.isRequired,
     annotation: PropTypes.string.isRequired,
+    numLeadInStates: PropTypes.number,
+    commitPathLength: PropTypes.number,
     onBookmarkChange: PropTypes.func,
     onDoneEditing: PropTypes.func,
     active: PropTypes.bool,
@@ -39,37 +44,58 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     shortestCommitPath: [],
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     this.annotationComponent.focus();
   }
 
-  onDone(e) {
+  private onDone(e) {
+    const { currentTarget } = e;
     const { onDoneEditing } = this.props;
+
     if (onDoneEditing) {
-      onDoneEditing();
+      setTimeout(() => {
+        if (!currentTarget.contains(document.activeElement)) {
+          onDoneEditing();
+        }
+      }, 0);
     }
   }
 
-  setAnnotationComponent(c) {
+  private setAnnotationComponent(c) {
     this.annotationComponent = c;
   }
 
-  executeChange(event) {
+  private setLeadInComponent(c) {
+    this.leadInComponent = c;
+  }
+
+  private executeChange(event) {
     if (!event) {
       return;
     }
     const {
       annotation: existingAnnotation,
+      numLeadInStates: existingNumLeadInStates,
       onBookmarkChange,
     } = this.props;
 
     const annotation = this.annotationComponent.value;
-    const isBookmarkUpdated= annotation !== existingAnnotation;
+
+    const numLeadInStatesValue = this.leadInComponent.value;
+    const numLeadInStates: number = numLeadInStatesValue === 'all' ?
+      undefined :
+      Number.parseInt(numLeadInStatesValue);
+
+    const isBookmarkUpdated = annotation !== existingAnnotation ||
+      numLeadInStates !== existingNumLeadInStates;
 
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
         name: this.props.name,
-        data: { annotation },
+        data: {
+          annotation,
+          numLeadInStates,
+        },
       });
     }
 
@@ -81,7 +107,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     }
   }
 
-  render() {
+  public render() {
     const {
       name,
       index,
@@ -89,8 +115,12 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       active,
       onClick,
       shortestCommitPath,
+      commitPathLength,
       selectedDepth,
+      numLeadInStates,
     } = this.props;
+
+    const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
 
     return (
       <div
@@ -114,8 +144,26 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             onFocus={() => onClick()}
             onBlur={e => this.executeChange(e)}
           />
+          <div>
+            <span>Show</span>
+            <select
+              ref={c => this.setLeadInComponent(c)}
+              style={{marginLeft: 5, marginRight: 5}}
+              onChange={e => this.executeChange(e)}
+              value={leadInStatesValue}
+            >
+              <option value="all">all</option>
+              <option value="0">no</option>
+              <option value="1">one</option>
+              <option value="2">two</option>
+              <option value="3">three</option>
+              <option value="4">four</option>
+              <option value="5">five</option>
+            </select>
+            <span>lead-in states</span>
+          </div>
           <StatePager
-            depth={shortestCommitPath.length}
+            depth={commitPathLength}
             highlight={selectedDepth}
           />
         </div>

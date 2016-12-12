@@ -64,6 +64,7 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
       ...b,
       active,
       annotation: b.data['annotation'] || '',
+      numLeadInStates: b.data['numLeadInStates'],
       onBookmarkChange: ({ name, data }) => onBookmarkChange({ bookmark: b.stateId, name, data }),
       shortestCommitPath,
       selectedDepth,

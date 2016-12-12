@@ -13,6 +13,7 @@ import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
 import isNumber from '../../isNumber';
+import { determineCommitPathLength, determineHighlight } from '../provenance';
 import makeActions from './BookmarkActions';
 import './History.scss';
 
@@ -163,8 +164,8 @@ export class History extends React.Component<IHistoryProps, {}> {
     const historyGraph = new DagGraph(graph);
     const bookmark = bookmarks[selectedBookmark];
     const slideText = bookmark.data.annotation || bookmark.name || 'No Slide Data';
+    const numLeadInStates = bookmark.data.numLeadInStates;
     const bookmarkPath = historyGraph.shortestCommitPath(bookmark.stateId);
-    const bookmarkHighlight = selectedBookmarkDepth !== undefined ? selectedBookmarkDepth : bookmarkPath.length - 1;
 
     const {
       handleStepBack,
@@ -182,8 +183,8 @@ export class History extends React.Component<IHistoryProps, {}> {
           text={slideText}
           depth={bookmarks.length}
           highlight={selectedBookmark}
-          bookmarkDepth={bookmarkPath.length}
-          bookmarkHighlight={bookmarkHighlight}
+          bookmarkDepth={determineCommitPathLength(bookmarkPath.length, numLeadInStates)}
+          bookmarkHighlight={determineHighlight(selectedBookmarkDepth, bookmarkPath.length, numLeadInStates, true)}
         />
         <Transport
           playing

@@ -1,4 +1,5 @@
 import DagGraph from 'redux-dag-history/lib/DagGraph';
+import { determineCommitPathLength } from '../provenance';
 
 export default function makeActions(
   rawSelectedBookmark: number,
@@ -12,6 +13,7 @@ export default function makeActions(
   const currentBookmarkIndex = rawSelectedBookmark !== undefined ?
     rawSelectedBookmark :
     bookmarks.findIndex(it => it.stateId === currentStateId);
+  const currentBookmark = bookmarks[currentBookmarkIndex];
   const pathAt = (index) => {
     if (index === undefined || index < 0 || index > bookmarks.length) {
       return [];
@@ -24,9 +26,15 @@ export default function makeActions(
     rawSelectedBookmarkDepth :
     currentPath.length - 1;
 
+  const configuredPathLength = determineCommitPathLength(
+    currentPath.length,
+    currentBookmark ? currentBookmark.data.numLeadInStates : currentPath.length - 1,
+  );
+
   const handleStepBack = () => {
     // We're at the start of the presentation, do nothing
-    const isAtBookmarkStart = currentDepth === 0;
+    const currentPathStart = currentPath.length - configuredPathLength;
+    const isAtBookmarkStart = currentDepth <= currentPathStart;
     const isAtBeginning = currentBookmarkIndex === 0 && isAtBookmarkStart;
 
     if (currentBookmarkIndex !== undefined && !isAtBeginning) {
@@ -60,10 +68,17 @@ export default function makeActions(
     if (currentBookmarkIndex !== undefined && !isAtEnd) {
       if (isAtBookmarkEnd) {
         const bookmarkIndex = currentBookmarkIndex + 1;
+        const bookmark = bookmarks[bookmarkIndex];
         const path = pathAt(bookmarkIndex);
+        const commitPathLength = determineCommitPathLength(
+          path.length,
+          bookmark.data.numLeadInStates,
+        );
+        const depth = path.length - commitPathLength;
+
         onSelectBookmarkDepth({
           bookmarkIndex,
-          depth: 0,
+          depth,
           state: path[0],
         });
       } else {
