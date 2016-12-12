@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as Promise from 'bluebird';
 import * as TestUtils from 'react-addons-test-utils';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
@@ -10,6 +11,8 @@ const MdSkipNext = require("react-icons/lib/md/skip-next");
 const MdSkipPrevious = require("react-icons/lib/md/skip-previous");
 const MdPlayArrow = require("react-icons/lib/md/play-arrow");
 const MdPause = require("react-icons/lib/md/pause");
+
+const CLICK_DELAY = 55;
 
 describe('The Transport Component', () => {
   it('can render', () => {
@@ -23,12 +26,16 @@ describe('The Transport Component', () => {
 
     let fired = false;
     rendered = mount(<Transport onPlay={() => fired = true} />);
-    (rendered.get(0) as any).play();
-    expect(fired).to.be.true;
 
-    fired = false;
-    rendered.find(MdPlayArrow).simulate('click');
-    expect(fired).to.be.true;
+    (rendered.get(0) as any).play();
+    return Promise.delay(CLICK_DELAY)
+    .then(() => {
+      expect(fired).to.be.true;
+      fired = false;
+      rendered.find(MdPlayArrow).simulate('click');
+      return Promise.delay(CLICK_DELAY);
+    })
+    .then(() => expect(fired).to.be.true);
   });
 
   it('can handle stop invocations', () => {
@@ -38,11 +45,14 @@ describe('The Transport Component', () => {
     let fired = false;
     rendered = mount(<Transport playing onStop={() => fired = true} />);
     (rendered.get(0) as any).stop();
-    expect(fired).to.be.true;
-
-    fired = false;
-    rendered.find(MdPause).simulate('click');
-    expect(fired).to.be.true;
+    return Promise.delay(CLICK_DELAY)
+    .then(() => {
+      expect(fired).to.be.true;
+      fired = false;
+      rendered.find(MdPause).simulate('click');
+      return Promise.delay(CLICK_DELAY);
+    })
+    .then(() => expect(fired).to.be.true);
   });
 
   it('can handle back invocations', () => {
@@ -52,11 +62,14 @@ describe('The Transport Component', () => {
     let fired = false;
     rendered = mount(<Transport onBack={() => fired = true} />);
     (rendered.get(0) as any).back();
-    expect(fired).to.be.true;
-
-    fired = false;
-    rendered.find(MdKeyboardArrowLeft).simulate('click');
-    expect(fired).to.be.true;
+    return Promise.delay(CLICK_DELAY)
+    .then(() => {
+      expect(fired).to.be.true;
+      fired = false;
+      rendered.find(MdKeyboardArrowLeft).simulate('click');
+      return Promise.delay(CLICK_DELAY);
+    })
+    .then(() => expect(fired).to.be.true);
   });
 
   it('can handle forward invocations', () => {
@@ -66,11 +79,14 @@ describe('The Transport Component', () => {
     let fired = false;
     rendered = mount(<Transport onForward={() => fired = true} />);
     (rendered.get(0) as any).forward();
-    expect(fired).to.be.true;
-
-    fired = false;
-    rendered.find(MdKeyboardArrowRight).simulate('click');
-    expect(fired).to.be.true;
+    return Promise.delay(CLICK_DELAY)
+    .then(() => {
+      expect(fired).to.be.true;
+      fired = false;
+      rendered.find(MdKeyboardArrowRight).simulate('click');
+      return Promise.delay(CLICK_DELAY);
+    })
+    .then(() => expect(fired).to.be.true);
   });
 
   it('can handle skipToStart invocations', () => {
@@ -80,11 +96,14 @@ describe('The Transport Component', () => {
     let fired = false;
     rendered = mount(<Transport onSkipToStart={() => fired = true} />);
     (rendered.get(0) as any).skipToStart();
-    expect(fired).to.be.true;
-
-    fired = false;
-    rendered.find(MdSkipPrevious).simulate('click');
-    expect(fired).to.be.true;
+    return Promise.delay(CLICK_DELAY)
+    .then(() => {
+      expect(fired).to.be.true;
+      fired = false;
+      rendered.find(MdSkipPrevious).simulate('click');
+      return Promise.delay(CLICK_DELAY);
+    })
+    .then(() => expect(fired).to.be.true);
   });
 
   it('can handle skipToEnd invocations', () => {
@@ -94,10 +113,13 @@ describe('The Transport Component', () => {
     let fired = false;
     rendered = mount(<Transport onSkipToEnd={() => fired = true} />);
     (rendered.get(0) as any).skipToEnd();
-    expect(fired).to.be.true;
-
-    fired = false;
-    rendered.find(MdSkipNext).simulate('click');
-    expect(fired).to.be.true;
+    return Promise.delay(CLICK_DELAY)
+    .then(() => {
+      expect(fired).to.be.true;
+      fired = false;
+      rendered.find(MdSkipNext).simulate('click');
+      return Promise.delay(CLICK_DELAY);
+    })
+    .then(() => expect(fired).to.be.true);
   });
 });
