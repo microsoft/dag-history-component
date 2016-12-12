@@ -6,15 +6,15 @@ const MdSkipNext = require("react-icons/lib/md/skip-next");
 const MdSkipPrevious = require("react-icons/lib/md/skip-previous");
 const MdPlayArrow = require("react-icons/lib/md/play-arrow");
 const MdPause = require("react-icons/lib/md/pause");
+import { debounce } from "lodash";
 
 const { PropTypes } = React;
 const DEFAULT_ICON_SIZE = 30;
+const KEY_DEBOUNCE_INTERVAL = 50;
 
 import "./Transport.scss";
 
-export interface ITransportProps {
-  iconSize?: number;
-  playing?: boolean;
+export interface ITransportCallbackProps {
   onPlay?: Function;
   onStop?: Function;
   onBack?: Function;
@@ -23,6 +23,12 @@ export interface ITransportProps {
   onSkipToEnd?: Function;
   onStepForward?: Function;
   onStepBack?: Function;
+}
+
+export interface ITransportProps extends ITransportCallbackProps {
+  iconSize?: number;
+  playing?: boolean;
+  showPlay?: boolean;
   bindTransportKeysGlobally?: boolean;
 }
 
@@ -42,6 +48,7 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
 
   public static propTypes = {
     playing: PropTypes.bool,
+    showPlay: PropTypes.bool,
     iconSize: PropTypes.number,
     onSkipToStart: PropTypes.func,
     onBack: PropTypes.func,
@@ -57,9 +64,11 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
   public static defaultProps = {
     iconSize: DEFAULT_ICON_SIZE,
     playing: false,
+    showPlay: true,
   };
 
   private oldKeydownHandler = null;
+  private handlers: ITransportCallbackProps = null;
 
   public componentDidMount() {
     if (this.props.bindTransportKeysGlobally) {
@@ -76,75 +85,85 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
 
   @keydown(Keys.SPACE)
   play() {
-    if (this.props.onPlay) {
-      this.props.onPlay();
+    if (this.handlers.onPlay) {
+      this.handlers.onPlay();
     }
   }
 
   @keydown(Keys.LEFT)
   stepBack() {
-    if (this.props.onStepBack) {
-      this.props.onStepBack();
+    if (this.handlers.onStepBack) {
+      this.handlers.onStepBack();
     }
   }
 
   @keydown(Keys.RIGHT)
   stepForward() {
-    if (this.props.onStepForward) {
-      this.props.onStepForward();
+    if (this.handlers.onStepForward) {
+      this.handlers.onStepForward();
     }
   }
 
   @keydown(Keys.ESC)
   stop() {
-    if (this.props.onStop) {
-      this.props.onStop();
+    if (this.handlers.onStop) {
+      this.handlers.onStop();
     }
   }
 
   @keydown(Keys.UP)
   back() {
-    if (this.props.onBack) {
-      this.props.onBack();
+    if (this.handlers.onBack) {
+      this.handlers.onBack();
     }
   }
 
   @keydown(Keys.DOWN)
   forward() {
-    if (this.props.onForward) {
-      this.props.onForward();
+    if (this.handlers.onForward) {
+      this.handlers.onForward();
     }
   }
 
   @keydown("shift+up")
   skipToStart() {
-    if (this.props.onSkipToStart) {
-      this.props.onSkipToStart();
+    if (this.handlers.onSkipToStart) {
+      this.handlers.onSkipToStart();
     }
   }
 
   @keydown("shift+down")
   skipToEnd() {
-    if (this.props.onSkipToEnd) {
-      this.props.onSkipToEnd();
+    if (this.handlers.onSkipToEnd) {
+      this.handlers.onSkipToEnd();
     }
   }
 
   public render() {
+    const debounced = (target: Function) => target ? debounce(target, KEY_DEBOUNCE_INTERVAL) : target;
     const {
       iconSize,
-      onSkipToStart,
-      onBack,
-      onForward,
-      onSkipToEnd,
-      onPlay,
-      onStop,
       playing,
+      showPlay,
     } = this.props;
 
-    const playPauseButton = playing ?
-      (<MdPause size={iconSize} onClick={() => this.stop()} />) :
-      (<MdPlayArrow size={iconSize} onClick={() => this.play()} />)
+    this.handlers = {
+      onPlay: debounced(this.props.onPlay),
+      onStop: debounced(this.props.onStop),
+      onBack: debounced(this.props.onBack),
+      onForward: debounced(this.props.onForward),
+      onSkipToStart: debounced(this.props.onSkipToStart),
+      onSkipToEnd: debounced(this.props.onSkipToEnd),
+      onStepForward: debounced(this.props.onStepForward),
+      onStepBack: debounced(this.props.onStepBack),
+    };
+
+    let playPauseButton = <div />;
+    if (showPlay) {
+      playPauseButton = playing ?
+        (<MdPause size={iconSize} onClick={() => this.stop()} />) :
+        (<MdPlayArrow size={iconSize} onClick={() => this.play()} />)
+    }
 
     return (
       <div

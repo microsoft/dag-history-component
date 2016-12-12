@@ -66,6 +66,7 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
         {branchList}
       </div>
       <Transport
+        showPlay={false}
         bindTransportKeysGlobally={bindTransportKeysGlobally}
         iconSize={30}
         onSkipToStart={onSkipToStart}
