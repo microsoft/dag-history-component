@@ -48,17 +48,9 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     this.annotationComponent.focus();
   }
 
-  private onDone(e) {
-    const { currentTarget } = e;
+  private onDone() {
     const { onDoneEditing } = this.props;
-
-    if (onDoneEditing) {
-      setTimeout(() => {
-        if (!currentTarget.contains(document.activeElement)) {
-          onDoneEditing();
-        }
-      }, 0);
-    }
+    onDoneEditing();
   }
 
   private setAnnotationComponent(c) {
@@ -127,7 +119,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}
       >
-        <div className="bookmark-details-editable" onBlur={e => this.onDone(e)}>
+        <div className="bookmark-details-editable">
           <div style={{ display: 'flex' }}>
             <div className="bookmark-title">{name}</div>
           </div>
@@ -144,23 +136,28 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             onFocus={() => onClick()}
             onBlur={e => this.executeChange(e)}
           />
-          <div>
-            <span>Show</span>
-            <select
-              ref={c => this.setLeadInComponent(c)}
-              style={{marginLeft: 5, marginRight: 5}}
-              onChange={e => this.executeChange(e)}
-              value={leadInStatesValue}
-            >
-              <option value="all">all</option>
-              <option value="0">no</option>
-              <option value="1">one</option>
-              <option value="2">two</option>
-              <option value="3">three</option>
-              <option value="4">four</option>
-              <option value="5">five</option>
-            </select>
-            <span>lead-in states</span>
+          <div style={{display: 'flex', flexDirection: 'row', alignContent: 'space-between' }}>
+            <div style={{display: 'flex', flexDirection: 'row', flex: 1}}>
+              <span>Show</span>
+              <select
+                ref={c => this.setLeadInComponent(c)}
+                style={{marginLeft: 5, marginRight: 5}}
+                onChange={e => this.executeChange(e)}
+                value={leadInStatesValue}
+              >
+                <option value="all">all</option>
+                <option value="0">no</option>
+                <option value="1">one</option>
+                <option value="2">two</option>
+                <option value="3">three</option>
+                <option value="4">four</option>
+                <option value="5">five</option>
+              </select>
+              <span>lead-in states</span>
+            </div>
+            <button onClick={() => this.onDone()}>
+              DONE
+            </button>
           </div>
           <StatePager
             depth={commitPathLength}
