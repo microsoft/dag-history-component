@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Microsoft/dag-history-component.svg?token=Zp5ok23F9QzZUVfCEpU5&branch=master)](https://travis-ci.com/Microsoft/dag-history-component)
+[![CircleCI](https://circleci.com/gh/Microsoft/dag-history-component/tree/master.svg?style=svg)](https://circleci.com/gh/Microsoft/dag-history-component/tree/master)
 
 # dag-history-component
 

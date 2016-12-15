@@ -5,3 +5,4 @@ coverage/
 .nyc_output/
 npm-debug.log*
 yarn-error.log*
+test-results.xml
