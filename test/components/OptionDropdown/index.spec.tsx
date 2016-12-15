@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
-import OptionDropdown from '../../../src/Components/OptionDropdown';
+import OptionDropdown from '../../../src/components/OptionDropdown';
 const { default: Dropdown, DropdownTrigger, DropdownContent } = require('react-simple-dropdown');
 
 describe('The OptionDropdown Component', () => {
