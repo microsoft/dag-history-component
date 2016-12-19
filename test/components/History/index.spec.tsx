@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import * as Promise from 'bluebird';
-import * as dagHistory from 'redux-dag-history/lib/DagHistory';
+import * as dagHistory from '@essex/redux-dag-history/lib/DagHistory';
 import History from '../../../src/components/History';
 
 import { createStore } from 'redux';

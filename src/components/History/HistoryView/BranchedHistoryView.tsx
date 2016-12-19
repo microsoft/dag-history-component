@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
 import * as DagComponentActions from '../../../actions';
 import ExpandCollapseToggle from '../../ExpandCollapseToggle';
 import Transport from '../../Transport';

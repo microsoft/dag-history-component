@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
 import * as Actions from '../../actions';
-import { IDagHistory } from 'redux-dag-history/lib/interfaces';
-import DagGraph from 'redux-dag-history/lib/DagGraph';
+import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
+import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import * as DagComponentActions from '../../actions';
 import HistoryTabs from './HistoryTabs';
 import Transport from '../Transport';

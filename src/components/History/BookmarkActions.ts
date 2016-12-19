@@ -1,4 +1,4 @@
-import DagGraph from 'redux-dag-history/lib/DagGraph';
+import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import { determineCommitPathLength } from '../provenance';
 
 export default function makeActions(

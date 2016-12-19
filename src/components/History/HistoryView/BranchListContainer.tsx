@@ -1,6 +1,6 @@
 import * as React from "react";
-import DagGraph from 'redux-dag-history/lib/DagGraph';
-import { IDagHistory } from 'redux-dag-history/lib/interfaces';
+import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
+import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 import BranchList from '../../BranchList';
 import isNumber from '../../../isNumber';
 
