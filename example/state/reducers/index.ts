@@ -1,6 +1,6 @@
 import * as redux from 'redux';
-import dagHistory from 'redux-dag-history/lib/reducer';
-import Configuration from 'redux-dag-history/lib/Configuration';
+import dagHistory from '@essex/redux-dag-history/lib/reducer';
+import Configuration from '@essex/redux-dag-history/lib/Configuration';
 import app from './app';
 import history from '../../../src/reducer';
 

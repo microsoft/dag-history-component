@@ -1,6 +1,6 @@
-import { StateId } from 'redux-dag-history/lib/interfaces';
+import { StateId } from '@essex/redux-dag-history/lib/interfaces';
 import * as Actions from 'redux-actions';
-import { jumpToState } from 'redux-dag-history/lib/ActionCreators';
+import { jumpToState } from '@essex/redux-dag-history/lib/ActionCreators';
 
 // Action Types
 export const SELECT_MAIN_VIEW = 'SELECT_MAIN_VIEW';

@@ -1,6 +1,6 @@
 import {
   IConfiguration, // eslint-disable-line no-unused-vars
-} from 'redux-dag-history/lib/interfaces';
+} from '@essex/redux-dag-history/lib/interfaces';
 import {
   SELECT_MAIN_VIEW,
   SELECT_HISTORY_TYPE,

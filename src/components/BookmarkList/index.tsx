@@ -4,7 +4,7 @@ import './BookmarkList.scss';
 
 const { PropTypes } = React;
 
-const log = require('debug')('redux-dag-history:BookmarkList');
+const log = require('debug')('@essex/redux-dag-history:BookmarkList');
 
 const placeholder = document.createElement('div');
 placeholder.className = 'placeholder';

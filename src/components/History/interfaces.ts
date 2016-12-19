@@ -1,4 +1,4 @@
-import { IDagHistory } from 'redux-dag-history/lib/interfaces';
+import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 
 export interface IHistoryContainerSharedProps {
   history: IDagHistory<any>;

@@ -1,8 +1,8 @@
 import * as React from "react";
-import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
-import { IDagHistory } from 'redux-dag-history/lib/interfaces';
+import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
+import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 import { connect } from 'react-redux';
-import DagGraph from 'redux-dag-history/lib/DagGraph';
+import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import { bindActionCreators } from "redux";
 import Transport from '../../Transport';
 import * as Actions from '../../../actions';

@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as DagHistoryActions from 'redux-dag-history/lib/ActionCreators';
+import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
 import StateListContainer from './StateListContainer';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
