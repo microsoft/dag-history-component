@@ -1,6 +1,9 @@
 node_modules/
 src/
+test/
 variations/
+scripts/
+coverage/
 webpack.conf.js
 gulpfile.babel.js
 .eslintrc
@@ -8,5 +11,3 @@ gulpfile.babel.js
 .nycrc
 server.js
 .npmignore
-coverage/
-.nyc_output/
