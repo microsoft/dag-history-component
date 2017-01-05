@@ -7,9 +7,9 @@ $charcoal: #5d6d7e;
 $black: #000;
 
 .history-bookmark {
+  border-top: 1px solid $white;
   align-items: center;
   background-color: $background;
-  border-top: 1px solid $white;
   cursor: pointer;
   display: flex;
   min-height: 30px;

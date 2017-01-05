@@ -1,10 +1,10 @@
-$minPagerWidth: 5px;
+$minPagerWidth: 3px;
 
 $borderColor: lightgrey;
-$emptyStateColor: white;
-$highlightedStateInactiveBookmarkColor: #ffe0b3;
-$highlightedStateColor: orange;
-$leadInStateColor: #D6EAF8;
+$emptyStateColor: transparent;
+$highlightedStateInactiveBookmarkColor: #ffd589;
+$highlightedStateColor: #ffa500;
+$leadInStateColor: #c0dff4;
 
 .pager-state {
   &.highlighted {

@@ -111,7 +111,9 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
     );
     return (
       <div className="state-list-container" onDragOver={event => this.onDragOver(event)}>
-        {bookmarkViews.concat([endSentinel])}
+        <div className="bookmark-list">
+          {bookmarkViews.concat([endSentinel])}
+        </div>
       </div>
     );
   }
