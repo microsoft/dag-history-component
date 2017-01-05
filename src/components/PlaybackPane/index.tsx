@@ -10,6 +10,7 @@ export interface IPlaybackPaneProps {
   highlight: number;
   bookmarkDepth: number;
   bookmarkHighlight: number;
+  bookmarkNumLeadInStates?: number;
 }
 
 const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = ({
@@ -18,6 +19,7 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = ({
   highlight,
   bookmarkDepth,
   bookmarkHighlight,
+  bookmarkNumLeadInStates,
 }) => (
   <div className="playback-pane-container">
     <div className="playback-pane-paged">
@@ -26,7 +28,7 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = ({
       </div>
       <StatePager vertical active depth={depth} highlight={highlight} />
     </div>
-    <StatePager active depth={bookmarkDepth} highlight={bookmarkHighlight} />
+    <StatePager active depth={bookmarkDepth} highlight={bookmarkHighlight} leadIn={bookmarkNumLeadInStates}/>
   </div>
 );
 
@@ -40,6 +42,7 @@ PlaybackPane.propTypes = {
   // Props for the current bookmark
   bookmarkDepth: PropTypes.number.isRequired,
   bookmarkHighlight: PropTypes.number.isRequired,
+  bookmarkNumLeadInStates: PropTypes.number,
 };
 
 export default PlaybackPane;

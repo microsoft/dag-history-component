@@ -1,11 +1,10 @@
-import { 
-  Span, 
-  insertSpan, 
+import {
+  Span,
+  insertSpan,
   initialSpans,
 } from '../../spans';
 
 const isNumber = d => !isNaN(d) && d !== null;
-const convertArg = (arg, offset) => (arg !== null && arg !== undefined) ? arg - offset : arg;
 
 export interface IStatePagerProps {
   /**
@@ -16,7 +15,7 @@ export interface IStatePagerProps {
   /**
    * The highlighted index
    */
-  highlight?:  number;
+  highlight?: number;
 
   /**
    * The number of states in the pager
@@ -35,6 +34,9 @@ export default function calculateSpans(
   leadIn: number,
   active: boolean,
 ): Span[] {
+  if (depth <= 0) {
+    return [];
+  }
   let spans = initialSpans(0, depth, 'empty');
   if (isNumber(leadIn)) {
     spans = insertSpan(spans, new Span(depth - leadIn, depth + 1, 'leadin'));

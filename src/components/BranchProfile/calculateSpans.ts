@@ -1,6 +1,6 @@
-import { 
-  Span, 
-  insertSpan, 
+import {
+  Span,
+  insertSpan,
   initialSpans,
 } from '../../spans';
 

@@ -25,7 +25,18 @@ export default function makeActions(
     rawSelectedBookmarkDepth :
     currentPath.length - 1;
 
-  const configuredPathLength = currentPath.length;
+  const getPathLength = (bookmark, bookmarkPath) => {
+    const numLeadInStates = bookmark && bookmark.data && bookmark.data.numLeadInStates;
+    const isLeadInStatesConfigured = numLeadInStates !== undefined &&
+      numLeadInStates > 0 &&
+      numLeadInStates < bookmarkPath.length;
+
+    return isLeadInStatesConfigured ?
+      numLeadInStates + 1 :
+      bookmarkPath.length;
+  };
+
+  const configuredPathLength = getPathLength(currentBookmark, currentPath);
 
   const handleStepBack = () => {
     // We're at the start of the presentation, do nothing
@@ -66,7 +77,7 @@ export default function makeActions(
         const bookmarkIndex = currentBookmarkIndex + 1;
         const bookmark = bookmarks[bookmarkIndex];
         const path = pathAt(bookmarkIndex);
-        const commitPathLength = path.length;
+        const commitPathLength = getPathLength(bookmark, path);
         const depth = path.length - commitPathLength;
 
         onSelectBookmarkDepth({

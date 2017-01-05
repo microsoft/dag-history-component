@@ -185,6 +185,7 @@ export class History extends React.Component<IHistoryProps, {}> {
           highlight={selectedBookmark}
           bookmarkDepth={determineCommitPathLength(bookmarkPath.length, numLeadInStates)}
           bookmarkHighlight={determineHighlight(selectedBookmarkDepth, bookmarkPath.length, numLeadInStates, true)}
+          bookmarkNumLeadInStates={numLeadInStates}
         />
         <Transport
           playing
