@@ -3,7 +3,6 @@ import * as classnames from "classnames";
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
 import StatePager from '../StatePager';
-import { determineCommitPathLength, determineHighlight } from '../provenance';
 const { PropTypes } = React;
 
 export interface IBookmarkProps {
@@ -66,21 +65,16 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
   }
 
   private get commitPathLength() {
-    const {
-      shortestCommitPath,
-      numLeadInStates,
-    } = this.props;
-    return determineCommitPathLength(shortestCommitPath.length, numLeadInStates);
+    const { shortestCommitPath } = this.props;
+    return shortestCommitPath.length;
   }
 
   private get highlight() {
-    const {
-      selectedDepth,
-      shortestCommitPath,
-      numLeadInStates,
-      active,
-    } = this.props;
-    return determineHighlight(selectedDepth, shortestCommitPath.length, numLeadInStates, active);
+    const { selectedDepth } = this.props;
+    if (selectedDepth === undefined && this.props.active) {
+      return this.commitPathLength - 1;
+    }
+    return selectedDepth;
   }
 
   render() {
@@ -108,7 +102,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
       <EditBookmark
         {...this.props}
         commitPathLength={this.commitPathLength}
-        selectedDepth={highlight}
+        selectedDepth={this.highlight}
         focusOn={focusOn}
         onDoneEditing={() => this.onDoneEditing()}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
@@ -140,7 +134,9 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
             <StatePager
               depth={this.commitPathLength}
               highlight={highlight}
-              />
+              leadIn={numLeadInStates}
+              active={active}
+            />
           </div>
         </div>
       );

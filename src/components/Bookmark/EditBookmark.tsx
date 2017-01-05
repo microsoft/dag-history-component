@@ -136,8 +136,8 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             onFocus={() => onClick()}
             onBlur={e => this.executeChange(e)}
           />
-          <div style={{display: 'flex', flexDirection: 'row', alignContent: 'space-between' }}>
-            <div style={{display: 'flex', flexDirection: 'row', flex: 1}}>
+          <div className="bookmark-controls-container">
+            <div className="bookmark-controls">
               <span>Show</span>
               <select
                 ref={c => this.setLeadInComponent(c)}
@@ -162,6 +162,8 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
           <StatePager
             depth={commitPathLength}
             highlight={selectedDepth}
+            leadIn={numLeadInStates}
+            active={active}
           />
         </div>
       </div>

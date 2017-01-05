@@ -61,7 +61,6 @@ $black: #000;
 
 %bookmark-details-base {
   align-self: stretch;
-  display: flex;
   font-family: sans-serif;
   left: 0;
   top: 0;
@@ -116,4 +115,16 @@ $black: #000;
   flex: 1;
   padding: 6px 10px;
   width: 100%;
+}
+
+.bookmark-controls-container {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+
+  .bookmark-controls {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+  }
 }

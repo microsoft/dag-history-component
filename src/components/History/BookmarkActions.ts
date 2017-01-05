@@ -1,5 +1,4 @@
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
-import { determineCommitPathLength } from '../provenance';
 
 export default function makeActions(
   rawSelectedBookmark: number,
@@ -26,10 +25,7 @@ export default function makeActions(
     rawSelectedBookmarkDepth :
     currentPath.length - 1;
 
-  const configuredPathLength = determineCommitPathLength(
-    currentPath.length,
-    currentBookmark ? currentBookmark.data.numLeadInStates : currentPath.length - 1,
-  );
+  const configuredPathLength = currentPath.length;
 
   const handleStepBack = () => {
     // We're at the start of the presentation, do nothing
@@ -70,10 +66,7 @@ export default function makeActions(
         const bookmarkIndex = currentBookmarkIndex + 1;
         const bookmark = bookmarks[bookmarkIndex];
         const path = pathAt(bookmarkIndex);
-        const commitPathLength = determineCommitPathLength(
-          path.length,
-          bookmark.data.numLeadInStates,
-        );
+        const commitPathLength = path.length;
         const depth = path.length - commitPathLength;
 
         onSelectBookmarkDepth({

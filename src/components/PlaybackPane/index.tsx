@@ -24,9 +24,9 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = ({
       <div className="playback-pane">
         <h3>{text}</h3>
       </div>
-      <StatePager vertical depth={depth} highlight={highlight} />
+      <StatePager vertical active depth={depth} highlight={highlight} />
     </div>
-    <StatePager depth={bookmarkDepth} highlight={bookmarkHighlight} />
+    <StatePager active depth={bookmarkDepth} highlight={bookmarkHighlight} />
   </div>
 );
 

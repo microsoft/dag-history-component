@@ -35,7 +35,6 @@ export default class BranchListContainer extends React.Component<IBranchListCont
   getBranchList(historyGraph, commitPath) {
     const {
       branches,
-      // maxDepth,
       currentBranch,
       currentStateId,
     } = historyGraph;

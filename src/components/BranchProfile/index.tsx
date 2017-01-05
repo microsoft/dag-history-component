@@ -1,6 +1,6 @@
 import * as React from "react";
 import colors from '../../palette';
-import * as SpanCalc from './SpanCalculator';
+import calculateSpans from './calculateSpans';
 import './BranchProfile.scss';
 
 const { PropTypes } = React;
@@ -38,7 +38,7 @@ const BranchProfile: React.StatelessComponent<IBranchProfileProps> = ({
   successorStateIndex: successorIndex,
   pinnedStateIndex: pinnedIndex,
 }) => {
-  const infoSpans = SpanCalc.getSpans(
+  const infoSpans = calculateSpans(
     type,
     max,
     start,
