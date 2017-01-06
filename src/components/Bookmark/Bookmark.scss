@@ -120,7 +120,7 @@ $black: #000;
 .bookmark-controls-container {
   display: flex;
   flex-direction: row;
-  align-content: space-between;
+  justify-content: space-between;
 
   .bookmark-controls {
     display: flex;

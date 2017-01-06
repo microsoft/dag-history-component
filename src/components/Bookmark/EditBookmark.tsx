@@ -3,6 +3,8 @@ import './Bookmark.scss';
 const { PropTypes } = React;
 import StatePager from '../StatePager';
 
+const log = require('debug')('dag-history-component:components:Bookmark');
+
 export interface IEditBookmarkProps {
   name: string;
   annotation: string;
@@ -61,10 +63,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     this.leadInComponent = c;
   }
 
-  private executeChange(event) {
-    if (!event) {
-      return;
-    }
+  private onDoneEditing() {
     const {
       annotation: existingAnnotation,
       numLeadInStates: existingNumLeadInStates,
@@ -72,30 +71,36 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     } = this.props;
 
     const annotation = this.annotationComponent.value;
-
-    const numLeadInStatesValue = this.leadInComponent.value;
-    const numLeadInStates: number = numLeadInStatesValue === 'all' ?
-      undefined :
-      Number.parseInt(numLeadInStatesValue);
-
-    const isBookmarkUpdated = annotation !== existingAnnotation ||
-      numLeadInStates !== existingNumLeadInStates;
+    const isBookmarkUpdated = annotation !== existingAnnotation;
 
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
         name: this.props.name,
         data: {
           annotation,
-          numLeadInStates,
+          numLeadInStates: existingNumLeadInStates,
         },
       });
     }
+  }
 
-    const relatedTarget = event.relatedTarget;
-    const isTargetHere = relatedTarget === this.titleComponent ||
-      relatedTarget === this.annotationComponent;
-    if (isTargetHere) {
-      event.stopPropagation();
+  private onLeadInSet(value?: number) {
+    const {
+      annotation: existingAnnotation,
+      numLeadInStates: existingNumLeadInStates,
+      onBookmarkChange,
+    } = this.props;
+
+    const numLeadInStates = value !== undefined ? value : (this.props.commitPathLength - this.props.selectedDepth - 1);
+    const isBookmarkUpdated = numLeadInStates !== existingNumLeadInStates;
+    if (isBookmarkUpdated && onBookmarkChange) {
+      onBookmarkChange({
+        name: this.props.name,
+        data: {
+          annotation: existingAnnotation,
+          numLeadInStates,
+        },
+      });
     }
   }
 
@@ -113,7 +118,11 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     } = this.props;
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
-
+    const clearButton = (numLeadInStates === undefined || numLeadInStates === 0) ? null : (
+      <button style={{marginLeft: 5}} onClick={() => this.onLeadInSet(0)}>
+        Clear intro
+      </button>
+    );
     return (
       <div
         className={`history-bookmark ${active ? 'selected' : ''}`}
@@ -134,29 +143,18 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             placeholder="Enter caption for presentation"
             defaultValue={annotation}
             onFocus={() => onClick()}
-            onBlur={e => this.executeChange(e)}
+            onBlur={() => this.onDoneEditing()}
           />
           <div className="bookmark-controls-container">
-            <div className="bookmark-controls">
-              <span>Show</span>
-              <select
-                ref={c => this.setLeadInComponent(c)}
-                style={{marginLeft: 5, marginRight: 5}}
-                onChange={e => this.executeChange(e)}
-                value={leadInStatesValue}
-              >
-                <option value="all">all</option>
-                <option value="0">no</option>
-                <option value="1">one</option>
-                <option value="2">two</option>
-                <option value="3">three</option>
-                <option value="4">four</option>
-                <option value="5">five</option>
-              </select>
-              <span>lead-in states</span>
-            </div>
-            <button onClick={() => this.onDone()}>
-              DONE
+            <button
+              style={{marginLeft: 5}}
+              onClick={(e) => this.onLeadInSet()}
+            >
+              Set intro
+            </button>
+            {clearButton}
+            <button style={{marginLeft: 5}} onClick={() => this.onDone()}>
+              Done
             </button>
           </div>
           <StatePager

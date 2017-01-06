@@ -38,7 +38,7 @@ export default function calculateSpans(
     return [];
   }
   let spans = initialSpans(0, depth, 'empty');
-  if (isNumber(leadIn)) {
+  if (isNumber(leadIn) && leadIn !== 0) {
     spans = insertSpan(spans, new Span(depth - leadIn, depth + 1, 'leadin'));
   }
   if (isNumber(highlight)) {
