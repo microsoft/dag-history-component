@@ -13,7 +13,6 @@ import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
 import isNumber from '../../isNumber';
-import { determineCommitPathLength, determineHighlight } from '../provenance';
 import makeActions from './BookmarkActions';
 import './History.scss';
 
@@ -176,6 +175,10 @@ export class History extends React.Component<IHistoryProps, {}> {
       handleSkipToStart,
     } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
 
+    const bookmarkHighlight = (selectedBookmarkDepth !== undefined) ?
+      selectedBookmarkDepth :
+      bookmarkPath.length - 1;
+
     // End the presentation if we're on the last slide
     return (
       <div className="state-list-container">
@@ -183,8 +186,8 @@ export class History extends React.Component<IHistoryProps, {}> {
           text={slideText}
           depth={bookmarks.length}
           highlight={selectedBookmark}
-          bookmarkDepth={determineCommitPathLength(bookmarkPath.length, numLeadInStates)}
-          bookmarkHighlight={determineHighlight(selectedBookmarkDepth, bookmarkPath.length, numLeadInStates, true)}
+          bookmarkDepth={bookmarkPath.length}
+          bookmarkHighlight={bookmarkHighlight}
           bookmarkNumLeadInStates={numLeadInStates}
         />
         <Transport
