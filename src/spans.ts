@@ -120,6 +120,5 @@ export function insertSpan(spans: Span[], newSpan: Span) {
       return insertSplittingSpan(spans, newSpan, i);
     }
   }
-
-  throw new Error(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
+  console.log(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
 }

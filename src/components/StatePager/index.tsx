@@ -3,6 +3,8 @@ import * as classnames from 'classnames';
 import calculateSpans from './calculateSpans';
 import './StatePager.scss';
 
+const log = require('debug')('dag-history-component:components:StatePager');
+
 export interface IStatePagerProps {
   /**
    * If true, renders in vertical mode
@@ -37,7 +39,7 @@ const StatePager: React.StatelessComponent<IStatePagerProps> = ({
   leadIn,
   active,
 }) => {
-  const spans = calculateSpans(depth - 1, highlight, leadIn, active);
+  const spans = calculateSpans(depth, highlight, leadIn, active);
   const pagerClass = classnames(
     'state-pager',
     { vertical },
@@ -45,15 +47,19 @@ const StatePager: React.StatelessComponent<IStatePagerProps> = ({
   );
 
   const spanTags = spans.map((s, index) => (
-    <div 
-      key={`pagerSpan::${index}`} 
+    <div
+      key={`pagerSpan::${index}`}
       className={classnames("pager-state", s.type)}
       style={{flex: s.length}}
     />
   ));
 
+  const handleClick = (evt: React.MouseEvent<any>) => {
+    log('handling click', evt);
+  }
+
   return (
-    <div className={pagerClass}>
+    <div className={pagerClass} onClick={handleClick}>
       {spanTags}
     </div>
   );

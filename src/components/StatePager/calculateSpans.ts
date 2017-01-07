@@ -34,7 +34,7 @@ export default function calculateSpans(
   leadIn: number,
   active: boolean,
 ): Span[] {
-  if (depth <= 0) {
+  if (depth < 0) {
     return [];
   }
   let spans = initialSpans(0, depth, 'empty');

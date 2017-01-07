@@ -3,6 +3,9 @@ import './PlaybackPane.scss';
 
 const { PropTypes } = React;
 import StatePager from '../StatePager';
+import { determineHighlight } from '../provenance';
+
+const log = require('debug')('dag-history-component:components:PlaybackPane');
 
 export interface IPlaybackPaneProps {
   text: string;
@@ -13,24 +16,30 @@ export interface IPlaybackPaneProps {
   bookmarkNumLeadInStates?: number;
 }
 
-const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = ({
-  text,
-  depth,
-  highlight,
-  bookmarkDepth,
-  bookmarkHighlight,
-  bookmarkNumLeadInStates,
-}) => (
-  <div className="playback-pane-container">
-    <div className="playback-pane-paged">
-      <div className="playback-pane">
-        <h3>{text}</h3>
+const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
+  const {
+    text,
+    depth,
+    highlight,
+    bookmarkDepth,
+    bookmarkHighlight,
+    bookmarkNumLeadInStates,
+  } = props;
+  const leadIn = bookmarkNumLeadInStates || 0;
+  const adjustedBookmarkHighlight = determineHighlight(bookmarkHighlight, bookmarkDepth, bookmarkNumLeadInStates);
+
+  return (
+    <div className="playback-pane-container">
+      <div className="playback-pane-paged">
+        <div className="playback-pane">
+          <h3>{text}</h3>
+        </div>
+        <StatePager vertical active depth={depth - 1} highlight={highlight} />
       </div>
-      <StatePager vertical active depth={depth} highlight={highlight} />
+      <StatePager active depth={leadIn || 0} highlight={adjustedBookmarkHighlight} />
     </div>
-    <StatePager active depth={bookmarkDepth} highlight={bookmarkHighlight} leadIn={bookmarkNumLeadInStates}/>
-  </div>
-);
+  );
+};
 
 PlaybackPane.propTypes = {
   text: PropTypes.string.isRequired,

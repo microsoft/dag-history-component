@@ -91,7 +91,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       onBookmarkChange,
     } = this.props;
 
-    const numLeadInStates = value !== undefined ? value : (this.props.commitPathLength - this.props.selectedDepth - 1);
+    const numLeadInStates = value !== undefined ? value : this.props.commitPathLength - this.props.selectedDepth - 1;
     const isBookmarkUpdated = numLeadInStates !== existingNumLeadInStates;
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({

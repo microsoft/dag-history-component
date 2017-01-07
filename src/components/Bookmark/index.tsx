@@ -101,7 +101,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     return editMode ? (
       <EditBookmark
         {...this.props}
-        commitPathLength={this.commitPathLength}
+        commitPathLength={this.commitPathLength - 1}
         selectedDepth={this.highlight}
         focusOn={focusOn}
         onDoneEditing={() => this.onDoneEditing()}
@@ -132,7 +132,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
               </div>
             </div>
             <StatePager
-              depth={this.commitPathLength}
+              depth={this.commitPathLength - 1}
               highlight={highlight}
               leadIn={numLeadInStates}
               active={active}
