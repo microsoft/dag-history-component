@@ -1,4 +1,4 @@
-// const log = require('debug')('dag-history-component:SpanCalculator');
+const log = require('debug')('dag-history-component:SpanCalculator');
 
 export class Span {
   public start: number;
@@ -120,5 +120,6 @@ export function insertSpan(spans: Span[], newSpan: Span) {
       return insertSplittingSpan(spans, newSpan, i);
     }
   }
-  console.log(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
+  log(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
+  return spans;
 }
