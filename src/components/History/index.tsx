@@ -173,7 +173,7 @@ export class History extends React.Component<IHistoryProps, {}> {
       handlePreviousBookmark,
       handleSkipToEnd,
       handleSkipToStart,
-    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
+    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, true);
 
     const bookmarkHighlight = (selectedBookmarkDepth !== undefined) ?
       selectedBookmarkDepth :

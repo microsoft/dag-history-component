@@ -27,7 +27,6 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
   } = props;
   const leadIn = bookmarkNumLeadInStates || 0;
   const adjustedBookmarkHighlight = determineHighlight(bookmarkHighlight, bookmarkDepth, bookmarkNumLeadInStates);
-
   return (
     <div className="playback-pane-container">
       <div className="playback-pane-paged">

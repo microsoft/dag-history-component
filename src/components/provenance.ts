@@ -14,8 +14,8 @@ export function determineHighlight(
     // the depth has not been indicated, so we are selecting the final state of the current bookmark
     return commitPathLength - 1;
   } else if (numLeadInStates === undefined) {
-    // No lead-in configured, we can use the raw depth value without alteration
-    return selectedDepth;
+    // No lead-in set, highlight the whole band
+    return 0;
   }
   let result: number;
   // Figure out how many states are skipped at the beginning

@@ -91,7 +91,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       onBookmarkChange,
     } = this.props;
 
-    const numLeadInStates = value !== undefined ? value : this.props.commitPathLength - this.props.selectedDepth - 1;
+    const numLeadInStates = value !== undefined ? value : this.props.commitPathLength - this.props.selectedDepth;
     const isBookmarkUpdated = numLeadInStates !== existingNumLeadInStates;
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
@@ -118,7 +118,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     } = this.props;
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
-    const clearButton = (numLeadInStates === undefined || numLeadInStates === 0) ? null : (
+    const clearButton = (numLeadInStates === undefined) ? null : (
       <button style={{marginLeft: 5}} onClick={() => this.onLeadInSet(0)}>
         Clear intro
       </button>

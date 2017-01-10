@@ -48,7 +48,7 @@ export default function (config: IConfiguration<any>) {
         ...state,
         isPlayingBack: true,
         selectedBookmark: 0,
-        selectedBookmarkDepth: 0,
+        selectedBookmarkDepth: undefined,
       };
     } else if (action.type === STOP_PLAYBACK) {
       result = {

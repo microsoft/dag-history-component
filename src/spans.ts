@@ -106,6 +106,10 @@ function insertSplittingSpan(spans: Span[], newSpan: Span, i: number) {
 }
 
 export function insertSpan(spans: Span[], newSpan: Span) {
+  if (!newSpan) {
+    throw new Error('could not insert span that is undefined/null');
+  }
+
   for (let i = 0; i < spans.length; i += 1) {
     const span = spans[i];
     if (span.areBoundsEqual(newSpan)) {
