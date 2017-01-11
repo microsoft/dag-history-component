@@ -13,7 +13,12 @@ export default function makeActions(
   const { bookmarks } = history;
   const graph = new DagGraph(history.graph);
   const { currentStateId } = graph;
-  const bookmarkAt = (index: number) => new Bookmark(bookmarks[index], graph);
+  const bookmarkAt = (index: number) => {
+    if (index < 0 || index >= bookmarks.length) {
+      return null;
+    }
+    return new Bookmark(bookmarks[index], graph);
+  }
   const jump = (index: number, depth: number) => {
     const target = bookmarkAt(index);
     const state = target.getStateAtDepth(depth);
@@ -21,7 +26,7 @@ export default function makeActions(
   };
   const bookmarkIndex = rawSelectedBookmark !== undefined ?
     rawSelectedBookmark :
-    bookmarks.findIndex(it => it.stateId === currentStateId);
+    Math.max(0, bookmarks.findIndex(it => it.stateId === currentStateId));
   const bookmark = bookmarkAt(bookmarkIndex);
   const depth = bookmark.sanitizeDepth(rawSelectedBookmarkDepth);
 

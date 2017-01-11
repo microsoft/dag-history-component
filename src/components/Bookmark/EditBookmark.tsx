@@ -18,7 +18,7 @@ export interface IEditBookmarkProps {
   onDoneEditing?: Function;
   shortestCommitPath?: number[];
   selectedDepth: number;
-  onDiscoveryTrailIndexClicked: Function;
+  onDiscoveryTrailIndexClicked?: Function;
 }
 
 export interface IEditBookmarkState {
