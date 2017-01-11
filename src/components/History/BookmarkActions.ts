@@ -18,7 +18,7 @@ export default function makeActions(
       return null;
     }
     return new Bookmark(bookmarks[index], graph);
-  }
+  };
   const jump = (index: number, depth: number) => {
     const target = bookmarkAt(index);
     const state = target.getStateAtDepth(depth);
