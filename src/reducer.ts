@@ -38,10 +38,11 @@ export default function (config: IConfiguration<any>) {
         branchContainerExpanded: !state.branchContainerExpanded,
       };
     } else if (action.type === SELECT_BOOKMARK_DEPTH) {
+      const { depth, bookmarkIndex } = action.payload;
       result = {
         ...state,
-        selectedBookmark: action.payload.bookmarkIndex,
-        selectedBookmarkDepth: action.payload.depth,
+        selectedBookmark: bookmarkIndex === undefined ? state.selectedBookmark : bookmarkIndex,
+        selectedBookmarkDepth: depth === undefined ? state.selectedBookmarkDepth : depth,
       };
     } else if (action.type === START_PLAYBACK) {
       result = {

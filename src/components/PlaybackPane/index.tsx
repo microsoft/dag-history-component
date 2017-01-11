@@ -2,7 +2,7 @@ import * as React from "react";
 import './PlaybackPane.scss';
 
 const { PropTypes } = React;
-import StatePager from '../StatePager';
+import DiscoveryTrail from '../DiscoveryTrail';
 import { determineHighlight } from '../provenance';
 
 const log = require('debug')('dag-history-component:components:PlaybackPane');
@@ -33,9 +33,9 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
         <div className="playback-pane">
           <h3>{text}</h3>
         </div>
-        <StatePager vertical active depth={depth - 1} highlight={highlight} />
+        <DiscoveryTrail vertical active depth={depth - 1} highlight={highlight} />
       </div>
-      <StatePager active depth={leadIn || 0} highlight={adjustedBookmarkHighlight} />
+      <DiscoveryTrail active depth={leadIn || 0} highlight={adjustedBookmarkHighlight} />
     </div>
   );
 };

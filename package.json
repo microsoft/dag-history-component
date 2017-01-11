@@ -98,6 +98,8 @@
     "@types/redux-actions": "^1.2.2",
     "classnames": "^2.2.5",
     "debug": "^2.6.0",
+    "global": "^4.3.1",
+    "irish-pub": "^0.2.0",
     "lodash": "^4.17.4",
     "react": "^15.4.2",
     "react-icons": "^2.2.3",

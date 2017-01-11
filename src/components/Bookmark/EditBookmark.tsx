@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './Bookmark.scss';
 const { PropTypes } = React;
-import StatePager from '../StatePager';
+import DiscoveryTrail from '../DiscoveryTrail';
 
 const log = require('debug')('dag-history-component:components:Bookmark');
 
@@ -18,6 +18,7 @@ export interface IEditBookmarkProps {
   onDoneEditing?: Function;
   shortestCommitPath?: number[];
   selectedDepth: number;
+  onDiscoveryTrailIndexClicked: Function;
 }
 
 export interface IEditBookmarkState {
@@ -40,6 +41,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     onClick: PropTypes.func,
     focusOn: PropTypes.string,
     shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
+    onDiscoveryTrailIndexClicked: PropTypes.func,
   };
 
   public static defaultProps = {
@@ -91,14 +93,13 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       onBookmarkChange,
     } = this.props;
 
-    const numLeadInStates = value !== undefined ? value : this.props.commitPathLength - this.props.selectedDepth;
-    const isBookmarkUpdated = numLeadInStates !== existingNumLeadInStates;
+    const isBookmarkUpdated = value !== existingNumLeadInStates;
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
         name: this.props.name,
         data: {
           annotation: existingAnnotation,
-          numLeadInStates,
+          numLeadInStates: value,
         },
       });
     }
@@ -115,21 +116,32 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       commitPathLength,
       selectedDepth,
       numLeadInStates,
+      onDiscoveryTrailIndexClicked,
     } = this.props;
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
-    const clearButton = (numLeadInStates === undefined) ? null : (
-      <button style={{marginLeft: 5}} onClick={() => this.onLeadInSet(0)}>
+    const isIntroSet = numLeadInStates !== undefined;
+    const setIntroButton = isIntroSet ? (
+      <button style={{marginLeft: 5}} onClick={() => this.onLeadInSet(undefined)}>
         Clear intro
       </button>
+    ) : (
+      <button
+        style={{marginLeft: 5}}
+        onClick={(e) => this.onLeadInSet(this.props.commitPathLength - this.props.selectedDepth)}
+      >
+        Set intro
+      </button>
     );
+
+    log('rendering commitPathLength=%s, selectedDepth=%s', this.props.commitPathLength, this.props.selectedDepth);
     return (
       <div
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}
       >
         <div className="bookmark-details-editable">
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex' }} onClick={() => this.onDone()}>
             <div className="bookmark-title">{name}</div>
           </div>
           <textarea
@@ -146,23 +158,18 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             onBlur={() => this.onDoneEditing()}
           />
           <div className="bookmark-controls-container">
-            <button
-              style={{marginLeft: 5}}
-              onClick={(e) => this.onLeadInSet()}
-            >
-              Set intro
-            </button>
-            {clearButton}
-            <button style={{marginLeft: 5}} onClick={() => this.onDone()}>
-              Done
-            </button>
+            {setIntroButton}
           </div>
-          <StatePager
-            depth={commitPathLength}
-            highlight={selectedDepth}
-            leadIn={numLeadInStates}
-            active={active}
-          />
+          <div>
+            <span className="discovery-trail-label">Discovery trail</span>
+            <DiscoveryTrail
+              depth={commitPathLength}
+              highlight={selectedDepth}
+              leadIn={numLeadInStates}
+              active={active}
+              onIndexClicked={idx => onDiscoveryTrailIndexClicked(idx)}
+            />
+          </div>
         </div>
       </div>
     );

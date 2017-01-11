@@ -2,7 +2,7 @@ import * as React from "react";
 import * as classnames from "classnames";
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
-import StatePager from '../StatePager';
+import DiscoveryTrail from '../DiscoveryTrail';
 const { PropTypes } = React;
 
 export interface IBookmarkProps {
@@ -12,6 +12,7 @@ export interface IBookmarkProps {
   draggable?: boolean;
   onDragStart?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
   onDragEnd?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
+  onDiscoveryTrailIndexClicked?: (index: number) => void;
   index: number;
   numLeadInStates?: number;
   annotation: string;
@@ -34,6 +35,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     active: PropTypes.bool,
     onClick: PropTypes.func,
     onBookmarkChange: PropTypes.func,
+    onDiscoveryTrailIndexClicked: PropTypes.func,
     draggable: PropTypes.bool,
     onDragStart: PropTypes.func,
     onDragEnd: PropTypes.func,
@@ -56,6 +58,12 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
 
   onDoneEditing() {
     this.setState({ editMode: false });
+  }
+
+  onDiscoveryTrailIndexClicked(index) {
+    if (this.props.onDiscoveryTrailIndexClicked) {
+      this.props.onDiscoveryTrailIndexClicked(index);
+    }
   }
 
   onBookmarkChangeDone(payload) {
@@ -106,18 +114,18 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
         focusOn={focusOn}
         onDoneEditing={() => this.onDoneEditing()}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
+        onDiscoveryTrailIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
         />
     ) : (
         <div
           className={`history-bookmark ${active ? 'selected' : ''}`}
-          onClick={onClick ? () => onClick() : undefined}
           draggable={draggable}
           onDragStart={e => onDragStart ? onDragStart(e) : undefined}
           onDragEnd={e => onDragEnd ? onDragEnd(e) : undefined}
           data-index={index}
           >
           <div className="bookmark-details-container">
-            <div className="bookmark-details">
+            <div className="bookmark-details" onClick={onClick ? () => onClick() : undefined}>
               <div
                 className={classnames('bookmark-title', { active })}
                 onClick={() => this.onClickEdit('title')}
@@ -131,11 +139,12 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
                 {annotation}
               </div>
             </div>
-            <StatePager
+            <DiscoveryTrail
               depth={this.commitPathLength - 1}
               highlight={highlight}
               leadIn={numLeadInStates}
               active={active}
+              onIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
             />
           </div>
         </div>

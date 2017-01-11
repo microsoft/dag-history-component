@@ -6,28 +6,6 @@ import {
 
 const isNumber = d => !isNaN(d) && d !== null;
 
-export interface IStatePagerProps {
-  /**
-   * If true, renders in vertical mode
-   */
-  vertical?: boolean;
-
-  /**
-   * The highlighted index
-   */
-  highlight?: number;
-
-  /**
-   * The number of states in the pager
-   */
-  depth: number;
-
-  /**
-   * The number of lead-in states to show
-   */
-  leadIn?: number;
-}
-
 export default function calculateSpans(
   depth: number,
   highlight: number,
