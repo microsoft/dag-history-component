@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "webpack:server": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback --publicPath ./",
-    "lint": "eslint '{src,test,example}/**/*.ts'",
+    "lint": "eslint '{src,test,stories}/**/*.ts'",
     "tsc": "tsc",
     "sass": "node-sass src/daghistory.scss --output lib",
     "copysass": "cpx 'src/**/*.scss' lib",

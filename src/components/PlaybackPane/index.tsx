@@ -13,6 +13,7 @@ export interface IPlaybackPaneProps {
   bookmarkDepth: number;
   bookmarkHighlight: number;
   bookmarkNumLeadInStates?: number;
+  onDiscoveryTrailIndexClicked?: Function;
 }
 
 const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
@@ -23,6 +24,7 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
     bookmarkDepth,
     bookmarkHighlight,
     bookmarkNumLeadInStates,
+    onDiscoveryTrailIndexClicked,
   } = props;
   return (
     <div className="playback-pane-container">
@@ -37,6 +39,7 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
         leadIn={bookmarkNumLeadInStates}
         depth={bookmarkDepth - 1}
         highlight={bookmarkHighlight}
+        onIndexClicked={idx => onDiscoveryTrailIndexClicked(idx)}
       />
     </div>
   );
@@ -53,6 +56,7 @@ PlaybackPane.propTypes = {
   bookmarkDepth: PropTypes.number.isRequired,
   bookmarkHighlight: PropTypes.number.isRequired,
   bookmarkNumLeadInStates: PropTypes.number,
+  onDiscoveryTrailIndexClicked: PropTypes.func,
 };
 
 export default PlaybackPane;

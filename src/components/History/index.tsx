@@ -46,6 +46,7 @@ export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
   selectedBookmarkDepth?: number;
   isPlayingBack?: boolean;
   bindTransportKeysGlobally?: boolean;
+  onSelectState?: Function;
 }
 
 export interface IHistoryProps extends IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps {}
@@ -73,6 +74,7 @@ export class History extends React.Component<IHistoryProps, {}> {
     onToggleBranchContainer: PropTypes.func,
     onStartPlayback: PropTypes.func,
     onStopPlayback: PropTypes.func,
+    onSelectState: PropTypes.func,
 
     /**
      * ControlBar Configuration Properties
@@ -153,6 +155,7 @@ export class History extends React.Component<IHistoryProps, {}> {
       selectedBookmark,
       selectedBookmarkDepth,
       onSelectBookmarkDepth,
+      onSelectState,
       bindTransportKeysGlobally,
     } = this.props;
 
@@ -189,6 +192,11 @@ export class History extends React.Component<IHistoryProps, {}> {
           bookmarkDepth={bookmarkPath.length}
           bookmarkHighlight={bookmarkHighlight}
           bookmarkNumLeadInStates={numLeadInStates}
+          onDiscoveryTrailIndexClicked={selectedIndex => {
+            const target = bookmarkPath[selectedIndex];
+            onSelectBookmarkDepth({ target, depth: selectedIndex, state: target });
+            onSelectState(target);
+          }}
         />
         <Transport
           playing
@@ -237,6 +245,7 @@ export default connect<IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnPro
     onClear: DagHistoryActions.clear,
     onLoad: DagHistoryActions.load,
     onSelectMainView: selectMainView,
+    onSelectState: DagHistoryActions.jumpToState,
     onToggleBranchContainer: toggleBranchContainer,
     onStartPlayback: Actions.startPlayback,
     onStopPlayback: Actions.stopPlayback,
