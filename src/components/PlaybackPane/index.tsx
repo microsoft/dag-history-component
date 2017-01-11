@@ -3,7 +3,6 @@ import './PlaybackPane.scss';
 
 const { PropTypes } = React;
 import DiscoveryTrail from '../DiscoveryTrail';
-import { determineHighlight } from '../provenance';
 
 const log = require('debug')('dag-history-component:components:PlaybackPane');
 
@@ -25,8 +24,6 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
     bookmarkHighlight,
     bookmarkNumLeadInStates,
   } = props;
-  const leadIn = bookmarkNumLeadInStates || 0;
-  const adjustedBookmarkHighlight = determineHighlight(bookmarkHighlight, bookmarkDepth, bookmarkNumLeadInStates);
   return (
     <div className="playback-pane-container">
       <div className="playback-pane-paged">
@@ -35,7 +32,12 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
         </div>
         <DiscoveryTrail vertical active depth={depth - 1} highlight={highlight} />
       </div>
-      <DiscoveryTrail active depth={leadIn || 0} highlight={adjustedBookmarkHighlight} />
+      <DiscoveryTrail
+        active
+        leadIn={bookmarkNumLeadInStates}
+        depth={bookmarkDepth - 1}
+        highlight={bookmarkHighlight}
+      />
     </div>
   );
 };

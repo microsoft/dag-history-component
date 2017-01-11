@@ -42,7 +42,7 @@ export default function (config: IConfiguration<any>) {
       result = {
         ...state,
         selectedBookmark: bookmarkIndex === undefined ? state.selectedBookmark : bookmarkIndex,
-        selectedBookmarkDepth: depth === undefined ? state.selectedBookmarkDepth : depth,
+        selectedBookmarkDepth: depth,
       };
     } else if (action.type === START_PLAYBACK) {
       result = {
