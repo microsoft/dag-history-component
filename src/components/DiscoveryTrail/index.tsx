@@ -19,6 +19,11 @@ export interface IDiscoveryTrailProps {
   active?: boolean;
 
   /**
+   * If true, this trail represents a bookmark list, and does not bother with lead-ins
+   */
+  bookmark?: boolean;
+
+  /**
    * The highlighted index
    */
   highlight?:  number;
@@ -76,8 +81,9 @@ export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps
   }
 
   private get pagerClass() {
-    const { vertical } = this.props;
-    return classnames('state-pager', { vertical }, { horizontal: !vertical });
+    const { vertical, bookmark: isBookmark } = this.props;
+    const baseClassName = isBookmark ? 'bookmark-pager' : 'state-pager';
+    return classnames(baseClassName, { vertical }, { horizontal: !vertical });
   }
 
   public render() {
@@ -87,6 +93,7 @@ export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps
       highlight,
       leadIn,
       active,
+      bookmark: isBookmark,
     } = this.props;
     const spans = calculateSpans(depth, highlight, leadIn, active);
     const spanTags = spans.map((s, index) => (

@@ -106,6 +106,16 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     } = this.state;
     const { highlight } = this;
 
+    const discoveryTrail = active ? (
+      <DiscoveryTrail
+        depth={this.commitPathLength - 1}
+        highlight={highlight}
+        leadIn={numLeadInStates}
+        active={active}
+        onIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
+      />
+    ) : null;
+
     return editMode ? (
       <EditBookmark
         {...this.props}
@@ -139,13 +149,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
                 {annotation}
               </div>
             </div>
-            <DiscoveryTrail
-              depth={this.commitPathLength - 1}
-              highlight={highlight}
-              leadIn={numLeadInStates}
-              active={active}
-              onIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
-            />
+            { discoveryTrail }
           </div>
         </div>
       );

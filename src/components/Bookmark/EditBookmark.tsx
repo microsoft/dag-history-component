@@ -122,11 +122,16 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
     const isIntroSet = numLeadInStates !== undefined;
     const setIntroButton = isIntroSet ? (
-      <button style={{marginLeft: 5}} onClick={() => this.onLeadInSet(undefined)}>
+      <button
+        className="discovery-trail-intro-button"
+        style={{marginLeft: 5}}
+        onClick={() => this.onLeadInSet(undefined)}
+      >
         Clear intro
       </button>
     ) : (
       <button
+        className="discovery-trail-intro-button"
         style={{marginLeft: 5}}
         onClick={(e) => this.onLeadInSet(this.props.commitPathLength - this.props.selectedDepth)}
       >
@@ -157,11 +162,11 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             onFocus={() => onClick()}
             onBlur={() => this.onDoneEditing()}
           />
-          <div className="bookmark-controls-container">
-            {setIntroButton}
-          </div>
           <div>
-            <span className="discovery-trail-label">Discovery trail</span>
+            <div className="bookmark-controls-container">
+              <span className="discovery-trail-label">Discovery trail</span>
+              {setIntroButton}
+            </div>
             <DiscoveryTrail
               depth={commitPathLength}
               highlight={selectedDepth}

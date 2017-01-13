@@ -88,38 +88,4 @@ describe('The Transport Component', () => {
     })
     .then(() => expect(fired).to.be.true);
   });
-
-  it('can handle skipToStart invocations', () => {
-    let rendered = mount(<Transport />);
-    (rendered.get(0) as any).skipToStart();
-
-    let fired = false;
-    rendered = mount(<Transport onSkipToStart={() => fired = true} />);
-    (rendered.get(0) as any).skipToStart();
-    return Promise.delay(CLICK_DELAY)
-    .then(() => {
-      expect(fired).to.be.true;
-      fired = false;
-      rendered.find(MdSkipPrevious).simulate('click');
-      return Promise.delay(CLICK_DELAY);
-    })
-    .then(() => expect(fired).to.be.true);
-  });
-
-  it('can handle skipToEnd invocations', () => {
-    let rendered = mount(<Transport />);
-    (rendered.get(0) as any).skipToEnd();
-
-    let fired = false;
-    rendered = mount(<Transport onSkipToEnd={() => fired = true} />);
-    (rendered.get(0) as any).skipToEnd();
-    return Promise.delay(CLICK_DELAY)
-    .then(() => {
-      expect(fired).to.be.true;
-      fired = false;
-      rendered.find(MdSkipNext).simulate('click');
-      return Promise.delay(CLICK_DELAY);
-    })
-    .then(() => expect(fired).to.be.true);
-  });
 });

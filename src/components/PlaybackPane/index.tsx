@@ -32,7 +32,7 @@ const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
         <div className="playback-pane">
           <h3>{text}</h3>
         </div>
-        <DiscoveryTrail vertical active depth={depth - 1} highlight={highlight} />
+        <DiscoveryTrail vertical bookmark active depth={depth - 1} highlight={highlight} />
       </div>
       <DiscoveryTrail
         active
