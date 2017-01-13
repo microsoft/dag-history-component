@@ -121,15 +121,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
     const isIntroSet = numLeadInStates !== undefined;
-    const setIntroButton = isIntroSet ? (
-      <button
-        className="discovery-trail-intro-button"
-        style={{marginLeft: 5}}
-        onClick={() => this.onLeadInSet(undefined)}
-      >
-        Clear intro
-      </button>
-    ) : (
+    const setIntroButton = (
       <button
         className="discovery-trail-intro-button"
         style={{marginLeft: 5}}

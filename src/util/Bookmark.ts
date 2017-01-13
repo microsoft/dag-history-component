@@ -60,24 +60,21 @@ export default class Bookmark {
     return this.commitPathLength - this.presentedPathLength;
   }
 
-  public startingDepth(presenting: boolean) {
+  public startingDepth() {
     const isLeadInDefined = this.numLeadInStates !== undefined;
-    if (presenting) {
-      return isLeadInDefined ? this.hiddenPathLength : undefined;
-    }
-    return isLeadInDefined ? this.hiddenPathLength : 0;
+    return isLeadInDefined ? this.hiddenPathLength : undefined;
   }
 
   public isDepthAtEnd(depth: number) {
     return depth === undefined || depth >= this.commitPathLength - 1;
   }
 
-  public isDepthAtStart(depth: number, presenting: boolean) {
+  public isDepthAtStart(depth: number) {
     if (depth === undefined) {
       return this.startingDepth === undefined;
     }
 
-    let startingDepth = this.startingDepth(presenting);
+    let startingDepth = this.startingDepth();
     if (startingDepth === undefined) {
       startingDepth = this.commitPath.length - 1;
     }

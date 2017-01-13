@@ -106,7 +106,8 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     } = this.state;
     const { highlight } = this;
 
-    const discoveryTrail = active ? (
+    const isDiscoveryTrailVisible = active && numLeadInStates > 0;
+    const discoveryTrail = isDiscoveryTrailVisible ? (
       <DiscoveryTrail
         depth={this.commitPathLength - 1}
         highlight={highlight}

@@ -57,11 +57,11 @@ describe('The Transport Component', () => {
 
   it('can handle back invocations', () => {
     let rendered = mount(<Transport />);
-    (rendered.get(0) as any).back();
+    (rendered.get(0) as any).stepBack();
 
     let fired = false;
-    rendered = mount(<Transport onBack={() => fired = true} />);
-    (rendered.get(0) as any).back();
+    rendered = mount(<Transport onStepBack={() => fired = true} />);
+    (rendered.get(0) as any).stepBack();
     return Promise.delay(CLICK_DELAY)
     .then(() => {
       expect(fired).to.be.true;
@@ -74,11 +74,11 @@ describe('The Transport Component', () => {
 
   it('can handle forward invocations', () => {
     let rendered = mount(<Transport />);
-    (rendered.get(0) as any).forward();
+    (rendered.get(0) as any).stepForward();
 
     let fired = false;
-    rendered = mount(<Transport onForward={() => fired = true} />);
-    (rendered.get(0) as any).forward();
+    rendered = mount(<Transport onStepForward={() => fired = true} />);
+    (rendered.get(0) as any).stepForward();
     return Promise.delay(CLICK_DELAY)
     .then(() => {
       expect(fired).to.be.true;

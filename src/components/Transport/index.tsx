@@ -170,9 +170,9 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
         tabIndex={0}
         onKeyPress={() => {}} // allows event bubbling
       >
-        <MdKeyboardArrowLeft size={iconSize} onClick={() => this.back()} />
+        <MdKeyboardArrowLeft size={iconSize} onClick={() => this.stepBack()} />
         {playPauseButton}
-        <MdKeyboardArrowRight size={iconSize} onClick={() => this.forward()} />
+        <MdKeyboardArrowRight size={iconSize} onClick={() => this.stepForward()} />
       </div>
     );
   }

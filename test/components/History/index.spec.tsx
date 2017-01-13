@@ -56,7 +56,7 @@ describe('The History Component', () => {
     expect(rendered).to.be.ok;
   });
 
-  it.skip('can be rendered in storyboarding mode', () => {
+  xit('can be rendered in storyboarding mode', () => {
     const store = createStore(() => ({}));
     const history = dagHistory.createHistory({}, 'initialBranch', 'initialState');
     const rendered = mount(

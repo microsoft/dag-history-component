@@ -31,7 +31,7 @@ export default function makeActions(
   const depth = bookmark.sanitizeDepth(rawSelectedBookmarkDepth);
 
   const handleStepBack = () => {
-    const isAtBookmarkStart = bookmark.isDepthAtStart(depth, isPresenting);
+    const isAtBookmarkStart = bookmark.isDepthAtStart(depth);
     const isAtBeginning = bookmarkIndex === 0 && isAtBookmarkStart;
 
     // We're at the start of the presentation, do nothing
@@ -69,7 +69,7 @@ export default function makeActions(
     // Go to the start of the next bookmark
     log('going to next bookmark');
     const nextBookmark = new Bookmark(bookmarks[bookmarkIndex + 1], graph);
-    jump(bookmarkIndex + 1, nextBookmark.startingDepth(isPresenting));
+    jump(bookmarkIndex + 1, nextBookmark.startingDepth());
   };
 
   const handleJumpToBookmark = (index: number) => jump(index, undefined);

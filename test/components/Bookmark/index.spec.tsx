@@ -53,7 +53,7 @@ describe('Bookmark Component', () => {
     expect(rendered.find('.bookmark-input').length).to.equal(1);
   });
 
-  it.skip('will pop out of edit mode when the bookmark-details div is blurred', () => {
+  xit('will pop out of edit mode when the bookmark-details div is blurred', () => {
     let done = false;
     const doneEditing = () => (done = true);
     const rendered = mount(
