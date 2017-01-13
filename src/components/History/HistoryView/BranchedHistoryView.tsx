@@ -21,13 +21,10 @@ export interface IBranchedHistoryViewDispatchProps {
   onRemoveBookmark: Function;
   onToggleBranchContainer: Function;
   onHighlightSuccessors: Function;
-  onUndo: Function;
-  onRedo: Function;
   onRenameBranch: Function;
 }
 
 export interface IBranchedHistoryViewOwnProps extends IHistoryContainerSharedProps {
-  bindTransportKeysGlobally?: boolean;
 }
 
 export interface IBranchedHistoryViewProps extends
@@ -40,9 +37,6 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
   const {
     branchContainerExpanded,
     onToggleBranchContainer,
-    onUndo,
-    onRedo,
-    bindTransportKeysGlobally,
   } = props;
   const branchList = branchContainerExpanded ?
     <BranchListContainer {...props} /> :
@@ -61,16 +55,6 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
         </div>
         {branchList}
       </div>
-      <Transport
-        reverseVertical
-        showPlay={false}
-        bindTransportKeysGlobally={bindTransportKeysGlobally}
-        iconSize={30}
-        onStepBack={onUndo}
-        onStepForward={onRedo}
-        onBack={onUndo}
-        onForward={onRedo}
-      />
     </div>
   );
 };
@@ -93,10 +77,6 @@ BranchedHistoryView.propTypes = {
   onRemoveBookmark: PropTypes.func,
   onToggleBranchContainer: PropTypes.func,
   onHighlightSuccessors: PropTypes.func,
-  onUndo: PropTypes.func,
-  onRedo: PropTypes.func,
-  onSkipToStart: PropTypes.func,
-  onSkipToEnd: PropTypes.func,
   onRenameBranch: PropTypes.func,
 
   /**
@@ -114,8 +94,6 @@ export default connect<IBranchedHistoryViewStateProps, IBranchedHistoryViewDispa
     onRemoveBookmark: DagHistoryActions.removeBookmark,
     onToggleBranchContainer: DagComponentActions.toggleBranchContainer,
     onHighlightSuccessors: DagHistoryActions.pinState,
-    onUndo: DagHistoryActions.undo,
-    onRedo: DagHistoryActions.redo,
     onRenameBranch: DagHistoryActions.renameBranch,
   }, dispatch)
 )(BranchedHistoryView);

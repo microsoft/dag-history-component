@@ -45,11 +45,12 @@ export default function (config: IConfiguration<any>) {
         selectedBookmarkDepth: depth,
       };
     } else if (action.type === START_PLAYBACK) {
+      const { initialDepth } = action.payload;
       result = {
         ...state,
         isPlayingBack: true,
         selectedBookmark: 0,
-        selectedBookmarkDepth: undefined,
+        selectedBookmarkDepth: initialDepth,
       };
     } else if (action.type === STOP_PLAYBACK) {
       result = {

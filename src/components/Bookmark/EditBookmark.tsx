@@ -3,6 +3,8 @@ import './Bookmark.scss';
 const { PropTypes } = React;
 import DiscoveryTrail from '../DiscoveryTrail';
 
+const MdClose = require("react-icons/lib/md/close");
+
 const log = require('debug')('dag-history-component:components:Bookmark');
 
 export interface IEditBookmarkProps {
@@ -138,8 +140,9 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
         data-index={index}
       >
         <div className="bookmark-details-editable">
-          <div style={{ display: 'flex' }} onClick={() => this.onDone()}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div className="bookmark-title">{name}</div>
+            <MdClose onClick={() => this.onDone()} />
           </div>
           <textarea
             style={{ marginTop: 5 }}

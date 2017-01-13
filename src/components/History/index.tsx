@@ -14,6 +14,7 @@ import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
 import isNumber from '../../isNumber';
 import makeActions from './BookmarkActions';
+import Bookmark from '../../util/Bookmark';
 import './History.scss';
 
 const { PropTypes } = React;
@@ -174,11 +175,14 @@ export class History extends React.Component<IHistoryProps, {}> {
       handleStepForward,
       handleNextBookmark,
       handlePreviousBookmark,
-    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, true);
+      handleStepBackUnbounded,
+    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
 
     const bookmarkHighlight = (selectedBookmarkDepth !== undefined) ?
       selectedBookmarkDepth :
       bookmarkPath.length - 1;
+
+    const initialDepth = new Bookmark(history.bookmarks[0], new DagGraph(history.graph)).startingDepth();
 
     // End the presentation if we're on the last slide
     return (
@@ -199,11 +203,11 @@ export class History extends React.Component<IHistoryProps, {}> {
         <Transport
           playing
           bindTransportKeysGlobally={bindTransportKeysGlobally}
-          onStepBack={handleStepBack}
+          onStepBack={handleStepBackUnbounded}
           onStepForward={handleStepForward}
-          onBack={handlePreviousBookmark}
-          onForward={handleNextBookmark}
-          onPlay={onStartPlayback}
+          onBack={handleStepBack}
+          onForward={handleStepForward}
+          onPlay={() => onStartPlayback({ initialDepth })}
           onStop={onStopPlayback}
         />
       </div>

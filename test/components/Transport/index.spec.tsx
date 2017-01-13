@@ -10,7 +10,7 @@ const MdKeyboardArrowRight = require("react-icons/lib/md/keyboard-arrow-right");
 const MdSkipNext = require("react-icons/lib/md/skip-next");
 const MdSkipPrevious = require("react-icons/lib/md/skip-previous");
 const MdPlayArrow = require("react-icons/lib/md/play-arrow");
-const MdPause = require("react-icons/lib/md/pause");
+const MdStop = require("react-icons/lib/md/stop");
 
 const CLICK_DELAY = 55;
 
@@ -49,7 +49,7 @@ describe('The Transport Component', () => {
     .then(() => {
       expect(fired).to.be.true;
       fired = false;
-      rendered.find(MdPause).simulate('click');
+      rendered.find(MdStop).simulate('click');
       return Promise.delay(CLICK_DELAY);
     })
     .then(() => expect(fired).to.be.true);

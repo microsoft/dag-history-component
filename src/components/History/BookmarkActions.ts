@@ -8,7 +8,6 @@ export default function makeActions(
   rawSelectedBookmarkDepth: number,
   history: any,
   onSelectBookmarkDepth,
-  isPresenting: boolean,
 ) {
   const { bookmarks } = history;
   const graph = new DagGraph(history.graph);
@@ -30,8 +29,7 @@ export default function makeActions(
   const bookmark = bookmarkAt(bookmarkIndex);
   const depth = bookmark.sanitizeDepth(rawSelectedBookmarkDepth);
 
-  const handleStepBack = () => {
-    const isAtBookmarkStart = bookmark.isDepthAtStart(depth);
+  const rawStepBack = (isAtBookmarkStart: boolean) => {
     const isAtBeginning = bookmarkIndex === 0 && isAtBookmarkStart;
 
     // We're at the start of the presentation, do nothing
@@ -72,6 +70,9 @@ export default function makeActions(
     jump(bookmarkIndex + 1, nextBookmark.startingDepth());
   };
 
+  const handleStepBack = () => rawStepBack(bookmark.isDepthAtStart(depth));
+  const handleStepBackUnbounded = () => rawStepBack(depth === 0);
+
   const handleJumpToBookmark = (index: number) => jump(index, undefined);
   const handlePreviousBookmark = () => handleJumpToBookmark(Math.max(bookmarkIndex - 1, 0));
   const handleNextBookmark = () => handleJumpToBookmark(
@@ -83,5 +84,6 @@ export default function makeActions(
     handleStepForward,
     handleNextBookmark,
     handlePreviousBookmark,
+    handleStepBackUnbounded,
   };
 }

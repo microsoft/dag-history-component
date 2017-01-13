@@ -1,9 +1,11 @@
 import * as React from "react";
 const { default: keydown, Keys } = require("react-keydown");
-const MdKeyboardArrowLeft = require("react-icons/lib/md/keyboard-arrow-left");
-const MdKeyboardArrowRight = require("react-icons/lib/md/keyboard-arrow-right");
-const MdPlayArrow = require("react-icons/lib/md/play-arrow");
-const MdPause = require("react-icons/lib/md/pause");
+const LeftIcon = require("react-icons/lib/md/keyboard-arrow-left");
+const RightIcon = require("react-icons/lib/md/keyboard-arrow-right");
+const UpIcon = require("react-icons/lib/fa/caret-up");
+const DownIcon = require("react-icons/lib/fa/caret-down");
+const PlayIcon = require("react-icons/lib/md/play-arrow");
+const StopIcon = require("react-icons/lib/md/stop");
 import { debounce } from "lodash";
 
 const { PropTypes } = React;
@@ -160,8 +162,8 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     let playPauseButton = <div />;
     if (showPlay) {
       playPauseButton = playing ?
-        (<MdPause size={iconSize} onClick={() => this.stop()} />) :
-        (<MdPlayArrow size={iconSize} onClick={() => this.play()} />)
+        (<StopIcon size={iconSize} onClick={() => this.stop()} />) :
+        (<PlayIcon size={iconSize} onClick={() => this.play()} />)
     }
 
     return (
@@ -170,9 +172,15 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
         tabIndex={0}
         onKeyPress={() => {}} // allows event bubbling
       >
-        <MdKeyboardArrowLeft size={iconSize} onClick={() => this.stepBack()} />
+        <div>
+          <LeftIcon size={iconSize} onClick={() => this.stepBack()} />
+          <RightIcon size={iconSize} onClick={() => this.stepForward()} />
+        </div>
         {playPauseButton}
-        <MdKeyboardArrowRight size={iconSize} onClick={() => this.stepForward()} />
+        <div>
+          <UpIcon size={iconSize} onClick={() => this.back()} />
+          <DownIcon size={iconSize} onClick={() => this.forward()} />
+        </div>
       </div>
     );
   }
