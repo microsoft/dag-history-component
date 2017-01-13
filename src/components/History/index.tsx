@@ -174,8 +174,6 @@ export class History extends React.Component<IHistoryProps, {}> {
       handleStepForward,
       handleNextBookmark,
       handlePreviousBookmark,
-      handleSkipToEnd,
-      handleSkipToStart,
     } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, true);
 
     const bookmarkHighlight = (selectedBookmarkDepth !== undefined) ?
@@ -201,12 +199,10 @@ export class History extends React.Component<IHistoryProps, {}> {
         <Transport
           playing
           bindTransportKeysGlobally={bindTransportKeysGlobally}
-          onSkipToStart={handleSkipToEnd}
           onStepBack={handleStepBack}
           onStepForward={handleStepForward}
           onBack={handlePreviousBookmark}
           onForward={handleNextBookmark}
-          onSkipToEnd={handleSkipToStart}
           onPlay={onStartPlayback}
           onStop={onStopPlayback}
         />

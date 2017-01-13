@@ -23,8 +23,6 @@ export interface IBranchedHistoryViewDispatchProps {
   onHighlightSuccessors: Function;
   onUndo: Function;
   onRedo: Function;
-  onSkipToStart: Function;
-  onSkipToEnd: Function;
   onRenameBranch: Function;
 }
 
@@ -44,8 +42,6 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
     onToggleBranchContainer,
     onUndo,
     onRedo,
-    onSkipToStart,
-    onSkipToEnd,
     bindTransportKeysGlobally,
   } = props;
   const branchList = branchContainerExpanded ?
@@ -66,15 +62,14 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
         {branchList}
       </div>
       <Transport
+        reverseVertical
         showPlay={false}
         bindTransportKeysGlobally={bindTransportKeysGlobally}
         iconSize={30}
-        onSkipToStart={onSkipToStart}
         onStepBack={onUndo}
         onStepForward={onRedo}
-        onBack={onRedo}
-        onForward={onUndo}
-        onSkipToEnd={onSkipToEnd}
+        onBack={onUndo}
+        onForward={onRedo}
       />
     </div>
   );
@@ -121,8 +116,6 @@ export default connect<IBranchedHistoryViewStateProps, IBranchedHistoryViewDispa
     onHighlightSuccessors: DagHistoryActions.pinState,
     onUndo: DagHistoryActions.undo,
     onRedo: DagHistoryActions.redo,
-    onSkipToStart: DagHistoryActions.skipToStart,
-    onSkipToEnd: DagHistoryActions.skipToEnd,
     onRenameBranch: DagHistoryActions.renameBranch,
   }, dispatch)
 )(BranchedHistoryView);

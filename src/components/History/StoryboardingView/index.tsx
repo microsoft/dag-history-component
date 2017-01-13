@@ -46,8 +46,6 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
     handleStepForward,
     handleNextBookmark,
     handlePreviousBookmark,
-    handleSkipToEnd,
-    handleSkipToStart,
   } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, false);
 
   return (
@@ -55,10 +53,8 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
       <BookmarkListContainer {...props} />
       <Transport
         bindTransportKeysGlobally={bindTransportKeysGlobally}
-        onSkipToStart={handleSkipToStart}
         onBack={handlePreviousBookmark}
         onForward={handleNextBookmark}
-        onSkipToEnd={handleSkipToEnd}
         onPlay={onStartPlayback}
         onStop={onStopPlayback}
         onStepBack={handleStepBack}

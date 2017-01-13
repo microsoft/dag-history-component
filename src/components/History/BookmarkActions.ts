@@ -77,15 +77,11 @@ export default function makeActions(
   const handleNextBookmark = () => handleJumpToBookmark(
     Math.min(bookmarkIndex + 1, bookmarks.length - 1),
   );
-  const handleSkipToStart = () => handleJumpToBookmark(0);
-  const handleSkipToEnd = () => handleJumpToBookmark(bookmarks.length - 1);
 
   return {
     handleStepBack,
     handleStepForward,
     handleNextBookmark,
     handlePreviousBookmark,
-    handleSkipToStart,
-    handleSkipToEnd,
   };
 }
