@@ -16,6 +16,8 @@ export interface IBookmarkListContainerDispatchProps {
   onSelectBookmark: Function;
   onBookmarkChange: Function;
   onBookmarkMove: Function;
+  onSelectState: Function;
+  onSelectBookmarkDepth: Function;
 }
 
 export interface IBookmarkListContainerOwnProps {
@@ -39,6 +41,8 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
     onSelectBookmark,
     onBookmarkChange,
     onBookmarkMove,
+    onSelectState,
+    onSelectBookmarkDepth,
     selectedBookmark: selectedBookmarkIndex,
     selectedBookmarkDepth: selectedBookmarkDepthIndex
   } = props;
@@ -75,6 +79,8 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
       bookmarks={bookmarkData}
       onBookmarkClick={(index, state) => onSelectBookmark(index, state)}
       onBookmarkMove={onBookmarkMove}
+      onSelectState={onSelectState}
+      onSelectBookmarkDepth={onSelectBookmarkDepth}
     />
   );
 };
@@ -83,6 +89,7 @@ BookmarkListContainer.propTypes = {
   onSelectBookmark: React.PropTypes.func.isRequired,
   onBookmarkChange: React.PropTypes.func.isRequired,
   onBookmarkMove: React.PropTypes.func.isRequired,
+  onSelectState: React.PropTypes.func,
   selectedBookmark: React.PropTypes.number,
   selectedBookmarkDepth: React.PropTypes.number,
 };
@@ -93,5 +100,7 @@ export default connect<IBookmarkListContainerStateProps, IBookmarkListContainerD
     onSelectBookmark: Actions.selectBookmark,
     onBookmarkChange: DagHistoryActions.changeBookmark,
     onBookmarkMove: DagHistoryActions.moveBookmark,
+    onSelectState: DagHistoryActions.jumpToState,
+    onSelectBookmarkDepth: Actions.selectBookmarkDepth,
   }, dispatch)
 )(BookmarkListContainer);

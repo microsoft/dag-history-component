@@ -1,4 +1,4 @@
-// const log = require('debug')('dag-history-component:SpanCalculator');
+const log = require('debug')('dag-history-component:SpanCalculator');
 
 export class Span {
   public start: number;
@@ -106,6 +106,10 @@ function insertSplittingSpan(spans: Span[], newSpan: Span, i: number) {
 }
 
 export function insertSpan(spans: Span[], newSpan: Span) {
+  if (!newSpan) {
+    throw new Error('could not insert span that is undefined/null');
+  }
+
   for (let i = 0; i < spans.length; i += 1) {
     const span = spans[i];
     if (span.areBoundsEqual(newSpan)) {
@@ -120,61 +124,6 @@ export function insertSpan(spans: Span[], newSpan: Span) {
       return insertSplittingSpan(spans, newSpan, i);
     }
   }
-
-  throw new Error(`Could not insert span ${newSpan} into spanset [${spans.map(s => s.toString()).join(',')}]`);
-}
-
-
-const isNumber = d => !isNaN(d) && d !== null;
-const convertArg = (arg, offset) => (arg !== null && arg !== undefined) ? arg - offset : arg;
-
-export function getSpans(
-  type: string,
-  max: number,
-  startArg: number,
-  endArg: number,
-  branchStartArg: number,
-  branchEndArg: number,
-  activeIndexArg: number,
-  successorIndexArg: number,
-  pinnedIndexArg: number,
-) {
-  const offset = startArg;
-  const start = startArg - offset;
-  const end = endArg - offset;
-  const branchStart = branchStartArg - offset;
-  const branchEnd = branchEndArg - offset;
-  const activeIndex = convertArg(activeIndexArg, offset);
-  const successorIndex = convertArg(successorIndexArg, offset);
-  const pinnedIndex = convertArg(pinnedIndexArg, offset);
-
-  // Set up the initial spans ranges; culling out empty ranges
-  let spans = initialSpans(start, max);
-  const isCurrent = type === 'current';
-  spans = insertSpan(spans, new Span(start, end + 1, 'UNRELATED_UNIQUE'));
-
-  if (isNumber(branchStart) && isNumber(branchEnd) && branchStart >= 0 && branchEnd >= 0) {
-    const color = isCurrent ? 'CURRENT' : 'ANCESTOR';
-    const span = new Span(branchStart, branchEnd + 1, color);
-    spans = insertSpan(spans, span);
-  }
-
-  if (isNumber(activeIndex) && activeIndex >= start && activeIndex <= max) {
-    let color = type === 'current' ? 'CURRENT_ACTIVE' : 'LEGACY_ACTIVE';
-    if (isNumber(pinnedIndex) && activeIndex === pinnedIndex + 1) {
-      color = 'SUCCESSOR_ACTIVE';
-    }
-    const span = new Span(activeIndex, activeIndex + 1, color);
-    spans = insertSpan(spans, span);
-  }
-  if (isNumber(pinnedIndex) && pinnedIndex >= 0) {
-    const span = new Span(pinnedIndex, pinnedIndex + 1, 'SUCCESSOR_PIN');
-    spans = insertSpan(spans, span);
-  }
-  if (isNumber(successorIndex) && successorIndex >= 0) {
-    const color = isCurrent ? 'SUCCESSOR_ACTIVE' : 'SUCCESSOR';
-    const span = new Span(successorIndex, successorIndex + 1, color);
-    spans = insertSpan(spans, span);
-  }
+  log(`Could not insert span ${newSpan} into spanset ${spans}`);
   return spans;
 }

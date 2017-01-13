@@ -13,6 +13,8 @@ export interface IBookmarkListProps {
   bookmarks: any[];
   onBookmarkClick?: Function;
   onBookmarkMove?: Function;
+  onSelectState?: Function;
+  onSelectBookmarkDepth?: Function;
 }
 
 class BookmarkList extends React.Component<IBookmarkListProps, {}> {
@@ -20,6 +22,7 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
   public static propTypes = {
     onBookmarkClick: PropTypes.func,
     onBookmarkMove: PropTypes.func,
+    onSelectState: PropTypes.func,
     bookmarks: PropTypes.arrayOf(
       React.PropTypes.shape(Bookmark.propTypes)
     ).isRequired,
@@ -87,6 +90,8 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
     const {
       bookmarks,
       onBookmarkClick,
+      onSelectState,
+      onSelectBookmarkDepth,
     } = this.props;
 
     const bookmarkViews = bookmarks.map((s, index) => (
@@ -98,6 +103,12 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
         onDragStart={event => this.onBookmarkDragStart(event)}
         onDragEnd={event => this.onBookmarkDragEnd(event)}
         onClick={() => this.onBookmarkClick(index, s.stateId)}
+        onDiscoveryTrailIndexClicked={selectedIndex => {
+          const target = s.shortestCommitPath[selectedIndex];
+          console.log("selecting index %s(%s) in bookmark", selectedIndex, target, onSelectState);
+          onSelectBookmarkDepth({ target, depth: selectedIndex, state: target });
+          onSelectState(target);
+        }}
       />
     ));
     // The endSentinel is here for drag-and-drop operations so that we have an elements
@@ -111,7 +122,9 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
     );
     return (
       <div className="state-list-container" onDragOver={event => this.onDragOver(event)}>
-        {bookmarkViews.concat([endSentinel])}
+        <div className="bookmark-list">
+          {bookmarkViews.concat([endSentinel])}
+        </div>
       </div>
     );
   }

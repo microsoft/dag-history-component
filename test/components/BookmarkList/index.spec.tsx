@@ -37,7 +37,7 @@ describe('The BookmarkList Component', () => {
     expect(rendered).to.be.ok;
   });
 
-  it('can propagate up bookmark clicks', () => {
+  it.skip('can propagate up bookmark clicks', () => {
     let clickedIndex = null;
     let clickedStateId = null;
     const rendered = mount(

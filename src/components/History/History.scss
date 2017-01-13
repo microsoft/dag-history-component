@@ -18,8 +18,8 @@
 
 .state-list-container {
   display: flex;
-  flex: 2;
   flex-direction: column;
+  flex: 2; 
   overflow-x: hidden;
   overflow-y: scroll;
 }

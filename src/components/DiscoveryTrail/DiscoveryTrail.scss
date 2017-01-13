@@ -1,0 +1,38 @@
+$minPagerWidth: 6px;
+
+$borderColor: lightgrey;
+$emptyStateColor: #d4f5e2;
+$highlightedStateInactiveBookmarkColor: #ABEBC6;
+$highlightedStateColor: #2ECC71;
+$leadInStateColor: #ABEBC6;
+
+.pager-state {
+  &.highlighted {
+    background-color: $highlightedStateColor;
+  }
+  &.highlightedInactive {
+    background-color: $highlightedStateInactiveBookmarkColor;
+  }
+  &.leadin {
+    background-color: $leadInStateColor;
+  }
+  &.empty {
+    background-color: $emptyStateColor;
+  }
+}
+
+.state-pager {
+  display: flex;
+
+  &.horizontal {
+    flex-direction: row;
+    min-height: $minPagerWidth;
+    width: 100%;
+  }
+
+  &.vertical {
+    flex-direction: column;
+    height: 100%;
+    min-width: $minPagerWidth;
+  }
+}

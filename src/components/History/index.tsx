@@ -13,7 +13,6 @@ import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
 import isNumber from '../../isNumber';
-import { determineCommitPathLength, determineHighlight } from '../provenance';
 import makeActions from './BookmarkActions';
 import './History.scss';
 
@@ -47,6 +46,7 @@ export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
   selectedBookmarkDepth?: number;
   isPlayingBack?: boolean;
   bindTransportKeysGlobally?: boolean;
+  onSelectState?: Function;
 }
 
 export interface IHistoryProps extends IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps {}
@@ -74,6 +74,7 @@ export class History extends React.Component<IHistoryProps, {}> {
     onToggleBranchContainer: PropTypes.func,
     onStartPlayback: PropTypes.func,
     onStopPlayback: PropTypes.func,
+    onSelectState: PropTypes.func,
 
     /**
      * ControlBar Configuration Properties
@@ -154,6 +155,7 @@ export class History extends React.Component<IHistoryProps, {}> {
       selectedBookmark,
       selectedBookmarkDepth,
       onSelectBookmarkDepth,
+      onSelectState,
       bindTransportKeysGlobally,
     } = this.props;
 
@@ -174,7 +176,11 @@ export class History extends React.Component<IHistoryProps, {}> {
       handlePreviousBookmark,
       handleSkipToEnd,
       handleSkipToStart,
-    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
+    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, true);
+
+    const bookmarkHighlight = (selectedBookmarkDepth !== undefined) ?
+      selectedBookmarkDepth :
+      bookmarkPath.length - 1;
 
     // End the presentation if we're on the last slide
     return (
@@ -183,8 +189,14 @@ export class History extends React.Component<IHistoryProps, {}> {
           text={slideText}
           depth={bookmarks.length}
           highlight={selectedBookmark}
-          bookmarkDepth={determineCommitPathLength(bookmarkPath.length, numLeadInStates)}
-          bookmarkHighlight={determineHighlight(selectedBookmarkDepth, bookmarkPath.length, numLeadInStates, true)}
+          bookmarkDepth={bookmarkPath.length}
+          bookmarkHighlight={bookmarkHighlight}
+          bookmarkNumLeadInStates={numLeadInStates}
+          onDiscoveryTrailIndexClicked={selectedIndex => {
+            const target = bookmarkPath[selectedIndex];
+            onSelectBookmarkDepth({ target, depth: selectedIndex, state: target });
+            onSelectState(target);
+          }}
         />
         <Transport
           playing
@@ -233,6 +245,7 @@ export default connect<IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnPro
     onClear: DagHistoryActions.clear,
     onLoad: DagHistoryActions.load,
     onSelectMainView: selectMainView,
+    onSelectState: DagHistoryActions.jumpToState,
     onToggleBranchContainer: toggleBranchContainer,
     onStartPlayback: Actions.startPlayback,
     onStopPlayback: Actions.stopPlayback,

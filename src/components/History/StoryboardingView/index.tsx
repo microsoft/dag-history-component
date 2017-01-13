@@ -48,7 +48,7 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
     handlePreviousBookmark,
     handleSkipToEnd,
     handleSkipToStart,
-  } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
+  } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, false);
 
   return (
     <div className="history-container">

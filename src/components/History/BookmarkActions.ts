@@ -1,123 +1,84 @@
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
-import { determineCommitPathLength } from '../provenance';
+import Bookmark from '../../util/Bookmark';
+
+const log = require('debug')('dag-history-component:BookmarkActions');
 
 export default function makeActions(
   rawSelectedBookmark: number,
   rawSelectedBookmarkDepth: number,
   history: any,
   onSelectBookmarkDepth,
+  isPresenting: boolean,
 ) {
-  const graph = new DagGraph(history.graph);
   const { bookmarks } = history;
+  const graph = new DagGraph(history.graph);
   const { currentStateId } = graph;
-  const currentBookmarkIndex = rawSelectedBookmark !== undefined ?
-    rawSelectedBookmark :
-    bookmarks.findIndex(it => it.stateId === currentStateId);
-  const currentBookmark = bookmarks[currentBookmarkIndex];
-  const pathAt = (index) => {
-    if (index === undefined || index < 0 || index > bookmarks.length) {
-      return [];
+  const bookmarkAt = (index: number) => {
+    if (index < 0 || index >= bookmarks.length) {
+      return null;
     }
-    const bookmark = bookmarks[index];
-    return graph.shortestCommitPath(bookmark.stateId);
+    return new Bookmark(bookmarks[index], graph);
   };
-  const currentPath = pathAt(currentBookmarkIndex);
-  const currentDepth = rawSelectedBookmarkDepth !== undefined ?
-    rawSelectedBookmarkDepth :
-    currentPath.length - 1;
-
-  const configuredPathLength = determineCommitPathLength(
-    currentPath.length,
-    currentBookmark ? currentBookmark.data.numLeadInStates : currentPath.length - 1,
-  );
+  const jump = (index: number, depth: number) => {
+    const target = bookmarkAt(index);
+    const state = target.getStateAtDepth(depth);
+    onSelectBookmarkDepth({ bookmarkIndex: index, depth, state });
+  };
+  const bookmarkIndex = rawSelectedBookmark !== undefined ?
+    rawSelectedBookmark :
+    Math.max(0, bookmarks.findIndex(it => it.stateId === currentStateId));
+  const bookmark = bookmarkAt(bookmarkIndex);
+  const depth = bookmark.sanitizeDepth(rawSelectedBookmarkDepth);
 
   const handleStepBack = () => {
+    const isAtBookmarkStart = bookmark.isDepthAtStart(depth, isPresenting);
+    const isAtBeginning = bookmarkIndex === 0 && isAtBookmarkStart;
+
     // We're at the start of the presentation, do nothing
-    const currentPathStart = currentPath.length - configuredPathLength;
-    const isAtBookmarkStart = currentDepth <= currentPathStart;
-    const isAtBeginning = currentBookmarkIndex === 0 && isAtBookmarkStart;
-
-    if (currentBookmarkIndex !== undefined && !isAtBeginning) {
-      if (isAtBookmarkStart) {
-        const bookmarkIndex = currentBookmarkIndex - 1;
-        const path = pathAt(bookmarkIndex);
-
-        onSelectBookmarkDepth({
-          bookmarkIndex,
-          depth: undefined,
-          state: path[path.length - 1],
-        });
-      } else {
-        const depth = currentDepth - 1;
-        const state = currentPath[depth];
-        onSelectBookmarkDepth({
-          bookmarkIndex: currentBookmarkIndex,
-          depth,
-          state,
-        });
-      }
+    if (isAtBeginning) {
+      return;
     }
+
+    if (isAtBookmarkStart) {
+      log('going to previous bookmark');
+      jump(bookmarkIndex - 1, undefined);
+      return;
+    }
+
+    log('decrementing depth in current bookmark');
+    jump(bookmarkIndex, depth - 1);
   };
 
   const handleStepForward = () => {
-    const isAtBookmarkEnd = currentDepth === currentPath.length - 1;
-    const isAtLastBookmark = currentBookmarkIndex === bookmarks.length - 1;
+    const isAtBookmarkEnd = bookmark.isDepthAtEnd(depth);
+    const isAtLastBookmark = bookmarkIndex === bookmarks.length - 1;
     const isAtEnd = isAtLastBookmark && isAtBookmarkEnd;
 
     // We're at the end of the presentation, do nothing
-    if (currentBookmarkIndex !== undefined && !isAtEnd) {
-      if (isAtBookmarkEnd) {
-        const bookmarkIndex = currentBookmarkIndex + 1;
-        const bookmark = bookmarks[bookmarkIndex];
-        const path = pathAt(bookmarkIndex);
-        const commitPathLength = determineCommitPathLength(
-          path.length,
-          bookmark.data.numLeadInStates,
-        );
-        const depth = path.length - commitPathLength;
-
-        onSelectBookmarkDepth({
-          bookmarkIndex,
-          depth,
-          state: path[0],
-        });
-      } else {
-        const depth = currentDepth + 1;
-        onSelectBookmarkDepth({
-          bookmarkIndex: currentBookmarkIndex,
-          depth,
-          state: currentPath[depth],
-        });
-      }
+    if (isAtEnd) {
+      return;
     }
+
+    // If we're not at the end of this bookmark, just increment the step
+    if (!isAtBookmarkEnd) {
+      log('incrementing depth in current bookmark');
+      jump(bookmarkIndex, depth + 1);
+      return;
+    }
+
+    // Go to the start of the next bookmark
+    log('going to next bookmark');
+    const nextBookmark = new Bookmark(bookmarks[bookmarkIndex + 1], graph);
+    jump(bookmarkIndex + 1, nextBookmark.startingDepth(isPresenting));
   };
 
-  const handleJumpToBookmark = (bookmarkIndex: number) => {
-    const path = pathAt(bookmarkIndex);
-    onSelectBookmarkDepth({
-      bookmarkIndex,
-      depth: undefined,
-      state: path[path.length - 1],
-    });
-  };
-
-  const handlePreviousBookmark = () => {
-    const bookmarkIndex = Math.max(currentBookmarkIndex - 1, 0);
-    handleJumpToBookmark(bookmarkIndex);
-  };
-
-  const handleNextBookmark = () => {
-    const bookmarkIndex = Math.min(currentBookmarkIndex + 1, bookmarks.length - 1);
-    handleJumpToBookmark(bookmarkIndex);
-  };
-
-  const handleSkipToStart = () => {
-    handleJumpToBookmark(0);
-  };
-
-  const handleSkipToEnd = () => {
-    handleJumpToBookmark(bookmarks.length - 1);
-  };
+  const handleJumpToBookmark = (index: number) => jump(index, undefined);
+  const handlePreviousBookmark = () => handleJumpToBookmark(Math.max(bookmarkIndex - 1, 0));
+  const handleNextBookmark = () => handleJumpToBookmark(
+    Math.min(bookmarkIndex + 1, bookmarks.length - 1),
+  );
+  const handleSkipToStart = () => handleJumpToBookmark(0);
+  const handleSkipToEnd = () => handleJumpToBookmark(bookmarks.length - 1);
 
   return {
     handleStepBack,

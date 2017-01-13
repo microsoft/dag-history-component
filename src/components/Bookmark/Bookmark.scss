@@ -1,15 +1,20 @@
 $white: #fff;
 $highlight: #f00;
-$background: #ffe0b3;
-$selected-background: #ffb84d;
+$background: #f5e2d4;
+$selected-background: #ebc6ab;
 $gray: #d1d1d1;
 $charcoal: #5d6d7e;
 $black: #000;
 
+.discovery-trail-label {
+  font-size: 9pt;
+  font-weight: lighter;
+}
+
 .history-bookmark {
+  border-top: 1px solid $white;
   align-items: center;
   background-color: $background;
-  border-top: 1px solid $white;
   cursor: pointer;
   display: flex;
   min-height: 30px;
@@ -61,7 +66,6 @@ $black: #000;
 
 %bookmark-details-base {
   align-self: stretch;
-  display: flex;
   font-family: sans-serif;
   left: 0;
   top: 0;
@@ -116,4 +120,16 @@ $black: #000;
   flex: 1;
   padding: 6px 10px;
   width: 100%;
+}
+
+.bookmark-controls-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .bookmark-controls {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+  }
 }

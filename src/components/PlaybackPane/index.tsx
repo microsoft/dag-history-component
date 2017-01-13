@@ -2,7 +2,9 @@ import * as React from "react";
 import './PlaybackPane.scss';
 
 const { PropTypes } = React;
-import StatePager from '../StatePager';
+import DiscoveryTrail from '../DiscoveryTrail';
+
+const log = require('debug')('dag-history-component:components:PlaybackPane');
 
 export interface IPlaybackPaneProps {
   text: string;
@@ -10,25 +12,38 @@ export interface IPlaybackPaneProps {
   highlight: number;
   bookmarkDepth: number;
   bookmarkHighlight: number;
+  bookmarkNumLeadInStates?: number;
+  onDiscoveryTrailIndexClicked?: Function;
 }
 
-const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = ({
-  text,
-  depth,
-  highlight,
-  bookmarkDepth,
-  bookmarkHighlight,
-}) => (
-  <div className="playback-pane-container">
-    <div className="playback-pane-paged">
-      <div className="playback-pane">
-        <h3>{text}</h3>
+const PlaybackPane: React.StatelessComponent<IPlaybackPaneProps> = (props) => {
+  const {
+    text,
+    depth,
+    highlight,
+    bookmarkDepth,
+    bookmarkHighlight,
+    bookmarkNumLeadInStates,
+    onDiscoveryTrailIndexClicked,
+  } = props;
+  return (
+    <div className="playback-pane-container">
+      <div className="playback-pane-paged">
+        <div className="playback-pane">
+          <h3>{text}</h3>
+        </div>
+        <DiscoveryTrail vertical active depth={depth - 1} highlight={highlight} />
       </div>
-      <StatePager vertical depth={depth} highlight={highlight} />
+      <DiscoveryTrail
+        active
+        leadIn={bookmarkNumLeadInStates}
+        depth={bookmarkDepth - 1}
+        highlight={bookmarkHighlight}
+        onIndexClicked={idx => onDiscoveryTrailIndexClicked(idx)}
+      />
     </div>
-    <StatePager depth={bookmarkDepth} highlight={bookmarkHighlight} />
-  </div>
-);
+  );
+};
 
 PlaybackPane.propTypes = {
   text: PropTypes.string.isRequired,
@@ -40,6 +55,8 @@ PlaybackPane.propTypes = {
   // Props for the current bookmark
   bookmarkDepth: PropTypes.number.isRequired,
   bookmarkHighlight: PropTypes.number.isRequired,
+  bookmarkNumLeadInStates: PropTypes.number,
+  onDiscoveryTrailIndexClicked: PropTypes.func,
 };
 
 export default PlaybackPane;

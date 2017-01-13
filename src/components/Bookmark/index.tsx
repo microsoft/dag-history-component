@@ -2,8 +2,7 @@ import * as React from "react";
 import * as classnames from "classnames";
 import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
-import StatePager from '../StatePager';
-import { determineCommitPathLength, determineHighlight } from '../provenance';
+import DiscoveryTrail from '../DiscoveryTrail';
 const { PropTypes } = React;
 
 export interface IBookmarkProps {
@@ -13,6 +12,7 @@ export interface IBookmarkProps {
   draggable?: boolean;
   onDragStart?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
   onDragEnd?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
+  onDiscoveryTrailIndexClicked?: (index: number) => void;
   index: number;
   numLeadInStates?: number;
   annotation: string;
@@ -35,6 +35,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     active: PropTypes.bool,
     onClick: PropTypes.func,
     onBookmarkChange: PropTypes.func,
+    onDiscoveryTrailIndexClicked: PropTypes.func,
     draggable: PropTypes.bool,
     onDragStart: PropTypes.func,
     onDragEnd: PropTypes.func,
@@ -59,6 +60,12 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     this.setState({ editMode: false });
   }
 
+  onDiscoveryTrailIndexClicked(index) {
+    if (this.props.onDiscoveryTrailIndexClicked) {
+      this.props.onDiscoveryTrailIndexClicked(index);
+    }
+  }
+
   onBookmarkChangeDone(payload) {
     if (this.props.onBookmarkChange) {
       this.props.onBookmarkChange(payload);
@@ -66,21 +73,16 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
   }
 
   private get commitPathLength() {
-    const {
-      shortestCommitPath,
-      numLeadInStates,
-    } = this.props;
-    return determineCommitPathLength(shortestCommitPath.length, numLeadInStates);
+    const { shortestCommitPath } = this.props;
+    return shortestCommitPath.length;
   }
 
   private get highlight() {
-    const {
-      selectedDepth,
-      shortestCommitPath,
-      numLeadInStates,
-      active,
-    } = this.props;
-    return determineHighlight(selectedDepth, shortestCommitPath.length, numLeadInStates, active);
+    const { selectedDepth } = this.props;
+    if (selectedDepth === undefined && this.props.active) {
+      return this.commitPathLength - 1;
+    }
+    return selectedDepth;
   }
 
   render() {
@@ -107,23 +109,23 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     return editMode ? (
       <EditBookmark
         {...this.props}
-        commitPathLength={this.commitPathLength}
-        selectedDepth={highlight}
+        commitPathLength={this.commitPathLength - 1}
+        selectedDepth={this.highlight}
         focusOn={focusOn}
         onDoneEditing={() => this.onDoneEditing()}
         onBookmarkChange={p => this.onBookmarkChangeDone(p)}
+        onDiscoveryTrailIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
         />
     ) : (
         <div
           className={`history-bookmark ${active ? 'selected' : ''}`}
-          onClick={onClick ? () => onClick() : undefined}
           draggable={draggable}
           onDragStart={e => onDragStart ? onDragStart(e) : undefined}
           onDragEnd={e => onDragEnd ? onDragEnd(e) : undefined}
           data-index={index}
           >
           <div className="bookmark-details-container">
-            <div className="bookmark-details">
+            <div className="bookmark-details" onClick={onClick ? () => onClick() : undefined}>
               <div
                 className={classnames('bookmark-title', { active })}
                 onClick={() => this.onClickEdit('title')}
@@ -137,10 +139,13 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
                 {annotation}
               </div>
             </div>
-            <StatePager
-              depth={this.commitPathLength}
+            <DiscoveryTrail
+              depth={this.commitPathLength - 1}
               highlight={highlight}
-              />
+              leadIn={numLeadInStates}
+              active={active}
+              onIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
+            />
           </div>
         </div>
       );

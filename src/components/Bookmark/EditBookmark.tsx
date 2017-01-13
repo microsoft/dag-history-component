@@ -1,7 +1,9 @@
 import * as React from 'react';
 import './Bookmark.scss';
 const { PropTypes } = React;
-import StatePager from '../StatePager';
+import DiscoveryTrail from '../DiscoveryTrail';
+
+const log = require('debug')('dag-history-component:components:Bookmark');
 
 export interface IEditBookmarkProps {
   name: string;
@@ -16,6 +18,7 @@ export interface IEditBookmarkProps {
   onDoneEditing?: Function;
   shortestCommitPath?: number[];
   selectedDepth: number;
+  onDiscoveryTrailIndexClicked?: Function;
 }
 
 export interface IEditBookmarkState {
@@ -38,6 +41,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     onClick: PropTypes.func,
     focusOn: PropTypes.string,
     shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
+    onDiscoveryTrailIndexClicked: PropTypes.func,
   };
 
   public static defaultProps = {
@@ -61,10 +65,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     this.leadInComponent = c;
   }
 
-  private executeChange(event) {
-    if (!event) {
-      return;
-    }
+  private onDoneEditing() {
     const {
       annotation: existingAnnotation,
       numLeadInStates: existingNumLeadInStates,
@@ -72,30 +73,35 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     } = this.props;
 
     const annotation = this.annotationComponent.value;
-
-    const numLeadInStatesValue = this.leadInComponent.value;
-    const numLeadInStates: number = numLeadInStatesValue === 'all' ?
-      undefined :
-      Number.parseInt(numLeadInStatesValue);
-
-    const isBookmarkUpdated = annotation !== existingAnnotation ||
-      numLeadInStates !== existingNumLeadInStates;
+    const isBookmarkUpdated = annotation !== existingAnnotation;
 
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
         name: this.props.name,
         data: {
           annotation,
-          numLeadInStates,
+          numLeadInStates: existingNumLeadInStates,
         },
       });
     }
+  }
 
-    const relatedTarget = event.relatedTarget;
-    const isTargetHere = relatedTarget === this.titleComponent ||
-      relatedTarget === this.annotationComponent;
-    if (isTargetHere) {
-      event.stopPropagation();
+  private onLeadInSet(value?: number) {
+    const {
+      annotation: existingAnnotation,
+      numLeadInStates: existingNumLeadInStates,
+      onBookmarkChange,
+    } = this.props;
+
+    const isBookmarkUpdated = value !== existingNumLeadInStates;
+    if (isBookmarkUpdated && onBookmarkChange) {
+      onBookmarkChange({
+        name: this.props.name,
+        data: {
+          annotation: existingAnnotation,
+          numLeadInStates: value,
+        },
+      });
     }
   }
 
@@ -110,17 +116,32 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       commitPathLength,
       selectedDepth,
       numLeadInStates,
+      onDiscoveryTrailIndexClicked,
     } = this.props;
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
+    const isIntroSet = numLeadInStates !== undefined;
+    const setIntroButton = isIntroSet ? (
+      <button style={{marginLeft: 5}} onClick={() => this.onLeadInSet(undefined)}>
+        Clear intro
+      </button>
+    ) : (
+      <button
+        style={{marginLeft: 5}}
+        onClick={(e) => this.onLeadInSet(this.props.commitPathLength - this.props.selectedDepth)}
+      >
+        Set intro
+      </button>
+    );
 
+    log('rendering commitPathLength=%s, selectedDepth=%s', this.props.commitPathLength, this.props.selectedDepth);
     return (
       <div
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}
       >
         <div className="bookmark-details-editable">
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex' }} onClick={() => this.onDone()}>
             <div className="bookmark-title">{name}</div>
           </div>
           <textarea
@@ -134,35 +155,21 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             placeholder="Enter caption for presentation"
             defaultValue={annotation}
             onFocus={() => onClick()}
-            onBlur={e => this.executeChange(e)}
+            onBlur={() => this.onDoneEditing()}
           />
-          <div style={{display: 'flex', flexDirection: 'row', alignContent: 'space-between' }}>
-            <div style={{display: 'flex', flexDirection: 'row', flex: 1}}>
-              <span>Show</span>
-              <select
-                ref={c => this.setLeadInComponent(c)}
-                style={{marginLeft: 5, marginRight: 5}}
-                onChange={e => this.executeChange(e)}
-                value={leadInStatesValue}
-              >
-                <option value="all">all</option>
-                <option value="0">no</option>
-                <option value="1">one</option>
-                <option value="2">two</option>
-                <option value="3">three</option>
-                <option value="4">four</option>
-                <option value="5">five</option>
-              </select>
-              <span>lead-in states</span>
-            </div>
-            <button onClick={() => this.onDone()}>
-              DONE
-            </button>
+          <div className="bookmark-controls-container">
+            {setIntroButton}
           </div>
-          <StatePager
-            depth={commitPathLength}
-            highlight={selectedDepth}
-          />
+          <div>
+            <span className="discovery-trail-label">Discovery trail</span>
+            <DiscoveryTrail
+              depth={commitPathLength}
+              highlight={selectedDepth}
+              leadIn={numLeadInStates}
+              active={active}
+              onIndexClicked={idx => onDiscoveryTrailIndexClicked(idx)}
+            />
+          </div>
         </div>
       </div>
     );
