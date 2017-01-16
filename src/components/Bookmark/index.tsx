@@ -13,6 +13,7 @@ export interface IBookmarkProps {
   onDragStart?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
   onDragEnd?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
   onDiscoveryTrailIndexClicked?: (index: number) => void;
+  onSelectBookmarkDepth?: Function;
   index: number;
   numLeadInStates?: number;
   annotation: string;
@@ -41,6 +42,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     onDragEnd: PropTypes.func,
     shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
     selectedDepth: PropTypes.number,
+    onSelectBookmarkDepth: PropTypes.func,
   };
 
   public static defaultProps = {

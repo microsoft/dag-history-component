@@ -1,7 +1,6 @@
 import * as React from 'react';
 import './Bookmark.scss';
 import * as classnames from 'classnames';
-
 const { PropTypes } = React;
 import DiscoveryTrail from '../DiscoveryTrail';
 
@@ -23,34 +22,13 @@ export interface IEditBookmarkProps {
   shortestCommitPath?: number[];
   selectedDepth: number;
   onDiscoveryTrailIndexClicked?: Function;
+  onSelectBookmarkDepth?: Function;
 }
-
-export interface IEditBookmarkState {
-}
+export interface IEditBookmarkState {}
 
 export default class EditBookmark extends React.Component<IEditBookmarkProps, IEditBookmarkState> {
-  private titleComponent: HTMLInputElement;
   private annotationComponent: HTMLTextAreaElement;
   private leadInComponent: HTMLSelectElement;
-
-  public static propTypes = {
-    index: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    annotation: PropTypes.string.isRequired,
-    numLeadInStates: PropTypes.number,
-    commitPathLength: PropTypes.number,
-    onBookmarkChange: PropTypes.func,
-    onDoneEditing: PropTypes.func,
-    active: PropTypes.bool,
-    onClick: PropTypes.func,
-    focusOn: PropTypes.string,
-    shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
-    onDiscoveryTrailIndexClicked: PropTypes.func,
-  };
-
-  public static defaultProps = {
-    shortestCommitPath: [],
-  };
 
   public componentDidMount() {
     this.annotationComponent.focus();
@@ -109,6 +87,20 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     }
   }
 
+  private onClick() {
+    const {
+      selectedDepth: depth,
+      index: bookmarkIndex,
+      onSelectBookmarkDepth,
+      shortestCommitPath,
+    } = this.props;
+
+    if (onSelectBookmarkDepth) {
+      const state = shortestCommitPath[depth];
+      onSelectBookmarkDepth({ bookmarkIndex, depth, state });
+    }
+  }
+
   public render() {
     const {
       name,
@@ -133,7 +125,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
         data-index={index}
       >
         <div className="bookmark-details-editable">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }} onClick={() => onClick()}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }} onClick={() => this.onClick()}>
             <div
               className={classnames("bookmark-title", { active })}
               tabIndex={0}
@@ -156,7 +148,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
             onBlur={() => this.onDoneEditing()}
           />
           <div>
-            <div className="bookmark-controls-container">
+            <div className="bookmark-controls-container" onClick={() => this.onClick()}>
               <span className="discovery-trail-label">Discovery trail</span>
               <button
                 className="discovery-trail-intro-button"

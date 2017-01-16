@@ -70,6 +70,9 @@ export default class Bookmark {
   }
 
   public isDepthAtStart(depth: number) {
+    if (depth === 0) {
+      return true;
+    }
     if (depth === undefined) {
       return this.startingDepth === undefined;
     }
@@ -78,7 +81,6 @@ export default class Bookmark {
     if (startingDepth === undefined) {
       startingDepth = this.commitPath.length - 1;
     }
-
     return depth === startingDepth;
   }
 
