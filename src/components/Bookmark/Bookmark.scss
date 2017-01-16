@@ -11,11 +11,29 @@ $black: #000;
   font-weight: lighter;
 }
 
+.discovery-trail-intro-button {
+  font-size: 9px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 15px;
+}
+
+.bookmark-title {
+  @extend %bookmark-details-base;
+
+  &:active {
+    color: $black;
+  }
+
+  &:not(.active) {
+    color: $charcoal;
+  }
+}
+
 .history-bookmark {
   border-top: 1px solid $white;
   align-items: center;
   background-color: $background;
-  cursor: pointer;
   display: flex;
   min-height: 30px;
   min-width: 250px;
@@ -82,18 +100,6 @@ $black: #000;
   align-items: flex-start;
   flex-direction: column;
   padding: 4px;
-}
-
-.bookmark-title {
-  @extend %bookmark-details-base;
-
-  &:active {
-    color: $black;
-  }
-
-  &:not(.active) {
-    color: $charcoal;
-  }
 }
 
 .bookmark-annotation {

@@ -10,7 +10,7 @@ const MdKeyboardArrowRight = require("react-icons/lib/md/keyboard-arrow-right");
 const MdSkipNext = require("react-icons/lib/md/skip-next");
 const MdSkipPrevious = require("react-icons/lib/md/skip-previous");
 const MdPlayArrow = require("react-icons/lib/md/play-arrow");
-const MdPause = require("react-icons/lib/md/pause");
+const MdStop = require("react-icons/lib/md/stop");
 
 const CLICK_DELAY = 55;
 
@@ -49,7 +49,7 @@ describe('The Transport Component', () => {
     .then(() => {
       expect(fired).to.be.true;
       fired = false;
-      rendered.find(MdPause).simulate('click');
+      rendered.find(MdStop).simulate('click');
       return Promise.delay(CLICK_DELAY);
     })
     .then(() => expect(fired).to.be.true);
@@ -57,11 +57,11 @@ describe('The Transport Component', () => {
 
   it('can handle back invocations', () => {
     let rendered = mount(<Transport />);
-    (rendered.get(0) as any).back();
+    (rendered.get(0) as any).stepBack();
 
     let fired = false;
-    rendered = mount(<Transport onBack={() => fired = true} />);
-    (rendered.get(0) as any).back();
+    rendered = mount(<Transport onStepBack={() => fired = true} />);
+    (rendered.get(0) as any).stepBack();
     return Promise.delay(CLICK_DELAY)
     .then(() => {
       expect(fired).to.be.true;
@@ -74,50 +74,16 @@ describe('The Transport Component', () => {
 
   it('can handle forward invocations', () => {
     let rendered = mount(<Transport />);
-    (rendered.get(0) as any).forward();
+    (rendered.get(0) as any).stepForward();
 
     let fired = false;
-    rendered = mount(<Transport onForward={() => fired = true} />);
-    (rendered.get(0) as any).forward();
+    rendered = mount(<Transport onStepForward={() => fired = true} />);
+    (rendered.get(0) as any).stepForward();
     return Promise.delay(CLICK_DELAY)
     .then(() => {
       expect(fired).to.be.true;
       fired = false;
       rendered.find(MdKeyboardArrowRight).simulate('click');
-      return Promise.delay(CLICK_DELAY);
-    })
-    .then(() => expect(fired).to.be.true);
-  });
-
-  it('can handle skipToStart invocations', () => {
-    let rendered = mount(<Transport />);
-    (rendered.get(0) as any).skipToStart();
-
-    let fired = false;
-    rendered = mount(<Transport onSkipToStart={() => fired = true} />);
-    (rendered.get(0) as any).skipToStart();
-    return Promise.delay(CLICK_DELAY)
-    .then(() => {
-      expect(fired).to.be.true;
-      fired = false;
-      rendered.find(MdSkipPrevious).simulate('click');
-      return Promise.delay(CLICK_DELAY);
-    })
-    .then(() => expect(fired).to.be.true);
-  });
-
-  it('can handle skipToEnd invocations', () => {
-    let rendered = mount(<Transport />);
-    (rendered.get(0) as any).skipToEnd();
-
-    let fired = false;
-    rendered = mount(<Transport onSkipToEnd={() => fired = true} />);
-    (rendered.get(0) as any).skipToEnd();
-    return Promise.delay(CLICK_DELAY)
-    .then(() => {
-      expect(fired).to.be.true;
-      fired = false;
-      rendered.find(MdSkipNext).simulate('click');
       return Promise.delay(CLICK_DELAY);
     })
     .then(() => expect(fired).to.be.true);

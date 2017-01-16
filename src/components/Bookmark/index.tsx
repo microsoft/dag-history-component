@@ -13,6 +13,7 @@ export interface IBookmarkProps {
   onDragStart?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
   onDragEnd?: React.EventHandler<React.DragEvent<HTMLDivElement>>;
   onDiscoveryTrailIndexClicked?: (index: number) => void;
+  onSelectBookmarkDepth?: Function;
   index: number;
   numLeadInStates?: number;
   annotation: string;
@@ -41,6 +42,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     onDragEnd: PropTypes.func,
     shortestCommitPath: PropTypes.arrayOf(PropTypes.number),
     selectedDepth: PropTypes.number,
+    onSelectBookmarkDepth: PropTypes.func,
   };
 
   public static defaultProps = {
@@ -106,6 +108,18 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
     } = this.state;
     const { highlight } = this;
 
+    const isDiscoveryTrailVisible = active && numLeadInStates > 0;
+    const discoveryTrail = isDiscoveryTrailVisible ? (
+      <DiscoveryTrail
+        fullWidth
+        depth={this.commitPathLength - 1}
+        highlight={highlight}
+        leadIn={numLeadInStates}
+        active={active}
+        onIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
+      />
+    ) : null;
+
     return editMode ? (
       <EditBookmark
         {...this.props}
@@ -139,13 +153,7 @@ class Bookmark extends React.Component<IBookmarkProps, IBookmarkState> {
                 {annotation}
               </div>
             </div>
-            <DiscoveryTrail
-              depth={this.commitPathLength - 1}
-              highlight={highlight}
-              leadIn={numLeadInStates}
-              active={active}
-              onIndexClicked={idx => this.onDiscoveryTrailIndexClicked(idx)}
-            />
+            { discoveryTrail }
           </div>
         </div>
       );

@@ -1,11 +1,11 @@
 import * as React from "react";
 const { default: keydown, Keys } = require("react-keydown");
-const MdKeyboardArrowLeft = require("react-icons/lib/md/keyboard-arrow-left");
-const MdKeyboardArrowRight = require("react-icons/lib/md/keyboard-arrow-right");
-const MdSkipNext = require("react-icons/lib/md/skip-next");
-const MdSkipPrevious = require("react-icons/lib/md/skip-previous");
-const MdPlayArrow = require("react-icons/lib/md/play-arrow");
-const MdPause = require("react-icons/lib/md/pause");
+const LeftIcon = require("react-icons/lib/md/keyboard-arrow-left");
+const RightIcon = require("react-icons/lib/md/keyboard-arrow-right");
+const UpIcon = require("react-icons/lib/fa/caret-up");
+const DownIcon = require("react-icons/lib/fa/caret-down");
+const PlayIcon = require("react-icons/lib/md/play-arrow");
+const StopIcon = require("react-icons/lib/md/stop");
 import { debounce } from "lodash";
 
 const { PropTypes } = React;
@@ -19,8 +19,6 @@ export interface ITransportCallbackProps {
   onStop?: Function;
   onBack?: Function;
   onForward?: Function;
-  onSkipToStart?: Function;
-  onSkipToEnd?: Function;
   onStepForward?: Function;
   onStepBack?: Function;
 }
@@ -30,6 +28,11 @@ export interface ITransportProps extends ITransportCallbackProps {
   playing?: boolean;
   showPlay?: boolean;
   bindTransportKeysGlobally?: boolean;
+
+  /**
+   * When this is true, then stepping downwards means stepping into older states
+   */
+  reverseVertical?: boolean;
 }
 
 export interface ITransportState {
@@ -50,10 +53,8 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     playing: PropTypes.bool,
     showPlay: PropTypes.bool,
     iconSize: PropTypes.number,
-    onSkipToStart: PropTypes.func,
     onBack: PropTypes.func,
     onForward: PropTypes.func,
-    onSkipToEnd: PropTypes.func,
     onStop: PropTypes.func,
     onPlay: PropTypes.func,
     onStepForward: PropTypes.func,
@@ -113,29 +114,31 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
 
   @keydown(Keys.UP)
   back() {
-    if (this.handlers.onBack) {
-      this.handlers.onBack();
+    if (this.props.reverseVertical) {
+      this.goForward();
+    } else {
+      this.goBack();
     }
   }
 
   @keydown(Keys.DOWN)
   forward() {
+    if (this.props.reverseVertical) {
+      this.goBack();
+    } else {
+      this.goForward();
+    }
+  }
+
+  private goBack() {
+    if (this.handlers.onBack) {
+      this.handlers.onBack();
+    }
+  }
+
+  private goForward() {
     if (this.handlers.onForward) {
       this.handlers.onForward();
-    }
-  }
-
-  @keydown("shift+up")
-  skipToStart() {
-    if (this.handlers.onSkipToStart) {
-      this.handlers.onSkipToStart();
-    }
-  }
-
-  @keydown("shift+down")
-  skipToEnd() {
-    if (this.handlers.onSkipToEnd) {
-      this.handlers.onSkipToEnd();
     }
   }
 
@@ -152,8 +155,6 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
       onStop: debounced(this.props.onStop),
       onBack: debounced(this.props.onBack),
       onForward: debounced(this.props.onForward),
-      onSkipToStart: debounced(this.props.onSkipToStart),
-      onSkipToEnd: debounced(this.props.onSkipToEnd),
       onStepForward: debounced(this.props.onStepForward),
       onStepBack: debounced(this.props.onStepBack),
     };
@@ -161,8 +162,8 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     let playPauseButton = <div />;
     if (showPlay) {
       playPauseButton = playing ?
-        (<MdPause size={iconSize} onClick={() => this.stop()} />) :
-        (<MdPlayArrow size={iconSize} onClick={() => this.play()} />)
+        (<StopIcon size={iconSize} onClick={() => this.stop()} />) :
+        (<PlayIcon size={iconSize} onClick={() => this.play()} />)
     }
 
     return (
@@ -171,34 +172,33 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
         tabIndex={0}
         onKeyPress={() => {}} // allows event bubbling
       >
-        <MdSkipPrevious size={iconSize} onClick={() => this.skipToStart()} />
-        <MdKeyboardArrowLeft size={iconSize} onClick={() => this.back()} />
+        <div>
+          <LeftIcon size={iconSize} onClick={() => this.stepBack()} />
+          <RightIcon size={iconSize} onClick={() => this.stepForward()} />
+        </div>
         {playPauseButton}
-        <MdKeyboardArrowRight size={iconSize} onClick={() => this.forward()} />
-        <MdSkipNext size={iconSize} onClick={() => this.skipToEnd()} />
+        <div>
+          <UpIcon size={iconSize} onClick={() => this.back()} />
+          <DownIcon size={iconSize} onClick={() => this.forward()} />
+        </div>
       </div>
     );
   }
 
   private handleKeydown(arg: KeyboardEvent) {
     const { keyCode } = arg;
-    if (keyCode === keys.SPACE) { // space
-      this.play();
+    if (keyCode === keys.SPACE) {
+      if (this.props.playing) {
+        this.stop();
+      } else {
+        this.play();
+      }
     } else if (keyCode === keys.ESC) {
       this.stop();
     } else if (keyCode === keys.UP) {
-      if (arg.shiftKey) {
-        this.skipToStart();
-      } else {
-        this.back();
-      }
+      this.back();
     } else if (keyCode === keys.DOWN) {
-      if (arg.shiftKey) {
-        this.skipToEnd();
-      } else {
-        this.forward();
-      }
-
+      this.forward();
     } else if (keyCode === keys.LEFT) {
       this.stepBack();
     } else if (keyCode === keys.RIGHT) {

@@ -8,7 +8,6 @@ export default function makeActions(
   rawSelectedBookmarkDepth: number,
   history: any,
   onSelectBookmarkDepth,
-  isPresenting: boolean,
 ) {
   const { bookmarks } = history;
   const graph = new DagGraph(history.graph);
@@ -30,8 +29,7 @@ export default function makeActions(
   const bookmark = bookmarkAt(bookmarkIndex);
   const depth = bookmark.sanitizeDepth(rawSelectedBookmarkDepth);
 
-  const handleStepBack = () => {
-    const isAtBookmarkStart = bookmark.isDepthAtStart(depth, isPresenting);
+  const rawStepBack = (isAtBookmarkStart: boolean) => {
     const isAtBeginning = bookmarkIndex === 0 && isAtBookmarkStart;
 
     // We're at the start of the presentation, do nothing
@@ -69,23 +67,23 @@ export default function makeActions(
     // Go to the start of the next bookmark
     log('going to next bookmark');
     const nextBookmark = new Bookmark(bookmarks[bookmarkIndex + 1], graph);
-    jump(bookmarkIndex + 1, nextBookmark.startingDepth(isPresenting));
+    jump(bookmarkIndex + 1, nextBookmark.startingDepth());
   };
+
+  const handleStepBack = () => rawStepBack(bookmark.isDepthAtStart(depth));
+  const handleStepBackUnbounded = () => rawStepBack(depth === 0);
 
   const handleJumpToBookmark = (index: number) => jump(index, undefined);
   const handlePreviousBookmark = () => handleJumpToBookmark(Math.max(bookmarkIndex - 1, 0));
   const handleNextBookmark = () => handleJumpToBookmark(
     Math.min(bookmarkIndex + 1, bookmarks.length - 1),
   );
-  const handleSkipToStart = () => handleJumpToBookmark(0);
-  const handleSkipToEnd = () => handleJumpToBookmark(bookmarks.length - 1);
 
   return {
     handleStepBack,
     handleStepForward,
     handleNextBookmark,
     handlePreviousBookmark,
-    handleSkipToStart,
-    handleSkipToEnd,
+    handleStepBackUnbounded,
   };
 }

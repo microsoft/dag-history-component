@@ -74,19 +74,15 @@ describe('The Bookmark Class', () => {
 
   it('can determine starting and ending depth', () => {
     let bm = new TestableBookmark({ data: { numLeadInStates: 1 } }, [1, 2, 3, 4]);
-    expect(bm.startingDepth(true)).to.equal(2);
-    expect(bm.startingDepth(false)).to.equal(2);
-    expect(bm.isDepthAtStart(2, false)).to.be.true;
-    expect(bm.isDepthAtStart(2, true)).to.be.true;
+    expect(bm.startingDepth()).to.equal(2);
+    expect(bm.isDepthAtStart(2)).to.be.true;
     expect(bm.isDepthAtEnd(0)).to.be.false;
     expect(bm.isDepthAtEnd(3)).to.be.true;
     expect(bm.isDepthAtEnd(undefined)).to.be.true;
 
     bm = new TestableBookmark({ data: {} }, [1, 2, 3, 4]);
-    expect(bm.startingDepth(true)).to.be.undefined;
-    expect(bm.startingDepth(false)).to.equal(0);
-    expect(bm.isDepthAtStart(0, false)).to.be.true;
-    expect(bm.isDepthAtStart(3, true)).to.be.true;
+    expect(bm.startingDepth()).to.be.undefined;
+    expect(bm.isDepthAtStart(3)).to.be.true;
     expect(bm.isDepthAtEnd(0)).to.be.false;
     expect(bm.isDepthAtEnd(3)).to.be.true;
     expect(bm.isDepthAtEnd(undefined)).to.be.true;

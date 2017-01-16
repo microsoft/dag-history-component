@@ -9,6 +9,7 @@ import * as Actions from '../../../actions';
 import BookmarkListContainer, { IBookmarkListContainerProps } from './BookmarkListContainer';
 import makeActions from '../BookmarkActions';
 const { PropTypes } = React;
+import Bookmark from '../../../util/Bookmark';
 
 export interface IStoryboardingViewStateProps {}
 
@@ -46,23 +47,21 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
     handleStepForward,
     handleNextBookmark,
     handlePreviousBookmark,
-    handleSkipToEnd,
-    handleSkipToStart,
-  } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth, false);
+    handleStepBackUnbounded,
+  } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
 
+  const initialDepth = new Bookmark(history.bookmarks[0], new DagGraph(history.graph)).startingDepth();
   return (
     <div className="history-container">
       <BookmarkListContainer {...props} />
       <Transport
         bindTransportKeysGlobally={bindTransportKeysGlobally}
-        onSkipToStart={handleSkipToStart}
-        onBack={handlePreviousBookmark}
-        onForward={handleNextBookmark}
-        onSkipToEnd={handleSkipToEnd}
-        onPlay={onStartPlayback}
+        onBack={handleStepBack}
+        onForward={handleStepForward}
+        onPlay={() => onStartPlayback({ initialDepth })}
         onStop={onStopPlayback}
-        onStepBack={handleStepBack}
-        onStepForward={handleStepForward}
+        onStepBack={() => handleStepBackUnbounded}
+        onStepForward={() => handleStepForward}
       />
     </div>
   );

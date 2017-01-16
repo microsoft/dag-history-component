@@ -100,12 +100,12 @@ class BookmarkList extends React.Component<IBookmarkListProps, {}> {
         key={`bookmark::${s.stateId}`}
         index={index}
         draggable
+        onSelectBookmarkDepth={onSelectBookmarkDepth}
         onDragStart={event => this.onBookmarkDragStart(event)}
         onDragEnd={event => this.onBookmarkDragEnd(event)}
         onClick={() => this.onBookmarkClick(index, s.stateId)}
         onDiscoveryTrailIndexClicked={selectedIndex => {
           const target = s.shortestCommitPath[selectedIndex];
-          console.log("selecting index %s(%s) in bookmark", selectedIndex, target, onSelectState);
           onSelectBookmarkDepth({ target, depth: selectedIndex, state: target });
           onSelectState(target);
         }}

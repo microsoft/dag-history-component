@@ -21,15 +21,10 @@ export interface IBranchedHistoryViewDispatchProps {
   onRemoveBookmark: Function;
   onToggleBranchContainer: Function;
   onHighlightSuccessors: Function;
-  onUndo: Function;
-  onRedo: Function;
-  onSkipToStart: Function;
-  onSkipToEnd: Function;
   onRenameBranch: Function;
 }
 
 export interface IBranchedHistoryViewOwnProps extends IHistoryContainerSharedProps {
-  bindTransportKeysGlobally?: boolean;
 }
 
 export interface IBranchedHistoryViewProps extends
@@ -42,11 +37,6 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
   const {
     branchContainerExpanded,
     onToggleBranchContainer,
-    onUndo,
-    onRedo,
-    onSkipToStart,
-    onSkipToEnd,
-    bindTransportKeysGlobally,
   } = props;
   const branchList = branchContainerExpanded ?
     <BranchListContainer {...props} /> :
@@ -65,17 +55,6 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
         </div>
         {branchList}
       </div>
-      <Transport
-        showPlay={false}
-        bindTransportKeysGlobally={bindTransportKeysGlobally}
-        iconSize={30}
-        onSkipToStart={onSkipToStart}
-        onStepBack={onUndo}
-        onStepForward={onRedo}
-        onBack={onRedo}
-        onForward={onUndo}
-        onSkipToEnd={onSkipToEnd}
-      />
     </div>
   );
 };
@@ -98,10 +77,6 @@ BranchedHistoryView.propTypes = {
   onRemoveBookmark: PropTypes.func,
   onToggleBranchContainer: PropTypes.func,
   onHighlightSuccessors: PropTypes.func,
-  onUndo: PropTypes.func,
-  onRedo: PropTypes.func,
-  onSkipToStart: PropTypes.func,
-  onSkipToEnd: PropTypes.func,
   onRenameBranch: PropTypes.func,
 
   /**
@@ -119,10 +94,6 @@ export default connect<IBranchedHistoryViewStateProps, IBranchedHistoryViewDispa
     onRemoveBookmark: DagHistoryActions.removeBookmark,
     onToggleBranchContainer: DagComponentActions.toggleBranchContainer,
     onHighlightSuccessors: DagHistoryActions.pinState,
-    onUndo: DagHistoryActions.undo,
-    onRedo: DagHistoryActions.redo,
-    onSkipToStart: DagHistoryActions.skipToStart,
-    onSkipToEnd: DagHistoryActions.skipToEnd,
     onRenameBranch: DagHistoryActions.renameBranch,
   }, dispatch)
 )(BranchedHistoryView);
