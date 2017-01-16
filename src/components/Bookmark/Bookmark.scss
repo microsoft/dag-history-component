@@ -18,6 +18,18 @@ $black: #000;
   padding: 0 15px;
 }
 
+.bookmark-title {
+  @extend %bookmark-details-base;
+
+  &:active {
+    color: $black;
+  }
+
+  &:not(.active) {
+    color: $charcoal;
+  }
+}
+
 .history-bookmark {
   border-top: 1px solid $white;
   align-items: center;
@@ -88,18 +100,6 @@ $black: #000;
   align-items: flex-start;
   flex-direction: column;
   padding: 4px;
-}
-
-.bookmark-title {
-  @extend %bookmark-details-base;
-
-  &:active {
-    color: $black;
-  }
-
-  &:not(.active) {
-    color: $charcoal;
-  }
 }
 
 .bookmark-annotation {

@@ -42,6 +42,11 @@ export interface IDiscoveryTrailProps {
    * An event handler for when the state pager has clicked an item
    */
   onIndexClicked?: Function;
+
+  /**
+   * If not full width, renders curved ends
+   */
+  fullWidth?: boolean;
 }
 
 export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps, {}> {
@@ -52,6 +57,7 @@ export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps
     depth: React.PropTypes.number.isRequired,
     highlight: React.PropTypes.number,
     leadIn: React.PropTypes.number,
+    fullWidth: React.PropTypes.bool,
     onIndexClicked: React.PropTypes.func,
   };
 
@@ -61,6 +67,7 @@ export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps
     depth: 0,
     highlight: undefined,
     leadIn: undefined,
+    fullWidth: false,
   };
 
   private containerDiv: HTMLDivElement;
@@ -81,9 +88,20 @@ export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps
   }
 
   private get pagerClass() {
-    const { vertical, bookmark: isBookmark } = this.props;
+    const {
+      vertical,
+      bookmark: isBookmark,
+      fullWidth: isFullWidth,
+    } = this.props;
     const baseClassName = isBookmark ? 'bookmark-pager' : 'state-pager';
-    return classnames(baseClassName, { vertical }, { horizontal: !vertical });
+    return classnames(
+        baseClassName,
+        {
+            vertical,
+            horizontal: !vertical,
+            radiusEdges: !isFullWidth,
+        },
+    );
   }
 
   public render() {
@@ -94,12 +112,20 @@ export default class DiscoveryTrail extends React.Component<IDiscoveryTrailProps
       leadIn,
       active,
       bookmark: isBookmark,
+      fullWidth: isFullWidth,
     } = this.props;
     const spans = calculateSpans(depth, highlight, leadIn, active);
     const spanTags = spans.map((s, index) => (
       <div
         key={`pagerSpan::${index}`}
-        className={classnames("pager-state", s.type)}
+        className={classnames(
+            "pager-state",
+            s.type,
+            {
+              startItem: !isFullWidth && index === 0,
+              endItem: !isFullWidth && index === spans.length - 1
+            }
+        )}
         style={{flex: s.length}}
       />
     ));
