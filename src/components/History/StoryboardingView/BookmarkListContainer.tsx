@@ -10,12 +10,13 @@ import BookmarkList from '../../BookmarkList';
 const log = require('debug')('dag-history-component:components:StoryboardingView');
 
 export interface IBookmarkListContainerStateProps {
+  draggedIndex?: number;
+  hoverIndex?: number;
 }
 
 export interface IBookmarkListContainerDispatchProps {
   onSelectBookmark: Function;
   onBookmarkChange: Function;
-  onBookmarkMove: Function;
   onSelectState: Function;
   onSelectBookmarkDepth: Function;
 }
@@ -40,11 +41,12 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
     },
     onSelectBookmark,
     onBookmarkChange,
-    onBookmarkMove,
     onSelectState,
     onSelectBookmarkDepth,
     selectedBookmark: selectedBookmarkIndex,
-    selectedBookmarkDepth: selectedBookmarkDepthIndex
+    selectedBookmarkDepth: selectedBookmarkDepthIndex,
+    draggedIndex,
+    hoverIndex,
   } = props;
   const historyGraph = new DagGraph(graph);
   const { currentStateId } = historyGraph;
@@ -76,9 +78,10 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
   });
   return (
     <BookmarkList
+      draggedIndex={draggedIndex}
+      hoverIndex={hoverIndex}
       bookmarks={bookmarkData}
       onBookmarkClick={(index, state) => onSelectBookmark(index, state)}
-      onBookmarkMove={onBookmarkMove}
       onSelectState={onSelectState}
       onSelectBookmarkDepth={onSelectBookmarkDepth}
     />
@@ -88,18 +91,21 @@ BookmarkListContainer.propTypes = {
   history: React.PropTypes.object.isRequired,
   onSelectBookmark: React.PropTypes.func.isRequired,
   onBookmarkChange: React.PropTypes.func.isRequired,
-  onBookmarkMove: React.PropTypes.func.isRequired,
   onSelectState: React.PropTypes.func,
   selectedBookmark: React.PropTypes.number,
   selectedBookmarkDepth: React.PropTypes.number,
+  draggedIndex: React.PropTypes.number,
+  hoverIndex: React.PropTypes.number,
 };
 
 export default connect<IBookmarkListContainerStateProps, IBookmarkListContainerDispatchProps, IBookmarkListContainerOwnProps>(
-  () => ({}),
+  (state) => ({
+    draggedIndex: state.history.bookmarkDragDropSourceIndex,
+    hoverIndex: state.history.bookmarkDragDropHoverIndex,
+  }),
   dispatch => bindActionCreators({
     onSelectBookmark: Actions.selectBookmark,
     onBookmarkChange: DagHistoryActions.changeBookmark,
-    onBookmarkMove: DagHistoryActions.moveBookmark,
     onSelectState: DagHistoryActions.jumpToState,
     onSelectBookmarkDepth: Actions.selectBookmarkDepth,
   }, dispatch)

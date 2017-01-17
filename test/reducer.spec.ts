@@ -1,5 +1,8 @@
 import { expect } from 'chai';
-import reduceFactory from '../src/reducer';
+import {
+  INITIAL_STATE,
+  default as reduceFactory, // eslint-disable-line
+} from '../src/reducer';
 
 const reducer = () => reduceFactory({
   actionFilter: () => false,
@@ -13,69 +16,43 @@ describe('The Dag-History Component Reducer', () => {
 
   it('can generate an initial state', () => {
     const state = reducer()(undefined, { type: 'DERP' });
-    expect(state).to.deep.equal({
-      mainView: 'history',
-      historyType: 'branched',
-      branchContainerExpanded: true,
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
-    });
+    expect(state).to.deep.equal(INITIAL_STATE);
   });
 
   it('can respond to a SELECT_MAIN_VIEW action', () => {
     const state = reducer()(undefined, { type: 'SELECT_MAIN_VIEW', payload: 'abc123' });
     expect(state).to.deep.equal({
+      ...INITIAL_STATE,
       mainView: 'abc123',
-      historyType: 'branched',
-      branchContainerExpanded: true,
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
     });
   });
 
   it('can respond to a SELECT_HISTORY_TYPE action', () => {
     const state = reducer()(undefined, { type: 'SELECT_HISTORY_TYPE', payload: 'derp' });
     expect(state).to.deep.equal({
+      ...INITIAL_STATE,
       mainView: 'history',
       historyType: 'derp',
-      branchContainerExpanded: true,
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
     });
   });
 
   it('can respond to a TOGGLE_BRANCH_CONTAINER action', () => {
     let state = reducer()(undefined, { type: 'TOGGLE_BRANCH_CONTAINER' });
     expect(state).to.deep.equal({
-      mainView: 'history',
-      historyType: 'branched',
+      ...INITIAL_STATE,
       branchContainerExpanded: false,
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
     });
     state = reducer()(state, { type: 'TOGGLE_BRANCH_CONTAINER' });
     expect(state).to.deep.equal({
-      mainView: 'history',
-      historyType: 'branched',
+      ...INITIAL_STATE,
       branchContainerExpanded: true,
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
     });
   });
 
   it('will not reset the main view to history if DAG_HISTORY_* actions are taken', () => {
     const initialState = {
+      ...INITIAL_STATE,
       mainView: 'bookmarks',
-      branchContainerExpanded: true,
-      historyType: 'branched',
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
     };
     const state = reducer()(initialState, { type: 'DAG_HISTORY_DERP' });
     expect(state).to.deep.equal(initialState);
@@ -83,12 +60,8 @@ describe('The Dag-History Component Reducer', () => {
 
   it('will reset the main view to history if an insertable action occurs', () => {
     const initialState = {
+      ...INITIAL_STATE,
       mainView: 'bookmarks',
-      branchContainerExpanded: true,
-      historyType: 'branched',
-      isPlayingBack: false,
-      selectedBookmark: undefined,
-      selectedBookmarkDepth: undefined,
     };
     const reduce = reduceFactory({
       actionFilter: () => true,

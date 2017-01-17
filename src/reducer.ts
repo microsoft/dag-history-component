@@ -8,15 +8,21 @@ import {
   SELECT_BOOKMARK_DEPTH,
   START_PLAYBACK,
   STOP_PLAYBACK,
+  BOOKMARK_DRAG_START,
+  BOOKMARK_DRAG_HOVER,
+  BOOKMARK_DRAG_DROP,
+  BOOKMARK_DRAG_CANCEL,
 } from './actions';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   mainView: 'history',
   historyType: 'branched',
   branchContainerExpanded: true,
   isPlayingBack: false,
   selectedBookmark: undefined,
   selectedBookmarkDepth: undefined,
+  bookmarkDragDropSourceIndex: undefined,
+  bookmarkDragDropHoverIndex: undefined,
 };
 
 export default function (config: IConfiguration<any>) {
@@ -59,6 +65,28 @@ export default function (config: IConfiguration<any>) {
         selectedBookmark: undefined,
         selectedBookmarkDepth: undefined,
       };
+    } else if (action.type === BOOKMARK_DRAG_START) {
+      result = {
+        ...state,
+        bookmarkDragDropSourceIndex: action.payload.index,
+      };
+    } else if (action.type === BOOKMARK_DRAG_HOVER) {
+      result = {
+        ...state,
+        bookmarkDragDropHoverIndex: action.payload.index,
+      };
+    } else if (action.type === BOOKMARK_DRAG_DROP) {
+      result = {
+        ...state,
+        bookmarkDragDropSourceIndex: undefined,
+        bookmarkDragDropHoverIndex: undefined,
+      };
+    } else if (action.type === BOOKMARK_DRAG_CANCEL) {
+      result = {
+        ...state,
+        bookmarkDragDropSourceIndex: undefined,
+        bookmarkDragDropHoverIndex: undefined,
+      };
     } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action.type)) {
       // Insertable actions clear the pinned state
       result = {
@@ -66,6 +94,8 @@ export default function (config: IConfiguration<any>) {
         mainView: 'history',
         selectedBookmark: undefined,
         selectedBookmarkDepth: undefined,
+        bookmarkDragDropSourceIndex: undefined,
+        bookmarkDragDropHoverIndex: undefined,
       };
     }
     return result;

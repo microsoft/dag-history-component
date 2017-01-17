@@ -78,7 +78,7 @@ describe('The History Component', () => {
     expect(rendered).to.be.ok;
   });
 
-  it('can be rendered in playback mode', () => {
+  xit('can be rendered in playback mode', () => {
     const store = createStore(() => ({}));
     const history = dagHistory.createHistory({}, 'initialBranch', 'initialState');
 
