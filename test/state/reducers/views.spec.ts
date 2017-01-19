@@ -6,7 +6,6 @@ import {
   selectHistoryType,
   toggleBranchContainer,
 } from '../../../src/state/actions/creators';
-import * as types from '../../../src/state/actions/types';
 
 const defaultConfig = {
   actionFilter: () => false,
@@ -19,9 +18,8 @@ describe('The Views reducer', () => {
   });
 
   it('can handle a selectMainView event', () => {
-    let state = undefined;
     const reduce = makeReducer(defaultConfig);
-    state = reduce(state, selectMainView('bookmarks'));
+    const state = reduce(undefined, selectMainView('bookmarks'));
     expect(state).to.deep.equal({
       ...INITIAL_STATE,
       mainView: 'bookmarks',
@@ -29,9 +27,8 @@ describe('The Views reducer', () => {
   });
 
   it('can handle a selectHistoryType event', () => {
-    let state = undefined;
     const reduce = makeReducer(defaultConfig);
-    state = reduce(state, selectHistoryType('derp'));
+    const state = reduce(undefined, selectHistoryType('derp'));
     expect(state).to.deep.equal({
       ...INITIAL_STATE,
       historyType: 'derp',
@@ -39,7 +36,7 @@ describe('The Views reducer', () => {
   });
 
   it('can handle a toggleBranchContainer event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     expect(state.branchContainerExpanded).to.be.true;

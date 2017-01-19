@@ -1,8 +1,8 @@
 import { expect } from 'chai';
+import * as sinon from 'sinon';
 import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionTypes';
 import * as ActionTypes from '../../../src/state/actions/types';
 import * as ActionCreators from '../../../src/state/actions/creators';
-import * as sinon from 'sinon';
 
 describe('The Action Creators Module', () => {
   it('has action creators that emit FSA-compliant actions', () => {
@@ -18,7 +18,7 @@ describe('The Action Creators Module', () => {
   describe('the bookmarkDragDrop action', () => {
     it('will emit a drop event and a moveBookmark event', () => {
       const dispatch = sinon.spy();
-      ActionCreators.bookmarkDragDrop({ index: 0, droppedOn: 1})(dispatch);
+      ActionCreators.bookmarkDragDrop({ index: 0, droppedOn: 1 })(dispatch);
 
       expect(dispatch.callCount).to.equal(2);
       const firstAction = dispatch.getCall(0).args[0];
@@ -27,7 +27,7 @@ describe('The Action Creators Module', () => {
 
       const secondAction = dispatch.getCall(1).args[0];
       expect(secondAction.type).to.equal(ActionTypes.MOVE_BOOKMARK);
-      expect(secondAction.payload).to.deep.equal({ from: 0, to: 1, });
+      expect(secondAction.payload).to.deep.equal({ from: 0, to: 1 });
     });
 
     it('will only emit a drop event when the to index is invalid', () => {

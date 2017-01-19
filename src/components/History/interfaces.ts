@@ -10,7 +10,7 @@ export interface IHistoryContainerSharedProps {
   hoverIndex?: number;
   branchContainerExpanded?: boolean;
   selectedBookmark?: number;
-  selectedBookmarkDepth: number;
+  selectedBookmarkDepth?: number;
   isPlayingBack?: boolean;
   bookmarks: IBookmark[];
 

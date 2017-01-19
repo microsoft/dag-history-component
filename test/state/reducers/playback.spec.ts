@@ -1,8 +1,7 @@
 import { expect } from 'chai';
-import {default as makeReducer, INITIAL_STATE } from '../../../src/state/reducers/playback';
+import { default as makeReducer, INITIAL_STATE } from '../../../src/state/reducers/playback';
 
 import {
-  selectBookmarkDepth,
   startPlayback,
   stopPlayback,
 } from '../../../src/state/actions/creators';
@@ -19,7 +18,7 @@ describe('The Playback reducer', () => {
   });
 
   it('can handle a startPlayback event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, startPlayback({ initialDepth: 3 }));
@@ -31,7 +30,7 @@ describe('The Playback reducer', () => {
   });
 
   it('can handle a stopPlayback event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, startPlayback({ initialDepth: 3 }));
@@ -40,7 +39,7 @@ describe('The Playback reducer', () => {
   });
 
   it('can handle a selectBookmarkDepth event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, startPlayback({ initialDepth: 3 }));

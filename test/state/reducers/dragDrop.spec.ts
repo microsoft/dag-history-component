@@ -4,8 +4,6 @@ import makeReducer from '../../../src/state/reducers/dragDrop';
 import {
   bookmarkDragStart,
   bookmarkDragHover,
-  bookmarkDragDrop,
-  bookmarkDragCancel,
 } from '../../../src/state/actions/creators';
 import * as types from '../../../src/state/actions/types';
 
@@ -23,7 +21,7 @@ describe('The DragDrop reducer', () => {
   });
 
   it('can handle a dragStart event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, bookmarkDragStart({ index: 3 }));
@@ -34,7 +32,7 @@ describe('The DragDrop reducer', () => {
   });
 
   it('can handle a dragHover event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, bookmarkDragStart({ index: 3 }));
@@ -46,7 +44,7 @@ describe('The DragDrop reducer', () => {
   });
 
   it('can handle a dragDrop event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, bookmarkDragStart({ index: 3 }));
@@ -60,7 +58,7 @@ describe('The DragDrop reducer', () => {
   });
 
   it('can handle a dragCancel event', () => {
-    let state = undefined;
+    let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
     state = reduce(state, bookmarkDragStart({ index: 3 }));

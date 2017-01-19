@@ -1,6 +1,6 @@
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import Bookmark from '../../util/Bookmark';
-import { IBookmark } from '../../interfaces';
+import { IBookmark } from '../../interfaces'; // eslint-disable-line no-unused-vars
 
 const log = require('debug')('dag-history-component:BookmarkActions');
 

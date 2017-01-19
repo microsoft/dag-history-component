@@ -10,7 +10,7 @@ import {
 export const INITIAL_STATE = {
   isPlayingBack: false,
   bookmark: undefined,
-  depth: undefined
+  depth: undefined,
 };
 
 export default function (config: IConfiguration<any>) {

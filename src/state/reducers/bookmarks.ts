@@ -12,11 +12,11 @@ import {
 export const INITIAL_STATE = [];
 
 export default function reduce(state = INITIAL_STATE, action) {
-  switch(action.type) {
+  switch (action.type) {
     case ADD_BOOKMARK: {
       const { name, stateId, data } = action.payload;
       const newBookmark = { name, stateId, data: data || {} };
-      return [ ...state, newBookmark];
+      return [...state, newBookmark];
     }
 
     case REMOVE_BOOKMARK: {

@@ -24,9 +24,7 @@ module.exports = function configureWallaby(wallaby) {
       { pattern: 'src/**/*.scss*', load: false },
     ],
     tests: [
-      { pattern: 'test/util/**/*.spec.ts*', load: false },
-      { pattern: 'test/state/**/*.spec.ts*', load: false },
-      { pattern: 'test/*.spec.ts*', load: false },
+      { pattern: 'test/**/*.spec.ts*', load: false },
     ],
     compilers: {
       '**/*.js*': wallaby.compilers.typeScript({

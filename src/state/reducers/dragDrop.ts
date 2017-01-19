@@ -2,12 +2,6 @@ import {
   IConfiguration, // eslint-disable-line no-unused-vars
 } from '@essex/redux-dag-history/lib/interfaces';
 import {
-  SELECT_MAIN_VIEW,
-  SELECT_HISTORY_TYPE,
-  TOGGLE_BRANCH_CONTAINER,
-  SELECT_BOOKMARK_DEPTH,
-  START_PLAYBACK,
-  STOP_PLAYBACK,
   BOOKMARK_DRAG_START,
   BOOKMARK_DRAG_HOVER,
   BOOKMARK_DRAG_DROP,

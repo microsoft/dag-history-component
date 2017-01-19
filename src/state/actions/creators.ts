@@ -1,7 +1,7 @@
 import { StateId } from '@essex/redux-dag-history/lib/interfaces';
+import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
 import { createAction } from 'redux-actions';
 import * as Types from './types';
-import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
 
 
 // Simple Action Creators
