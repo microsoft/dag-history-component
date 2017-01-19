@@ -2,7 +2,7 @@ import * as React from "react";
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 import BranchList from '../../BranchList';
-import isNumber from '../../../isNumber';
+import isNumber from '../../../util/isNumber';
 
 const { PropTypes } = React;
 

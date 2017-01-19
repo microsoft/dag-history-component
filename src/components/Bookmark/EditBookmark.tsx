@@ -79,12 +79,14 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       onBookmarkChange,
     } = this.props;
 
-    const isBookmarkUpdated = value !== existingNumLeadInStates;
+    const annotation = this.annotationComponent.value;
+    const isBookmarkUpdated = value !== existingNumLeadInStates || annotation !== existingAnnotation;
+
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
         name: this.props.name,
         data: {
-          annotation: existingAnnotation,
+          annotation,
           numLeadInStates: value,
         },
       });

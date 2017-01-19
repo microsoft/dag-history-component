@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import HistoryContainer from './HistoryContainer';
+import HistoryPresenter from './HistoryPresenter';
 import VisualA from './visuals/VisualA';
 import VisualB from './visuals/VisualB';
 import { DragDropContext } from 'react-dnd';
@@ -28,7 +28,7 @@ export default class Application extends React.Component<ApplicationProps, Appli
               <VisualB />
             </div>
             <div className="history-pane">
-              <HistoryContainer />
+              <HistoryPresenter />
             </div>
           </div>
         </div>

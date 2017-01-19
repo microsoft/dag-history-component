@@ -9,7 +9,7 @@ import {
   bookmarkDragHover,
   bookmarkDragDrop,
   bookmarkDragCancel,
-} from '../../actions';
+} from '../../state/actions/creators';
 import { debounce } from 'lodash';
 
 const {

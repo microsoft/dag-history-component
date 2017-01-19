@@ -1,11 +1,12 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectHistoryType } from '../../../actions';
+import { selectHistoryType } from '../../../state/actions/creators';
 import BranchedHistoryView, {IBranchedHistoryViewProps} from './BranchedHistoryView';
 import ChronologicalHistoryView from './ChronologicalHistoryView';
 import OptionDropdown from '../../OptionDropdown';
 import { IHistoryContainerSharedProps } from "../interfaces";
+import { IBookmark } from '../../../interfaces';
 
 const BranchedIcon = require('react-icons/lib/go/git-branch');
 const ChronologicalIcon = require('react-icons/lib/go/three-bars');
@@ -30,6 +31,7 @@ export interface IHistoryViewDispatchProps {
 }
 
 export interface IHistoryViewOwnProps extends IHistoryContainerSharedProps {
+  bookmarks: IBookmark[];
 }
 
 export interface IHistoryViewProps extends IHistoryViewStateProps, IHistoryViewDispatchProps, IHistoryViewOwnProps {

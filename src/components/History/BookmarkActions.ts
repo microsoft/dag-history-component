@@ -1,5 +1,6 @@
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import Bookmark from '../../util/Bookmark';
+import { IBookmark } from '../../interfaces';
 
 const log = require('debug')('dag-history-component:BookmarkActions');
 
@@ -7,9 +8,9 @@ export default function makeActions(
   rawSelectedBookmark: number,
   rawSelectedBookmarkDepth: number,
   history: any,
+  bookmarks: IBookmark[],
   onSelectBookmarkDepth,
 ) {
-  const { bookmarks } = history;
   const graph = new DagGraph(history.graph);
   const { currentStateId } = graph;
   const bookmarkAt = (index: number) => {
@@ -48,6 +49,7 @@ export default function makeActions(
   };
 
   const handleStepForward = () => {
+    console.log("HANDLE STEP FORWARD");
     const isAtBookmarkEnd = bookmark.isDepthAtEnd(depth);
     const isAtLastBookmark = bookmarkIndex === bookmarks.length - 1;
     const isAtEnd = isAtLastBookmark && isAtBookmarkEnd;
@@ -71,7 +73,10 @@ export default function makeActions(
   };
 
   const handleStepBack = () => rawStepBack(bookmark.isDepthAtStart(depth));
-  const handleStepBackUnbounded = () => rawStepBack(depth === 0);
+  const handleStepBackUnbounded = () => {
+    console.log("STEP BACK UNBOUNDED");
+    rawStepBack(depth === 0);
+  }
 
   const handleJumpToBookmark = (index: number) => jump(index, undefined);
   const handlePreviousBookmark = () => handleJumpToBookmark(Math.max(bookmarkIndex - 1, 0));

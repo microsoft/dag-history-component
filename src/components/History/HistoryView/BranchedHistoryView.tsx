@@ -2,12 +2,13 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
-import * as DagComponentActions from '../../../actions';
+import * as DagComponentActions from '../../../state/actions/creators';
 import ExpandCollapseToggle from '../../ExpandCollapseToggle';
 import Transport from '../../Transport';
 import StateListContainer, { IStateListContainerProps } from './StateListContainer';
 import BranchListContainer, { IBranchListContainerProps } from './BranchListContainer';
 import { IHistoryContainerSharedProps } from "../interfaces";
+import { IBookmark } from '../../../interfaces';
 
 const { PropTypes } = React;
 
@@ -31,6 +32,7 @@ export interface IBranchedHistoryViewProps extends
   IBranchedHistoryViewStateProps,
   IBranchedHistoryViewDispatchProps,
   IBranchedHistoryViewOwnProps {
+  bookmarks: IBookmark[];
 }
 
 const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> = (props) => {
@@ -89,9 +91,9 @@ export default connect<IBranchedHistoryViewStateProps, IBranchedHistoryViewDispa
   () => ({}),
   dispatch => bindActionCreators({
     onStateSelect: DagHistoryActions.jumpToState,
-    onAddBookmark: DagHistoryActions.addBookmark,
+    onAddBookmark: DagComponentActions.addBookmark,
     onBranchSelect: DagHistoryActions.jumpToBranch,
-    onRemoveBookmark: DagHistoryActions.removeBookmark,
+    onRemoveBookmark: DagComponentActions.removeBookmark,
     onToggleBranchContainer: DagComponentActions.toggleBranchContainer,
     onHighlightSuccessors: DagHistoryActions.pinState,
     onRenameBranch: DagHistoryActions.renameBranch,

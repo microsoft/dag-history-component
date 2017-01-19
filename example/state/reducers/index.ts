@@ -2,7 +2,7 @@ import * as redux from 'redux';
 import dagHistory from '@essex/redux-dag-history/lib/reducer';
 import Configuration from '@essex/redux-dag-history/lib/Configuration';
 import app from './app';
-import history from '../../../src/reducer';
+import history from '../../../src/state/reducers';
 
 const log = require('debug')('app:state');
 
@@ -53,9 +53,7 @@ const DAG_HISTORY_CONFIG = new Configuration({
   stateKeyGenerator,
 });
 
-const rootReducer = redux.combineReducers({
+export default redux.combineReducers({
   app: dagHistory(app, DAG_HISTORY_CONFIG),
-  history: history(DAG_HISTORY_CONFIG),
+  component: history(DAG_HISTORY_CONFIG),
 });
-
-export default rootReducer;

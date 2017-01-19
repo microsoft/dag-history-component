@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import isNumber from '../src/isNumber';
+import isNumber from '../../src/util/isNumber';
 
 describe('The isNumber module', () => {
   it('returns true on numeric inputs', () => {

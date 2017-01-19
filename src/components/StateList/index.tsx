@@ -1,6 +1,6 @@
 import * as React from 'react';
 import State, { IStateProps } from '../State';
-import isNumber from '../../isNumber';
+import isNumber from '../../util/isNumber';
 
 export interface IStateListProps {
   states: IStateProps[];
