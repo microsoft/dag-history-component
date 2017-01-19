@@ -4,7 +4,7 @@ import { IBookmark } from '../interfaces';
 import HistoryComponent from './History';
 import '../daghistory.scss';
 
-const { PropTypes, Children } = React;
+const { PropTypes } = React;
 
 export interface IHistoryContainerStateProps {
   history?: any,
@@ -31,7 +31,7 @@ export interface IHistoryContainerProps extends IHistoryContainerStateProps, IHi
 }
 
 const HistoryContainer: React.StatelessComponent<IHistoryContainerProps> = (props) => {
-  return Children.only(<HistoryComponent {...props} />);
+  return (<HistoryComponent {...props} />);
 };
 
 HistoryContainer.propTypes = {
