@@ -14,7 +14,6 @@
         ]
     },
     "files": [
-      "src/index.ts",
-      "src/reducer.ts"
+      "src/index.ts"
     ]
 }

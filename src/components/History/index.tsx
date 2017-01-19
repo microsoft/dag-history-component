@@ -2,29 +2,25 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
-import * as Actions from '../../actions';
+import * as Actions from '../../state/actions/creators';
 import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
-import * as DagComponentActions from '../../actions';
 import HistoryTabs from './HistoryTabs';
 import Transport from '../Transport';
 import PlaybackPane from '../PlaybackPane';
 import HistoryView from './HistoryView';
 import StoryboardingView from './StoryboardingView';
 import { IHistoryContainerSharedProps } from './interfaces';
-import isNumber from '../../isNumber';
+import isNumber from '../../util/isNumber';
 import makeActions from './BookmarkActions';
 import Bookmark from '../../util/Bookmark';
+import { IBookmark } from '../../interfaces';
+
 import './History.scss';
 
 const { PropTypes } = React;
 
 const log = require('debug')('dag-history-component:components:History');
-
-const {
-  selectMainView,
-  toggleBranchContainer,
-} = DagComponentActions;
 
 export interface IHistoryStateProps {}
 export interface IHistoryDispatchProps {
@@ -35,25 +31,19 @@ export interface IHistoryDispatchProps {
   onStartPlayback: Function;
   onStopPlayback: Function;
   onSelectBookmarkDepth: Function;
+  onSelectState: Function;
 }
 export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
-  history: any;
-  mainView: string;
-  historyType: string;
-  getSourceFromState: Function;
-  branchContainerExpanded?: boolean;
-  highlightSuccessorsOf?: number;
-  selectedBookmark?: number;
-  selectedBookmarkDepth?: number;
-  isPlayingBack?: boolean;
-  bindTransportKeysGlobally?: boolean;
-  onSelectState?: Function;
 }
 
 export interface IHistoryProps extends IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps {}
 
 export class History extends React.Component<IHistoryProps, {}> {
   public static propTypes = {
+    bookmarks: PropTypes.array.isRequired,
+    dragIndex: PropTypes.number,
+    hoverIndex: PropTypes.number,
+
     /**
      * The Dag-History Object
      */
@@ -101,7 +91,6 @@ export class History extends React.Component<IHistoryProps, {}> {
      * Bookbark Configuration Properties
      */
     bookmarksEnabled: PropTypes.bool,
-
     bindTransportKeysGlobally: PropTypes.bool,
   };
 
@@ -110,8 +99,8 @@ export class History extends React.Component<IHistoryProps, {}> {
   }
 
   onSaveClicked() {
-    const { history, controlBar: { onSaveHistory } } = this.props;
-    const { current, lastBranchId, lastStateId, graph, bookmarks } = history;
+    const { history, controlBar: { onSaveHistory }, bookmarks } = this.props;
+    const { current, lastBranchId, lastStateId, graph } = history;
     // Pass the plain history up to the client to save
     onSaveHistory({
       current,
@@ -158,16 +147,16 @@ export class History extends React.Component<IHistoryProps, {}> {
       onSelectBookmarkDepth,
       onSelectState,
       bindTransportKeysGlobally,
+      bookmarks,
     } = this.props;
 
     const {
-      bookmarks,
       graph,
     } = history;
     const historyGraph = new DagGraph(graph);
     const bookmark = bookmarks[selectedBookmark];
-    const slideText = bookmark.data.annotation || bookmark.name || 'No Slide Data';
-    const numLeadInStates = bookmark.data.numLeadInStates;
+    const slideText = bookmark.data['annotation'] || bookmark.name || 'No Slide Data';
+    const numLeadInStates = bookmark.data['numLeadInStates'];
     const bookmarkPath = historyGraph.shortestCommitPath(bookmark.stateId);
 
     const {
@@ -176,13 +165,13 @@ export class History extends React.Component<IHistoryProps, {}> {
       handleNextBookmark,
       handlePreviousBookmark,
       handleStepBackUnbounded,
-    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
+    } = makeActions(selectedBookmark, selectedBookmarkDepth, history, bookmarks, onSelectBookmarkDepth);
 
     const bookmarkHighlight = (selectedBookmarkDepth !== undefined) ?
       selectedBookmarkDepth :
       bookmarkPath.length - 1;
 
-    const initialDepth = new Bookmark(history.bookmarks[0], new DagGraph(history.graph)).startingDepth();
+    const initialDepth = new Bookmark(bookmarks[0], new DagGraph(history.graph)).startingDepth();
 
     // End the presentation if we're on the last slide
     return (
@@ -216,9 +205,6 @@ export class History extends React.Component<IHistoryProps, {}> {
 
   render() {
     const {
-      history: {
-        bookmarkPlaybackIndex,
-      },
       mainView,
       onSelectMainView,
       bookmarksEnabled,
@@ -240,13 +226,13 @@ export class History extends React.Component<IHistoryProps, {}> {
 }
 
 export default connect<IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps>(
-  () => ({}), // we don't dictate state-shape
+  () => ({}),
   dispatch => bindActionCreators({
     onClear: DagHistoryActions.clear,
     onLoad: DagHistoryActions.load,
-    onSelectMainView: selectMainView,
+    onSelectMainView: Actions.selectMainView,
     onSelectState: DagHistoryActions.jumpToState,
-    onToggleBranchContainer: toggleBranchContainer,
+    onToggleBranchContainer: Actions.toggleBranchContainer,
     onStartPlayback: Actions.startPlayback,
     onStopPlayback: Actions.stopPlayback,
     onSelectBookmarkDepth: Actions.selectBookmarkDepth,

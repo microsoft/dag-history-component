@@ -5,18 +5,12 @@ import {
   SELECT_MAIN_VIEW,
   SELECT_HISTORY_TYPE,
   TOGGLE_BRANCH_CONTAINER,
-  SELECT_BOOKMARK_DEPTH,
-  START_PLAYBACK,
-  STOP_PLAYBACK,
-} from './actions';
+} from '../actions/types';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   mainView: 'history',
   historyType: 'branched',
   branchContainerExpanded: true,
-  isPlayingBack: false,
-  selectedBookmark: undefined,
-  selectedBookmarkDepth: undefined,
 };
 
 export default function (config: IConfiguration<any>) {
@@ -37,35 +31,11 @@ export default function (config: IConfiguration<any>) {
         ...state,
         branchContainerExpanded: !state.branchContainerExpanded,
       };
-    } else if (action.type === SELECT_BOOKMARK_DEPTH) {
-      const { depth, bookmarkIndex } = action.payload;
-      result = {
-        ...state,
-        selectedBookmark: bookmarkIndex === undefined ? state.selectedBookmark : bookmarkIndex,
-        selectedBookmarkDepth: depth,
-      };
-    } else if (action.type === START_PLAYBACK) {
-      const { initialDepth } = action.payload;
-      result = {
-        ...state,
-        isPlayingBack: true,
-        selectedBookmark: 0,
-        selectedBookmarkDepth: initialDepth,
-      };
-    } else if (action.type === STOP_PLAYBACK) {
-      result = {
-        ...state,
-        isPlayingBack: false,
-        selectedBookmark: undefined,
-        selectedBookmarkDepth: undefined,
-      };
     } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action.type)) {
       // Insertable actions clear the pinned state
       result = {
         ...state,
         mainView: 'history',
-        selectedBookmark: undefined,
-        selectedBookmarkDepth: undefined,
       };
     }
     return result;

@@ -3,8 +3,9 @@ import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators'
 import StateListContainer from './StateListContainer';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as DagComponentActions from '../../../actions';
+import * as DagComponentActions from '../../../state/actions/creators';
 import { IHistoryContainerSharedProps } from "../interfaces";
+import { IBookmark } from '../../../interfaces';
 
 const { PropTypes } = React;
 
@@ -26,6 +27,7 @@ export interface IChronologicalHistoryViewDispatchProps {
 }
 
 export interface IChronologicalHistoryViewOwnProps extends IHistoryContainerSharedProps {
+  bookmarks: IBookmark[];
 }
 
 export interface IChronologicalHistoryViewProps extends
@@ -44,6 +46,8 @@ const ChronologicalHistoryView: React.StatelessComponent<IChronologicalHistoryVi
   </div>
 );
 ChronologicalHistoryView.propTypes = {
+  bookmarks: PropTypes.array.isRequired,
+
   /**
    * The Dag-History Object
    */
@@ -70,7 +74,7 @@ ChronologicalHistoryView.propTypes = {
   onRenameBranch: PropTypes.func,
 
   /**
-   * Bookbark Configuration Properties
+   * Bookmark Configuration Properties
    */
   bookmarksEnabled: PropTypes.bool,
 };
@@ -80,8 +84,8 @@ export default connect<IChronologicalHistoryViewStateProps, IChronologicalHistor
   dispatch => bindActionCreators({
     onBranchSelect: DagHistoryActions.jumpToLatestOnBranch,
     onStateSelect: DagHistoryActions.jumpToState,
-    onAddBookmark: DagHistoryActions.addBookmark,
-    onRemoveBookmark: DagHistoryActions.removeBookmark,
+    onAddBookmark: DagComponentActions.addBookmark,
+    onRemoveBookmark: DagComponentActions.removeBookmark,
     onUndo: DagHistoryActions.undo,
     onRedo: DagHistoryActions.redo,
     onSkipToStart: DagHistoryActions.skipToStart,

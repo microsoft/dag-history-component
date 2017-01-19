@@ -23,6 +23,10 @@ export interface IEditBookmarkProps {
   selectedDepth: number;
   onDiscoveryTrailIndexClicked?: Function;
   onSelectBookmarkDepth?: Function;
+
+  // Injected by React DnD:
+  isDragging?: boolean;
+  connectDragSource?: Function;
 }
 export interface IEditBookmarkState {}
 
@@ -75,12 +79,14 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       onBookmarkChange,
     } = this.props;
 
-    const isBookmarkUpdated = value !== existingNumLeadInStates;
+    const annotation = this.annotationComponent.value;
+    const isBookmarkUpdated = value !== existingNumLeadInStates || annotation !== existingAnnotation;
+
     if (isBookmarkUpdated && onBookmarkChange) {
       onBookmarkChange({
         name: this.props.name,
         data: {
-          annotation: existingAnnotation,
+          annotation,
           numLeadInStates: value,
         },
       });
@@ -96,7 +102,7 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
     } = this.props;
 
     if (onSelectBookmarkDepth) {
-      const state = shortestCommitPath[depth];
+      const state = shortestCommitPath[depth || shortestCommitPath.length - 1];
       onSelectBookmarkDepth({ bookmarkIndex, depth, state });
     }
   }
@@ -113,13 +119,14 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       selectedDepth,
       numLeadInStates,
       onDiscoveryTrailIndexClicked,
+      connectDragSource,
     } = this.props;
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
     const isIntroSet = numLeadInStates !== undefined;
 
     log('rendering commitPathLength=%s, selectedDepth=%s', this.props.commitPathLength, this.props.selectedDepth);
-    return (
+    return connectDragSource(
       <div
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}

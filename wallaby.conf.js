@@ -1,9 +1,12 @@
-const wallabyWebpack = require('wallaby-webpack');
+const wallabyWebpack = require('wallaby-webpack'); // eslint-disable-line import/no-extraneous-dependencies
 
 module.exports = function configureWallaby(wallaby) {
   const webpackPostprocessor = wallabyWebpack({
     resolve: {
       extensions: ['', '.js', '.jsx'],
+      alias: {
+        sinon: 'sinon/pkg/sinon',
+      },
     },
     module: {
       loaders: [
@@ -30,7 +33,7 @@ module.exports = function configureWallaby(wallaby) {
     },
     postprocessor: webpackPostprocessor,
     bootstrap() {
-      window.__moduleBundler.loadTests();
+      window.__moduleBundler.loadTests(); // eslint-disable-line no-underscore-dangle
     },
     env: {
       kind: 'electron',

@@ -17,6 +17,7 @@ module.exports = {
     fallback: path.join(__dirname, 'node_modules'),
     alias: {
       'react/lib/ReactMount': 'react-dom/lib/ReactMount',
+      sinon: 'sinon/pkg/sinon',
     },
   },
   resolveLoader: {
@@ -32,7 +33,6 @@ module.exports = {
   module: {
     loaders: [
         { test: /\.html$/, loader: 'file-loader?name=[name].[ext]' },
-        { test: /\.js/, loaders: ['react-hot-loader', 'babel-loader'], exclude: /node_modules/ },
         { test: /\.css$/, loader: 'style-loader!css-loader!postcss-loader' },
         { test: /\.scss$/, loader: 'style-loader!css-loader!postcss-loader!sass-loader' },
         { test: /\.ts(x|)/, loaders: ['ts-loader'], exclude: /node_modules/ },

@@ -1,19 +1,27 @@
 import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
+import { IBookmark } from '../../interfaces';
 
 export interface IHistoryContainerSharedProps {
   history: IDagHistory<any>;
+  highlightSuccessorsOf?: number;
   mainView: string;
   historyType: string;
-  getSourceFromState: Function;
+  dragIndex?: number;
+  hoverIndex?: number;
   branchContainerExpanded?: boolean;
-  highlightSuccessorsOf?: number;
-  bookmarksEnabled?: boolean;
+  selectedBookmark?: number;
+  selectedBookmarkDepth?: number;
+  isPlayingBack?: boolean;
+  bookmarks: IBookmark[];
+
   bindTransportKeysGlobally?: boolean;
+  getSourceFromState: Function;
+  bookmarksEnabled?: boolean;
 
   /**
    * ControlBar Configuration Properties
    */
-  controlBar: {
+  controlBar?: {
     /**
      * A handler to save the history tree out. This is handled by clients.
      */

@@ -6,6 +6,11 @@ $gray: #d1d1d1;
 $charcoal: #5d6d7e;
 $black: #000;
 
+.bookmark-dragged {
+  min-height: 30px;
+  background-color: grey;
+}
+
 .discovery-trail-label {
   font-size: 9pt;
   font-weight: lighter;

@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import { bindActionCreators } from "redux";
 import Transport from '../../Transport';
-import * as Actions from '../../../actions';
+import * as Actions from '../../../state/actions/creators';
 import BookmarkListContainer, { IBookmarkListContainerProps } from './BookmarkListContainer';
 import makeActions from '../BookmarkActions';
 const { PropTypes } = React;
 import Bookmark from '../../../util/Bookmark';
+import { IBookmark } from '../../../interfaces';
 
 export interface IStoryboardingViewStateProps {}
 
@@ -23,6 +24,9 @@ export interface IStoryboardingViewOwnProps {
   selectedBookmark?: number;
   selectedBookmarkDepth?: number;
   bindTransportKeysGlobally?: boolean;
+  bookmarks: IBookmark[];
+  dragIndex?: number;
+  hoverIndex?: number;
 }
 
 export interface IStoryboardingViewProps extends
@@ -34,12 +38,15 @@ export interface IStoryboardingViewProps extends
 const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBookmarkListContainerProps> = (props) => {
   const {
     history,
+    bookmarks,
     onStartPlayback,
     onStopPlayback,
     selectedBookmark,
     selectedBookmarkDepth,
     onSelectBookmarkDepth,
     bindTransportKeysGlobally,
+    dragIndex,
+    hoverIndex,
   } = props;
 
   const {
@@ -48,9 +55,9 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
     handleNextBookmark,
     handlePreviousBookmark,
     handleStepBackUnbounded,
-  } = makeActions(selectedBookmark, selectedBookmarkDepth, history, onSelectBookmarkDepth);
+  } = makeActions(selectedBookmark, selectedBookmarkDepth, history, bookmarks, onSelectBookmarkDepth);
 
-  const initialDepth = new Bookmark(history.bookmarks[0], new DagGraph(history.graph)).startingDepth();
+  const initialDepth = new Bookmark(bookmarks[0], new DagGraph(history.graph)).startingDepth();
   return (
     <div className="history-container">
       <BookmarkListContainer {...props} />
@@ -60,8 +67,8 @@ const StoryboardingView: React.StatelessComponent<IStoryboardingViewProps & IBoo
         onForward={handleStepForward}
         onPlay={() => onStartPlayback({ initialDepth })}
         onStop={onStopPlayback}
-        onStepBack={() => handleStepBackUnbounded}
-        onStepForward={() => handleStepForward}
+        onStepBack={handleStepBack}
+        onStepForward={handleStepForward}
       />
     </div>
   );
@@ -75,6 +82,8 @@ StoryboardingView.propTypes = {
   selectedBookmark: PropTypes.number,
   selectedBookmarkDepth: PropTypes.number,
   bindTransportKeysGlobally: PropTypes.bool,
+  dragIndex: PropTypes.number,
+  hoverIndex: PropTypes.number,
 
   /* User Interaction Handlers - loaded by redux */
   onPlayBookmarkStory: PropTypes.func,

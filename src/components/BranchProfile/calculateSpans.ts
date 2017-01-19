@@ -2,7 +2,7 @@ import {
   Span,
   insertSpan,
   initialSpans,
-} from '../../spans';
+} from '../../util/spans';
 
 const isNumber = d => !isNaN(d) && d !== null;
 const convertArg = (arg, offset) => (arg !== null && arg !== undefined) ? arg - offset : arg;

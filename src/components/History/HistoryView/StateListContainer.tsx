@@ -2,7 +2,8 @@ import * as React from "react";
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 import StateList from '../../StateList';
-import isNumber from '../../../isNumber';
+import isNumber from '../../../util/isNumber';
+import { IBookmark } from '../../../interfaces';
 
 const { PropTypes } = React;
 
@@ -63,6 +64,7 @@ export interface IStateListContainerProps {
   highlightSuccessorsOf: number;
   bookmarksEnabled?: boolean;
   branchTypeOverride?: string;
+  bookmarks: IBookmark[];
 
   /**
    * User Interaction Handlers - loaded by redux
@@ -76,8 +78,8 @@ export interface IStateListContainerProps {
 const StateListContainer: React.StatelessComponent<IStateListContainerProps> = ({
   history: {
     graph,
-    bookmarks,
   },
+  bookmarks,
   commitPath,
   onHighlightSuccessors,
   onRemoveBookmark,
@@ -102,7 +104,7 @@ const StateListContainer: React.StatelessComponent<IStateListContainerProps> = (
     );
     const bookmarked = bookmarks.map(b => b.stateId).includes(id);
     log('bookmarked?', bookmarked);
-    return bookmarked ? onRemoveBookmark(id) : onAddBookmark(id);
+    return bookmarked ? onRemoveBookmark(id) : onAddBookmark({ stateId: id, name: historyGraph.stateName(id) });
   };
   const stateList = getStateList(
     historyGraph,

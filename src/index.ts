@@ -1,3 +1,9 @@
-import HistoryComponent from './components/History';
+import History from './components/History';
+import createHistoryContainer from './components/createHistoryContainer';
+import * as state from './state';
 
-export default HistoryComponent;
+export {
+  History,
+  createHistoryContainer,
+  state,
+};
