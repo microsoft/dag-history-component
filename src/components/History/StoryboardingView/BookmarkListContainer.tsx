@@ -11,7 +11,7 @@ import BookmarkList from '../../BookmarkList';
 const log = require('debug')('dag-history-component:components:StoryboardingView');
 
 export interface IBookmarkListContainerStateProps {
-  draggedIndex?: number;
+  dragIndex?: number;
   hoverIndex?: number;
 }
 
@@ -47,7 +47,7 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
     onSelectBookmarkDepth,
     selectedBookmark: selectedBookmarkIndex,
     selectedBookmarkDepth: selectedBookmarkDepthIndex,
-    draggedIndex,
+    dragIndex,
     hoverIndex,
   } = props;
   const historyGraph = new DagGraph(graph);
@@ -80,7 +80,7 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
   });
   return (
     <BookmarkList
-      draggedIndex={draggedIndex}
+      dragIndex={dragIndex}
       hoverIndex={hoverIndex}
       bookmarks={bookmarkData}
       onBookmarkClick={(index, state) => onSelectBookmark(index, state)}
@@ -97,7 +97,7 @@ BookmarkListContainer.propTypes = {
   onSelectState: React.PropTypes.func,
   selectedBookmark: React.PropTypes.number,
   selectedBookmarkDepth: React.PropTypes.number,
-  draggedIndex: React.PropTypes.number,
+  dragIndex: React.PropTypes.number,
   hoverIndex: React.PropTypes.number,
 };
 

@@ -14,7 +14,7 @@ export default function makeActions(
   const graph = new DagGraph(history.graph);
   const { currentStateId } = graph;
   const bookmarkAt = (index: number) => {
-    if (index < 0 || index >= bookmarks.length) {
+    if (bookmarks.length === 0 || index < 0 || index >= bookmarks.length) {
       return null;
     }
     return new Bookmark(bookmarks[index], graph);
@@ -28,7 +28,7 @@ export default function makeActions(
     rawSelectedBookmark :
     Math.max(0, bookmarks.findIndex(it => it.stateId === currentStateId));
   const bookmark = bookmarkAt(bookmarkIndex);
-  const depth = bookmark.sanitizeDepth(rawSelectedBookmarkDepth);
+  const depth = bookmark ? bookmark.sanitizeDepth(rawSelectedBookmarkDepth) : null;
 
   const rawStepBack = (isAtBookmarkStart: boolean) => {
     const isAtBeginning = bookmarkIndex === 0 && isAtBookmarkStart;
@@ -49,7 +49,6 @@ export default function makeActions(
   };
 
   const handleStepForward = () => {
-    console.log("HANDLE STEP FORWARD");
     const isAtBookmarkEnd = bookmark.isDepthAtEnd(depth);
     const isAtLastBookmark = bookmarkIndex === bookmarks.length - 1;
     const isAtEnd = isAtLastBookmark && isAtBookmarkEnd;
@@ -73,10 +72,7 @@ export default function makeActions(
   };
 
   const handleStepBack = () => rawStepBack(bookmark.isDepthAtStart(depth));
-  const handleStepBackUnbounded = () => {
-    console.log("STEP BACK UNBOUNDED");
-    rawStepBack(depth === 0);
-  }
+  const handleStepBackUnbounded = () => rawStepBack(depth === 0);
 
   const handleJumpToBookmark = (index: number) => jump(index, undefined);
   const handlePreviousBookmark = () => handleJumpToBookmark(Math.max(bookmarkIndex - 1, 0));

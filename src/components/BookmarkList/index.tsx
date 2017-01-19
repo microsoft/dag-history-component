@@ -14,7 +14,7 @@ export interface IBookmarkListProps {
   onSelectBookmarkDepth?: Function;
   connectDropTarget?: Function;
 
-  draggedIndex?: number;
+  dragIndex?: number;
   hoverIndex?: number;
 }
 
@@ -41,7 +41,7 @@ export default class BookmarkList extends React.PureComponent<IBookmarkListProps
       onSelectState,
       onSelectBookmarkDepth,
       connectDropTarget,
-      draggedIndex,
+      dragIndex,
       hoverIndex,
     } = this.props;
 
@@ -61,10 +61,10 @@ export default class BookmarkList extends React.PureComponent<IBookmarkListProps
       />
     ));
 
-    if (hoverIndex >= 0 && hoverIndex !== draggedIndex) {
-      const dragged = bookmarkViews[draggedIndex];
-      const adjustedHoverIndex = hoverIndex < draggedIndex ? hoverIndex : hoverIndex - 1;
-      bookmarkViews.splice(draggedIndex, 1);
+    if (hoverIndex >= 0 && hoverIndex !== dragIndex) {
+      const dragged = bookmarkViews[dragIndex];
+      const adjustedHoverIndex = hoverIndex < dragIndex ? hoverIndex : hoverIndex - 1;
+      bookmarkViews.splice(dragIndex, 1);
       bookmarkViews.splice(adjustedHoverIndex, 0, dragged);
     }
     return (

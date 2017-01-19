@@ -100,7 +100,6 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
 
   @keydown(Keys.RIGHT)
   stepForward() {
-    console.log("STEP FORTWWARD", this.props.onStepForward === this.props.onForward);
     if (this.handlers.onStepForward) {
       this.handlers.onStepForward();
     }
