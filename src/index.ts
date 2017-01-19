@@ -1,4 +1,2 @@
-import History from './components/History';
-import HistoryContainer from './components/HistoryContainer';
-
-export { History, HistoryContainer };
+export { default as History } from './components/History';
+export { default as createHistoryContainer } from './components/createHistoryContainer';

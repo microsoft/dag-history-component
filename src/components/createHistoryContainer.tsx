@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { IBookmark } from '../../interfaces';
-import '../../daghistory.scss';
-import HistoryComponent from '../History';
+import { IBookmark } from '../interfaces';
+import HistoryComponent from './History';
+import '../daghistory.scss';
 
 const { PropTypes, Children } = React;
 

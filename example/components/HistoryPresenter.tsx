@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { save, load } from '../persister';
 import { IBookmark } from '../../src/interfaces';
 import '../../src/daghistory.scss';
-import createHistoryContainer from '../../src/components/HistoryContainer';
+import createHistoryContainer from '../../src/components/createHistoryContainer';
 
 const HistoryContainer = createHistoryContainer(state => state.app, state => state.component);
 
