@@ -14,7 +14,6 @@ const HistoryPresenter: React.StatelessComponent<void> = (props) => {
     <div className='history-viz-container'>
       <HistoryContainer
         bookmarksEnabled
-        bindTransportKeysGlobally
         getSourceFromState={state => (
           state.toJS ?
           state.toJS().metadata.source :

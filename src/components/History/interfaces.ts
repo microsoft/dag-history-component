@@ -14,7 +14,6 @@ export interface IHistoryContainerSharedProps {
   isPlayingBack?: boolean;
   bookmarks: IBookmark[];
 
-  bindTransportKeysGlobally?: boolean;
   getSourceFromState: Function;
   bookmarksEnabled?: boolean;
 

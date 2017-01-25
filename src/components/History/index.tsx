@@ -91,7 +91,6 @@ export class History extends React.Component<IHistoryProps, {}> {
      * Bookbark Configuration Properties
      */
     bookmarksEnabled: PropTypes.bool,
-    bindTransportKeysGlobally: PropTypes.bool,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -146,7 +145,6 @@ export class History extends React.Component<IHistoryProps, {}> {
       selectedBookmarkDepth,
       onSelectBookmarkDepth,
       onSelectState,
-      bindTransportKeysGlobally,
       bookmarks,
     } = this.props;
 
@@ -191,7 +189,6 @@ export class History extends React.Component<IHistoryProps, {}> {
         />
         <Transport
           playing
-          bindTransportKeysGlobally={bindTransportKeysGlobally}
           onStepBack={handleStepBackUnbounded}
           onStepForward={handleStepForward}
           onBack={handleStepBack}
