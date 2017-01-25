@@ -1,5 +1,4 @@
 import * as React from "react";
-const { default: keydown, Keys } = require("react-keydown");
 const LeftIcon = require("react-icons/lib/md/keyboard-arrow-left");
 const RightIcon = require("react-icons/lib/md/keyboard-arrow-right");
 const UpIcon = require("react-icons/lib/fa/caret-up");
@@ -10,7 +9,6 @@ import { debounce } from "lodash";
 
 const { PropTypes } = React;
 const DEFAULT_ICON_SIZE = 30;
-const KEY_DEBOUNCE_INTERVAL = 50;
 
 import "./Transport.scss";
 
@@ -27,7 +25,6 @@ export interface ITransportProps extends ITransportCallbackProps {
   iconSize?: number;
   playing?: boolean;
   showPlay?: boolean;
-  bindTransportKeysGlobally?: boolean;
 
   /**
    * When this is true, then stepping downwards means stepping into older states
@@ -59,7 +56,6 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     onPlay: PropTypes.func,
     onStepForward: PropTypes.func,
     onStepBack: PropTypes.func,
-    bindTransportKeysGlobally: PropTypes.bool,
   };
 
   public static defaultProps = {
@@ -68,51 +64,32 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     showPlay: true,
   };
 
-  private oldKeydownHandler = null;
   private handlers: ITransportCallbackProps = null;
 
-  public componentDidMount() {
-    if (this.props.bindTransportKeysGlobally) {
-      this.oldKeydownHandler = document.onkeydown;
-      document.onkeydown = this.handleKeydown.bind(this);
-    }
-  }
-
-  public componentWillUnmount() {
-    if (this.props.bindTransportKeysGlobally) {
-      document.onkeydown = this.oldKeydownHandler;
-    }
-  }
-
-  @keydown(Keys.SPACE)
   play() {
     if (this.handlers.onPlay) {
       this.handlers.onPlay();
     }
   }
 
-  @keydown(Keys.LEFT)
   stepBack() {
     if (this.handlers.onStepBack) {
       this.handlers.onStepBack();
     }
   }
 
-  @keydown(Keys.RIGHT)
   stepForward() {
     if (this.handlers.onStepForward) {
       this.handlers.onStepForward();
     }
   }
 
-  @keydown(Keys.ESC)
   stop() {
     if (this.handlers.onStop) {
       this.handlers.onStop();
     }
   }
 
-  @keydown(Keys.UP)
   back() {
     if (this.props.reverseVertical) {
       this.goForward();
@@ -121,7 +98,6 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     }
   }
 
-  @keydown(Keys.DOWN)
   forward() {
     if (this.props.reverseVertical) {
       this.goBack();
@@ -143,7 +119,6 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
   }
 
   public render() {
-    const debounced = (target: Function) => target ? debounce(target, KEY_DEBOUNCE_INTERVAL) : target;
     const {
       iconSize,
       playing,
@@ -151,12 +126,12 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
     } = this.props;
 
     this.handlers = {
-      onPlay: debounced(this.props.onPlay),
-      onStop: debounced(this.props.onStop),
-      onBack: debounced(this.props.onBack),
-      onForward: debounced(this.props.onForward),
-      onStepForward: debounced(this.props.onStepForward),
-      onStepBack: debounced(this.props.onStepBack),
+      onPlay: this.props.onPlay,
+      onStop: this.props.onStop,
+      onBack: this.props.onBack,
+      onForward: this.props.onForward,
+      onStepForward: this.props.onStepForward,
+      onStepBack: this.props.onStepBack,
     };
 
     let playPauseButton = <div />;
@@ -183,27 +158,6 @@ class Transport extends React.Component<ITransportProps, ITransportState> {
         </div>
       </div>
     );
-  }
-
-  private handleKeydown(arg: KeyboardEvent) {
-    const { keyCode } = arg;
-    if (keyCode === keys.SPACE) {
-      if (this.props.playing) {
-        this.stop();
-      } else {
-        this.play();
-      }
-    } else if (keyCode === keys.ESC) {
-      this.stop();
-    } else if (keyCode === keys.UP) {
-      this.back();
-    } else if (keyCode === keys.DOWN) {
-      this.forward();
-    } else if (keyCode === keys.LEFT) {
-      this.stepBack();
-    } else if (keyCode === keys.RIGHT) {
-      this.stepForward();
-    }
   }
 }
 export default Transport;
