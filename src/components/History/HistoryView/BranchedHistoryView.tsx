@@ -85,7 +85,6 @@ BranchedHistoryView.propTypes = {
    * Bookbark Configuration Properties
    */
   bookmarksEnabled: PropTypes.bool,
-  bindTransportKeysGlobally: PropTypes.bool,
 };
 export default connect<IBranchedHistoryViewStateProps, IBranchedHistoryViewDispatchProps, IBranchedHistoryViewOwnProps>(
   () => ({}),

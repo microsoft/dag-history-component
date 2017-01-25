@@ -23,7 +23,6 @@ export interface IHistoryContainerDispatchProps {
 export interface IHistoryContainerOwnProps extends IHistoryContainerStateProps {
   controlBar: any;
   bookmarksEnabled?: boolean;
-  bindTransportKeysGlobally?: boolean;
   getSourceFromState: Function;
 }
 
@@ -59,7 +58,6 @@ HistoryContainer.propTypes = {
    * Bookbark Configuration Properties
    */
   bookmarksEnabled: PropTypes.bool,
-  bindTransportKeysGlobally: PropTypes.bool,
   getSourceFromState: PropTypes.func.isRequired,
 
   // Props injected from redux state
