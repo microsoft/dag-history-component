@@ -35,6 +35,7 @@ body {
 .history-viz-container {
   display: flex;
   flex: 1;
+  max-width: 100%;
 }
 
 .app-container {
@@ -52,12 +53,12 @@ body {
 
   .visual-pane {
     display: flex;
-    flex: 3;
+    width: 80%;
     flex-direction: column;
   }
 
   .history-pane {
+    width: 20%;
     display: flex;
-    flex: 1;
   }
 }

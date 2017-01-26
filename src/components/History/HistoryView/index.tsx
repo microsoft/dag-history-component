@@ -7,6 +7,7 @@ import ChronologicalHistoryView from './ChronologicalHistoryView';
 import OptionDropdown from '../../OptionDropdown';
 import { IHistoryContainerSharedProps } from "../interfaces";
 import { IBookmark } from '../../../interfaces';
+import './HistoryView.scss';
 
 const BranchedIcon = require('react-icons/lib/go/git-branch');
 const ChronologicalIcon = require('react-icons/lib/go/three-bars');
@@ -59,7 +60,7 @@ const HistoryView: React.StatelessComponent<IHistoryViewProps> = (props) => {
   const label = viewLabels[historyType];
 
   return (
-    <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+    <div className='history-view-container'>
       <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
         <OptionDropdown
           triggerClass="history-type-dropdown-trigger"

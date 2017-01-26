@@ -26,6 +26,9 @@ $black: #000;
 .bookmark-title {
   @extend %bookmark-details-base;
 
+  height: 25px;
+  overflow: hidden;
+
   &:active {
     color: $black;
   }

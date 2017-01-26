@@ -45,7 +45,7 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
     <div />;
 
   return (
-    <div className="history-container"style={{ flex: 1 }}>
+    <div className="history-container" style={{ flex: 1 }}>
       {<StateListContainer {...props} />}
       <div className="branch-list-container">
         <div className="history-control-bar">
