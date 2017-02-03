@@ -22,9 +22,11 @@ export default function makeReducer(config: IConfiguration<any>) {
         sourceIndex: action.payload.index,
       };
     } else if (action.type === BOOKMARK_DRAG_HOVER) {
+      const isHoveringOverSelf = action.payload.index === state.sourceIndex;
+      const hoverIndex = isHoveringOverSelf ? state.hoverIndex : action.payload.index;
       result = {
         ...state,
-        hoverIndex: action.payload.index,
+        hoverIndex,
       };
     } else if (action.type === BOOKMARK_DRAG_DROP) {
       result = {

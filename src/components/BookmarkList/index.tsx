@@ -49,6 +49,7 @@ export default class BookmarkList extends React.PureComponent<IBookmarkListProps
       <Bookmark
         {...s}
         hoverIndex={hoverIndex}
+        dragIndex={dragIndex}
         key={`bookmark::${s.stateId}`}
         index={index}
         onSelectBookmarkDepth={onSelectBookmarkDepth}
