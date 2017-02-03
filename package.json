@@ -6,18 +6,20 @@
   "scripts": {
     "serve:webpack": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback",
     "serve:storybook": "start-storybook -p 6006",
+    "build:tsc": "tsc",
+    "build:sass": "node-sass src/daghistory.scss --output lib",
+    "build:assets": "cpx 'src/**/*.scss' lib",
+    "build:storybook": "build-storybook",
+    "build": "npm-run-all --parallel 'build:*'",
     "lint": "eslint '{src,test,stories}/**/*.ts'",
-    "tsc": "tsc",
-    "sass": "node-sass src/daghistory.scss --output lib",
-    "copysass": "cpx 'src/**/*.scss' lib",
-    "mocha:coverage": "nyc ./node_modules/.bin/_mocha",
-    "mocha": "mocha",
-    "test": "npm-run-all mocha:coverage lint --parallel tsc sass copysass",
-    "watch:tsc": "npm run tsc -- -w",
-    "watch:sass": "npm run sass -- --watch",
-    "watch:mocha": "npm run mocha -- -w",
-    "watch:copysass": "npm run copysass -- --watch",
-    "build-storybook": "build-storybook",
+    "unit_test": "jest",
+    "unit_test:coverage": "jest --coverage",
+    "watch:tsc": "tsc -w",
+    "watch:unit_test": "jest --watch",
+    "watch:sass": "npm run build:sass -- --watch",
+    "watch:copysass": "npm run build:assets -- --watch",
+    "verify": "npm-run-all lint unit_test:coverage",
+    "test": "npm-run-all verify build",
     "start": "npm-run-all --parallel 'serve:*' 'watch:*'"
   },
   "author": "Chris Trevino <chris.trevino@atsid.com>",
@@ -34,7 +36,6 @@
     "@types/chai": "^3.4.34",
     "@types/enzyme": "^2.7.2",
     "@types/jsdom": "^2.0.29",
-    "@types/mocha": "^2.2.38",
     "@types/node": "^6.0.58",
     "@types/react-dom": "^0.14.22",
     "@types/react-router": "^3.0.0",
@@ -57,12 +58,9 @@
     "filesaver.js": "^0.2.0",
     "html-webpack-plugin": "^2.28.0",
     "imports-loader": "^0.7.0",
+    "jest": "^18.1.0",
     "jsdom": "^9.5.0",
     "json-loader": "^0.5.4",
-    "mocha": "^3.0.2",
-    "mocha-junit-reporter": "^1.13.0",
-    "mocha-multi": "^0.10.0",
-    "mocha-osx-reporter": "^0.1.2",
     "node-sass": "^4.5.0",
     "npm-run-all": "^4.0.1",
     "nyc": "^10.1.2",
@@ -109,28 +107,18 @@
     "redux": "^3.3.1",
     "redux-actions": "^1.2.1"
   },
-  "nyc": {
-    "include": [
-      "src/**/*.ts",
-      "src/**/*.tsx"
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
     ],
-    "exclude": [
-      "node_modules/",
-      "lib/",
-      "stories/"
-    ],
-    "extension": [
-      ".ts",
-      ".tsx"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "text-summary",
-      "html"
-    ],
-    "sourceMap": true,
-    "instrument": true
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/scripts/stub.js"
+    },
+    "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>/scripts/preprocessor.js"
+    },
+    "testRegex": ".*/test/.*/.*\\.spec\\.(ts|tsx|js)$"
   }
 }
