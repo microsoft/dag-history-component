@@ -66,7 +66,7 @@ HistoryContainer.propTypes = {
   mainView: PropTypes.string,
   historyType: PropTypes.string,
   dragIndex: PropTypes.number,
-  dragKey: PropTypes.string,
+  dragKey: PropTypes.number,
   hoverIndex: PropTypes.number,
   branchContainerExpanded: PropTypes.bool,
   selectedBookmark: PropTypes.number,

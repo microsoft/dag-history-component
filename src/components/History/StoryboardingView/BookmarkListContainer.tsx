@@ -13,7 +13,7 @@ const log = require('debug')('dag-history-component:components:StoryboardingView
 export interface IBookmarkListContainerStateProps {
   dragIndex?: number;
   hoverIndex?: number;
-  dragKey?: string;
+  dragKey?: number;
 }
 
 export interface IBookmarkListContainerDispatchProps {
@@ -101,7 +101,7 @@ BookmarkListContainer.propTypes = {
   selectedBookmark: React.PropTypes.number,
   selectedBookmarkDepth: React.PropTypes.number,
   dragIndex: React.PropTypes.number,
-  dragKey: React.PropTypes.string,
+  dragKey: React.PropTypes.number,
   hoverIndex: React.PropTypes.number,
 };
 

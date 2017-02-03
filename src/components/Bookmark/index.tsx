@@ -46,16 +46,26 @@ const dropTargetSpec = {
     if (!monitor.isOver()) {
       return;
     }
-    const { dispatch, index, dragIndex, dragKey, stateId } = props;
+    const {
+      dispatch,
+      index,
+      hoverIndex,
+      dragIndex,
+      dragKey,
+      stateId,
+    } = props;
+
+    if (dragKey === stateId) {
+      return;
+    }
     const domNode = ReactDOM.findDOMNode(component);
     const { clientWidth: width, clientHeight: height } = domNode;
-
     const rect = domNode.getBoundingClientRect();
     const clientY = monitor.getClientOffset().y;
     const midline = rect.top + ((rect.bottom - rect.top) / 2);
+    const newHoverIndex = clientY < midline ? index : index + 1;
 
-    if (dragKey !== stateId) {
-      const newHoverIndex = clientY < midline ? index : index + 1;
+    if (newHoverIndex !== hoverIndex) {
       fireHoverEvent(dispatch, newHoverIndex);
     }
   }
