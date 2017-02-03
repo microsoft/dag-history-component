@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const CSS_LOADERS = ['style-loader', 'css-loader', 'postcss-loader'];
-const NODE_MODULES = path.join(__dirname, 'node_modules');
 
 module.exports = {
   devtool: 'source-map',
@@ -11,34 +10,31 @@ module.exports = {
   entry: {
     javascript: './example/app.tsx',
   },
-  output: './dist/appbundle.js',
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'appbundle.js',
+  },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.ts', '.tsx'],
-    modulesDirectories: [NODE_MODULES],
-    fallback: NODE_MODULES,
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       'react/lib/ReactMount': 'react-dom/lib/ReactMount',
       sinon: 'sinon/pkg/sinon',
     },
   },
-  resolveLoader: {
-    modulesDirectories: [NODE_MODULES],
-    fallback: NODE_MODULES,
-  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'DAG History Component Example',
     }),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ProvidePlugin({
       saveAs: 'imports?this=>global!exports?global.saveAs!filesaver.js',
     }),
   ],
   module: {
-    loaders: [
-        { test: /\.css$/, loaders: CSS_LOADERS },
-        { test: /\.scss$/, loaders: [...CSS_LOADERS, 'sass-loader'] },
-        { test: /\.ts(x|)/, loaders: ['ts-loader'], exclude: /node_modules/ },
+    rules: [
+        { test: /\.css$/, use: CSS_LOADERS },
+        { test: /\.scss$/, use: [...CSS_LOADERS, 'sass-loader'] },
+        { test: /\.ts(x|)/, use: ['ts-loader'], exclude: /node_modules/ },
     ],
   },
 };

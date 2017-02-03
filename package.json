@@ -4,7 +4,8 @@
   "description": "A React Component for Dag-History Visualization",
   "main": "lib/index.js",
   "scripts": {
-    "webpack:server": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback --publicPath ./",
+    "serve:webpack": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback",
+    "serve:storybook": "start-storybook -p 6006",
     "lint": "eslint '{src,test,stories}/**/*.ts'",
     "tsc": "tsc",
     "sass": "node-sass src/daghistory.scss --output lib",
@@ -16,11 +17,8 @@
     "watch:sass": "npm run sass -- --watch",
     "watch:mocha": "npm run mocha -- -w",
     "watch:copysass": "npm run copysass -- --watch",
-    "watch": "npm-run-all --parallel 'watch:*'",
-    "develop": "npm-run-all --parallel watch webpack:server storybook",
-    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "start": "npm run develop"
+    "start": "npm-run-all --parallel 'serve:*' 'watch:*'"
   },
   "author": "Chris Trevino <chris.trevino@atsid.com>",
   "license": "MIT",
@@ -68,7 +66,7 @@
     "node-sass": "^4.5.0",
     "npm-run-all": "^4.0.1",
     "nyc": "^10.1.2",
-    "postcss-loader": "^1.0.0",
+    "postcss-loader": "^1.2.2",
     "react-addons-test-utils": "^15.4.2",
     "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^15.4.2",
@@ -81,15 +79,13 @@
     "sinon": "2.0.0-pre",
     "skeleton-css": "^2.0.4",
     "style-loader": "^0.13.1",
-    "ts-loader": "^1.2.2",
+    "ts-loader": "^2.0.0",
     "ts-node": "^2.0.0",
     "typescript": "^2.1.5",
     "typescript-eslint-parser": "^1.0.2",
     "wallaby-webpack": "^0.0.32",
-    "webpack": "^1.13.1",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.12.0"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
     "@essex/redux-dag-history": "^2.0.0",
