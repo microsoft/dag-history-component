@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as classnames from "classnames";
+import * as state from '../../state';
 import {default as DragDropBookmark, IDragDropBookmarkProps} from "./DragDropBookmark";
 import { connect } from "react-redux";
 import {
@@ -18,14 +19,15 @@ const {
 const flow = require('lodash/flow');
 
 const dragSource = {
-  beginDrag(props) {
-    const { index, dispatch } = props;
-    dispatch(bookmarkDragStart({ index }));
+  beginDrag(props: IDragDropBookmarkProps) {
+    const { index, dispatch, stateId } = props;
+    dispatch(bookmarkDragStart({ index, key: stateId }));
     return { index };
   },
-  endDrag(props, monitor, component) {
+  endDrag(props: IDragDropBookmarkProps, monitor, component) {
     const { dispatch } = props;
     const item = monitor.getItem();
+    // TODO: use key instead for this?
     dispatch(bookmarkDragDrop({
       index: item.index,
       droppedOn: props.hoverIndex,
@@ -44,7 +46,7 @@ const dropTargetSpec = {
     if (!monitor.isOver()) {
       return;
     }
-    const { dispatch, index, dragIndex } = props;
+    const { dispatch, index, dragIndex, dragKey, stateId } = props;
     const domNode = ReactDOM.findDOMNode(component);
     const { clientWidth: width, clientHeight: height } = domNode;
 
@@ -52,8 +54,8 @@ const dropTargetSpec = {
     const clientY = monitor.getClientOffset().y;
     const midline = rect.top + ((rect.bottom - rect.top) / 2);
 
-    const newHoverIndex = clientY < midline ? index : index + 1;
-    if (newHoverIndex !== dragIndex) {
+    if (dragKey !== stateId) {
+      const newHoverIndex = clientY < midline ? index : index + 1;
       fireHoverEvent(dispatch, newHoverIndex);
     }
   }

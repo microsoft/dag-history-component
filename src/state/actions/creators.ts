@@ -66,6 +66,7 @@ export interface AddBookmarkPayload {
 
 export interface BookmarkDragStartPayload {
   index: number;
+  key: string;
 }
 
 export interface BookmarkDragHoverPayload {

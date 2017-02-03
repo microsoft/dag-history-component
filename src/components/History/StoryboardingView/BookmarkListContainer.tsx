@@ -13,6 +13,7 @@ const log = require('debug')('dag-history-component:components:StoryboardingView
 export interface IBookmarkListContainerStateProps {
   dragIndex?: number;
   hoverIndex?: number;
+  dragKey?: string;
 }
 
 export interface IBookmarkListContainerDispatchProps {
@@ -49,6 +50,7 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
     selectedBookmarkDepth: selectedBookmarkDepthIndex,
     dragIndex,
     hoverIndex,
+    dragKey,
   } = props;
   const historyGraph = new DagGraph(graph);
   const { currentStateId } = historyGraph;
@@ -82,6 +84,7 @@ const BookmarkListContainer: React.StatelessComponent<IBookmarkListContainerProp
     <BookmarkList
       dragIndex={dragIndex}
       hoverIndex={hoverIndex}
+      dragKey={dragKey}
       bookmarks={bookmarkData}
       onBookmarkClick={(index, state) => onSelectBookmark(index, state)}
       onSelectState={onSelectState}
@@ -98,6 +101,7 @@ BookmarkListContainer.propTypes = {
   selectedBookmark: React.PropTypes.number,
   selectedBookmarkDepth: React.PropTypes.number,
   dragIndex: React.PropTypes.number,
+  dragKey: React.PropTypes.string,
   hoverIndex: React.PropTypes.number,
 };
 

@@ -79,6 +79,7 @@ StoryboardingView.propTypes = {
   selectedBookmark: PropTypes.number,
   selectedBookmarkDepth: PropTypes.number,
   dragIndex: PropTypes.number,
+  dragKey: PropTypes.string,
   hoverIndex: PropTypes.number,
 
   /* User Interaction Handlers - loaded by redux */

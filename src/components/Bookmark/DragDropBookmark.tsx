@@ -9,7 +9,9 @@ export interface IDragDropBookmarkProps extends IEditableBookmarkProps {
   connectDropTarget?: Function;
   dragIndex?: number;
   hoverIndex?: number;
+  dragKey?: string;
   dispatch: Function;
+  stateId: string;
 }
 
 export interface IDragDropBookmarkState {}

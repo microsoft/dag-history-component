@@ -66,30 +66,12 @@ HistoryContainer.propTypes = {
   mainView: PropTypes.string,
   historyType: PropTypes.string,
   dragIndex: PropTypes.number,
+  dragKey: PropTypes.string,
   hoverIndex: PropTypes.number,
   branchContainerExpanded: PropTypes.bool,
   selectedBookmark: PropTypes.number,
   selectedBookmarkDepth: PropTypes.number,
   isPlayingBack: PropTypes.bool,
-};
-
-const mapStateToProps = state => {
-  return {
-    // State from the redux-dag-history middleware
-    history: state.app,
-    highlightSuccessorsOf: state.app.pinnedStateId,
-
-    // State from the dag-history-component
-    bookmarks: state.component.bookmarks,
-    mainView: state.component.views.mainView,
-    historyType: state.component.views.historyType,
-    dragIndex: state.component.dragDrop.sourceIndex,
-    hoverIndex: state.component.dragDrop.hoverIndex,
-    branchContainerExpanded: state.component.views.branchContainerExpanded,
-    selectedBookmark: state.component.playback.bookmark,
-    selectedBookmarkDepth: state.component.playback.depth,
-    isPlayingBack: state.component.playback.isPlayingBack,
-  };
 };
 
 export default function createHistoryContainer(getMiddlewareState: Function, getComponentState: Function) {
@@ -106,6 +88,7 @@ export default function createHistoryContainer(getMiddlewareState: Function, get
       mainView: component.views.mainView,
       historyType: component.views.historyType,
       dragIndex: component.dragDrop.sourceIndex,
+      dragKey: state.component.dragDrop.sourceKey,
       hoverIndex: component.dragDrop.hoverIndex,
       branchContainerExpanded: component.views.branchContainerExpanded,
       selectedBookmark: component.playback.bookmark,
