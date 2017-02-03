@@ -14,9 +14,9 @@ export interface IBookmarkListProps {
   onSelectBookmarkDepth?: Function;
   connectDropTarget?: Function;
 
-  dragIndex: number;
-  hoverIndex: number;
-  dragKey: number;
+  dragIndex?: number;
+  hoverIndex?: number;
+  dragKey?: number;
 }
 
 export default class BookmarkList extends React.PureComponent<IBookmarkListProps, {}> {

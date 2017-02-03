@@ -1,5 +1,8 @@
 import { expect } from 'chai';
-import makeReducer from '../../../src/state/reducers/dragDrop';
+import {
+  default as makeReducer,
+  INITIAL_STATE,
+} from '../../../src/state/reducers/dragDrop';
 
 import {
   bookmarkDragStart,
@@ -14,20 +17,18 @@ const defaultConfig = {
 describe('The DragDrop reducer', () => {
   it('will emit an initial dragDrop state', () => {
     const state = makeReducer(defaultConfig)(undefined, { type: 'derp' });
-    expect(state).to.deep.equal({
-      sourceIndex: undefined,
-      hoverIndex: undefined,
-    });
+    expect(state).to.deep.equal(INITIAL_STATE);
   });
 
   it('can handle a dragStart event', () => {
     let state;
     const reduce = makeReducer(defaultConfig);
     state = reduce(state, { type: 'derp' });
-    state = reduce(state, bookmarkDragStart({ index: 3 }));
+    state = reduce(state, bookmarkDragStart({ index: 3, key: 2 }));
     expect(state).to.deep.equal({
+      ...INITIAL_STATE,
       sourceIndex: 3,
-      hoverIndex: undefined,
+      sourceKey: 2,
     });
   });
 
@@ -38,6 +39,7 @@ describe('The DragDrop reducer', () => {
     state = reduce(state, bookmarkDragStart({ index: 3 }));
     state = reduce(state, bookmarkDragHover({ index: 4 }));
     expect(state).to.deep.equal({
+      ...INITIAL_STATE,
       sourceIndex: 3,
       hoverIndex: 4,
     });
@@ -50,11 +52,7 @@ describe('The DragDrop reducer', () => {
     state = reduce(state, bookmarkDragStart({ index: 3 }));
     state = reduce(state, bookmarkDragHover({ index: 4 }));
     state = reduce(state, { type: types.BOOKMARK_DRAG_DROP });
-
-    expect(state).to.deep.equal({
-      sourceIndex: undefined,
-      hoverIndex: undefined,
-    });
+    expect(state).to.deep.equal(INITIAL_STATE);
   });
 
   it('can handle a dragCancel event', () => {
@@ -64,10 +62,6 @@ describe('The DragDrop reducer', () => {
     state = reduce(state, bookmarkDragStart({ index: 3 }));
     state = reduce(state, bookmarkDragHover({ index: 4 }));
     state = reduce(state, { type: types.BOOKMARK_DRAG_CANCEL });
-
-    expect(state).to.deep.equal({
-      sourceIndex: undefined,
-      hoverIndex: undefined,
-    });
+    expect(state).to.deep.equal(INITIAL_STATE);
   });
 });
