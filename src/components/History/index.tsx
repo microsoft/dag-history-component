@@ -1,8 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
-import * as Actions from '../../state/actions/creators';
 import { IDagHistory } from '@essex/redux-dag-history/lib/interfaces';
 import DagGraph from '@essex/redux-dag-history/lib/DagGraph';
 import HistoryTabs from './HistoryTabs';
@@ -24,26 +20,27 @@ const log = require('debug')('dag-history-component:components:History');
 
 export interface IHistoryStateProps {}
 export interface IHistoryDispatchProps {
-  onLoad: Function;
-  onClear: Function;
-  onSelectMainView: Function;
-  onToggleBranchContainer: Function;
-  onStartPlayback: Function;
-  onStopPlayback: Function;
-  onSelectBookmarkDepth: Function;
-  onSelectState: Function;
+  onLoad?: Function;
+  onClear?: Function;
+  onSelectMainView?: Function;
+  onToggleBranchContainer?: Function;
+  onStartPlayback?: Function;
+  onStopPlayback?: Function;
+  onSelectBookmarkDepth?: Function;
+  onSelectState?: Function;
 }
 export interface IHistoryOwnProps extends IHistoryContainerSharedProps {
 }
 
 export interface IHistoryProps extends IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps {}
 
-export class History extends React.Component<IHistoryProps, {}> {
+export default class History extends React.Component<IHistoryProps, {}> {
   public static propTypes = {
     bookmarks: PropTypes.array.isRequired,
     dragIndex: PropTypes.number,
     dragKey: PropTypes.number,
     hoverIndex: PropTypes.number,
+    isPlayingBack: PropTypes.bool,
 
     /**
      * The Dag-History Object
@@ -222,19 +219,3 @@ export class History extends React.Component<IHistoryProps, {}> {
     );
   }
 }
-
-export default connect<IHistoryStateProps, IHistoryDispatchProps, IHistoryOwnProps>(
-  () => ({}),
-  dispatch => bindActionCreators({
-    onClear: DagHistoryActions.clear,
-    onLoad: DagHistoryActions.load,
-    onSelectMainView: Actions.selectMainView,
-    onSelectState: DagHistoryActions.jumpToState,
-    onToggleBranchContainer: Actions.toggleBranchContainer,
-    onStartPlayback: Actions.startPlayback,
-    onStopPlayback: Actions.stopPlayback,
-    onSelectBookmarkDepth: Actions.selectBookmarkDepth,
-  }, dispatch)
-)(History);
-
-

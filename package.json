@@ -35,6 +35,7 @@
     "@types/bluebird": "^3.0.37",
     "@types/chai": "^3.4.34",
     "@types/enzyme": "^2.7.2",
+    "@types/jest": "^18.1.1",
     "@types/jsdom": "^2.0.29",
     "@types/node": "^6.0.58",
     "@types/react-dom": "^0.14.22",
