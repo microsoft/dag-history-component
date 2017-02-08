@@ -10,6 +10,7 @@ import {
 
 export const INITIAL_STATE = {
   sourceIndex: undefined,
+  sourceKey: undefined,
   hoverIndex: undefined,
 };
 
@@ -20,31 +21,20 @@ export default function makeReducer(config: IConfiguration<any>) {
       result = {
         ...state,
         sourceIndex: action.payload.index,
+        sourceKey: action.payload.key,
       };
     } else if (action.type === BOOKMARK_DRAG_HOVER) {
+      const hoverIndex = action.payload.index;
       result = {
         ...state,
-        hoverIndex: action.payload.index,
+        hoverIndex,
       };
     } else if (action.type === BOOKMARK_DRAG_DROP) {
-      result = {
-        ...state,
-        sourceIndex: undefined,
-        hoverIndex: undefined,
-      };
+      result = INITIAL_STATE;
     } else if (action.type === BOOKMARK_DRAG_CANCEL) {
-      result = {
-        ...state,
-        sourceIndex: undefined,
-        hoverIndex: undefined,
-      };
+      result = INITIAL_STATE;
     } else if (action.type.indexOf('DAG_HISTORY_') !== 0 && config.actionFilter(action.type)) {
-      // Insertable actions clear the pinned state
-      result = {
-        ...state,
-        sourceIndex: undefined,
-        hoverIndex: undefined,
-      };
+      result = INITIAL_STATE;
     }
     return result;
   };

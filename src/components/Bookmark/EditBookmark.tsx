@@ -26,7 +26,6 @@ export interface IEditBookmarkProps {
 
   // Injected by React DnD:
   isDragging?: boolean;
-  connectDragSource?: Function;
 }
 export interface IEditBookmarkState {}
 
@@ -119,14 +118,13 @@ export default class EditBookmark extends React.Component<IEditBookmarkProps, IE
       selectedDepth,
       numLeadInStates,
       onDiscoveryTrailIndexClicked,
-      connectDragSource,
     } = this.props;
 
     const leadInStatesValue = numLeadInStates !== undefined ? `${numLeadInStates}` : 'all';
     const isIntroSet = numLeadInStates !== undefined;
 
     log('rendering commitPathLength=%s, selectedDepth=%s', this.props.commitPathLength, this.props.selectedDepth);
-    return connectDragSource(
+    return (
       <div
         className={`history-bookmark ${active ? 'selected' : ''}`}
         data-index={index}

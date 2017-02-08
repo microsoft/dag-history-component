@@ -1,14 +1,11 @@
 const log = require('debug')('dag-history-component:SpanCalculator');
 
 export class Span {
-  public start: number;
-  public end: number;
-  public type: string;
-
-  constructor(start, end, type) {
-    this.start = start;
-    this.end = end;
-    this.type = type;
+  constructor(
+    public start: number,
+    public end: number,
+    public type: string, // eslint-disable-line no-unused-vars
+  ) {
   }
 
   toString() {

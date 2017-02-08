@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IBookmark } from '../interfaces';
-import HistoryComponent from './History';
+import {default as HistoryComponent, IHistoryOwnProps, IHistoryDispatchProps } from './History';
 import '../daghistory.scss';
+import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
+import * as Actions from '../state/actions/creators';
 
 const { PropTypes } = React;
 
@@ -17,79 +20,46 @@ export interface IHistoryContainerStateProps {
   bookmarks?: IBookmark[];
 }
 
-export interface IHistoryContainerDispatchProps {
+export interface IHistoryContainerDispatchProps extends IHistoryDispatchProps {
 }
 
-export interface IHistoryContainerOwnProps extends IHistoryContainerStateProps {
-  controlBar: any;
+export interface IHistoryContainerOwnProps {
   bookmarksEnabled?: boolean;
+
+  /**
+   * ControlBar Configuration Properties
+   */
+  controlBar?: {
+    /**
+     * A handler to save the history tree out. This is handled by clients.
+     */
+    onSaveHistory: Function;
+
+    /**
+     * A handler to retrieve the history tree. This is handled by clients
+     */
+    onLoadHistory: Function;
+
+    /**
+     * A function that emits a Promise<boolean> that confirms the clear-history operation.
+     */
+    onConfirmClear: Function;
+  };
+
   getSourceFromState: Function;
 }
 
-export interface IHistoryContainerProps extends IHistoryContainerStateProps, IHistoryContainerDispatchProps, IHistoryContainerOwnProps {
+export interface IHistoryContainerProps extends
+  IHistoryContainerStateProps,
+  IHistoryContainerDispatchProps,
+  IHistoryContainerOwnProps {
 }
 
 const HistoryContainer: React.StatelessComponent<IHistoryContainerProps> = (props) => {
   return (<HistoryComponent {...props} />);
 };
-
 HistoryContainer.propTypes = {
-  /**
-   * ControlBar Configuration Properties
-   */
-  controlBar: PropTypes.shape({
-    /**
-     * A handler to save the history tree out. This is handled by clients.
-     */
-    onSaveHistory: PropTypes.func,
-
-    /**
-     * A handler to retrieve the history tree. This is handled by clients
-     */
-    onLoadHistory: PropTypes.func,
-
-    /**
-     * A function that emits a Promise<boolean> that confirms the clear-history operation.
-     */
-    onConfirmClear: PropTypes.func,
-  }),
-
-  /**
-   * Bookbark Configuration Properties
-   */
-  bookmarksEnabled: PropTypes.bool,
-  getSourceFromState: PropTypes.func.isRequired,
-
-  // Props injected from redux state
-  history: PropTypes.object,
-  highlightSuccessorsOf: PropTypes.number,
-  mainView: PropTypes.string,
-  historyType: PropTypes.string,
-  dragIndex: PropTypes.number,
-  hoverIndex: PropTypes.number,
-  branchContainerExpanded: PropTypes.bool,
-  selectedBookmark: PropTypes.number,
-  selectedBookmarkDepth: PropTypes.number,
-  isPlayingBack: PropTypes.bool,
-};
-
-const mapStateToProps = state => {
-  return {
-    // State from the redux-dag-history middleware
-    history: state.app,
-    highlightSuccessorsOf: state.app.pinnedStateId,
-
-    // State from the dag-history-component
-    bookmarks: state.component.bookmarks,
-    mainView: state.component.views.mainView,
-    historyType: state.component.views.historyType,
-    dragIndex: state.component.dragDrop.sourceIndex,
-    hoverIndex: state.component.dragDrop.hoverIndex,
-    branchContainerExpanded: state.component.views.branchContainerExpanded,
-    selectedBookmark: state.component.playback.bookmark,
-    selectedBookmarkDepth: state.component.playback.depth,
-    isPlayingBack: state.component.playback.isPlayingBack,
-  };
+  ...HistoryComponent.propTypes,
 };
 
 export default function createHistoryContainer(getMiddlewareState: Function, getComponentState: Function) {
@@ -106,6 +76,7 @@ export default function createHistoryContainer(getMiddlewareState: Function, get
       mainView: component.views.mainView,
       historyType: component.views.historyType,
       dragIndex: component.dragDrop.sourceIndex,
+      dragKey: state.component.dragDrop.sourceKey,
       hoverIndex: component.dragDrop.hoverIndex,
       branchContainerExpanded: component.views.branchContainerExpanded,
       selectedBookmark: component.playback.bookmark,
@@ -113,5 +84,18 @@ export default function createHistoryContainer(getMiddlewareState: Function, get
       isPlayingBack: component.playback.isPlayingBack,
     };
   };
-  return connect<IHistoryContainerStateProps, IHistoryContainerDispatchProps, IHistoryContainerOwnProps>(mapStateToProps)(HistoryContainer);
+  const mapDispatchToProps = (dispatch) => bindActionCreators({
+    onClear: DagHistoryActions.clear,
+    onLoad: DagHistoryActions.load,
+    onSelectMainView: Actions.selectMainView,
+    onSelectState: DagHistoryActions.jumpToState,
+    onToggleBranchContainer: Actions.toggleBranchContainer,
+    onStartPlayback: Actions.startPlayback,
+    onStopPlayback: Actions.stopPlayback,
+    onSelectBookmarkDepth: Actions.selectBookmarkDepth,
+  }, dispatch);
+  return connect<IHistoryContainerStateProps, IHistoryContainerDispatchProps, IHistoryContainerOwnProps>(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(HistoryContainer);
 };
