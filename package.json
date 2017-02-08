@@ -4,6 +4,7 @@
   "description": "A React Component for Dag-History Visualization",
   "main": "lib/index.js",
   "scripts": {
+    "clean": "rimraf lib/ storybook-static/",
     "serve:webpack": "webpack-dev-server --host 0.0.0.0 --hot --inline --history-api-fallback",
     "serve:storybook": "start-storybook -p 6006",
     "build:tsc": "tsc",
@@ -18,8 +19,8 @@
     "watch:unit_test": "jest --watch",
     "watch:sass": "npm run build:sass -- --watch",
     "watch:copysass": "npm run build:assets -- --watch",
-    "verify": "npm-run-all lint unit_test:coverage",
-    "test": "npm-run-all verify build",
+    "verify": "npm-run-all --parallel lint unit_test:coverage",
+    "test": "npm-run-all clean --parallel verify build",
     "start": "npm-run-all --parallel 'serve:*' 'watch:*'"
   },
   "author": "Chris Trevino <chris.trevino@atsid.com>",
@@ -73,6 +74,7 @@
     "react-router": "^3.0.2",
     "react-router-redux": "^4.0.2",
     "redux-thunk": "^2.2.0",
+    "rimraf": "^2.5.4",
     "sass-lint": "^1.8.2",
     "sass-loader": "^5.0.0",
     "sinon": "2.0.0-pre",
