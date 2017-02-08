@@ -2,43 +2,43 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
 
-import State from '../../../src/components/State';
+import State from '../../../src/components/State/State';
 import Continuation from '../../../src/components/Continuation';
 const Bookmark = require('react-icons/lib/io/bookmark');
 
 describe('The State Component', () => {
   it('can be rendered', () => {
-    let rendered = mount(<State />);
+    let rendered = mount(<State id={1} source="abc" label="def" />);
     expect(rendered).to.be.ok;
 
     rendered = mount(
-      <State label='A State' branchType='current'/>
+      <State id={1} label='A State' branchType='current'/>
     );
     expect(rendered).to.be.ok;
 
     rendered = mount(
-      <State label='A State' branchType='current' renderBookmarks />
+      <State id={1} label='A State' branchType='current' renderBookmarks />
     );
     expect(rendered).to.be.ok;
 
     rendered = mount(
-      <State label='A State' branchType='current' renderBookmarks bookmarked/>
+      <State id={1} label='A State' branchType='current' renderBookmarks bookmarked/>
     );
     expect(rendered).to.be.ok;
 
     rendered = mount(
-      <State label='A State' branchType='current' renderBookmarks bookmarked pinned/>
+      <State id={1} label='A State' branchType='current' renderBookmarks bookmarked pinned/>
     );
     expect(rendered).to.be.ok;
 
     rendered = mount(
-      <State label='A State' branchType='current' renderBookmarks bookmarked isSuccessor/>
+      <State id={1} label='A State' branchType='current' renderBookmarks bookmarked successor/>
     );
     expect(rendered).to.be.ok;
   });
 
   it('can handle clicks when click handlers are not defined without throwing', () => {
-    const rendered = mount(<State renderBookmarks />);
+    const rendered = mount(<State id={1} label="a state" renderBookmarks />);
     rendered.simulate('click');
     rendered.find(Continuation).simulate('click');
     rendered.find(Bookmark).simulate('click');
@@ -50,6 +50,8 @@ describe('The State Component', () => {
     let bookmarkClicked = false;
     const rendered = mount(
       <State
+        id={1}
+        label="a label"
         renderBookmarks
         onClick={() => clicked = true}
         onContinuationClick={() => continuationClicked = true}

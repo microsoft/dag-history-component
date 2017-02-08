@@ -1,9 +1,10 @@
 import * as React from 'react';
-import State, { IStateProps } from '../State';
+import State from '../State';
 import isNumber from '../../util/isNumber';
+import { IExpandableStateProps } from '../State/interfaces';
 
 export interface IStateListProps {
-  states: IStateProps[];
+  states: IExpandableStateProps[];
   activeStateId?: number;
   onStateClick?: Function;
   onStateContinuationClick?: Function;
@@ -44,9 +45,9 @@ const StateList: React.StatelessComponent<IStateListProps> = ({
       {...{ renderBookmarks }}
       key={`state:${s.id}:${index}`}
       active={isNumber(activeStateId) && s.id === activeStateId}
-      onClick={() => handleClick(s.id)}
-      onContinuationClick={() => handleContinuationClick(s.id)}
-      onBookmarkClick={() => handleBookmarkClick(s.id)}
+      onClick={(id) => handleClick(id)}
+      onContinuationClick={(id) => handleContinuationClick(id)}
+      onBookmarkClick={(id) => handleBookmarkClick(id)}
     />
   ));
   return (

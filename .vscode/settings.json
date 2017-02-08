@@ -6,7 +6,8 @@
     "**/.DS_Store": true,
     "**/*~": true,
     "lib/": true,
-    "coverage/": true
+    "coverage/": true,
+    "storybook-static": true
   },
   "typescript.tsdk": "./node_modules/typescript/lib"
 }
