@@ -1,6 +1,6 @@
 import {
-  IConfiguration, // eslint-disable-line no-unused-vars
-} from '@essex/redux-dag-history/lib/interfaces';
+  IComponentConfiguration, // eslint-disable-line no-unused-vars
+} from '../interfaces';
 import {
   SELECT_MAIN_VIEW,
   SELECT_HISTORY_TYPE,
@@ -13,8 +13,12 @@ export const INITIAL_STATE = {
   branchContainerExpanded: true,
 };
 
-export default function (config: IConfiguration<any>) {
-  return function reduce(state = INITIAL_STATE, action) {
+export default function makeReducer<T>(config: IComponentConfiguration<T>) {
+  const initialState = {
+    ...INITIAL_STATE,
+    ...config.initialViewState,
+  };
+  return function reduce(state = initialState, action) {
     let result = state;
     if (action.type === SELECT_MAIN_VIEW) {
       result = {

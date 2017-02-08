@@ -24,6 +24,8 @@ export interface IHistoryContainerDispatchProps extends IHistoryDispatchProps {
 }
 
 export interface IHistoryContainerOwnProps {
+  bookmarksEnabled?: boolean;
+
   /**
    * ControlBar Configuration Properties
    */
@@ -92,5 +94,8 @@ export default function createHistoryContainer(getMiddlewareState: Function, get
     onStopPlayback: Actions.stopPlayback,
     onSelectBookmarkDepth: Actions.selectBookmarkDepth,
   }, dispatch);
-  return connect<IHistoryContainerStateProps, IHistoryContainerDispatchProps, IHistoryContainerOwnProps>(mapStateToProps, mapDispatchToProps)(HistoryContainer);
+  return connect<IHistoryContainerStateProps, IHistoryContainerDispatchProps, IHistoryContainerOwnProps>(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(HistoryContainer);
 };

@@ -1,8 +1,9 @@
 import { StateId } from '@essex/redux-dag-history/lib/interfaces';
 import * as DagHistoryActions from '@essex/redux-dag-history/lib/ActionCreators';
-import { createAction } from 'redux-actions';
+import * as ReduxActions from 'redux-actions';
 import * as Types from './types';
 
+const { createAction } = ReduxActions;
 
 // Simple Action Creators
 const doSelectBookmarkDepth = createAction<BookmarkDepthSelection>(Types.SELECT_BOOKMARK_DEPTH);

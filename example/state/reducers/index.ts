@@ -1,6 +1,6 @@
 import * as redux from 'redux';
 import dagHistory from '@essex/redux-dag-history/lib/reducer';
-import Configuration from '@essex/redux-dag-history/lib/Configuration';
+import Configuration from '../../../src/state/Configuration';
 import app from './app';
 import history from '../../../src/state/reducers';
 
@@ -46,11 +46,17 @@ function stateKeyGenerator(state) {
 }
 
 const DAG_HISTORY_CONFIG = new Configuration({
+  // Middleware Config
   debug: false,
   actionName: state => state.metadata.name,
   actionFilter: actionType => EXCLUDED_ACTION_NAMES.indexOf(actionType) === -1,
   stateEqualityPredicate,
   stateKeyGenerator,
+
+  // UI Config
+  initialViewState: {
+    branchContainerExpanded: false,
+  },
 });
 
 export default redux.combineReducers({
