@@ -5,7 +5,7 @@ import './BranchList.scss';
 const { PropTypes } = React;
 
 export interface IBranchListProps {
-  activeBranch: number;
+  activeBranch?: number;
   branches: IBranchProps[];
   onBranchClick?: (branchId: number) => void;
 }
@@ -33,7 +33,7 @@ const BranchList: React.StatelessComponent<IBranchListProps> = ({
 };
 
 BranchList.propTypes = {
-  activeBranch: React.PropTypes.number.isRequired,
+  activeBranch: React.PropTypes.number,
   branches: React.PropTypes.arrayOf(React.PropTypes.shape(Branch.propTypes)),
   onBranchClick: React.PropTypes.func,
 }

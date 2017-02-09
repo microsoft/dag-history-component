@@ -1,5 +1,5 @@
 import * as React from "react";
-import {default as Bookmark, IEditableBookmarkProps} from "./EditableBookmark";
+import {default as EditableBookmark, IEditableBookmarkProps} from "./EditableBookmark";
 const flow = require('lodash/flow');
 
 export interface IDragDropBookmarkProps extends IEditableBookmarkProps {
@@ -23,7 +23,7 @@ export default class DrapDropBookmark extends React.Component<IDragDropBookmarkP
     } else {
       return (
         <div className="bookmark-dragdrop-wrapper">
-          <Bookmark {...this.props} />
+          <EditableBookmark {...this.props} />
         </div>
       );
     }

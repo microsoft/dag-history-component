@@ -27,31 +27,23 @@ function getStateList(
     currentStateId,
   } = historyGraph;
   const activeBranchStartsAt = historyGraph.branchStartDepth(currentBranch);
+  const isBookmarked = (id) => bookmarks.map(b => b.stateId).includes(id);
   return commitPath.map((id, index) => {
-    const state = historyGraph.getState(id);
-    const source = getSourceFromState(state);
-    const label = historyGraph.stateName(id);
-
     const branchType = index < activeBranchStartsAt ? 'legacy' : 'current';
-    const bookmarked = bookmarks.map(b => b.stateId).includes(id);
-    const isSuccessor = isNumber(highlightSuccessorsOf) &&
-      historyGraph.parentOf(id) === highlightSuccessorsOf;
     const pinned = highlightSuccessorsOf === id;
     const active = currentStateId === id;
+    const successor = isNumber(highlightSuccessorsOf) &&
+      historyGraph.parentOf(id) === highlightSuccessorsOf;
 
     return {
       id,
-      source,
-      label,
-      active,
+      isBookmarked,
       pinned,
-      isSuccessor,
-      continuationActive: id === highlightSuccessorsOf,
+      active,
+      successor,
       branchType,
-      bookmarked,
-      continuation: {
-        count: historyGraph.childrenOf(id).length,
-      },
+      historyGraph,
+      getSourceFromState,
     };
   }).reverse();
 }

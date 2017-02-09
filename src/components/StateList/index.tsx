@@ -1,9 +1,11 @@
 import * as React from 'react';
-import State, { IStateProps } from '../State';
+import State from '../State';
 import isNumber from '../../util/isNumber';
+import { IExpandableStateProps } from '../State/interfaces';
+import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export interface IStateListProps {
-  states: IStateProps[];
+  states: IExpandableStateProps[];
   activeStateId?: number;
   onStateClick?: Function;
   onStateContinuationClick?: Function;
@@ -42,16 +44,22 @@ const StateList: React.StatelessComponent<IStateListProps> = ({
     <State
       {...s}
       {...{ renderBookmarks }}
-      key={`state:${s.id}:${index}`}
+      key={s.id}
       active={isNumber(activeStateId) && s.id === activeStateId}
-      onClick={() => handleClick(s.id)}
-      onContinuationClick={() => handleContinuationClick(s.id)}
-      onBookmarkClick={() => handleBookmarkClick(s.id)}
+      onClick={(id) => handleClick(id)}
+      onContinuationClick={(id) => handleContinuationClick(id)}
+      onBookmarkClick={(id) => handleBookmarkClick(id)}
     />
   ));
   return (
     <div className="state-list-container">
-      {stateViews}
+      <ReactCSSTransitionGroup
+        transitionName="show-state"
+        transitionEnterTimeout={250}
+        transitionLeaveTimeout={250}
+      >
+        {stateViews}
+      </ReactCSSTransitionGroup>
     </div>
   );
 };

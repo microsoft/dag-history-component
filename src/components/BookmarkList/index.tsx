@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
+const { DropTarget } = require('react-dnd');
 import Bookmark from '../Bookmark';
 import './BookmarkList.scss';
 
 const { PropTypes } = React;
-const { DropTarget } = require('react-dnd');
 
 const log = require('debug')('@essex/redux-dag-history:BookmarkList');
 

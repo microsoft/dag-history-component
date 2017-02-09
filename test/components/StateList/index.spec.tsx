@@ -6,7 +6,7 @@ import State from '../../../src/components/State';
 import Continuation from '../../../src/components/Continuation';
 const Bookmark = require('react-icons/lib/io/bookmark');
 
-describe('The StateList component', () => {
+xdescribe('The StateList component', () => {
   it('can render a set of states', () => {
     let rendered = mount(<StateList states={[]} />);
     expect(rendered.find(State).length).to.equal(0);
