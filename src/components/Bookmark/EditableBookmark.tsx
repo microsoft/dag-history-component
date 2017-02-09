@@ -4,7 +4,6 @@ import './Bookmark.scss';
 import EditBookmark from './EditBookmark';
 import {default as Bookmark, IBookmarkProps } from './Bookmark';
 import DiscoveryTrail from '../DiscoveryTrail';
-
 const { PropTypes } = React;
 
 export interface IEditableBookmarkProps extends IBookmarkProps {
@@ -59,21 +58,22 @@ export default class EditableBookmark extends React.PureComponent<IEditableBookm
       focusOn,
     } = this.state;
 
-    if (editMode) {
-      return (
-        <EditBookmark
-          {...this.props}
-          focusOn={focusOn}
-          onDoneEditing={() => this.onDoneEditing()}
-        />
-      );
-    } else {
-      return (
-        <Bookmark
-          {...this.props}
-          onClickEdit={t => this.onClickEdit(t)}
-        />
-      );
-    }
+    const innerBookmark = editMode ? (
+      <EditBookmark
+        {...this.props}
+        focusOn={focusOn}
+        onDoneEditing={() => this.onDoneEditing()}
+      />
+    ) : (
+      <Bookmark
+        {...this.props}
+        onClickEdit={t => this.onClickEdit(t)}
+      />
+    );
+    return (
+      <div>
+        {innerBookmark}
+      </div>
+    );
   }
 }

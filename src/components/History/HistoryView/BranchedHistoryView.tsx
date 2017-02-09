@@ -9,7 +9,8 @@ import StateListContainer, { IStateListContainerProps } from './StateListContain
 import BranchListContainer, { IBranchListContainerProps } from './BranchListContainer';
 import { IHistoryContainerSharedProps } from "../interfaces";
 import { IBookmark } from '../../../interfaces';
-
+import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import './show-branches-animation.scss';
 const { PropTypes } = React;
 
 export interface IBranchedHistoryViewStateProps {
@@ -42,20 +43,27 @@ const BranchedHistoryView: React.StatelessComponent<IBranchedHistoryViewProps> =
   } = props;
   const branchList = branchContainerExpanded ?
     <BranchListContainer {...props} /> :
-    <div />;
+    null;
 
   return (
     <div className="history-container"style={{ flex: 1 }}>
-      {<StateListContainer {...props} />}
+      <StateListContainer {...props} />
       <div className="branch-list-container">
         <div className="history-control-bar">
+
           <div className="title">Paths</div>
           <ExpandCollapseToggle
             isExpanded={branchContainerExpanded}
             onClick={onToggleBranchContainer}
           />
         </div>
-        {branchList}
+        <ReactCSSTransitionGroup
+            transitionName="show-docked-under"
+            transitionEnterTimeout={250}
+            transitionLeaveTimeout={250}
+          >
+          {branchList}
+        </ReactCSSTransitionGroup>
       </div>
     </div>
   );

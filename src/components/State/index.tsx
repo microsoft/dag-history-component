@@ -3,6 +3,7 @@ import State from './State';
 import { IExpandableStateProps } from './interfaces';
 import StateWithSuccessors from './StateWithSuccessors';
 import { IContinuationProps } from '../Continuation';
+import * as ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const ExpandableState: React.StatelessComponent<IExpandableStateProps> = (props) => {
   const {
@@ -28,6 +29,19 @@ const ExpandableState: React.StatelessComponent<IExpandableStateProps> = (props)
     return { source, label };
   };
 
+  const isExpanded = pinned && children.length > 1;
+  const childStates = isExpanded ? children.map(id => ({
+    id,
+    bookmarked: isBookmarked(id),
+    successor: true,
+    numChildren: historyGraph.childrenOf(id).length,
+    onClick,
+    onContinuationClick,
+    onBookmarkClick,
+    renderBookmarks,
+    ...getSourceAndLabel(id),
+  })) : [];
+
   const stateProps = {
     id,
     pinned,
@@ -41,30 +55,8 @@ const ExpandableState: React.StatelessComponent<IExpandableStateProps> = (props)
     numChildren: children.length,
     renderBookmarks,
     ...getSourceAndLabel(id),
+    childStates,
   };
-
-  const isExpanded = pinned && children.length > 1;
-  if (isExpanded) {
-    const childrenProps = children.map(id => {
-      return {
-        id,
-        bookmarked: isBookmarked(id),
-        successor: true,
-        numChildren: historyGraph.childrenOf(id).length,
-        onClick,
-        onContinuationClick,
-        onBookmarkClick,
-        renderBookmarks,
-        ...getSourceAndLabel(id),
-      };
-    });
-    const stateWithSuccessorsProps = {
-      ...stateProps,
-      childStates: childrenProps,
-    };
-    return (<StateWithSuccessors {...stateWithSuccessorsProps} />);
-  } else {
-    return (<State {...stateProps} />);
-  }
+  return (<StateWithSuccessors {...stateProps} />);
 };
 export default ExpandableState;
