@@ -132,8 +132,12 @@
     "@types/react" "*"
 
 "@types/history@*":
-  version "2.0.41"
-  resolved "https://registry.yarnpkg.com/@types/history/-/history-2.0.41.tgz#88faa58e931d1c676daca71369cbc3767737d8d3"
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.5.0.tgz#2f5c3aad4fbd00f89e99b83083e354bc5308e307"
+
+"@types/history@^2.0.46":
+  version "2.0.46"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-2.0.46.tgz#0a62c9ddf4f37a9f7ff5fa27d63adc603a046fd9"
 
 "@types/jest@^18.1.1":
   version "18.1.1"
