@@ -17,6 +17,7 @@ describe('The History Component', () => {
     const rendered = mount(
       <Provider store={store}>
         <History
+          onSelectMainView={() => ({})}
           bookmarksEnabled
           bookmarks={[]}
           history={history}
@@ -41,6 +42,7 @@ describe('The History Component', () => {
     const rendered = mount(
       <Provider store={store}>
         <History
+          onSelectMainView={() => ({})}
           bookmarksEnabled
           history={history}
           bookmarks={[]}
@@ -64,6 +66,7 @@ describe('The History Component', () => {
     const rendered = mount(
       <Provider store={store}>
         <History
+          onSelectMainView={() => ({})}
           bookmarksEnabled
           history={history}
           bookmarks={[]}
@@ -88,6 +91,7 @@ describe('The History Component', () => {
     const rendered = mount(
       <Provider store={store}>
         <History
+          onSelectMainView={() => ({})}
           bookmarksEnabled
           bookmarks={[]}
           history={{...history, bookmarkPlaybackIndex: 0, bookmarks: [

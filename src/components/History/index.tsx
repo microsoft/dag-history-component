@@ -22,7 +22,7 @@ export interface IHistoryStateProps {}
 export interface IHistoryDispatchProps {
   onLoad?: Function;
   onClear?: Function;
-  onSelectMainView?: Function;
+  onSelectMainView: Function;
   onToggleBranchContainer?: Function;
   onStartPlayback?: Function;
   onStopPlayback?: Function;
@@ -59,7 +59,7 @@ export default class History extends React.Component<IHistoryProps, {}> {
      */
     onLoad: PropTypes.func,
     onClear: PropTypes.func,
-    onSelectMainView: PropTypes.func,
+    onSelectMainView: PropTypes.func.isRequired,
     onToggleBranchContainer: PropTypes.func,
     onStartPlayback: PropTypes.func,
     onStopPlayback: PropTypes.func,
